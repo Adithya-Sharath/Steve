@@ -17,8 +17,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import templates as T  # noqa: E402
-from common import load_messages, load_replies, write_replies  # noqa: E402
+import templates as T
+from common import load_messages, load_replies, write_replies
 
 WEIGHTS = {"understood": 0.5, "wrong": 0.17, "missing": 0.2, "negated": 0.13}
 

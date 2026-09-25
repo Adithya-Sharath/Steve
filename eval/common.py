@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import csv
 import json
-from pathlib import Path
-
 import sys
+from pathlib import Path
 
 for _s in (sys.stdout, sys.stderr):  # Windows consoles default to cp1252
     if hasattr(_s, "reconfigure"):

@@ -20,7 +20,14 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import CACHE, RESULTS, STATUSES, dump, load_messages, load_replies  # noqa: E402
+from common import (
+    CACHE,
+    RESULTS,
+    STATUSES,
+    dump,
+    load_messages,
+    load_replies,
+)
 
 try:  # pick up GEMINI_API_KEY from .env like the API does
     from dotenv import load_dotenv

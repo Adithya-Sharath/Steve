@@ -7,8 +7,8 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import RESULTS, dump, load_messages, load_replies  # noqa: E402
-from samjha_engine import check_reply  # noqa: E402
+from common import RESULTS, dump, load_messages, load_replies
+from samjha_engine import check_reply
 
 
 def main() -> None:

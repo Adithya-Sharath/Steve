@@ -14,7 +14,14 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import NOT_UNDERSTOOD, RESULTS, STATUSES, dump, load_messages, load_replies  # noqa: E402
+from common import (
+    NOT_UNDERSTOOD,
+    RESULTS,
+    STATUSES,
+    dump,
+    load_messages,
+    load_replies,
+)
 
 
 class Bucket:
