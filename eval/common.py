@@ -37,8 +37,8 @@ def load_replies() -> list[dict]:
 
 def write_replies(rows: list[dict]) -> None:
     REPLIES.parent.mkdir(parents=True, exist_ok=True)
-    with REPLIES.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLUMNS)
+    with REPLIES.open("w", encoding="utf-8", newline="") as f:  # LF endings, like the committed file (.gitattributes)
+        w = csv.DictWriter(f, fieldnames=COLUMNS, lineterminator="\n")
         w.writeheader()
         for r in rows:
             w.writerow({c: (json.dumps(r[c], ensure_ascii=False) if c == "gold_labels" and not isinstance(r[c], str) else r[c]) for c in COLUMNS})
@@ -46,4 +46,5 @@ def write_replies(rows: list[dict]) -> None:
 
 def dump(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, indent=1, ensure_ascii=False), encoding="utf-8")
+    with path.open("w", encoding="utf-8", newline="\n") as f:  # never CRLF: keeps re-runs diff-free on Windows
+        f.write(json.dumps(obj, indent=1, ensure_ascii=False))
