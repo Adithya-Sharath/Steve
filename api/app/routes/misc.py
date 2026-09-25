@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from samjha_engine import check_reply, inspect_reply, lexicon_stats
 from sqlmodel import Session, delete, select
 
+from ..auth import sender_hash
 from ..db import Fact as FactRow
 from ..db import FactResultRow, Message, ReaderLink, Reply, get_session
 from ..schemas import AnalyzeIn, CheckIn, LlmToggle
@@ -33,7 +34,7 @@ def health():
 
 
 @router.post("/settings/llm", tags=["settings"])
-def set_llm(body: LlmToggle):
+def set_llm(body: LlmToggle, _owner: str = Depends(sender_hash)):
     """Runtime toggle for the wrapper test: with it OFF, everything still works."""
     settings.llm_enabled = body.enabled
     return {"llm_switch": settings.llm_enabled, "llm_enabled": settings.llm_available}
@@ -72,9 +73,11 @@ def demo_scenarios():
 
 
 @router.post("/demo/seed", tags=["demo"])
-def demo_seed(session: Session = Depends(get_session)):
-    """(Re)load data/scenarios.json as confirmed demo messages. The first one gets a pre-baked 'subtle mistake' reply."""
-    for old in session.exec(select(Message).where(Message.demo == True)).all():  # noqa: E712
+def demo_seed(owner: str = Depends(sender_hash), session: Session = Depends(get_session)):
+    """(Re)load data/scenarios.json as confirmed demo messages OWNED BY THE CALLER (ids carry a per-sender suffix).
+    The first one gets a pre-baked 'subtle mistake' reply."""
+    suffix = owner[:6]
+    for old in session.exec(select(Message).where(Message.demo == True, Message.owner_hash == owner)).all():  # noqa: E712
         mid = old.id
         session.exec(delete(FactResultRow).where(FactResultRow.message_id == mid))
         session.exec(delete(Reply).where(Reply.message_id == mid))
@@ -85,8 +88,8 @@ def demo_seed(session: Session = Depends(get_session)):
 
     seeded = []
     for i, sc in enumerate(_scenarios()):
-        m = Message(id=f"demo-{sc['id']}", text=sc["text"], sender_name=sc["sender_name"], context=sc["context"],
-                    confirmed=True, demo=True)
+        m = Message(id=f"demo-{sc['id']}-{suffix}", text=sc["text"], sender_name=sc["sender_name"], context=sc["context"],
+                    confirmed=True, demo=True, owner_hash=owner)
         session.add(m)
         for pos, f in enumerate(sc["facts"]):
             session.add(FactRow(message_id=m.id, fact_id=f["id"], type=f["type"], value=f["value"], unit=f.get("unit"),

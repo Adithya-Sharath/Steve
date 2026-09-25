@@ -140,7 +140,7 @@ def test_demo_seed_and_eval_empty_state(client):
     assert client.post("/demo/seed").status_code == 200  # idempotent
     demo = [m for m in client.get("/messages").json() if m["demo"]]
     assert len(demo) >= 4
-    ph = next(m for m in demo if m["id"] == "demo-pharmacy")
+    ph = next(m for m in demo if m["id"].startswith("demo-pharmacy-"))
     assert ph["reply_count"] == 1
     assert client.get("/demo/scenarios").json()[0]["id"] == "pharmacy"
     assert "available" in client.get("/eval/results").json()

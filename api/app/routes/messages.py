@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import hmac
 import json
 import secrets
 import uuid
@@ -9,6 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sqlmodel import Session, delete, select
 
+from ..auth import FORBIDDEN, sender_hash, sender_hash_header_or_query
 from ..db import Fact as FactRow
 from ..db import Message, ReaderLink, get_session
 from ..schemas import (
@@ -29,16 +31,19 @@ from ..settings import settings
 router = APIRouter(tags=["messages"])
 
 
-def _get(session: Session, message_id: str) -> Message:
+def _get(session: Session, message_id: str, owner: str) -> Message:
+    """Load a message the caller owns. Unknown id -> 404; someone else's (or legacy) message -> 403."""
     m = session.get(Message, message_id)
     if not m:
         raise HTTPException(404, "Message not found")
+    if not m.owner_hash or not hmac.compare_digest(m.owner_hash, owner):
+        raise HTTPException(403, FORBIDDEN)
     return m
 
 
 @router.post("/messages", response_model=SuggestedFacts)
-def create_message(body: MessageIn, session: Session = Depends(get_session)):
-    m = Message(id=uuid.uuid4().hex[:10], text=body.text.strip(), sender_name=body.sender_name.strip(), context=body.context)
+def create_message(body: MessageIn, owner: str = Depends(sender_hash), session: Session = Depends(get_session)):
+    m = Message(id=uuid.uuid4().hex[:10], text=body.text.strip(), sender_name=body.sender_name.strip(), context=body.context, owner_hash=owner)
     session.add(m)
     session.commit()
     facts, extractor, note = suggest_facts(m.text)
@@ -46,8 +51,8 @@ def create_message(body: MessageIn, session: Session = Depends(get_session)):
 
 
 @router.post("/messages/{message_id}/confirm", response_model=ConfirmOut)
-def confirm(message_id: str, body: ConfirmIn, session: Session = Depends(get_session)):
-    m = _get(session, message_id)
+def confirm(message_id: str, body: ConfirmIn, owner: str = Depends(sender_hash), session: Session = Depends(get_session)):
+    m = _get(session, message_id, owner)
     if not body.facts:
         raise HTTPException(422, "Add at least one fact to check.")
     ids = [f.id for f in body.facts]
@@ -70,19 +75,21 @@ def confirm(message_id: str, body: ConfirmIn, session: Session = Depends(get_ses
 
 
 @router.get("/messages", response_model=list[MessageSummary])
-def list_messages(session: Session = Depends(get_session), limit: int = Query(50, le=200)):
-    rows = session.exec(select(Message).where(Message.confirmed == True).order_by(Message.created_at.desc()).limit(limit)).all()  # noqa: E712
+def list_messages(owner: str = Depends(sender_hash), session: Session = Depends(get_session), limit: int = Query(50, le=200)):
+    rows = session.exec(
+        select(Message).where(Message.confirmed == True, Message.owner_hash == owner).order_by(Message.created_at.desc()).limit(limit)  # noqa: E712
+    ).all()
     return [svc.message_summary(session, m) for m in rows]
 
 
 @router.get("/messages/{message_id}", response_model=MessageOut)
-def get_message(message_id: str, session: Session = Depends(get_session)):
-    return svc.message_out(session, _get(session, message_id))
+def get_message(message_id: str, owner: str = Depends(sender_hash), session: Session = Depends(get_session)):
+    return svc.message_out(session, _get(session, message_id, owner))
 
 
 @router.get("/messages/{message_id}/stream")
-async def stream(message_id: str, session: Session = Depends(get_session)):
-    _get(session, message_id)
+async def stream(message_id: str, owner: str = Depends(sender_hash_header_or_query), session: Session = Depends(get_session)):
+    _get(session, message_id, owner)
     q = broker.subscribe(message_id)
 
     async def gen():
@@ -105,8 +112,8 @@ async def stream(message_id: str, session: Session = Depends(get_session)):
 
 
 @router.post("/messages/{message_id}/followup", response_model=FollowupOut)
-def followup(message_id: str, lang: str | None = None, session: Session = Depends(get_session)):
-    m = _get(session, message_id)
+def followup(message_id: str, lang: str | None = None, owner: str = Depends(sender_hash), session: Session = Depends(get_session)):
+    m = _get(session, message_id, owner)
     out = svc.message_out(session, m)
     latest = {x.fact_id: x.status for x in out.latest}
     draft, used_lang, failed = build_followup(m.text, [{"fact_id": f.id, "label": f.label} for f in out.facts], latest, lang)

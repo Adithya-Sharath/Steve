@@ -21,6 +21,7 @@ class Message(SQLModel, table=True):
     context: str = "other"
     confirmed: bool = False
     demo: bool = False
+    owner_hash: str | None = Field(default=None, index=True)  # sha256 of the sender key; NULL = legacy row nobody can open
     created_at: datetime = Field(default_factory=_now)
 
 
@@ -80,6 +81,7 @@ def get_engine():
 # columns added after the first release: `create_all` never alters existing tables, so add them in place
 _ADDED_COLUMNS: dict[str, dict[str, str]] = {
     "factresultrow": {"flags": "JSON"},
+    "message": {"owner_hash": "VARCHAR"},
 }
 
 

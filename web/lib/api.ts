@@ -14,6 +14,8 @@ import type {
   Reply,
 } from "./types";
 
+import { getSenderKey } from "./sender-key";
+
 export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 
 export class ApiError extends Error {
@@ -25,10 +27,13 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+/** `sender: true` adds the per-browser sender key (sender endpoints answer 403 without it). Reader endpoints stay open. */
+async function request<T>(path: string, init?: RequestInit, sender = false): Promise<T> {
   let res: Response;
   try {
-    res = await fetch(`${API_URL}${path}`, { ...init, cache: "no-store" });
+    const headers = new Headers(init?.headers);
+    if (sender) headers.set("X-Sender-Key", getSenderKey());
+    res = await fetch(`${API_URL}${path}`, { ...init, headers, cache: "no-store" });
   } catch {
     throw new ApiError(0, "Can't reach the Samjha server. Is the API running?");
   }
@@ -57,16 +62,17 @@ export interface ConfirmOut {
 export const api = {
   health: () => request<Health>("/health"),
   setLlm: (enabled: boolean) =>
-    request<{ llm_switch: boolean; llm_enabled: boolean }>("/settings/llm", json({ enabled })),
+    request<{ llm_switch: boolean; llm_enabled: boolean }>("/settings/llm", json({ enabled }), true),
 
   createMessage: (b: { text: string; sender_name: string; context: Context }) =>
-    request<SuggestedFacts>("/messages", json(b)),
-  confirm: (id: string, facts: Fact[]) => request<ConfirmOut>(`/messages/${id}/confirm`, json({ facts })),
-  listMessages: () => request<MessageSummary[]>("/messages"),
-  getMessage: (id: string) => request<MessageOut>(`/messages/${id}`),
+    request<SuggestedFacts>("/messages", json(b), true),
+  confirm: (id: string, facts: Fact[]) => request<ConfirmOut>(`/messages/${id}/confirm`, json({ facts }), true),
+  listMessages: () => request<MessageSummary[]>("/messages", undefined, true),
+  getMessage: (id: string) => request<MessageOut>(`/messages/${id}`, undefined, true),
   followup: (id: string, lang?: string) =>
-    request<Followup>(`/messages/${id}/followup${lang ? `?lang=${lang}` : ""}`, { method: "POST" }),
-  streamUrl: (id: string) => `${API_URL}/messages/${id}/stream`,
+    request<Followup>(`/messages/${id}/followup${lang ? `?lang=${lang}` : ""}`, { method: "POST" }, true),
+  // EventSource cannot set headers, so the stream (and only the stream) takes the key as a query parameter
+  streamUrl: (id: string) => `${API_URL}/messages/${id}/stream?key=${encodeURIComponent(getSenderKey())}`,
 
   reader: (token: string) => request<ReaderView>(`/r/${token}`),
   sendReply: async (token: string, payload: { text?: string; audio?: Blob; lang_hint?: string }) => {
@@ -83,7 +89,7 @@ export const api = {
     request<AnalyzeOut>("/analyze", json({ reply, facts, lang_hint, message })),
 
   scenarios: () => request<Scenario[]>("/demo/scenarios"),
-  seed: () => request<{ seeded: { message_id: string; reader_token: string; scenario: string }[] }>("/demo/seed", { method: "POST" }),
+  seed: () => request<{ seeded: { message_id: string; reader_token: string; scenario: string }[] }>("/demo/seed", { method: "POST" }, true),
   evalResults: () => request<EvalResults>("/eval/results"),
 };
 

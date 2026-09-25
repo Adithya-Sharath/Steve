@@ -63,6 +63,10 @@ flowchart LR
 | `POST /demo/seed`, `GET /demo/scenarios` | demo mode |
 | `POST /settings/llm` | runtime LLM toggle |
 
+**Sender authentication:** every sender endpoint (`POST/GET /messages`, `/confirm`, `/followup`, `/stream`, `/demo/seed`, `/settings/llm`) needs the
+per-browser `X-Sender-Key` (`sk_…`); the server stores only its SHA-256 hash on the message and answers 403 otherwise. `/stream` also accepts `?key=` because
+EventSource cannot set headers. Reader endpoints (`/r/{token}…`) and the stateless/public ones (`/health`, `/check`, `/analyze`, `/eval/results`, `/demo/scenarios`) need no key. See DECISIONS D16.
+
 Per-fact aggregate: for each fact the most recent **non-missing** result wins, so a later reply that doesn't mention a fact never
 erases an earlier "understood".
 
@@ -75,4 +79,4 @@ Engine offsets are Python code points; the client slices with `Array.from` so em
 ## Privacy
 
 Audio is read into memory for one STT request and dropped; it is never written to disk or the database. The reader never receives
-facts, statuses or scores. The DB stores the reader's text and the per-fact results.
+facts, statuses or scores, and other senders cannot open your messages (sender key, above). The DB stores the reader's text and the per-fact results.
