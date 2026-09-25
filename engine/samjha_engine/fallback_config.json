@@ -1,0 +1,6 @@
+{
+  "model": "intfloat/multilingual-e5-small",
+  "unclear_threshold": null,
+  "understood_threshold": null,
+  "note": "Thresholds must be calibrated on the eval set before enabling (DECISIONS D8). null = fallback does nothing."
+}
