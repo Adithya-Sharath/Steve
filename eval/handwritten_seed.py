@@ -95,6 +95,10 @@ ROWS: list[tuple[str, str, str, str, str]] = [
     ("school-fee", "taglish", "450 piso sa miyerkules, lunes ang balik", "u", "fee=w"),
     ("clinic-followup", "english", "come back friday, 3 times a day for 5 days, don't travel", "u", ""),
     ("clinic-followup", "hinglish", "shukravaar ko wapas aana, din mein teen baar, paanch din, safar mat karna", "u", ""),
+    # --- copy-paste: pasting the message back proves nothing -> every fact unclear (D14)
+    ("pharmacy", "english", "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.", "c", ""),
+    ("site-safety", "english", "ok sir Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.", "c", ""),
+    ("visa-hr", "english", "submit your passport copy and 2 photos by thursday the fee is 150 aed do not travel until your visa is stamped", "c", ""),
 ]
 
 

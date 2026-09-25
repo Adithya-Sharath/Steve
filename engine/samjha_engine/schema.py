@@ -50,3 +50,4 @@ class FactResult(BaseModel):
     confidence: float = 0.0
     reason: str = ""
     matched_terms: list[dict] = Field(default_factory=list)
+    flags: list[str] = Field(default_factory=list)  # e.g. ["copied"]: reply-level warnings the UI should surface

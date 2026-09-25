@@ -20,8 +20,9 @@ def main() -> None:
     t0 = time.perf_counter()
     for r in replies:
         facts = messages[r["message_id"]]["facts"]
-        res1 = check_reply(facts, r["reply_text"])
-        res2 = check_reply(facts, r["reply_text"])
+        text = messages[r["message_id"]]["text"]
+        res1 = check_reply(facts, r["reply_text"], message=text)
+        res2 = check_reply(facts, r["reply_text"], message=text)
         assert [x.model_dump() for x in res1] == [x.model_dump() for x in res2], "engine must be deterministic"
         preds[r["reply_id"]] = {
             x.fact_id: {"status": x.status.value, "reason": x.reason, "confidence": x.confidence} for x in res1

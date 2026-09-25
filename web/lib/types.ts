@@ -44,6 +44,8 @@ export interface FactResult {
   confidence: number;
   reason: string;
   matched_terms: MatchedTerm[];
+  /** reply-level warnings, e.g. "copied" (the reader pasted the sender's message back) */
+  flags?: string[];
 }
 
 export interface Reply {

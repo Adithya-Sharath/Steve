@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-09-25T21:25:37+00:00",
- "n_fact_checks": 2254,
- "n_replies": 558,
+ "generated_at": "2026-09-25T21:29:28+00:00",
+ "n_fact_checks": 2268,
+ "n_replies": 561,
  "n_synthetic": 447,
- "n_handwritten": 111,
+ "n_handwritten": 114,
  "engine": {
   "available": true,
   "overall": {
-   "n": 2254,
-   "correct": 2180,
-   "accuracy": 0.9671694764862466,
+   "n": 2268,
+   "correct": 2194,
+   "accuracy": 0.9673721340388007,
    "false_understood": 0,
    "false_understood_denominator": 921,
    "false_understood_rate": 0.0
@@ -24,9 +24,9 @@
     "false_understood_rate": 0.0
    },
    "english": {
-    "n": 504,
-    "correct": 497,
-    "accuracy": 0.9861111111111112,
+    "n": 518,
+    "correct": 511,
+    "accuracy": 0.9864864864864865,
     "false_understood": 0,
     "false_understood_denominator": 209,
     "false_understood_rate": 0.0
@@ -58,57 +58,57 @@
   },
   "by_type": {
    "amount": {
-    "n": 181,
-    "correct": 180,
-    "accuracy": 0.994475138121547,
+    "n": 182,
+    "correct": 181,
+    "accuracy": 0.9945054945054945,
     "false_understood": 0,
     "false_understood_denominator": 83,
     "false_understood_rate": 0.0
    },
    "condition": {
-    "n": 323,
-    "correct": 297,
-    "accuracy": 0.9195046439628483,
+    "n": 326,
+    "correct": 300,
+    "accuracy": 0.9202453987730062,
     "false_understood": 0,
     "false_understood_denominator": 153,
     "false_understood_rate": 0.0
    },
    "date": {
-    "n": 456,
-    "correct": 438,
-    "accuracy": 0.9605263157894737,
+    "n": 458,
+    "correct": 440,
+    "accuracy": 0.9606986899563319,
     "false_understood": 0,
     "false_understood_denominator": 167,
     "false_understood_rate": 0.0
    },
    "dose": {
-    "n": 534,
-    "correct": 523,
-    "accuracy": 0.9794007490636704,
+    "n": 537,
+    "correct": 526,
+    "accuracy": 0.9795158286778398,
     "false_understood": 0,
     "false_understood_denominator": 223,
     "false_understood_rate": 0.0
    },
    "duration": {
-    "n": 315,
-    "correct": 310,
-    "accuracy": 0.9841269841269841,
+    "n": 317,
+    "correct": 312,
+    "accuracy": 0.9842271293375394,
     "false_understood": 0,
     "false_understood_denominator": 131,
     "false_understood_rate": 0.0
    },
    "frequency": {
-    "n": 283,
-    "correct": 271,
-    "accuracy": 0.9575971731448764,
+    "n": 285,
+    "correct": 273,
+    "accuracy": 0.9578947368421052,
     "false_understood": 0,
     "false_understood_denominator": 100,
     "false_understood_rate": 0.0
    },
    "timing": {
-    "n": 162,
-    "correct": 161,
-    "accuracy": 0.9938271604938271,
+    "n": 163,
+    "correct": 162,
+    "accuracy": 0.9938650306748467,
     "false_understood": 0,
     "false_understood_denominator": 64,
     "false_understood_rate": 0.0
@@ -116,9 +116,9 @@
   },
   "by_source": {
    "handwritten": {
-    "n": 318,
-    "correct": 314,
-    "accuracy": 0.9874213836477987,
+    "n": 332,
+    "correct": 328,
+    "accuracy": 0.9879518072289156,
     "false_understood": 0,
     "false_understood_denominator": 69,
     "false_understood_rate": 0.0
@@ -174,12 +174,12 @@
     "wrong": 0,
     "missing": 0,
     "negated": 0,
-    "unclear": 0
+    "unclear": 14
    }
   },
   "consistency": {
    "mean_agreement": 1.0,
-   "items": 558,
+   "items": 561,
    "runs": 2,
    "note": "deterministic code; identical output on repeat runs (asserted in run_engine.py)"
   }

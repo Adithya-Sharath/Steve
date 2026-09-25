@@ -191,3 +191,54 @@ def test_voice_reply_via_stt_interface(client, monkeypatch):
     msg = client.get("/messages").json()[0]
     detail = client.get(f"/messages/{msg['id']}").json()
     assert detail["replies"][-1]["source"] == "voice" and "oru week" in detail["replies"][-1]["text"]
+
+
+# ---------------------------------------------------------------- copy-paste detection (D14)
+COPY_REASON = "Reply looks copied from the message; ask them to say it in their own words."
+
+
+def test_pasted_reply_marks_every_fact_unclear_and_is_flagged(client):
+    mid, facts, conf = _flow(client)
+    t = conf["reader_token"]
+    assert client.post(f"/r/{t}/reply", data={"text": PHARMACY}).json() == {"received": True}
+    m = client.get(f"/messages/{mid}").json()
+    results = m["replies"][0]["results"]
+    assert len(results) == len(facts)
+    assert all(r["status"] == "unclear" and r["reason"] == COPY_REASON and r["flags"] == ["copied"] for r in results)
+    assert {x["status"] for x in m["latest"]} == {"unclear"}  # nothing else known yet
+
+
+def test_copied_reply_never_erases_an_earlier_real_result(client):
+    mid, _, conf = _flow(client)
+    t = conf["reader_token"]
+    client.post(f"/r/{t}/reply", data={"text": MANGLISH})
+    client.post(f"/r/{t}/reply", data={"text": PHARMACY})  # a paste afterwards
+    by = {x["fact_id"]: x["status"] for x in client.get(f"/messages/{mid}").json()["latest"]}
+    assert by["dose_1"] == "understood" and by["duration_1"] == "wrong"
+    client.post(f"/r/{t}/reply", data={"text": "anju divasam"})  # a later real answer still updates
+    by = {x["fact_id"]: x["status"] for x in client.get(f"/messages/{mid}").json()["latest"]}
+    assert by["duration_1"] == "understood"
+
+
+def test_stateless_check_detects_copies_when_given_the_message(client):
+    facts = [{"id": "d", "type": "dose", "value": 2, "unit": "tablet", "label": "2 tablets"}]
+    r = client.post("/check", json={"facts": facts, "reply": PHARMACY, "message": PHARMACY}).json()
+    assert r[0]["status"] == "unclear" and r[0]["flags"] == ["copied"]
+    r = client.post("/check", json={"facts": facts, "reply": "do goli", "message": PHARMACY}).json()
+    assert r[0]["status"] == "understood" and r[0]["flags"] == []
+    a = client.post("/analyze", json={"reply": PHARMACY, "facts": facts, "message": PHARMACY}).json()
+    assert a["results"][0]["flags"] == ["copied"]
+
+
+def test_old_database_gets_the_new_flags_column(tmp_path, monkeypatch):
+    from sqlalchemy import create_engine, inspect, text
+
+    import app.db as db
+
+    eng = create_engine(f"sqlite:///{(tmp_path / 'old.db').as_posix()}")
+    with eng.begin() as c:
+        c.execute(text("CREATE TABLE factresultrow (pk INTEGER PRIMARY KEY, reply_id VARCHAR, message_id VARCHAR, fact_id VARCHAR, status VARCHAR)"))
+    monkeypatch.setattr(db, "_engine", eng)
+    db._ensure_columns()
+    assert "flags" in {c["name"] for c in inspect(eng).get_columns("factresultrow")}
+    db._ensure_columns()  # idempotent

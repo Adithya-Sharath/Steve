@@ -30,6 +30,7 @@ def _result_out(r: FactResultRow) -> ResultOut:
     return ResultOut(
         fact_id=r.fact_id, status=r.status, heard_value=r.heard_value, expected_value=r.expected_value,
         evidence=r.evidence or [], confidence=r.confidence, reason=r.reason, matched_terms=r.matched_terms or [],
+        flags=r.flags or [],
     )
 
 
@@ -54,8 +55,12 @@ def aggregate(facts: list[Fact], replies: list[ReplyOut]) -> list[LatestFact]:
     state: dict[str, LatestFact] = {f.id: LatestFact(fact_id=f.id, status="missing") for f in facts}
     for rp in replies:
         for res in rp.results:
-            if res.fact_id in state and res.status != "missing":
-                state[res.fact_id] = LatestFact(fact_id=res.fact_id, status=res.status, reply_id=rp.id, result=res)
+            if res.fact_id not in state or res.status == "missing":
+                continue
+            # a copied reply proves nothing: it may fill an empty slot with `unclear`, but never erases a real result
+            if "copied" in res.flags and state[res.fact_id].status != "missing":
+                continue
+            state[res.fact_id] = LatestFact(fact_id=res.fact_id, status=res.status, reply_id=rp.id, result=res)
     return list(state.values())
 
 
@@ -92,7 +97,7 @@ def message_summary(session: Session, m: Message) -> MessageSummary:
 
 def process_reply(session: Session, m: Message, text: str, source: str = "text", lang_hint: str | None = None) -> ReplyOut:
     facts = facts_for(session, m.id)
-    results = check_reply(facts, text, lang_hint)
+    results = check_reply(facts, text, lang_hint, message=m.text)
     reply = Reply(id=uuid.uuid4().hex[:12], message_id=m.id, text=text, source=source)
     session.add(reply)
     session.flush()
@@ -102,7 +107,7 @@ def process_reply(session: Session, m: Message, text: str, source: str = "text",
             FactResultRow(
                 reply_id=reply.id, message_id=m.id, fact_id=r.fact_id, status=r.status.value,
                 heard_value=d["heard_value"], expected_value=d["expected_value"], evidence=d["evidence"],
-                confidence=r.confidence, reason=r.reason, matched_terms=d["matched_terms"],
+                confidence=r.confidence, reason=r.reason, matched_terms=d["matched_terms"], flags=d["flags"],
             )
         )
     session.commit()

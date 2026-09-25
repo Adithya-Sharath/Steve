@@ -42,13 +42,13 @@ def set_llm(body: LlmToggle):
 @router.post("/check", tags=["engine"])
 def check(body: CheckIn):
     """Stateless: {facts, reply} -> per-fact results. Used by the landing playground and the eval."""
-    return [r.model_dump(mode="json") for r in check_reply(body.facts, body.reply, body.lang_hint)]
+    return [r.model_dump(mode="json") for r in check_reply(body.facts, body.reply, body.lang_hint, message=body.message)]
 
 
 @router.post("/analyze", tags=["engine"])
 def analyze(body: AnalyzeIn):
     """Stage-by-stage view (tokens, lexicon matches, slots, results) for /how-it-works."""
-    return inspect_reply(body.reply, body.lang_hint, body.facts)
+    return inspect_reply(body.reply, body.lang_hint, body.facts, message=body.message)
 
 
 @router.get("/eval/results", tags=["eval"])

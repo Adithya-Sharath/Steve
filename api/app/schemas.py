@@ -41,6 +41,7 @@ class ResultOut(BaseModel):
     confidence: float = 0
     reason: str = ""
     matched_terms: list[dict] = []
+    flags: list[str] = []
 
 
 class ReplyOut(BaseModel):
@@ -98,12 +99,14 @@ class CheckIn(BaseModel):
     facts: list[Fact]
     reply: str = Field(max_length=4000)
     lang_hint: str | None = None
+    message: str | None = Field(default=None, max_length=4000)  # the sender's text: enables copy-paste detection
 
 
 class AnalyzeIn(BaseModel):
     reply: str = Field(max_length=4000)
     lang_hint: str | None = None
     facts: list[Fact] | None = None
+    message: str | None = Field(default=None, max_length=4000)
 
 
 class LlmToggle(BaseModel):

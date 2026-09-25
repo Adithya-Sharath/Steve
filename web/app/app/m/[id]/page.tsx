@@ -2,7 +2,7 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import { ArrowLeft, ChevronDown, Mic, PenLine, Send } from "lucide-react";
+import { ArrowLeft, ChevronDown, Copy, Mic, PenLine, Send } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -64,6 +64,7 @@ export default function ResultsPage() {
   const replyList = useMemo(() => m?.replies ?? [], [m]);
   const current = replyList.find((r) => r.id === selected) ?? replyList[replyList.length - 1];
 
+  const copied = !!current && current.results.length > 0 && current.results.every((r) => r.flags?.includes("copied"));
   const resultMap = useMemo(() => new Map((current?.results ?? []).map((r) => [r.fact_id, r])), [current]);
   const latestStatus = useMemo(() => new Map((m?.latest ?? []).map((l) => [l.fact_id, replyList.length ? l.status : undefined])), [m, replyList]);
   const msgHighlights = useMemo(() => (m ? messageHighlights(m, (fid) => latestStatus.get(fid)) : []), [m, latestStatus]);
@@ -144,6 +145,25 @@ export default function ResultsPage() {
             </div>
           )}
 
+          {copied && current && (
+            <motion.div
+              role="status"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-start gap-3 rounded-2xl border border-unclear/50 bg-unclear-soft p-4 text-unclear-ink"
+            >
+              <Copy className="mt-0.5 size-5 shrink-0" aria-hidden />
+              <div className="min-w-0 flex-1">
+                <p className="font-medium">This reply looks copied from your message</p>
+                <p className="mt-0.5 text-sm">
+                  Pasting the message back doesn&apos;t show understanding, so every fact is marked unclear. Ask them to say it in their own words.
+                </p>
+              </div>
+              <Button size="sm" variant="outline" onClick={() => setFollowOpen(true)}>
+                Draft follow-up
+              </Button>
+            </motion.div>
+          )}
           {current ? (
             <motion.div key={current.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="card-soft p-5">
               <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">

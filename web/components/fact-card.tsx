@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Copy } from "lucide-react";
 import { StatusBadge } from "@/components/status-badge";
 import { FACT_ICON, FACT_TYPE_LABEL, STATUS_META } from "@/lib/status";
 import type { Fact, FactResult } from "@/lib/types";
@@ -81,6 +82,11 @@ export function FactCard({
               <span className="shimmer h-6 w-24 rounded-full" role="status" aria-label="Waiting for a reply" />
             ) : null}
           </div>
+          {result?.flags?.includes("copied") && (
+            <p className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-unclear-soft px-2 py-0.5 text-xs font-medium text-unclear-ink">
+              <Copy className="size-3" aria-hidden /> copied from the message
+            </p>
+          )}
           {result && (
             <motion.p
               initial={{ opacity: 0, y: 4 }}

@@ -77,10 +77,10 @@ export const api = {
     return request<{ received: true }>(`/r/${token}/reply`, { method: "POST", body: fd });
   },
 
-  check: (facts: Fact[], reply: string, lang_hint?: string) =>
-    request<FactResult[]>("/check", json({ facts, reply, lang_hint })),
-  analyze: (reply: string, facts?: Fact[], lang_hint?: string) =>
-    request<AnalyzeOut>("/analyze", json({ reply, facts, lang_hint })),
+  check: (facts: Fact[], reply: string, message?: string, lang_hint?: string) =>
+    request<FactResult[]>("/check", json({ facts, reply, lang_hint, message })),
+  analyze: (reply: string, facts?: Fact[], message?: string, lang_hint?: string) =>
+    request<AnalyzeOut>("/analyze", json({ reply, facts, lang_hint, message })),
 
   scenarios: () => request<Scenario[]>("/demo/scenarios"),
   seed: () => request<{ seeded: { message_id: string; reader_token: string; scenario: string }[] }>("/demo/seed", { method: "POST" }),

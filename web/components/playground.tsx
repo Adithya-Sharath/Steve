@@ -33,7 +33,7 @@ export function Playground({ initialScenario = 0, className }: { initialScenario
 
   const check = useQuery({
     queryKey: ["check", scenario?.id, debounced],
-    queryFn: () => api.check(scenario!.facts, debounced),
+    queryFn: () => api.check(scenario!.facts, debounced, scenario!.text),
     enabled: !!scenario,
     placeholderData: (prev) => prev,
   });

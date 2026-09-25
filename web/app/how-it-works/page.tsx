@@ -120,7 +120,7 @@ export default function HowItWorks() {
   const scenario = sc.data?.[idx];
   const analysis = useQuery({
     queryKey: ["analyze", scenario?.id, debounced],
-    queryFn: () => api.analyze(debounced, scenario!.facts),
+    queryFn: () => api.analyze(debounced, scenario!.facts, scenario!.text),
     enabled: !!scenario,
     placeholderData: (p) => p,
   });

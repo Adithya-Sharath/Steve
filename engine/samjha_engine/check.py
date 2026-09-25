@@ -10,9 +10,10 @@ from typing import Any
 
 from . import fallback, negation
 from .compare import EngineConfig, Env, compare_fact
+from .copycheck import COPY_REASON, looks_copied
 from .lexicon import get_lexicon
 from .matcher import Ctx, Match, prepare
-from .schema import Fact, FactResult, FactType
+from .schema import Fact, FactResult, FactType, Status
 from .slots import Heard, Slots, fill_slots
 
 _ACTION_CATS = ("action_stop", "action_call", "action_return", "action_continue", "action_avoid")
@@ -20,6 +21,10 @@ _ACTION_CATS = ("action_stop", "action_call", "action_return", "action_continue"
 
 def _coerce(facts: list[Any]) -> list[Fact]:
     return [f if isinstance(f, Fact) else Fact.model_validate(f) for f in facts]
+
+
+def _plain(v: Any) -> Any:
+    return int(v) if isinstance(v, float) and v.is_integer() else v
 
 
 def analyze(reply: str, lang_hint: str | None = None) -> tuple[Ctx, Slots, dict[int, Match]]:
@@ -55,8 +60,19 @@ def check_reply(
     reply: str,
     lang_hint: str | None = None,
     config: EngineConfig | None = None,
+    message: str | None = None,
 ) -> list[FactResult]:
+    """`message` (the sender's text) is optional; when given, a reply that merely copies it marks every fact `unclear`."""
     fs = _coerce(facts)
+    if looks_copied(message, reply or ""):
+        return [
+            FactResult(
+                fact_id=f.id, status=Status.unclear, heard_value=None,
+                expected_value=f.value if f.type == FactType.condition else _plain(f.value),
+                evidence=[], confidence=0.9, reason=COPY_REASON, matched_terms=[], flags=["copied"],
+            )
+            for f in fs
+        ]
     ctx, slots, match_neg = analyze(reply or "", lang_hint)
     env = Env(ctx=ctx, slots=slots, match_neg=match_neg, cfg=config or EngineConfig(), facts=fs)
     results = []
@@ -68,7 +84,7 @@ def check_reply(
     return results
 
 
-def inspect_reply(reply: str, lang_hint: str | None = None, facts: list[Any] | None = None) -> dict:
+def inspect_reply(reply: str, lang_hint: str | None = None, facts: list[Any] | None = None, message: str | None = None) -> dict:
     """Stage-by-stage view for the /how-it-works inspector (tokens, matches, slots, results)."""
     ctx, slots, match_neg = analyze(reply or "", lang_hint)
     out: dict[str, Any] = {
@@ -108,7 +124,7 @@ def inspect_reply(reply: str, lang_hint: str | None = None, facts: list[Any] | N
         "bare_numbers": [m.surface for m in slots.bare_numbers],
     }
     if facts is not None:
-        out["results"] = [r.model_dump(mode="json") for r in check_reply(facts, reply, lang_hint)]
+        out["results"] = [r.model_dump(mode="json") for r in check_reply(facts, reply, lang_hint, message=message)]
     return out
 
 

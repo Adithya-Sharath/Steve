@@ -53,7 +53,7 @@ def build(d: dict) -> str:
 
 def count_tests(folder: str) -> int:
     """Run a package's pytest suite and return the number that passed; refuse to write numbers for a red suite."""
-    out = subprocess.run([sys.executable, "-m", "pytest", "-q", "--no-header", "-p", "no:cacheprovider"], cwd=ROOT / folder, capture_output=True, text=True)
+    out = subprocess.run([sys.executable, "-m", "pytest", "-q", "--no-header", "-p", "no:cacheprovider"], cwd=ROOT / folder, capture_output=True, text=True, check=False)
     m = re.search(r"(\d+) passed", out.stdout)
     if out.returncode != 0 or not m:
         sys.exit(f"{folder} tests are not green; not updating README counts:\n{out.stdout[-600:]}")

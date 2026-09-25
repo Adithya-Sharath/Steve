@@ -2686,6 +2686,82 @@
    "confidence": 1.0
   }
  },
+ "hw-073": {
+  "dose": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "timing": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "freq": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "dur": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "rash": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  }
+ },
+ "hw-074": {
+  "water": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "hourly": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "break_len": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "break_at": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "dizzy": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  }
+ },
+ "hw-075": {
+  "photos": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "deadline": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "fee": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  },
+  "no_travel": {
+   "status": "unclear",
+   "reason": "Reply looks copied from the message; ask them to say it in their own words.",
+   "confidence": 0.9
+  }
+ },
  "syn-pharmacy-ma-0": {
   "dose": {
    "status": "wrong",
