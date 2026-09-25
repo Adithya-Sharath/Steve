@@ -1,10 +1,12 @@
-"""README test counts must not drift: `eval/update_readme.py` rewrites them from real pytest runs (D12 tooling)."""
+"""README test counts must not drift, and the updater must never damage the README (D19)."""
 
 import importlib.util
-import re
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[2]
+SKELETON = "# T\n<!-- EVAL:START -->\nSTALE-TABLE\n<!-- EVAL:END -->\nengine 1 + API 2\n"
 
 
 def _load():
@@ -12,6 +14,11 @@ def _load():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
+def _point_at(mod, monkeypatch, readme: Path):
+    monkeypatch.setattr(mod, "README", readme)
+    monkeypatch.setattr(mod, "LATEST", ROOT / "eval" / "results" / "latest.json")
 
 
 def test_refresh_counts_rewrites_every_place_the_readme_mentions_counts(monkeypatch):
@@ -27,7 +34,35 @@ def test_refresh_counts_rewrites_every_place_the_readme_mentions_counts(monkeypa
     assert "(+111 tests)" in out and "(+22 tests)" in out
 
 
-def test_main_writes_counts_into_the_real_readme_source():
-    """The wiring, not just the helper: main() must call refresh_counts (it silently didn't once)."""
-    src = (ROOT / "eval" / "update_readme.py").read_text(encoding="utf-8")
-    assert re.search(r"README\.write_text\(refresh_counts\(new\)", src)
+def test_a_red_suite_never_truncates_or_edits_the_readme(tmp_path, monkeypatch):
+    """Regression: main() once opened the README for writing BEFORE the test-count guard could abort, wiping the file."""
+    mod = _load()
+    readme = tmp_path / "README.md"
+    readme.write_text(SKELETON, encoding="utf-8")
+    _point_at(mod, monkeypatch, readme)
+    monkeypatch.setattr(mod, "count_tests", lambda folder: (_ for _ in ()).throw(SystemExit("suite is red")))
+    with pytest.raises(SystemExit):
+        mod.main()
+    assert readme.read_text(encoding="utf-8") == SKELETON
+
+
+def test_missing_markers_leave_the_readme_untouched(tmp_path, monkeypatch):
+    mod = _load()
+    readme = tmp_path / "README.md"
+    readme.write_text("# no markers here\n", encoding="utf-8")
+    _point_at(mod, monkeypatch, readme)
+    with pytest.raises(SystemExit):
+        mod.main()
+    assert readme.read_text(encoding="utf-8") == "# no markers here\n"
+
+
+def test_main_updates_table_and_counts_when_green_and_writes_lf(tmp_path, monkeypatch):
+    mod = _load()
+    readme = tmp_path / "README.md"
+    readme.write_text(SKELETON, encoding="utf-8")
+    _point_at(mod, monkeypatch, readme)
+    monkeypatch.setattr(mod, "count_tests", lambda folder: {"engine": 7, "api": 8}[folder])
+    mod.main()
+    out = readme.read_bytes().decode("utf-8")
+    assert "engine 7 + API 8" in out and "STALE-TABLE" not in out and "Our engine" in out
+    assert "\r\n" not in out

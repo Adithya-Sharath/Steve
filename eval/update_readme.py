@@ -78,8 +78,9 @@ def main() -> None:
     if START not in text or END not in text:
         sys.exit(f"README.md is missing the {START} / {END} markers")
     new = re.sub(re.escape(START) + r".*?" + re.escape(END), f"{START}\n{block}\n{END}", text, flags=re.DOTALL)
+    final = refresh_counts(new)  # compute EVERYTHING first: opening the file for writing truncates it
     with README.open("w", encoding="utf-8", newline="\n") as f:
-        f.write(refresh_counts(new))
+        f.write(final)
     print("README.md evaluation table and test counts updated")
 
 
