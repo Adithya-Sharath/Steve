@@ -121,3 +121,9 @@ hand-written replies. We do not report baseline numbers unless the baseline actu
 * **Demo still works:** `/demo/seed` now creates the four scenarios *for the calling sender* (ids `demo-<scenario>-<first 6 hex of the key hash>`), so two visitors never see or reset each other's demo data. The `/demo` page and the "Load demo data" button work unchanged.
 * **`/settings/llm`** stays a global switch but now needs *a* valid key, so an unauthenticated visitor cannot flip it. It still lets any sender toggle the LLM for everyone; a real deployment should set `LLM_ENABLED` in the environment and leave the toggle to demos (README).
 * **Limitations:** the key lives in one browser: clearing site data or switching device loses access to that browser's messages (they stay in the database). No key rotation or sharing yet. Existing rows created before this change have no owner and are not readable. `create_all` cannot alter tables, so `db._ensure_columns` adds `message.owner_hash` in place (tested).
+
+## D17 — API container binds to `$PORT`
+*Trigger:* `api/Dockerfile` hard-coded `--port 8000`, which fails on hosts that inject `PORT` (Render, Railway, Cloud Run).
+* `CMD ["sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]`. The JSON-array form cannot expand variables, hence the shell; `exec` keeps uvicorn as PID 1 so it receives SIGTERM. Default stays 8000, so `docker compose` and local runs are unchanged (the compose healthcheck still targets 8000).
+* Tests: assert the CMD shape (no hard-coded port), execute the shell string with `uvicorn` swapped for `echo` under `PORT` unset and `PORT=10000`, and forbid inline comments after instructions (a trailing `# ...` on `EXPOSE` would be parsed as ports).
+* **Not verified by building the image**: Docker Desktop was not running on this machine. The README deploy notes still apply.

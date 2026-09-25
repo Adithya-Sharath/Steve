@@ -14,7 +14,6 @@ from fastapi.testclient import TestClient  # noqa: E402
 
 from app.main import app  # noqa: E402
 
-
 KEY_A = "sk_" + "A" * 32
 KEY_B = "sk_" + "B" * 32
 
