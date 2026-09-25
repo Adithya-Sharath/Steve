@@ -1,0 +1,137 @@
+[
+  {
+    "id": "pharmacy",
+    "title": "Pharmacy · antibiotic course",
+    "context": "pharmacy",
+    "sender_name": "Priya, Al Noor Pharmacy",
+    "text": "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.",
+    "facts": [
+      {"id": "dose", "type": "dose", "value": 2, "unit": "tablet", "critical": true, "label": "2 tablets"},
+      {"id": "timing", "type": "timing", "value": "after_food", "unit": null, "critical": true, "label": "after food"},
+      {"id": "freq", "type": "frequency", "value": 2, "unit": null, "critical": true, "label": "twice a day"},
+      {"id": "dur", "type": "duration", "value": 5, "unit": "day", "critical": true, "label": "5 days"},
+      {"id": "rash", "type": "condition", "value": {"trigger": "rash", "action": "stop", "text": "Stop taking them if you get a rash"}, "unit": null, "critical": true, "label": "Stop if rash"}
+    ],
+    "presets": [
+      {
+        "id": "correct", "kind": "correct", "lang_mix": "hinglish",
+        "label": "Everything right (Hinglish)",
+        "text": "do goli khane ke baad, subah shaam, paanch din. rash aaye to band kar dena",
+        "expected": {"dose": "understood", "timing": "understood", "freq": "understood", "dur": "understood", "rash": "understood"}
+      },
+      {
+        "id": "subtle", "kind": "subtle_mistake", "lang_mix": "manglish",
+        "label": "'oru week' and no rash warning (Manglish)",
+        "text": "randu gulika, food kazhinju, raavile vaikittu, oru week",
+        "expected": {"dose": "understood", "timing": "understood", "freq": "understood", "dur": "wrong", "rash": "missing"}
+      },
+      {
+        "id": "flip", "kind": "negation_flip", "lang_mix": "taglish",
+        "label": "Does not stop on rash (Taglish)",
+        "text": "dalawang tableta pagkatapos kumain, dalawang beses, limang araw. kapag may rash, huwag itigil",
+        "expected": {"dose": "understood", "timing": "understood", "freq": "understood", "dur": "understood", "rash": "negated"}
+      }
+    ]
+  },
+  {
+    "id": "site-safety",
+    "title": "Construction site · heat safety",
+    "context": "workplace",
+    "sender_name": "Site Supervisor, Khalid",
+    "text": "Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.",
+    "facts": [
+      {"id": "water", "type": "dose", "value": 1, "unit": "bottle", "critical": true, "label": "1 bottle of water"},
+      {"id": "hourly", "type": "frequency", "value": 24, "unit": null, "critical": true, "label": "every hour"},
+      {"id": "break_len", "type": "duration", "value": 15, "unit": "minute", "critical": true, "label": "15-minute break"},
+      {"id": "break_at", "type": "date", "value": "12:30", "unit": null, "critical": true, "label": "at 12:30"},
+      {"id": "dizzy", "type": "condition", "value": {"trigger": "dizzy", "action": "stop", "text": "Stop work if you feel dizzy"}, "unit": null, "critical": true, "label": "Stop work if dizzy"}
+    ],
+    "presets": [
+      {
+        "id": "correct", "kind": "correct", "lang_mix": "hinglish",
+        "label": "Everything right (Hinglish)",
+        "text": "har ghante ek bottle paani, 12:30 par 15 minute break, chakkar aaye to kaam band kar dena",
+        "expected": {"water": "understood", "hourly": "understood", "break_len": "understood", "break_at": "understood", "dizzy": "understood"}
+      },
+      {
+        "id": "subtle", "kind": "subtle_mistake", "lang_mix": "taglish",
+        "label": "20-minute break (Taglish)",
+        "text": "kada oras isang bottle, 12:30 ng 20 minuto na break, kapag dizzy itigil ang trabaho",
+        "expected": {"water": "understood", "hourly": "understood", "break_len": "wrong", "break_at": "understood", "dizzy": "understood"}
+      },
+      {
+        "id": "flip", "kind": "negation_flip", "lang_mix": "arabizi",
+        "label": "Keeps working when dizzy (Arabizi)",
+        "text": "kul sa3a bottle wa7ed, 12:30 rest 15 daqiqa, law dokha la waqqif",
+        "expected": {"water": "understood", "hourly": "understood", "break_len": "understood", "break_at": "understood", "dizzy": "negated"}
+      }
+    ]
+  },
+  {
+    "id": "visa-hr",
+    "title": "Visa / HR · document checklist",
+    "context": "visa",
+    "sender_name": "HR Desk, Mariam",
+    "text": "Submit your passport copy and 2 photos by Thursday. The fee is 150 AED. Do not travel until your visa is stamped.",
+    "facts": [
+      {"id": "photos", "type": "dose", "value": 2, "unit": "photo", "critical": true, "label": "2 photos"},
+      {"id": "deadline", "type": "date", "value": "thursday", "unit": null, "critical": true, "label": "by Thursday"},
+      {"id": "fee", "type": "amount", "value": 150, "unit": "AED", "critical": true, "label": "150 AED"},
+      {"id": "no_travel", "type": "condition", "value": {"trigger": "travel", "action": "avoid", "text": "Do not travel until your visa is stamped"}, "unit": null, "critical": true, "label": "No travel until visa stamped"}
+    ],
+    "presets": [
+      {
+        "id": "correct", "kind": "correct", "lang_mix": "hinglish",
+        "label": "Everything right (Hinglish)",
+        "text": "2 photo aur guruvaar tak passport copy jama karna, fees 150 dirham, visa lagne tak safar mat karna",
+        "expected": {"photos": "understood", "deadline": "understood", "fee": "understood", "no_travel": "understood"}
+      },
+      {
+        "id": "subtle", "kind": "subtle_mistake", "lang_mix": "arabizi",
+        "label": "Friday instead of Thursday (Arabizi)",
+        "text": "ithnain photo, youm al jum3a, 150 dirham, la safar",
+        "expected": {"photos": "understood", "deadline": "wrong", "fee": "understood", "no_travel": "understood"}
+      },
+      {
+        "id": "flip", "kind": "negation_flip", "lang_mix": "taglish",
+        "label": "'Not 150 AED' (Taglish)",
+        "text": "dalawang photo, huwebes, hindi 150 AED, huwag bumiyahe",
+        "expected": {"photos": "understood", "deadline": "understood", "fee": "negated", "no_travel": "understood"}
+      }
+    ]
+  },
+  {
+    "id": "school-trip",
+    "title": "School circular · trip money",
+    "context": "school",
+    "sender_name": "Ms. Fatima, Class Teacher",
+    "text": "The school trip is on Monday. Send 30 AED and the signed form by Friday. Children must bring a water bottle.",
+    "facts": [
+      {"id": "trip", "type": "date", "value": "monday", "unit": null, "critical": true, "label": "trip on Monday"},
+      {"id": "money", "type": "amount", "value": 30, "unit": "AED", "critical": true, "label": "30 AED"},
+      {"id": "due", "type": "date", "value": "friday", "unit": null, "critical": true, "label": "by Friday"},
+      {"id": "form", "type": "dose", "value": 1, "unit": "form", "critical": true, "label": "1 signed form"},
+      {"id": "bottle", "type": "dose", "value": 1, "unit": "bottle", "critical": true, "label": "1 water bottle"}
+    ],
+    "presets": [
+      {
+        "id": "correct", "kind": "correct", "lang_mix": "manglish",
+        "label": "Everything right (Manglish)",
+        "text": "monday trip aanu. friday-kku 30 dirham um oru signed form um kodukkanam. oru water bottle konduvaranam",
+        "expected": {"trip": "understood", "money": "understood", "due": "understood", "form": "understood", "bottle": "understood"}
+      },
+      {
+        "id": "subtle", "kind": "subtle_mistake", "lang_mix": "hinglish",
+        "label": "20 AED instead of 30 (Hinglish)",
+        "text": "trip somvaar ko hai, shukravaar tak 20 dirham aur ek form dena, ek bottle laana",
+        "expected": {"trip": "understood", "money": "wrong", "due": "understood", "form": "understood", "bottle": "understood"}
+      },
+      {
+        "id": "flip", "kind": "negation_flip", "lang_mix": "taglish",
+        "label": "'Don't bring a bottle' (Taglish)",
+        "text": "lunes ang trip, biyernes 30 dirham at isang form, huwag magdala ng isang bottle",
+        "expected": {"trip": "understood", "money": "understood", "due": "understood", "form": "understood", "bottle": "negated"}
+      }
+    ]
+  }
+]
