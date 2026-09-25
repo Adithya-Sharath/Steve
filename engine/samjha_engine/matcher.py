@@ -185,16 +185,47 @@ def _single_candidates(word: str, lex: Lexicon) -> list[Cand]:
                 r = fuzz.ratio(key, fkey)
                 if r >= FUZZY_MIN_RATIO:
                     _best(cands, e, r - 3, "fuzzy")
-    if len(word) == 4 and not cands:
-        # negation words are safety-critical: tolerate one dropped letter ("hndi" -> "hindi", "huwg" -> "huwag")
-        key4 = sound_key(word)
-        for form, fkey, e in lex.by_first.get(key4[:1], ()):
-            if e.category != "negation" or " " in form or len(fkey) - len(key4) != 1 or fkey[-1:] != key4[-1:]:
-                continue
-            r = fuzz.ratio(key4, fkey)
-            if r >= 88:
-                _best(cands, e, r - 4, "fuzzy")
+    if not cands:
+        for e, score in _negator_typos(word, lex):
+            _best(cands, e, score, "fuzzy")
     return list(cands.values())
+
+
+_VOWELS = set("aeiou'")
+
+
+def _is_subsequence(short: str, long: str) -> bool:
+    it = iter(long)
+    return all(c in it for c in short)
+
+
+def _negator_typos(word: str, lex: Lexicon) -> list[tuple[Entry, float]]:
+    """Negation words are safety-critical ("dnt stop if rash" must not read as "stop if rash"), so they get their own,
+    more forgiving fuzzy match against KNOWN negators only:
+    * SMS vowel-dropping   dnt -> dont, hndi -> hindi, huwg -> huwag
+    * one inserted/dropped letter (len >= 4), or one substituted letter (len >= 5)
+    First and last sound must match. Ambiguous negators (la, ma, di, nt...) never fuzzy-match."""
+    if len(word) < 3:
+        return []
+    key = sound_key(word)
+    if len(key) < 3:
+        return []
+    out: list[tuple[Entry, float]] = []
+    for form, fkey, e in lex.by_first.get(key[:1], ()):
+        if e.category != "negation" or e.ambiguous or " " in form or len(fkey) < 3 or fkey[-1] != key[-1] or fkey == key:
+            continue
+        gap = len(fkey) - len(key)
+        if 1 <= gap <= 2 and _is_subsequence(key, fkey):
+            removed = [c for c in fkey if c not in key] if gap else []
+            if all(c in _VOWELS for c in removed):  # SMS style: only vowels dropped
+                out.append((e, 85.0))
+                continue
+        r = fuzz.ratio(key, fkey)
+        if len(key) >= 4 and abs(gap) <= 1 and r >= 85:
+            out.append((e, r - 4))
+        elif len(key) >= 5 and gap == 0 and r >= 80:
+            out.append((e, r - 4))
+    return out
 
 
 def _phrase_candidates(words: list[str], lex: Lexicon) -> list[Cand]:

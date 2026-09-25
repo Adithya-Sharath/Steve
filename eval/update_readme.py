@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -48,6 +49,25 @@ def build(d: dict) -> str:
         lines += ["", "**LLM baseline: not run** (no Gemini key when this was generated), so no comparison is claimed. Set `GEMINI_API_KEY` and run `make eval`."]
     lines += ["", "**Caveats** (please read):"] + [f"- {c}" for c in d["caveats"]]
     return "\n".join(lines)
+
+
+def count_tests(folder: str) -> int:
+    """Run a package's pytest suite and return the number that passed; refuse to write numbers for a red suite."""
+    out = subprocess.run([sys.executable, "-m", "pytest", "-q", "--no-header", "-p", "no:cacheprovider"], cwd=ROOT / folder, capture_output=True, text=True)
+    m = re.search(r"(\d+) passed", out.stdout)
+    if out.returncode != 0 or not m:
+        sys.exit(f"{folder} tests are not green; not updating README counts:\n{out.stdout[-600:]}")
+    return int(m.group(1))
+
+
+def refresh_counts(text: str) -> str:
+    e, a = count_tests("engine"), count_tests("api")
+    text = re.sub(r"engine%20tests-\d+%20passing", f"engine%20tests-{e}%20passing", text)
+    text = re.sub(r"api%20tests-\d+%20passing", f"api%20tests-{a}%20passing", text)
+    text = re.sub(r"\(\d+ engine tests\)", f"({e} engine tests)", text)
+    text = re.sub(r"engine \d+ \+ API \d+", f"engine {e} + API {a}", text)
+    counts = iter([e, a])
+    return re.sub(r"\(\+\d+ tests\)", lambda _: f"(+{next(counts)} tests)", text)
 
 
 def main() -> None:

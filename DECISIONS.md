@@ -71,3 +71,14 @@ hand-written replies. We do not report baseline numbers unless the baseline actu
 * "daily/roz" alone is weak evidence (inferred), never a hard "wrong".
 * Weak (inferred) values can support a result but never contradict one.
 * Two unmatched facts of the same kind + one stray value => `unclear`, not `wrong` (we can't know which fact it answers).
+
+## D12 — Negation robustness (supersedes part of D6)
+*Trigger:* `dnt stop if rash` returned `understood`, the worst possible error.
+* Added SMS/typo negators: `dnt, donot, "do nt", didnt, "did not", dontt, wont` (English); `mt`, `na` (Hindi); `mo` (Arabizi); `di`, `hnd/hndi` (Tagalog); `nt`, `dun`, `dn` (English SMS). `dont, nhi, nai, wag, la` already existed.
+* **D6 said `na` and `mo` were deliberately excluded** (Tagalog "na" = already/linker, would negate "tigil na"; Tagalog "mo" = "your"). They are now included **but guarded**, so those Tagalog uses stay safe (tested):
+  * `na` (Hindi) only counts within 2 tokens of a Hindi verb ("band na karo"); otherwise it stays a Tagalog filler.
+  * `mo` (Arabizi) and `di` (Tagalog) are `ambiguous`: they count only with same-language neighbours.
+  * `nt`/`dun`/`dn` count only right next to an English verb (stop, take, call...): Tagalog "dun" = "there".
+* The matcher now fuzzy-matches **known negators only** (`_negator_typos`): SMS vowel-dropping (`dnt`->`dont`), one dropped/inserted letter (len>=4), one substitution (len>=5), first and last sound must match; ambiguous negators never fuzzy-match. Ordinary look-alikes (`note`, `dot`, `don`, `nod`) are tested not to match.
+* Everything here can only move a result towards `negated`/`unclear`, never towards `understood`.
+* Also: `eval/update_readme.py` now refreshes the test counts in the README (and refuses to if a suite is red).

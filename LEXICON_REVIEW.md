@@ -6,9 +6,9 @@ Every non-English entry is **unverified**. Native speakers: please check each li
 (1) is the meaning right? (2) are these spellings something people really type? (3) is anything missing that people say in real life?
 Wrong or doubtful words should be removed rather than guessed. Change `verified: false` → `true` per entry in the YAML once checked.
 
-Total entries: **298** across **5** languages.
+Total entries: **303** across **5** languages.
 
-## English (`en`) — 93 entries — verified (plain English)
+## English (`en`) — 94 entries — verified (plain English)
 
 Suffixes stripped when matching: `-es`, `-s`
 
@@ -107,7 +107,8 @@ Suffixes stripped when matching: `-es`, `-s`
 |---|---|---|---|---|
 | [x] | **no** | yes | nope |  |
 | [x] | **not** | yes |  |  |
-| [x] | **don't** | yes | dont, do not, dont't, doesn't, doesnt, shouldn't, shouldnt, mustn't, mustnt, never |  |
+| [x] | **don't** | yes | dont, do not, dont't, doesn't, doesnt, shouldn't, shouldnt, mustn't, mustnt, never, dnt, donot, do nt, didnt, didn't, did not, dontt, dnt, wont, won't |  |
+| [x] | **nt** | yes | dun, dn | needs nearby: stop/stp/take/taking |
 
 ### 'stop'
 
@@ -335,7 +336,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **sheri** | yes | sheriyaanu, shari, sheriyaa |  |
 | [ ] | **aanu** | yes | aan, ennu, enn |  |
 
-## Hindi / Urdu (romanized / Hinglish) (`hi`) — 55 entries — UNVERIFIED — needs a native speaker
+## Hindi / Urdu (romanized / Hinglish) (`hi`) — 57 entries — UNVERIFIED — needs a native speaker
 
 ### number
 
@@ -410,6 +411,8 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 |---|---|---|---|---|
 | [ ] | **nahi** | yes | nahin, nhi, nahee, nai, nahiin, nahii |  |
 | [ ] | **mat** | yes | matt |  |
+| [ ] | **mt** | yes |  | needs nearby: karo/kar/kro/kijiye |
+| [ ] | **na** | yes |  | needs nearby: karo/kar/kro/kijiye |
 
 ### 'stop'
 
@@ -477,7 +480,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **ke** | yes | ki, ka, ko, se, k, hai, hain, tha, ho, hoga, liye, me, mein, aur |  |
 | [ ] | **theek** | yes | thik, thek, accha, acha, hanji |  |
 
-## Arabic (Gulf; romanized / Arabizi) (`ar`) — 46 entries — UNVERIFIED — needs a native speaker
+## Arabic (Gulf; romanized / Arabizi) (`ar`) — 47 entries — UNVERIFIED — needs a native speaker
 
 ### number
 
@@ -547,6 +550,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **la** | yes | laa | ambiguous |
 | [ ] | **ma** | yes | maa | ambiguous |
 | [ ] | **mub** | yes | moub, mob, mu3 |  |
+| [ ] | **mo** | yes | mu | ambiguous |
 
 ### 'stop'
 
@@ -600,7 +604,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 |---|---|---|---|---|
 | [ ] | **al** | yes | el, il, wa, ala, 3ala, fi, min, be, bi |  |
 
-## Tagalog (Taglish) (`tl`) — 48 entries — UNVERIFIED — needs a native speaker
+## Tagalog (Taglish) (`tl`) — 49 entries — UNVERIFIED — needs a native speaker
 
 Suffixes stripped when matching: `-ng`
 
@@ -668,7 +672,8 @@ Suffixes stripped when matching: `-ng`
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
 | [ ] | **huwag** | yes | wag, huwaag, hwag, wagg, huag, huwagg |  |
-| [ ] | **hindi** | yes | hindii, hnde, hindee, hinde |  |
+| [ ] | **hindi** | yes | hindii, hnde, hindee, hinde, hnd, hndi |  |
+| [ ] | **di** | yes |  | ambiguous |
 
 ### 'stop'
 

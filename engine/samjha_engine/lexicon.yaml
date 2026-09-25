@@ -95,7 +95,9 @@ languages:
       # negation
       - {canonical: "no", category: negation, value: true, variants: [nope]}
       - {canonical: not, category: negation, value: true}
-      - {canonical: "don't", category: negation, value: true, variants: [dont, "do not", "dont't", "doesn't", "doesnt", "shouldn't", "shouldnt", "mustn't", "mustnt", "never"]}
+      - {canonical: "don't", category: negation, value: true, variants: [dont, "do not", "dont't", "doesn't", "doesnt", "shouldn't", "shouldnt", "mustn't", "mustnt", "never", dnt, donot, "do nt", didnt, "didn't", "did not", dontt, dnt, "wont", "won't"]}
+      # SMS negators that are also ordinary words elsewhere ("dun" = Tagalog "there"): only count right next to an English verb
+      - {canonical: nt, category: negation, value: true, requires_near: [stop, stp, take, taking, continue, call, eat, go, travel, use, drink, give, keep], variants: [dun, dn]}
       # actions
       - {canonical: stop, category: action_stop, value: stop, variants: [stopping, stopped, discontinue, quit]}
       - {canonical: call, category: action_call, value: call, variants: [phone, contact, inform, tell, calling, informing]}
@@ -242,6 +244,8 @@ languages:
       - {canonical: khane, category: food_relation, value: food, variants: [khana, khaane, khaana, khaney, khane, khanaa, khaye, khaya]}
       - {canonical: nahi, category: negation, value: true, variants: [nahin, nhi, nahee, nai, nahiin, nahii]}
       - {canonical: mat, category: negation, value: true, variants: [matt]}
+      - {canonical: mt, category: negation, value: true, requires_near: [karo, kar, kro, kijiye, do, dena, jana, lena, lo, band, rok]}
+      - {canonical: na, category: negation, value: true, requires_near: [karo, kar, kro, kijiye, do, dena, jana, lena, lo, leni, band, rok, khana]}
       - {canonical: band, category: action_stop, value: stop, requires_near: [karo, kar, kro, kijiye, kijiyega, do, dena, mat, kardo, kardena]}
       - {canonical: rok, category: action_stop, value: stop, requires_near: [do, dena, karo, kar, dijiye, mat, rokdo, dijiyega]}
       - {canonical: bata, category: action_call, value: call, variants: [batao, batana, bataana, bataiye]}
@@ -304,6 +308,7 @@ languages:
       - {canonical: la, category: negation, value: true, ambiguous: true, variants: [laa]}
       - {canonical: ma, category: negation, value: true, ambiguous: true, variants: [maa]}
       - {canonical: mub, category: negation, value: true, variants: [moub, mob, mu3, mub]}
+      - {canonical: mo, category: negation, value: true, ambiguous: true, variants: [mu]}
       - {canonical: wagif, category: action_stop, value: stop, variants: [waqqif, waggif, waqif, wa2if, wagf, waqef, wagef, waggef, waqqef, tawaqaf]}
       - {canonical: ittasil, category: action_call, value: call, variants: [ittasel, etasil, itasil, ittasal, etasel]}
       - {canonical: kammel, category: action_continue, value: continue, variants: [kamil, kamel, kammil, kaml]}
@@ -353,7 +358,8 @@ languages:
       - {canonical: bago, category: food_relation, value: before, variants: [bago, bagoo, bagu]}
       - {canonical: kumain, category: food_relation, value: food, variants: [kumain, kumaen, kumen, kain, pagkain, kumaen, kumainn]}
       - {canonical: huwag, category: negation, value: true, variants: [wag, huwaag, hwag, wagg, huag, huwagg]}
-      - {canonical: hindi, category: negation, value: true, variants: [hindi, hindii, hnde, hindee, hinde]}
+      - {canonical: hindi, category: negation, value: true, variants: [hindi, hindii, hnde, hindee, hinde, hnd, hndi]}
+      - {canonical: di, category: negation, value: true, ambiguous: true}
       - {canonical: itigil, category: action_stop, value: stop, variants: [tigil, itigil, itigill, ihinto, hinto, itiil, tigill]}
       - {canonical: tumawag, category: action_call, value: call, variants: [tawag, tumawaag, tumwag, tumawg, sabihin, magsabi, magsabihan]}
       - {canonical: bumalik, category: action_return, value: come_back, variants: [balik, bumalik, bumaalik, bmalik, bumalikk]}
