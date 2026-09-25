@@ -60,14 +60,14 @@ export function PipelineDiagram({
             )}
             aria-current={on ? "step" : undefined}
           >
-            <button type="button" disabled={!onSelect} onClick={() => onSelect?.(i)} className="block w-full text-left disabled:cursor-default" aria-label={`Show stage ${i + 1}: ${s.title}`}>
+            <button type="button" disabled={!onSelect} onClick={() => onSelect?.(i)} className="block w-full text-left disabled:cursor-default">
             <div className="flex items-center gap-3">
               <span className={cn("grid size-9 place-items-center rounded-xl transition-colors", on ? "bg-primary text-primary-foreground" : "bg-teal-soft text-primary")}>
                 <Icon className="size-[18px]" aria-hidden />
               </span>
               <div>
                 <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Stage {i + 1}</p>
-                <h3 className="font-medium leading-tight">{s.title}</h3>
+                <span className="block font-medium leading-tight">{s.title}</span>
               </div>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.body}</p>

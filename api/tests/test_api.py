@@ -165,3 +165,29 @@ def test_broker_pubsub():
         assert b.publish("m1", {"x": 2}) == 0
 
     asyncio.run(go())
+
+
+def test_voice_reply_via_stt_interface(client, monkeypatch):
+    """Sarvam call is mocked: the transcript (romanised, verbatim) goes through the engine like typed text."""
+    import httpx
+
+    seen = {}
+
+    def fake_post(url, headers=None, files=None, data=None, timeout=None):
+        seen.update(url=url, key=headers["api-subscription-key"], data=data, fname=files["file"][0])
+        return httpx.Response(200, json={"request_id": "x", "transcript": "randu gulika food kazhinju oru week", "language_code": "ml-IN"},
+                              request=httpx.Request("POST", url))
+
+    monkeypatch.setattr(settings, "sarvam_api_key", "test-key")
+    monkeypatch.setattr(settings, "stt_flag", True)
+    monkeypatch.setattr("app.services.stt.httpx.post", fake_post)
+    _, _, conf = _flow(client)
+    t = conf["reader_token"]
+    assert client.get(f"/r/{t}").json()["stt_enabled"] is True
+    r = client.post(f"/r/{t}/reply", files={"audio": ("reply.wav", b"RIFFxxxx", "audio/wav")}, data={"lang_hint": "ml"})
+    assert r.status_code == 200 and r.json() == {"received": True}
+    assert seen["url"] == "https://api.sarvam.ai/speech-to-text" and seen["key"] == "test-key"
+    assert seen["data"]["model"] == "saaras:v3" and seen["data"]["mode"] == "translit" and seen["data"]["language_code"] == "ml-IN"
+    msg = client.get("/messages").json()[0]
+    detail = client.get(f"/messages/{msg['id']}").json()
+    assert detail["replies"][-1]["source"] == "voice" and "oru week" in detail["replies"][-1]["text"]

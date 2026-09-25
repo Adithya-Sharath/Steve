@@ -26,7 +26,7 @@ function BucketChart({ title, metric, ours, base }: { title: string; metric: "ac
   const hasBase = data.some((d) => d.Baseline != null);
   return (
     <div className="card-soft p-5">
-      <h3 className="font-medium">{title}</h3>
+      <h2 className="font-medium">{title}</h2>
       <div className="mt-4 h-64" role="img" aria-label={`${title}: ${data.map((d) => `${d.name} ${d.Ours}%`).join(", ")}`}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 4, right: 8, left: -18, bottom: 0 }}>
@@ -48,7 +48,7 @@ function Confusion({ matrix, label }: { matrix: Record<string, Record<string, nu
   const max = Math.max(1, ...STATUSES.flatMap((g) => STATUSES.map((p) => matrix[g]?.[p] ?? 0)));
   return (
     <div className="card-soft overflow-x-auto p-5">
-      <h3 className="font-medium">Confusion matrix · {label}</h3>
+      <h2 className="font-medium">Confusion matrix · {label}</h2>
       <p className="text-xs text-muted-foreground">Rows: what a human says is right (gold). Columns: what the system said.</p>
       <table className="mt-4 w-full min-w-[480px] border-separate border-spacing-1 text-center text-sm">
         <thead>
@@ -109,7 +109,7 @@ function Explorer({ cases, hasBaseline }: { cases: EvalCase[]; hasBaseline: bool
   return (
     <div className="card-soft p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h3 className="font-medium">Error explorer <span className="text-sm font-normal text-muted-foreground">({rows.length} cases)</span></h3>
+        <h2 className="font-medium">Error explorer <span className="text-sm font-normal text-muted-foreground">({rows.length} cases)</span></h2>
         <div className="flex flex-wrap gap-2">
           <select className={sel} value={who} onChange={(e) => setWho(e.target.value as typeof who)} aria-label="Who was wrong">
             <option value="either">Either system wrong</option><option value="engine">Our engine wrong</option>{hasBaseline && <option value="baseline">Baseline wrong</option>}
@@ -189,7 +189,7 @@ function Body({ r }: { r: EvalResults }) {
 
       {Object.keys(eng.by_source).length > 0 && (
         <div className="card-soft p-5">
-          <h3 className="font-medium">Synthetic vs hand-written</h3>
+          <h2 className="font-medium">Synthetic vs hand-written</h2>
           <p className="text-sm text-muted-foreground">Synthetic variants reuse vocabulary the lexicon already knows, so they flatter the engine. Trust the hand-written row more, and add your own replies.</p>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {Object.entries(eng.by_source).map(([k, b]) => (
