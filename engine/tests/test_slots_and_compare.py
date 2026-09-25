@@ -298,3 +298,114 @@ def test_lexicon_loads_and_only_english_is_verified():
     lex = get_lexicon()
     assert len(lex.entries) > 250
     assert all(e.verified == (e.lang == "en") for e in lex.entries)
+
+
+# ---------------------------------------------------------------- rate phrases ("per day")
+def test_daily_marker_does_not_conflict_with_explicit_count(run):
+    f = [mk("f", "frequency", 2)]
+    assert run(f, "roz do baar")["f"].status == U
+    assert run(f, "twice daily")["f"].status == U
+    assert run(f, "dinavum randu neram")["f"].status == U
+    assert run([mk("f", "frequency", 1)], "roz")["f"].status == U
+
+
+def test_lone_one_day_after_frequency_is_a_rate_not_a_duration(run):
+    d = [mk("d", "duration", 1, "day")]
+    assert run(d, "dalawang beses sa isang araw")["d"].status == M
+    assert run(d, "twice a day")["d"].status == M
+    both = [mk("f", "frequency", 2), mk("d", "duration", 5, "day")]
+    res = run(both, "dalawang beses sa isang araw, limang araw")
+    assert res["f"].status == U and res["d"].status == U
+    assert run(d, "1 day")["d"].status == U
+
+
+# ---------------------------------------------------------------- found by reading the eval errors
+def test_arabizi_digit_words_are_not_split_into_number_plus_word(run):
+    # "7ma" (fever) used to be split into 7 + "ma" (negation) and negate the action
+    r = run([cond("c", "fever", "call")], "law 7ma ittasil")["c"]
+    assert r.status != N
+
+
+def test_do_before_english_unit_is_two_in_hinglish(run):
+    assert run([mk("d", "dose", 2, "bottle")], "do bottle")["d"].status == U
+    assert run([mk("d", "dose", 2, "puff")], "do puffs")["d"].status == U
+    assert run([mk("d", "dose", 2, "photo")], "do photos")["d"].status == U
+    # ...but a verb "do" is still not a number
+    assert run([mk("d", "dose", 2, "tablet")], "do not take")["d"].status == M
+    assert run([mk("d", "dose", 2, "tablet")], "what do you do")["d"].status == M
+
+
+def test_typo_in_a_negation_word_still_negates(run):
+    assert run([mk("d", "duration", 5, "day")], "hndi lima araw")["d"].status == N
+    assert run([mk("c", "condition", {"trigger": "travel", "action": "avoid", "text": ""})], "huwg bumiyahe")["c"].status == U
+
+
+def test_a_day_is_a_rate_even_if_the_frequency_word_is_misspelled(run):
+    both = [mk("b", "duration", 15, "minute"), mk("d", "duration", 1, "day")]
+    res = run(both, "twce a day, 15 minute break")
+    assert res["b"].status == U and res["d"].status == M
+    assert run([mk("d", "duration", 1, "day")], "for a day")["d"].status == U
+
+
+def test_period_word_is_only_weak_evidence(run):
+    r = run([mk("f", "frequency", 2)], "dinavum ranu neram")["f"]  # count unreadable: must not become "wrong"
+    assert r.status in (M, C)
+    r = run([mk("f", "frequency", 2)], "daily")["f"]
+    assert r.status == C  # daily alone != twice a day
+
+
+def test_bare_countable_object_counts_as_one(run):
+    assert run([mk("d", "dose", 1, "form")], "signed form")["d"].status == U
+    assert run([mk("d", "dose", 1, "bottle")], "water bottle")["d"].status == U
+    assert run([mk("d", "dose", 2, "bottle")], "water bottle")["d"].status == C  # mentioned, but no number to check
+    assert run([mk("d", "dose", 1, "tablet")], "tablet leni hai")["d"].status == M  # medication is never guessed
+    assert run([mk("d", "dose", 1, "bottle")], "2 bottle")["d"].status == W
+
+
+def test_clock_and_weekday_facts_do_not_blame_each_other(run):
+    facts = [mk("t", "date", "06:00"), mk("d", "date", "sunday")]
+    res = run(facts, "friday, 2 photos")
+    assert res["d"].status == W and res["t"].status == M
+
+
+def test_two_unmatched_same_kind_facts_are_unclear_not_wrong(run):
+    facts = [mk("trip", "date", "monday"), mk("due", "date", "friday")]
+    res = run(facts, "saturday")
+    assert res["trip"].status == C and res["due"].status == C
+
+
+def test_no_sound_key_collisions_between_different_meanings():
+    """A misspelling must never be equally close to two different meanings (e.g. sab3a=7 vs sabah=morning)."""
+    from samjha_engine.lexicon import get_lexicon
+    from samjha_engine.normalize import phrase_key, sound_key
+
+    seen: dict[str, set[tuple]] = {}
+    for e in get_lexicon().entries:
+        for f in e.forms:
+            k = phrase_key(f) if " " in f else sound_key(f)
+            if len(k) >= 4:  # 3-letter words are matched exactly, never by sound
+                seen.setdefault(k, set()).add((e.category, str(e.value)))
+    clashes = {k: v for k, v in seen.items() if len(v) > 1}
+    assert not clashes, clashes
+
+
+# ---------------------------------------------------------------- found by the blind held-out run
+def test_short_number_words_never_fuzzy_match_other_words(run):
+    # Hindi "aankh" (eye) used to fuzzy-match Malayalam "anchu" (5)
+    assert run([mk("d", "duration", 5, "day")], "aankh mein din")["d"].status == M
+    assert run([mk("d", "duration", 5, "day")], "ek ek boond dono aankh mein, das din")["d"].status == W
+
+
+def test_for_a_week_after_daily_is_a_duration(run):
+    assert run([mk("d", "duration", 7, "day")], "thrice daily for a week")["d"].status == U
+    assert run([mk("d", "duration", 1, "day")], "twice a day")["d"].status == M
+
+
+def test_plural_marrat_is_a_counter_not_once(run):
+    assert run([mk("f", "frequency", 3)], "thalatha marrat")["f"].status == U
+    assert run([mk("f", "frequency", 3)], "marrat")["f"].status != W  # no count: never "once"
+    assert run([mk("f", "frequency", 1)], "marra")["f"].status == U
+
+
+def test_hindi_boond_is_a_drop(run):
+    assert run([mk("d", "dose", 1, "drop")], "ek boond")["d"].status == U

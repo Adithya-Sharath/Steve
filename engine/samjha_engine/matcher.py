@@ -178,9 +178,22 @@ def _single_candidates(word: str, lex: Lexicon) -> list[Cand]:
             for form, fkey, e in lex.by_first.get(key[:1], ()):
                 if " " in form or len(fkey) < 4 or abs(len(fkey) - len(key)) > 2:
                     continue
+                # numbers are what the whole product turns on: a spurious digit-word is far worse than a missed one,
+                # so short number words only match exactly / by sound key ("aankh" must never become 5)
+                if e.category in ("number", "number_mult") and len(fkey) < 8:
+                    continue
                 r = fuzz.ratio(key, fkey)
                 if r >= FUZZY_MIN_RATIO:
                     _best(cands, e, r - 3, "fuzzy")
+    if len(word) == 4 and not cands:
+        # negation words are safety-critical: tolerate one dropped letter ("hndi" -> "hindi", "huwg" -> "huwag")
+        key4 = sound_key(word)
+        for form, fkey, e in lex.by_first.get(key4[:1], ()):
+            if e.category != "negation" or " " in form or len(fkey) - len(key4) != 1 or fkey[-1:] != key4[-1:]:
+                continue
+            r = fuzz.ratio(key4, fkey)
+            if r >= 88:
+                _best(cands, e, r - 4, "fuzzy")
     return list(cands.values())
 
 
@@ -257,6 +270,9 @@ def match_tokens(tokens: list[Token], text: str, lang_hint: str | None = None, l
     def supported(e: Entry, i: int, j: int) -> bool:
         if lang_hint and e.lang == lang_hint:
             return True
+        # code-mixing: "do bottle", "do puffs" (Hindi 2 + an English unit) - a number directly before a unit word
+        if e.category == "number" and next_content_cat(j) & {"unit", "duration_unit", "currency"}:
+            return True
         for k in range(max(0, i - 3), min(n, j + 4)):
             if tokens[k].sent != tokens[i].sent:
                 continue
@@ -297,7 +313,8 @@ def match_tokens(tokens: list[Token], text: str, lang_hint: str | None = None, l
             if e.adjacent_only:
                 if not (next_content_cat(j) & {"unit", "duration_unit"}):
                     continue
-                if prev_content_cat(i) & {"frequency_phrase"}:
+                # "twice a day" -> a rate; but "thrice daily for a week" -> a duration (raw word before 'a' is 'for')
+                if prev_content_cat(i) & {"frequency_phrase"} and (i == 0 or tokens[i - 1].norm != "for"):
                     continue
             keep.append((e, s, k, st))
         if keep:
@@ -398,6 +415,6 @@ def _combine(a: Match, b: Match, val: float, tokens: list[Token], text: str) -> 
 
 def prepare(text: str, lang_hint: str | None = None, lex: Lexicon | None = None) -> Ctx:
     lex = lex or get_lexicon()
-    toks = split_glued(tokenize(text), lex.has_form)
+    toks = split_glued(tokenize(text), lex.has_form, lex.is_anchor_form)
     matches = match_tokens(toks, text, lang_hint, lex)
     return Ctx(text=text, tokens=toks, matches=matches, lang_hint=lang_hint)

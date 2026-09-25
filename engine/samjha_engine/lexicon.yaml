@@ -12,6 +12,7 @@
 #   ambiguous: true        also a common word elsewhere; only counts with same-language support
 #   adjacent_only: true    only valid directly before a unit word ("a week")
 #   negates: true          the word carries its own negation ("nirthanda" = don't stop)
+#   period: true           a 'per day' marker (daily/roz): counts as once a day ONLY if no other frequency was said
 #   implicit: N            a counter word that means N when no number accompanies it ("marra")
 #   requires_near: [...]   only counts when one of these raw tokens is within 2 tokens ("band karo")
 #
@@ -71,7 +72,7 @@ languages:
       - {canonical: thrice, category: frequency_phrase, value: 3}
       - {canonical: times, category: frequency_phrase, value: counter, variants: [time, x]}
       - {canonical: every, category: frequency_phrase, value: every, variants: [each]}
-      - {canonical: daily, category: frequency_phrase, value: 1, variants: [everyday]}
+      - {canonical: daily, category: frequency_phrase, value: 1, period: true, variants: [everyday]}
       - {canonical: alternate, category: frequency_phrase, value: 0.5, variants: ["every other day", "alternate days", "alternate day"]}
       # timing
       - {canonical: morning, category: timing, value: morning, variants: [mornings]}
@@ -157,10 +158,11 @@ languages:
       - {canonical: pathu, category: number, value: 10, variants: [padhu, pathuu, patthu]}
       - {canonical: gulika, category: unit, value: tablet, variants: [gulikha, gulica, gulik, gulikakal, gulikal]}
       - {canonical: thulli, category: unit, value: drop, variants: [tulli, thuli]}
+      - {canonical: ellaa, category: frequency_phrase, value: every, variants: [ella, ellaam]}
       - {canonical: neram, category: frequency_phrase, value: counter, variants: [neeram, neramm]}
       - {canonical: thavana, category: frequency_phrase, value: counter, variants: [thavanna, tavana, thavane]}
       - {canonical: pravashyam, category: frequency_phrase, value: counter, variants: [pravasyam, pravashyam]}
-      - {canonical: dinavum, category: frequency_phrase, value: 1, variants: [dhinavum, dinam]}
+      - {canonical: dinavum, category: frequency_phrase, value: 1, period: true, variants: [dhinavum, dinam]}
       - {canonical: divasam, category: duration_unit, value: day, variants: [divasham, divasathil, dhivasam, divasangal, divasa, divsam, divasathekku]}
       - {canonical: aazhcha, category: duration_unit, value: week, variants: [azhcha, aazhchha, aazhchakal, azhchakal, aazhchayil]}
       - {canonical: maasam, category: duration_unit, value: month, variants: [masam, maasham, maasangal, maasathil]}
@@ -218,10 +220,11 @@ languages:
       - {canonical: das, category: number, value: 10, variants: [dus, dass]}
       - {canonical: sau, category: number_mult, value: 100, variants: [sao]}
       - {canonical: aadha, category: number, value: 0.5, variants: [adha, aadhi, adhi, aadhaa]}
+      - {canonical: boond, category: unit, value: drop, variants: [boondh, bund, boonde, boondein]}
       - {canonical: goli, category: unit, value: tablet, variants: [golee, golie, goliyan, goliyaan, goliya, golis]}
       - {canonical: baar, category: frequency_phrase, value: counter, variants: [bar, baarr, baaar]}
       - {canonical: dafa, category: frequency_phrase, value: counter, variants: [dafah, dfa]}
-      - {canonical: roz, category: frequency_phrase, value: 1, variants: [rozana, roj, rojana]}
+      - {canonical: roz, category: frequency_phrase, value: 1, period: true, variants: [rozana, roj, rojana]}
       - {canonical: har, category: frequency_phrase, value: every, variants: [hr]}
       - {canonical: din, category: duration_unit, value: day, variants: [dino, dinn, deen]}
       - {canonical: hafta, category: duration_unit, value: week, variants: [hafte, haphta, haftey, haphte, hafto, haftaa]}
@@ -273,17 +276,18 @@ languages:
       - {canonical: arba3a, category: number, value: 4, variants: [arbaa, arb3a, arba3ah, arbaah, arbe3a, arbaa3a]}
       - {canonical: khamsa, category: number, value: 5, variants: [5amsa, khamse, khamsah, khamsaa, 5amse, khamisa]}
       - {canonical: sitta, category: number, value: 6, variants: [sita, sittah, settah, seta, sitah]}
-      - {canonical: sab3a, category: number, value: 7, variants: [sabaa, saba3a, sabaah, sab3ah, sab3aa]}
+      - {canonical: sab3a, category: number, value: 7, variants: [sabaa, saba3a, sab3aa]}
       - {canonical: thamanya, category: number, value: 8, variants: [thmanya, tmanya, thamania, thamaniya, tamanya, tamania, thamanyah]}
       - {canonical: tis3a, category: number, value: 9, variants: [tisaa, tesaa, tis3ah, tisa3a, tes3a, tisa]}
       - {canonical: 3ashra, category: number, value: 10, variants: [ashra, a3shra, 3asharah, 3ashrah, ashrah, 3ashara]}
       - {canonical: nuss, category: number, value: 0.5, variants: [nus, noss, nos]}
       - {canonical: habba, category: unit, value: tablet, variants: [7abba, 7aba, haba, habbat, 7abbat, 7abbah, habbah, 7abbaat]}
       - {canonical: kabsula, category: unit, value: capsule, variants: [kabsulah, kapsula, kabsulat]}
-      - {canonical: marra, category: frequency_phrase, value: counter, implicit: 1, variants: [marah, mara, marrah, marrat, marraat, marat]}
+      - {canonical: marra, category: frequency_phrase, value: counter, implicit: 1, variants: [marah, mara, marrah]}
+      - {canonical: marrat, category: frequency_phrase, value: counter, variants: [marraat, marat, marrata]}
       - {canonical: marratain, category: frequency_phrase, value: 2, variants: [maratain, marratein, marrtain, marratayn, marratin, marrten]}
       - {canonical: kul, category: frequency_phrase, value: every, variants: [kol, kel]}
-      - {canonical: yawmiyan, category: frequency_phrase, value: 1, variants: [yomiyan, yawmiyyan, yomeyan, youmiyan]}
+      - {canonical: yawmiyan, category: frequency_phrase, value: 1, period: true, variants: [yomiyan, yawmiyyan, yomeyan, youmiyan]}
       - {canonical: yom, category: duration_unit, value: day, variants: [youm, yawm, yaum, yoom, yowm]}
       - {canonical: ayyam, category: duration_unit, value: day, variants: [ayam, ayaam, aiyam, ayyaam]}
       - {canonical: esbou3, category: duration_unit, value: week, variants: [usbu3, isbou3, usbou3, esbo3, usbua, esbuu3, isbu3, esbou3]}

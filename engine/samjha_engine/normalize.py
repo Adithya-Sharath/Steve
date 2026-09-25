@@ -105,12 +105,13 @@ def tokenize(text: str) -> list[Token]:
     return tokens
 
 
-def split_glued(tokens: list[Token], is_known: Callable[[str], bool]) -> list[Token]:
-    """'5days' -> '5' + 'days', but leave lexicon words like '3ashra' / '7abba' alone."""
+def split_glued(tokens: list[Token], is_known: Callable[[str], bool], can_follow_digits: Callable[[str], bool]) -> list[Token]:
+    """'5days' -> '5' + 'days' — only when the letters are a unit/counter word. Words like '3ashra', '7abba', '7ma'
+    (Arabizi: digits are letters) are never split."""
     out: list[Token] = []
     for t in tokens:
         m = _GLUED.match(t.norm) if t.kind == "word" else None
-        if m and not is_known(t.norm):
+        if m and not is_known(t.norm) and can_follow_digits(m.group(2)):
             digits, letters = m.group(1), m.group(2)
             split_at = t.start + len(digits)
             out.append(

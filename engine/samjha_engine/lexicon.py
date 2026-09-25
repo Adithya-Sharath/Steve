@@ -27,6 +27,7 @@ class Entry:
     adjacent_only: bool = False
     negates: bool = False
     implicit: float | None = None
+    period: bool = False
     requires_near: tuple[str, ...] = ()
 
     @property
@@ -80,6 +81,13 @@ class Lexicon:
     def has_form(self, norm: str) -> bool:
         return norm in self.by_form
 
+    def is_anchor_form(self, norm: str) -> bool:
+        """A word that can follow a glued digit ("5days", "2tabs", "3x"): unit / counter / duration unit / currency."""
+        return any(
+            e.category in ("unit", "duration_unit", "currency") or (e.category == "frequency_phrase" and e.value == "counter")
+            for e in self.by_form.get(norm, ())
+        )
+
     def entries_for(self, lang: str | None = None, category: str | None = None) -> list[Entry]:
         return [e for e in self.entries if (lang is None or e.lang == lang) and (category is None or e.category == category)]
 
@@ -96,6 +104,7 @@ def _entry(raw: dict, lang: str, verified_default: bool) -> Entry:
         adjacent_only=bool(raw.get("adjacent_only", False)),
         negates=bool(raw.get("negates", False)),
         implicit=raw.get("implicit"),
+        period=bool(raw.get("period", False)),
         requires_near=tuple(str(x) for x in raw.get("requires_near", []) or []),
     )
 

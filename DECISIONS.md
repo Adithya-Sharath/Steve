@@ -50,3 +50,24 @@ have no lexicon hit, never numerics.
 The synthetic eval variants are generated from templates written by the team using vocabulary the lexicon already
 knows, so they overestimate real-world accuracy. They are flagged `synthetic=true` and reported separately from
 hand-written replies. We do not report baseline numbers unless the baseline actually ran.
+
+## D10 — Evaluation history (kept here because it is history, not a result)
+* Development set: 72 hand-written replies (`hw-*`) + 447 synthetic. While building it we read every engine error and fixed the
+  *general* bugs they exposed (Arabizi digit-words being split, "do bottle", "roz do baar", "a day" read as a duration,
+  dates blaming each other, one typo'd negator producing the only false "understood"). So those numbers are development numbers.
+* Blind held-out set: 39 harder replies (`ho-*`) written after the engine was frozen for that round and evaluated **once**.
+  **First blind run: 87.4% accuracy, 0 false "understood" out of 41 not-understood facts** (all errors on the safe side:
+  missing/unclear, plus one question-style reply flagged "wrong").
+* We then fixed what that run exposed (numbers never fuzzy-match short words: Hindi "aankh" had matched Malayalam 5;
+  "thrice daily for a week"; plural "marrat"; Hindi "boond"). The held-out set is therefore **no longer blind**; its later numbers
+  are development numbers too. Real blind data must come from teammates (README: "Adding real replies").
+* The false-"understood" rate is 0 on our data, but the denominators are small (69 hand-written, 41 held-out) and the data
+  are ours. 0/41 is NOT evidence of 0%. The known residual risk is a misspelled negation word we do not recognise.
+
+## D11 — Safety rules added after reading the errors
+* Number words never fuzzy-match (only exact / by-ear key / suffix), because a spurious digit is worse than a missed one.
+* Negation words tolerate one dropped letter ("hndi" -> "hindi").
+* A lone "a/1 day" after a frequency word ("twce a day", "sa isang araw") is a rate, not a 1-day duration. "for a day" still is one.
+* "daily/roz" alone is weak evidence (inferred), never a hard "wrong".
+* Weak (inferred) values can support a result but never contradict one.
+* Two unmatched facts of the same kind + one stray value => `unclear`, not `wrong` (we can't know which fact it answers).

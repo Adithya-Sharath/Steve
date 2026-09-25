@@ -204,11 +204,34 @@ def _bare_numbers_reason(env: Env) -> str:
 # ------------------------------------------------------------------------------------------------
 # numeric-style facts: dose, frequency, duration, amount, date
 # ------------------------------------------------------------------------------------------------
+def _date_kind(v: str) -> str:
+    v = str(v)
+    if ":" in v:
+        return "clock"
+    if len(v) == 10 and v[4] == "-" or (len(v) == 5 and v[2] == "-"):
+        return "iso"
+    return "weekday"
+
+
+def _slot_key(t: FactType, unit: str | None, value: object = None) -> object:
+    """Which facts of the same type could a stray heard value belong to?"""
+    if t == FactType.dose:
+        return _unit_class(unit)
+    if t == FactType.duration:
+        return unit or "day"
+    if t == FactType.amount:
+        return (unit or "").upper()
+    if t == FactType.date:
+        return _date_kind(str(value))
+    return None
+
+
 def compare_slot(env: Env, fact: Fact) -> FactResult:
     H = env.slots.heard.get(fact.type, [])
-    explicit = [h for h in H if not h.inferred]
-    if explicit:
-        H = explicit
+    if fact.type == FactType.date:  # a heard weekday says nothing about a clock time, and vice versa
+        H = [h for h in H if _date_kind(str(h.value)) == _date_kind(str(fact.value))]
+    # an inferred value is dropped when an explicit value of the same kind was said
+    H = [h for h in H if not h.inferred or not any((not e.inferred) and e.unit == h.unit for e in H)]
     noun = {
         FactType.dose: "a dose",
         FactType.frequency: "how often",
@@ -220,7 +243,12 @@ def compare_slot(env: Env, fact: Fact) -> FactResult:
 
     match_active = [h for h in H if h_equals(h, fact) and not h.negated]
     match_neg = [h for h in H if h_equals(h, fact) and h.negated]
-    foreign = [h for h in H if not h_equals(h, fact) and not h.negated and not _claimed_by_other(env, h, fact)]
+    foreign = [
+        h for h in H
+        if not h_equals(h, fact) and not h.negated and not _claimed_by_other(env, h, fact)
+        # a countable object mentioned without a number ("passport copy") says nothing about a different unit
+        and not (h.inferred and h.type == FactType.dose and _unit_class(h.unit) != _unit_class(fact.unit))
+    ]
     src = lambda h: f"'{h.surface(env.ctx.text)}'"  # noqa: E731
 
     # other facts of this type that nothing in the reply matched can "absorb" a stray value:
@@ -228,13 +256,20 @@ def compare_slot(env: Env, fact: Fact) -> FactResult:
     spare = sum(1 for o in env.facts if o.id != fact.id and o.type == fact.type and not any(h_equals(h, o) for h in H))
     if match_active:
         best = max(match_active, key=lambda h: h.confidence)
-        if len(foreign) > spare:
-            f0 = foreign[0]
+        strong = [h for h in foreign if not h.inferred]  # weak (inferred) values can support but never contradict
+        if len(strong) > spare:
+            f0 = strong[0]
             return _result(
                 fact, Status.unclear, describe_heard(env, f0), best.matches + f0.matches, env, 0.5,
                 f"Heard both {describe_heard(env, best)} ({src(best)}) and {describe_heard(env, f0)} ({src(f0)}); expected {want}. Conflicting, so not marked understood.",
             )
-        suffix = " (inferred from the times of day mentioned)" if best.inferred else ""
+        suffix = ""
+        if best.inferred:
+            suffix = (
+                " (inferred from the times of day mentioned)" if best.extra.get("from")
+                else " (mentioned without a number, so counted as one)" if best.type == FactType.dose
+                else " (inferred from a 'daily' word)"
+            )
         return _result(
             fact, Status.understood, best.value if fact.type != FactType.duration else best.value, best.matches, env, best.confidence,
             f"Heard {src(best)} = {describe_heard(env, best)}; matches expected {want}{suffix}.",
@@ -248,11 +283,24 @@ def compare_slot(env: Env, fact: Fact) -> FactResult:
         )
     if foreign:
         h = max(foreign, key=lambda x: x.confidence)
-        if h.inferred:  # only guessed from times of day: flag it, but never call it "wrong"
+        # two facts of this kind are both unmatched: a stray value could be the wrong answer for EITHER, so say so
+        rivals = [
+            o for o in env.facts
+            if o.type == fact.type and not any(h_equals(x, o) for x in H)
+            and _slot_key(o.type, o.unit, o.value) == _slot_key(h.type, h.unit, h.value)
+        ]
+        if len(rivals) >= 2:
             return _result(
-                fact, Status.unclear, h.value, h.matches, env, min(h.confidence, 0.55),
-                f"No explicit frequency was said; the times of day mentioned ({src(h)}) suggest {describe_heard(env, h)}, expected {want}. Please check.",
+                fact, Status.unclear, h.value, h.matches, env, min(h.confidence, 0.5),
+                f"Heard {src(h)} = {describe_heard(env, h)}, but it is unclear which of {len(rivals)} similar facts it answers; expected {want}.",
             )
+        if h.inferred:  # only guessed: flag it, but never call it "wrong"
+            why = (
+                f"Mentioned {src(h)} without a number; the message says {want}. Please check."
+                if h.type == FactType.dose
+                else f"No explicit frequency was said; {src(h)} suggests {describe_heard(env, h)}, expected {want}. Please check."
+            )
+            return _result(fact, Status.unclear, h.value, h.matches, env, min(h.confidence, 0.55), why)
         extra = ""
         return _result(
             fact, Status.wrong, h.value, h.matches, env, h.confidence,

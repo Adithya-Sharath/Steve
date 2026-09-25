@@ -1,0 +1,1384 @@
+{
+ "generated_at": "2026-09-25T20:49:22+00:00",
+ "n_fact_checks": 2254,
+ "n_replies": 558,
+ "n_synthetic": 447,
+ "n_handwritten": 111,
+ "engine": {
+  "available": true,
+  "overall": {
+   "n": 2254,
+   "correct": 2180,
+   "accuracy": 0.9671694764862466,
+   "false_understood": 0,
+   "false_understood_denominator": 921,
+   "false_understood_rate": 0.0
+  },
+  "by_language": {
+   "arabizi": {
+    "n": 402,
+    "correct": 386,
+    "accuracy": 0.9601990049751243,
+    "false_understood": 0,
+    "false_understood_denominator": 188,
+    "false_understood_rate": 0.0
+   },
+   "english": {
+    "n": 504,
+    "correct": 497,
+    "accuracy": 0.9861111111111112,
+    "false_understood": 0,
+    "false_understood_denominator": 209,
+    "false_understood_rate": 0.0
+   },
+   "hinglish": {
+    "n": 496,
+    "correct": 474,
+    "accuracy": 0.9556451612903226,
+    "false_understood": 0,
+    "false_understood_denominator": 193,
+    "false_understood_rate": 0.0
+   },
+   "manglish": {
+    "n": 426,
+    "correct": 414,
+    "accuracy": 0.971830985915493,
+    "false_understood": 0,
+    "false_understood_denominator": 160,
+    "false_understood_rate": 0.0
+   },
+   "taglish": {
+    "n": 426,
+    "correct": 409,
+    "accuracy": 0.960093896713615,
+    "false_understood": 0,
+    "false_understood_denominator": 171,
+    "false_understood_rate": 0.0
+   }
+  },
+  "by_type": {
+   "amount": {
+    "n": 181,
+    "correct": 180,
+    "accuracy": 0.994475138121547,
+    "false_understood": 0,
+    "false_understood_denominator": 83,
+    "false_understood_rate": 0.0
+   },
+   "condition": {
+    "n": 323,
+    "correct": 297,
+    "accuracy": 0.9195046439628483,
+    "false_understood": 0,
+    "false_understood_denominator": 153,
+    "false_understood_rate": 0.0
+   },
+   "date": {
+    "n": 456,
+    "correct": 438,
+    "accuracy": 0.9605263157894737,
+    "false_understood": 0,
+    "false_understood_denominator": 167,
+    "false_understood_rate": 0.0
+   },
+   "dose": {
+    "n": 534,
+    "correct": 523,
+    "accuracy": 0.9794007490636704,
+    "false_understood": 0,
+    "false_understood_denominator": 223,
+    "false_understood_rate": 0.0
+   },
+   "duration": {
+    "n": 315,
+    "correct": 310,
+    "accuracy": 0.9841269841269841,
+    "false_understood": 0,
+    "false_understood_denominator": 131,
+    "false_understood_rate": 0.0
+   },
+   "frequency": {
+    "n": 283,
+    "correct": 271,
+    "accuracy": 0.9575971731448764,
+    "false_understood": 0,
+    "false_understood_denominator": 100,
+    "false_understood_rate": 0.0
+   },
+   "timing": {
+    "n": 162,
+    "correct": 161,
+    "accuracy": 0.9938271604938271,
+    "false_understood": 0,
+    "false_understood_denominator": 64,
+    "false_understood_rate": 0.0
+   }
+  },
+  "by_source": {
+   "handwritten": {
+    "n": 318,
+    "correct": 314,
+    "accuracy": 0.9874213836477987,
+    "false_understood": 0,
+    "false_understood_denominator": 69,
+    "false_understood_rate": 0.0
+   },
+   "held-out": {
+    "n": 175,
+    "correct": 156,
+    "accuracy": 0.8914285714285715,
+    "false_understood": 0,
+    "false_understood_denominator": 41,
+    "false_understood_rate": 0.0
+   },
+   "synthetic": {
+    "n": 1761,
+    "correct": 1710,
+    "accuracy": 0.9710391822827938,
+    "false_understood": 0,
+    "false_understood_denominator": 811,
+    "false_understood_rate": 0.0
+   }
+  },
+  "confusion": {
+   "understood": {
+    "understood": 1304,
+    "wrong": 0,
+    "missing": 17,
+    "negated": 2,
+    "unclear": 10
+   },
+   "wrong": {
+    "understood": 0,
+    "wrong": 299,
+    "missing": 5,
+    "negated": 0,
+    "unclear": 13
+   },
+   "missing": {
+    "understood": 0,
+    "wrong": 1,
+    "missing": 443,
+    "negated": 0,
+    "unclear": 14
+   },
+   "negated": {
+    "understood": 0,
+    "wrong": 0,
+    "missing": 1,
+    "negated": 134,
+    "unclear": 11
+   },
+   "unclear": {
+    "understood": 0,
+    "wrong": 0,
+    "missing": 0,
+    "negated": 0,
+    "unclear": 0
+   }
+  },
+  "consistency": {
+   "mean_agreement": 1.0,
+   "items": 558,
+   "runs": 2,
+   "note": "deterministic code; identical output on repeat runs (asserted in run_engine.py)"
+  }
+ },
+ "baseline": {
+  "available": false,
+  "note": "GEMINI_API_KEY not set; baseline skipped"
+ },
+ "cases": [
+  {
+   "reply_id": "hw-012",
+   "message_id": "pharmacy",
+   "fact_id": "rash",
+   "fact_label": "Stop if rash",
+   "lang_mix": "arabizi",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "ithnain habba ba3d al akl marratain 5 ayyam, law sar 7asasiya waqqif el dawa",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'waqqif' (stop) but no mention of 'rash', so it isn't clear when."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "hw-025",
+   "message_id": "child-syrup",
+   "fact_id": "fever",
+   "fact_label": "Call if fever",
+   "lang_mix": "arabizi",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "khamsa ml thalatha marrat sab3a ayyam, law 7ma ittasil",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'ittasil' (call) but no mention of 'fever', so it isn't clear when."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "hw-029",
+   "message_id": "site-safety",
+   "fact_id": "break_at",
+   "fact_label": "at 12:30",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": false,
+   "reply_text": "har ghante ek bottle paani, saadhe barah baje 15 minute break, chakkar aaye to kaam band kar dena",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a date/time (expected 12:30)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "hw-064",
+   "message_id": "bedtime-tablet",
+   "fact_id": "dur",
+   "fact_label": "14 days",
+   "lang_mix": "hinglish",
+   "fact_type": "duration",
+   "synthetic": false,
+   "reply_text": "sone se pehle ek goli, chaudah din",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how long (expected 14 days)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-002",
+   "message_id": "pharmacy",
+   "fact_id": "dur",
+   "fact_label": "5 days",
+   "lang_mix": "hinglish",
+   "fact_type": "duration",
+   "synthetic": false,
+   "reply_text": "sir main do goli lunga khana khane ke baad, subah aur shaam, pura hafta",
+   "gold": "wrong",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how long (expected 5 days)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-003",
+   "message_id": "pharmacy",
+   "fact_id": "rash",
+   "fact_label": "Stop if rash",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "dawai din mein 2 baar leni hai, khane ke baad, 5 din tak, rash ho jaye to doctor ko dikhana",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'rash' but not what to do about it (stop)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-004",
+   "message_id": "pharmacy",
+   "fact_id": "rash",
+   "fact_label": "Stop if rash",
+   "lang_mix": "arabizi",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "akhod ithnain habba ba3d el akl, marratain fi el yom, khamsa ayyam, w law sar 7asasiya awaqqif",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "No mention of 'rash' or what to do about it."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-006",
+   "message_id": "pharmacy",
+   "fact_id": "rash",
+   "fact_label": "Stop if rash",
+   "lang_mix": "taglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "iinom ko po yung gamot 2 tabs after meals, dalawang beses sa isang araw, 5 days, tapos kung magka-rash titigil po ako",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'rash' but not what to do about it (stop)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-010",
+   "message_id": "pharmacy",
+   "fact_id": "timing",
+   "fact_label": "after food",
+   "lang_mix": "hinglish",
+   "fact_type": "timing",
+   "synthetic": false,
+   "reply_text": "goli khane se pehle leni hai ya baad mein?",
+   "gold": "missing",
+   "engine": {
+    "status": "wrong",
+    "reason": "Heard before food; expected after food."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-012",
+   "message_id": "child-syrup",
+   "fact_id": "fever",
+   "fact_label": "Call if fever",
+   "lang_mix": "manglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "kuttikku anju ml moonu neram, oru aazhcha, pani vannal clinic vilikkanam",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'vilikkanam' (call) but no mention of 'fever', so it isn't clear when."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-013",
+   "message_id": "child-syrup",
+   "fact_id": "fever",
+   "fact_label": "Call if fever",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "5 mls thrice daily for a week, ring the clinic if temperature",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'temperature' but not what to do about it (call)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-016",
+   "message_id": "site-safety",
+   "fact_id": "break_at",
+   "fact_label": "at 12:30",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": false,
+   "reply_text": "har ghante ek bottle pani, dopahar saade barah baje 15 min ka break, chakkar aaye to supervisor ko batana",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a date/time (expected 12:30)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-016",
+   "message_id": "site-safety",
+   "fact_id": "dizzy",
+   "fact_label": "Stop work if dizzy",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "har ghante ek bottle pani, dopahar saade barah baje 15 min ka break, chakkar aaye to supervisor ko batana",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'chakkar' but not what to do about it (stop)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-018",
+   "message_id": "site-safety",
+   "fact_id": "water",
+   "fact_label": "1 bottle of water",
+   "lang_mix": "taglish",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "kada oras isang bote ng tubig, 12:30 break ng 15 minuto, kung nahihilo tumigil sa trabaho",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('isang') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-018",
+   "message_id": "site-safety",
+   "fact_id": "dizzy",
+   "fact_label": "Stop work if dizzy",
+   "lang_mix": "taglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "kada oras isang bote ng tubig, 12:30 break ng 15 minuto, kung nahihilo tumigil sa trabaho",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "No mention of 'dizzy' or what to do about it."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-020",
+   "message_id": "site-safety",
+   "fact_id": "hourly",
+   "fact_label": "every hour",
+   "lang_mix": "english",
+   "fact_type": "frequency",
+   "synthetic": false,
+   "reply_text": "drink water and take break in the shade around noon",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "No explicit frequency was said; 'noon' suggests once a day, expected 24 times a day. Please check."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-022",
+   "message_id": "visa-hr",
+   "fact_id": "no_travel",
+   "fact_label": "No travel until visa stamped",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "2 photo aur copy guruvaar tak, 150 rupaye fees, visa aane tak bahar mat jana",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "No mention of the restriction: Do not travel until your visa is stamped."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-023",
+   "message_id": "visa-hr",
+   "fact_id": "no_travel",
+   "fact_label": "No travel until visa stamped",
+   "lang_mix": "taglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "dalawang photo sa huwebes, 150 AED, pwede na akong bumiyahe",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'bumiyahe' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-024",
+   "message_id": "visa-hr",
+   "fact_id": "no_travel",
+   "fact_label": "No travel until visa stamped",
+   "lang_mix": "manglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "randu photo, vyazham vare, 150 dirham, visa stamp cheythittu mathram yathra",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'yathra' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-029",
+   "message_id": "school-trip",
+   "fact_id": "bottle",
+   "fact_label": "1 water bottle",
+   "lang_mix": "taglish",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "lunes ang field trip, 30 dirham at form sa biyernes, magdala ng bote ng tubig",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a dose (expected 1 bottle)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-031",
+   "message_id": "child-rash-med",
+   "fact_id": "rash",
+   "fact_label": "Call if rash",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "1 tablet after food, 2 times a day, 3 days, and if there is any rash I will stop giving it",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'rash' but not what to do about it (call)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-036",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "shukravaar ko aana hai, din mein do baar, paanch din, safar theek hai",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'safar' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "ho-037",
+   "message_id": "inhaler",
+   "fact_id": "dizzy",
+   "fact_label": "Stop if dizzy",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "2 puffs twice daily, if I feel dizzy I keep using it",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'dizzy' but not what to do about it (stop)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-pharmacy-hi-3",
+   "message_id": "pharmacy",
+   "fact_id": "dose",
+   "fact_label": "2 tablets",
+   "lang_mix": "hinglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "alright rash aaye to rok mat do, khane se pehle, roz 2 baar paanch din",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('do') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-pharmacy-ar-1",
+   "message_id": "pharmacy",
+   "fact_id": "dose",
+   "fact_label": "2 tablets",
+   "lang_mix": "arabizi",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "marratain, thaltha tablet, khmse ayyam",
+   "gold": "wrong",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a dose (expected 2 tablets)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-pharmacy-ar-1",
+   "message_id": "pharmacy",
+   "fact_id": "dur",
+   "fact_label": "5 days",
+   "lang_mix": "arabizi",
+   "fact_type": "duration",
+   "synthetic": true,
+   "reply_text": "marratain, thaltha tablet, khmse ayyam",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how long (expected 5 days)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-pharmacy-ta-1",
+   "message_id": "pharmacy",
+   "fact_id": "dose",
+   "fact_label": "2 tablets",
+   "lang_mix": "taglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "dalawang tableet . bago kumain",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('dalawang') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-pharmacy-ta-1",
+   "message_id": "pharmacy",
+   "fact_id": "freq",
+   "fact_label": "twice a day",
+   "lang_mix": "taglish",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "dalawang tableet . bago kumain",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('dalawang') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-pharmacy-ta-1",
+   "message_id": "pharmacy",
+   "fact_id": "dur",
+   "fact_label": "5 days",
+   "lang_mix": "taglish",
+   "fact_type": "duration",
+   "synthetic": true,
+   "reply_text": "dalawang tableet . bago kumain",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('dalawang') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-site-safety-ma-4",
+   "message_id": "site-safety",
+   "fact_id": "dizzy",
+   "fact_label": "Stop work if dizzy",
+   "lang_mix": "manglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "onnu bottle . twice a day . 12:30, dzzy vannaal nirthu",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'nirthu' (stop) but no mention of 'dizzy', so it isn't clear when."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-site-safety-hi-0",
+   "message_id": "site-safety",
+   "fact_id": "water",
+   "fact_label": "1 bottle of water",
+   "lang_mix": "hinglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "12:30 . 15 minute, har ghante teen boottle",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('teen') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-site-safety-hi-2",
+   "message_id": "site-safety",
+   "fact_id": "hourly",
+   "fact_label": "every hour",
+   "lang_mix": "hinglish",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "twce a day, 12:30 15 minute ji",
+   "gold": "wrong",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how often (expected 24 times a day)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-site-safety-ar-0",
+   "message_id": "site-safety",
+   "fact_id": "hourly",
+   "fact_label": "every hour",
+   "lang_mix": "arabizi",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "tice a day, 15 daqiqa 12:30, 1 bottle, law dizzy wagif",
+   "gold": "wrong",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how often (expected 24 times a day)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-site-safety-en-5",
+   "message_id": "site-safety",
+   "fact_id": "hourly",
+   "fact_label": "every hour",
+   "lang_mix": "english",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "15 minutes eery hour stop takiing it if dizzy",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how often (expected 24 times a day)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-visa-hr-ma-3",
+   "message_id": "visa-hr",
+   "fact_id": "photos",
+   "fact_label": "2 photos",
+   "lang_mix": "manglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "vyazham randu poto",
+   "gold": "understood",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('randu') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-visa-hr-ma-3",
+   "message_id": "visa-hr",
+   "fact_id": "fee",
+   "fact_label": "150 AED",
+   "lang_mix": "manglish",
+   "fact_type": "amount",
+   "synthetic": true,
+   "reply_text": "vyazham randu poto",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('randu') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-visa-hr-ma-4",
+   "message_id": "visa-hr",
+   "fact_id": "no_travel",
+   "fact_label": "No travel until visa stamped",
+   "lang_mix": "manglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "vyazham, 200 dhs rendu photo, I can travel",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-visa-hr-ar-0",
+   "message_id": "visa-hr",
+   "fact_id": "no_travel",
+   "fact_label": "No travel until visa stamped",
+   "lang_mix": "arabizi",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "I can travel mub 150 dirham khamis, 2 photo",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-visa-hr-ta-5",
+   "message_id": "visa-hr",
+   "fact_id": "no_travel",
+   "fact_label": "No travel until visa stamped",
+   "lang_mix": "taglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "huwebes 150 AED, I can travel",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-ma-4",
+   "message_id": "school-trip",
+   "fact_id": "trip",
+   "fact_label": "trip on Monday",
+   "lang_mix": "manglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "30 dhs, saturday, oru form, oru bottle",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-ma-4",
+   "message_id": "school-trip",
+   "fact_id": "due",
+   "fact_label": "by Friday",
+   "lang_mix": "manglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "30 dhs, saturday, oru form, oru bottle",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected friday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-hi-5",
+   "message_id": "school-trip",
+   "fact_id": "trip",
+   "fact_label": "trip on Monday",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "tuesday, 30 dhs",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'tuesday' = tuesday, but it is unclear which of 2 similar facts it answers; expected monday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-hi-5",
+   "message_id": "school-trip",
+   "fact_id": "due",
+   "fact_label": "by Friday",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "tuesday, 30 dhs",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'tuesday' = tuesday, but it is unclear which of 2 similar facts it answers; expected friday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-ar-4",
+   "message_id": "school-trip",
+   "fact_id": "trip",
+   "fact_label": "trip on Monday",
+   "lang_mix": "arabizi",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "wahed form, 30 diram youm al khamis, wa7ed bottlle theek hai",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'khamis' = thursday, but it is unclear which of 2 similar facts it answers; expected monday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-ar-4",
+   "message_id": "school-trip",
+   "fact_id": "due",
+   "fact_label": "by Friday",
+   "lang_mix": "arabizi",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "wahed form, 30 diram youm al khamis, wa7ed bottlle theek hai",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'khamis' = thursday, but it is unclear which of 2 similar facts it answers; expected friday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-ta-2",
+   "message_id": "school-trip",
+   "fact_id": "trip",
+   "fact_label": "trip on Monday",
+   "lang_mix": "taglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "hindi isang bottle . 30 AED, Saturday . isang form",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'Saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-trip-ta-2",
+   "message_id": "school-trip",
+   "fact_id": "due",
+   "fact_label": "by Friday",
+   "lang_mix": "taglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "hindi isang bottle . 30 AED, Saturday . isang form",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'Saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected friday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-child-syrup-ta-3",
+   "message_id": "child-syrup",
+   "fact_id": "dose",
+   "fact_label": "5 ml",
+   "lang_mix": "taglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "kapag lagnat tumawag . lmang ml",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a dose (expected 5 mls)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-inhaler-ma-1",
+   "message_id": "inhaler",
+   "fact_id": "freq",
+   "fact_label": "twice a day",
+   "lang_mix": "manglish",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "alright dinavum ranu neram, rndu puff venda, dizzy vannal nirthanam",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how often (expected 2 times a day)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-inhaler-hi-0",
+   "message_id": "inhaler",
+   "fact_id": "freq",
+   "fact_label": "twice a day",
+   "lang_mix": "hinglish",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "do puff, dizzy aaye to rok mat do",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('do') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-inhaler-ar-0",
+   "message_id": "inhaler",
+   "fact_id": "dose",
+   "fact_label": "2 puffs",
+   "lang_mix": "arabizi",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "tamam mub ithain puffs, marratain",
+   "gold": "negated",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a dose (expected 2 puffs)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-inhaler-ar-0",
+   "message_id": "inhaler",
+   "fact_id": "freq",
+   "fact_label": "twice a day",
+   "lang_mix": "arabizi",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "tamam mub ithain puffs, marratain",
+   "gold": "understood",
+   "engine": {
+    "status": "negated",
+    "reason": "Heard 'marratain' but negated by 'mub'; the message says 2 times a day."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-inhaler-en-3",
+   "message_id": "inhaler",
+   "fact_id": "freq",
+   "fact_label": "twice a day",
+   "lang_mix": "english",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "if dizzy, continue, two puffs, twie a day",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how often (expected 2 times a day)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-eye-drops-ta-4",
+   "message_id": "eye-drops",
+   "fact_id": "dose",
+   "fact_label": "1 drop",
+   "lang_mix": "taglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "ok sir sampu araw, tatlong beses isng araw, iang patak ok sir",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a dose (expected 1 drop)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-payslip-ta-2",
+   "message_id": "payslip",
+   "fact_id": "paid",
+   "fact_label": "paid Thursday",
+   "lang_mix": "taglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "sheri biyernes isang form, biyernes, 2530 dhs noted",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'biyernes' = friday, but it is unclear which of 2 similar facts it answers; expected thursday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-payslip-ta-2",
+   "message_id": "payslip",
+   "fact_id": "due",
+   "fact_label": "form by Monday",
+   "lang_mix": "taglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "sheri biyernes isang form, biyernes, 2530 dhs noted",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'biyernes' = friday, but it is unclear which of 2 similar facts it answers; expected monday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-fee-hi-5",
+   "message_id": "school-fee",
+   "fact_id": "due",
+   "fact_label": "pay by Wednesday",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "nahi 450 AED, shanivaar ravivaar",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'shanivaar' = saturday, but it is unclear which of 2 similar facts it answers; expected wednesday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-fee-hi-5",
+   "message_id": "school-fee",
+   "fact_id": "reopen",
+   "fact_label": "reopens Monday",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "nahi 450 AED, shanivaar ravivaar",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'shanivaar' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-fee-ar-2",
+   "message_id": "school-fee",
+   "fact_id": "due",
+   "fact_label": "pay by Wednesday",
+   "lang_mix": "arabizi",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "450 dirham, sabt, sabt",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'sabt' = saturday, but it is unclear which of 2 similar facts it answers; expected wednesday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-fee-ar-2",
+   "message_id": "school-fee",
+   "fact_id": "reopen",
+   "fact_label": "reopens Monday",
+   "lang_mix": "arabizi",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "450 dirham, sabt, sabt",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'sabt' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-school-fee-ta-1",
+   "message_id": "school-fee",
+   "fact_id": "reopen",
+   "fact_label": "reopens Monday",
+   "lang_mix": "taglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "450 dirham luns . miyerkules",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a date/time (expected monday)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-child-rash-med-ma-1",
+   "message_id": "child-rash-med",
+   "fact_id": "dose",
+   "fact_label": "1 tablet",
+   "lang_mix": "manglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "ok munnu divasam, onnu neam . rash vannal vilikkanam",
+   "gold": "missing",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('onnu') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-child-rash-med-ma-1",
+   "message_id": "child-rash-med",
+   "fact_id": "freq",
+   "fact_label": "twice a day",
+   "lang_mix": "manglish",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "ok munnu divasam, onnu neam . rash vannal vilikkanam",
+   "gold": "wrong",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard a number ('onnu') with no unit word, so it can't be tied to this fact."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-child-rash-med-ar-0",
+   "message_id": "child-rash-med",
+   "fact_id": "dur",
+   "fact_label": "3 days",
+   "lang_mix": "arabizi",
+   "fact_type": "duration",
+   "synthetic": true,
+   "reply_text": "wa7ed tablet marratain, wahid ayyam, ba3d el akl rash la ittasil",
+   "gold": "wrong",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how long (expected 3 days)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-ma-2",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "manglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "okay okay I can travel, friday, 1 neram noted",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-hi-0",
+   "message_id": "clinic-followup",
+   "fact_id": "visit",
+   "fact_label": "back on Friday",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "roz 3 baar, traveel mat karo, shukravaar",
+   "gold": "understood",
+   "engine": {
+    "status": "negated",
+    "reason": "Heard 'shukravaar' but negated by 'mat'; the message says friday."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-hi-0",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "roz 3 baar, traveel mat karo, shukravaar",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "No mention of the restriction: Do not travel."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-hi-1",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "shukravaar paanch din, I can travel",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-hi-2",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "roz teen baar, friday, I can travel",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-hi-3",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "hinglish",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "alright friday paach din, I can travvel okay okay",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travvel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-ar-3",
+   "message_id": "clinic-followup",
+   "fact_id": "freq",
+   "fact_label": "3 times a day",
+   "lang_mix": "arabizi",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "thalathha marrat . khamsa ayyam I can travel",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how often (expected 3 times a day)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-ar-3",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "arabizi",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "thalathha marrat . khamsa ayyam I can travel",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-ta-1",
+   "message_id": "clinic-followup",
+   "fact_id": "freq",
+   "fact_label": "3 times a day",
+   "lang_mix": "taglish",
+   "fact_type": "frequency",
+   "synthetic": true,
+   "reply_text": "nooted talong beses sa isang araw, biyernes",
+   "gold": "understood",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear how often (expected 3 times a day)."
+   },
+   "baseline": null
+  },
+  {
+   "reply_id": "syn-clinic-followup-en-0",
+   "message_id": "clinic-followup",
+   "fact_id": "no_travel",
+   "fact_label": "No travel",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "thrice a day, I can travel",
+   "gold": "negated",
+   "engine": {
+    "status": "unclear",
+    "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
+   },
+   "baseline": null
+  }
+ ],
+ "caveats": [
+  "Synthetic variants are generated from team-written templates that reuse vocabulary the lexicon knows, so they overestimate real-world accuracy. Compare the hand-written row.",
+  "The hand-written seed replies were drafted by the developer/assistant, not native speakers, and the engine was iterated while looking at this set. Treat all numbers as development-set numbers.",
+  "Lexicon entries for non-English languages are unverified until native speakers review LEXICON_REVIEW.md.",
+  "Gold labels for synthetic rows come from construction; for hand-written rows from a human reading the reply. Some real-world replies are genuinely ambiguous.",
+  "The LLM baseline was not run (no Gemini key), so no comparison is claimed."
+ ]
+}

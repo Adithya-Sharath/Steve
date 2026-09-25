@@ -16,6 +16,8 @@ MINUTES = {"minute": 1.0, "hour": 60.0, "day": 1440.0, "week": 10080.0, "month":
 DAYS_PER_UNIT = {"minute": 1 / 1440, "hour": 1 / 24, "day": 1.0, "week": 7.0, "month": 30.0}
 TOD_GROUP = {"morning": "morning", "noon": "midday", "afternoon": "midday", "evening": "evening", "night": "night", "bedtime": "night"}
 INFERRED_FREQ_CONF = 0.72
+IMPLICIT_ONE_UNITS = {"bottle", "form", "copy"}
+IMPLICIT_ONE_CONF = 0.65
 INFERRED_SINGLE_FREQ_CONF = 0.5  # one time-of-day word alone is too weak to call "once a day"
 
 
@@ -107,17 +109,32 @@ def fill_slots(ctx: Ctx) -> Slots:
     for _d, _dir, a, n in pairs:
         if id(a) in used_anchor or id(n) in used_num:
             continue
-        # "twice a day": the article belongs to the rate, not to a 1-day duration
-        if a.category == "duration_unit" and n.entry.adjacent_only:
+        # "twice a day", "twce a day", "dalawang beses sa isang araw": a lone "a/1 day" is a RATE, not a 1-day duration
+        # (only "for a day" is a duration)
+        if a.category == "duration_unit" and a.value == "day" and (n.entry.adjacent_only or float(n.value) == 1):
             prev = _prev_content(ctx, n)
-            if prev is not None and prev.category == "frequency_phrase":
+            raw_prev = ctx.tokens[n.i - 1].norm if n.i > 0 else ""
+            if (prev is not None and prev.category == "frequency_phrase") or (n.entry.adjacent_only and raw_prev != "for"):
+                use(n, a)  # part of a rate phrase: consumed, not a stray number
+                used_anchor.add(id(a))
+                used_num.add(id(n))
+                continue
+        elif a.category == "duration_unit" and n.entry.adjacent_only:
+            prev = _prev_content(ctx, n)
+            raw_prev = ctx.tokens[n.i - 1].norm if n.i > 0 else ""
+            if prev is not None and prev.category == "frequency_phrase" and raw_prev != "for":
+                use(n, a)
+                used_anchor.add(id(a))
+                used_num.add(id(n))
                 continue
         used_anchor.add(id(a))
         used_num.add(id(n))
         _emit_anchored(ctx, heard, a, n)
         use(a, n)
 
-    # anchors without a number: implicit counters ("marra" = once)
+    # anchors without a number: implicit counters ("marra" = once); a bare countable object ("signed form",
+    # "water bottle") is weakly heard as ONE of them. Medication units are never guessed.
+    unpaired_counter = False
     for a in anchors:
         if id(a) in used_anchor:
             continue
@@ -126,12 +143,24 @@ def fill_slots(ctx: Ctx) -> Slots:
                 Heard(FactType.frequency, float(a.entry.implicit), None, [a], _conf([a], 0.9))
             )
             use(a)
+        elif a.category == "frequency_phrase":
+            unpaired_counter = True  # "… neram" with a count we could not read: don't guess the frequency
+        elif a.category == "unit" and a.value in IMPLICIT_ONE_UNITS:
+            heard[FactType.dose].append(Heard(FactType.dose, 1.0, str(a.value), [a], _conf([a], IMPLICIT_ONE_CONF), inferred=True))
+            use(a)
 
-    # -- fixed frequency words: once/twice/thrice/daily/marratain ------------------------------------
+    # -- fixed frequency words: once/twice/thrice/marratain (and "daily"-type markers, only as a last resort) ----
+    period: list[Match] = []
     for m in ctx.matches:
         if m.category == "frequency_phrase" and isinstance(m.value, int | float) and not isinstance(m.value, bool) and id(m) not in used:
+            if m.entry.period:
+                period.append(m)
+                continue
             heard[FactType.frequency].append(Heard(FactType.frequency, float(m.value), None, [m], _conf([m])))
             use(m)
+    if not heard[FactType.frequency] and not unpaired_counter:
+        for m in period[:1]:  # "daily" alone: weak evidence of once a day, never a hard "wrong"
+            heard[FactType.frequency].append(Heard(FactType.frequency, float(m.value), None, [m], _conf([m], 0.7), inferred=True))
 
     # -- timing ---------------------------------------------------------------------------------------
     _fill_timing(ctx, heard, use)

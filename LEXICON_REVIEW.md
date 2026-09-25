@@ -6,7 +6,7 @@ Every non-English entry is **unverified**. Native speakers: please check each li
 (1) is the meaning right? (2) are these spellings something people really type? (3) is anything missing that people say in real life?
 Wrong or doubtful words should be removed rather than guessed. Change `verified: false` → `true` per entry in the YAML once checked.
 
-Total entries: **295** across **5** languages.
+Total entries: **298** across **5** languages.
 
 ## English (`en`) — 93 entries — verified (plain English)
 
@@ -195,7 +195,7 @@ Suffixes stripped when matching: `-es`, `-s`
 |---|---|---|---|---|
 | [x] | **the** | yes | of, and, to, your, you, i, my, will, is, are, in, on, at, for, with, this, that, it, its, be, take, taking, took, need, should, must, please, ok, okay |  |
 
-## Malayalam (romanized / Manglish) (`ml`) — 55 entries — UNVERIFIED — needs a native speaker
+## Malayalam (romanized / Manglish) (`ml`) — 56 entries — UNVERIFIED — needs a native speaker
 
 Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `-um`
 
@@ -226,6 +226,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
+| [ ] | **ellaa** | every | ella, ellaam |  |
 | [ ] | **neram** | counter | neeram, neramm |  |
 | [ ] | **thavana** | counter | thavanna, tavana, thavane |  |
 | [ ] | **pravashyam** | counter | pravasyam |  |
@@ -334,7 +335,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **sheri** | yes | sheriyaanu, shari, sheriyaa |  |
 | [ ] | **aanu** | yes | aan, ennu, enn |  |
 
-## Hindi / Urdu (romanized / Hinglish) (`hi`) — 54 entries — UNVERIFIED — needs a native speaker
+## Hindi / Urdu (romanized / Hinglish) (`hi`) — 55 entries — UNVERIFIED — needs a native speaker
 
 ### number
 
@@ -362,6 +363,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
+| [ ] | **boond** | drop | boondh, bund, boonde, boondein |  |
 | [ ] | **goli** | tablet | golee, golie, goliyan, goliyaan, goliya, golis |  |
 
 ### frequency word
@@ -475,7 +477,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **ke** | yes | ki, ka, ko, se, k, hai, hain, tha, ho, hoga, liye, me, mein, aur |  |
 | [ ] | **theek** | yes | thik, thek, accha, acha, hanji |  |
 
-## Arabic (Gulf; romanized / Arabizi) (`ar`) — 45 entries — UNVERIFIED — needs a native speaker
+## Arabic (Gulf; romanized / Arabizi) (`ar`) — 46 entries — UNVERIFIED — needs a native speaker
 
 ### number
 
@@ -487,7 +489,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **arba3a** | 4 | arbaa, arb3a, arba3ah, arbaah, arbe3a, arbaa3a |  |
 | [ ] | **khamsa** | 5 | 5amsa, khamse, khamsah, khamsaa, 5amse, khamisa |  |
 | [ ] | **sitta** | 6 | sita, sittah, settah, seta, sitah |  |
-| [ ] | **sab3a** | 7 | sabaa, saba3a, sabaah, sab3ah, sab3aa |  |
+| [ ] | **sab3a** | 7 | sabaa, saba3a, sab3aa |  |
 | [ ] | **thamanya** | 8 | thmanya, tmanya, thamania, thamaniya, tamanya, tamania, thamanyah |  |
 | [ ] | **tis3a** | 9 | tisaa, tesaa, tis3ah, tisa3a, tes3a, tisa |  |
 | [ ] | **3ashra** | 10 | ashra, a3shra, 3asharah, 3ashrah, ashrah, 3ashara |  |
@@ -504,7 +506,8 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
-| [ ] | **marra** | counter | marah, mara, marrah, marrat, marraat, marat |  |
+| [ ] | **marra** | counter | marah, mara, marrah |  |
+| [ ] | **marrat** | counter | marraat, marat, marrata |  |
 | [ ] | **marratain** | 2 | maratain, marratein, marrtain, marratayn, marratin, marrten |  |
 | [ ] | **kul** | every | kol, kel |  |
 | [ ] | **yawmiyan** | 1 | yomiyan, yawmiyyan, yomeyan, youmiyan |  |

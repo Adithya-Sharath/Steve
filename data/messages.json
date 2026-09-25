@@ -1,0 +1,629 @@
+[
+ {
+  "id": "pharmacy",
+  "context": "pharmacy",
+  "text": "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.",
+  "source": "scenario",
+  "facts": [
+   {
+    "id": "dose",
+    "type": "dose",
+    "value": 2,
+    "unit": "tablet",
+    "critical": true,
+    "label": "2 tablets"
+   },
+   {
+    "id": "timing",
+    "type": "timing",
+    "value": "after_food",
+    "unit": null,
+    "critical": true,
+    "label": "after food"
+   },
+   {
+    "id": "freq",
+    "type": "frequency",
+    "value": 2,
+    "unit": null,
+    "critical": true,
+    "label": "twice a day"
+   },
+   {
+    "id": "dur",
+    "type": "duration",
+    "value": 5,
+    "unit": "day",
+    "critical": true,
+    "label": "5 days"
+   },
+   {
+    "id": "rash",
+    "type": "condition",
+    "value": {
+     "trigger": "rash",
+     "action": "stop",
+     "text": "Stop taking them if you get a rash"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "Stop if rash"
+   }
+  ]
+ },
+ {
+  "id": "site-safety",
+  "context": "workplace",
+  "text": "Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.",
+  "source": "scenario",
+  "facts": [
+   {
+    "id": "water",
+    "type": "dose",
+    "value": 1,
+    "unit": "bottle",
+    "critical": true,
+    "label": "1 bottle of water"
+   },
+   {
+    "id": "hourly",
+    "type": "frequency",
+    "value": 24,
+    "unit": null,
+    "critical": true,
+    "label": "every hour"
+   },
+   {
+    "id": "break_len",
+    "type": "duration",
+    "value": 15,
+    "unit": "minute",
+    "critical": true,
+    "label": "15-minute break"
+   },
+   {
+    "id": "break_at",
+    "type": "date",
+    "value": "12:30",
+    "unit": null,
+    "critical": true,
+    "label": "at 12:30"
+   },
+   {
+    "id": "dizzy",
+    "type": "condition",
+    "value": {
+     "trigger": "dizzy",
+     "action": "stop",
+     "text": "Stop work if you feel dizzy"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "Stop work if dizzy"
+   }
+  ]
+ },
+ {
+  "id": "visa-hr",
+  "context": "visa",
+  "text": "Submit your passport copy and 2 photos by Thursday. The fee is 150 AED. Do not travel until your visa is stamped.",
+  "source": "scenario",
+  "facts": [
+   {
+    "id": "photos",
+    "type": "dose",
+    "value": 2,
+    "unit": "photo",
+    "critical": true,
+    "label": "2 photos"
+   },
+   {
+    "id": "deadline",
+    "type": "date",
+    "value": "thursday",
+    "unit": null,
+    "critical": true,
+    "label": "by Thursday"
+   },
+   {
+    "id": "fee",
+    "type": "amount",
+    "value": 150,
+    "unit": "AED",
+    "critical": true,
+    "label": "150 AED"
+   },
+   {
+    "id": "no_travel",
+    "type": "condition",
+    "value": {
+     "trigger": "travel",
+     "action": "avoid",
+     "text": "Do not travel until your visa is stamped"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "No travel until visa stamped"
+   }
+  ]
+ },
+ {
+  "id": "school-trip",
+  "context": "school",
+  "text": "The school trip is on Monday. Send 30 AED and the signed form by Friday. Children must bring a water bottle.",
+  "source": "scenario",
+  "facts": [
+   {
+    "id": "trip",
+    "type": "date",
+    "value": "monday",
+    "unit": null,
+    "critical": true,
+    "label": "trip on Monday"
+   },
+   {
+    "id": "money",
+    "type": "amount",
+    "value": 30,
+    "unit": "AED",
+    "critical": true,
+    "label": "30 AED"
+   },
+   {
+    "id": "due",
+    "type": "date",
+    "value": "friday",
+    "unit": null,
+    "critical": true,
+    "label": "by Friday"
+   },
+   {
+    "id": "form",
+    "type": "dose",
+    "value": 1,
+    "unit": "form",
+    "critical": true,
+    "label": "1 signed form"
+   },
+   {
+    "id": "bottle",
+    "type": "dose",
+    "value": 1,
+    "unit": "bottle",
+    "critical": true,
+    "label": "1 water bottle"
+   }
+  ]
+ },
+ {
+  "id": "bp-tablet",
+  "context": "pharmacy",
+  "text": "Take 1 tablet every morning before food, for 30 days.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "dose",
+    "type": "dose",
+    "value": 1,
+    "unit": "tablet",
+    "critical": true,
+    "label": "1 tablet"
+   },
+   {
+    "id": "timing",
+    "type": "timing",
+    "value": [
+     "morning",
+     "before_food"
+    ],
+    "unit": null,
+    "critical": true,
+    "label": "morning, before food"
+   },
+   {
+    "id": "dur",
+    "type": "duration",
+    "value": 30,
+    "unit": "day",
+    "critical": true,
+    "label": "30 days"
+   }
+  ]
+ },
+ {
+  "id": "child-syrup",
+  "context": "pharmacy",
+  "text": "Give the child 5 ml three times a day for 7 days. Call the clinic if there is fever.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "dose",
+    "type": "dose",
+    "value": 5,
+    "unit": "ml",
+    "critical": true,
+    "label": "5 ml"
+   },
+   {
+    "id": "freq",
+    "type": "frequency",
+    "value": 3,
+    "unit": null,
+    "critical": true,
+    "label": "3 times a day"
+   },
+   {
+    "id": "dur",
+    "type": "duration",
+    "value": 7,
+    "unit": "day",
+    "critical": true,
+    "label": "7 days"
+   },
+   {
+    "id": "fever",
+    "type": "condition",
+    "value": {
+     "trigger": "fever",
+     "action": "call",
+     "text": "Call the clinic if there is fever"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "Call if fever"
+   }
+  ]
+ },
+ {
+  "id": "inhaler",
+  "context": "pharmacy",
+  "text": "Take 2 puffs twice a day. Stop and come back if you feel dizzy.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "dose",
+    "type": "dose",
+    "value": 2,
+    "unit": "puff",
+    "critical": true,
+    "label": "2 puffs"
+   },
+   {
+    "id": "freq",
+    "type": "frequency",
+    "value": 2,
+    "unit": null,
+    "critical": true,
+    "label": "twice a day"
+   },
+   {
+    "id": "dizzy",
+    "type": "condition",
+    "value": {
+     "trigger": "dizzy",
+     "action": "stop",
+     "text": "Stop if you feel dizzy"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "Stop if dizzy"
+   }
+  ]
+ },
+ {
+  "id": "eye-drops",
+  "context": "pharmacy",
+  "text": "Put 1 drop in each eye, 3 times a day, for 10 days.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "dose",
+    "type": "dose",
+    "value": 1,
+    "unit": "drop",
+    "critical": true,
+    "label": "1 drop"
+   },
+   {
+    "id": "freq",
+    "type": "frequency",
+    "value": 3,
+    "unit": null,
+    "critical": true,
+    "label": "3 times a day"
+   },
+   {
+    "id": "dur",
+    "type": "duration",
+    "value": 10,
+    "unit": "day",
+    "critical": true,
+    "label": "10 days"
+   }
+  ]
+ },
+ {
+  "id": "bedtime-tablet",
+  "context": "pharmacy",
+  "text": "Take 1 tablet at bedtime for 14 days. Call us if you get a rash.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "dose",
+    "type": "dose",
+    "value": 1,
+    "unit": "tablet",
+    "critical": true,
+    "label": "1 tablet"
+   },
+   {
+    "id": "timing",
+    "type": "timing",
+    "value": "bedtime",
+    "unit": null,
+    "critical": true,
+    "label": "at bedtime"
+   },
+   {
+    "id": "dur",
+    "type": "duration",
+    "value": 14,
+    "unit": "day",
+    "critical": true,
+    "label": "14 days"
+   },
+   {
+    "id": "rash",
+    "type": "condition",
+    "value": {
+     "trigger": "rash",
+     "action": "call",
+     "text": "Call us if you get a rash"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "Call if rash"
+   }
+  ]
+ },
+ {
+  "id": "shift-start",
+  "context": "workplace",
+  "text": "Report at 6:00 on Sunday. Bring 2 photos for the new ID card.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "time",
+    "type": "date",
+    "value": "06:00",
+    "unit": null,
+    "critical": true,
+    "label": "at 6:00"
+   },
+   {
+    "id": "day",
+    "type": "date",
+    "value": "sunday",
+    "unit": null,
+    "critical": true,
+    "label": "on Sunday"
+   },
+   {
+    "id": "photos",
+    "type": "dose",
+    "value": 2,
+    "unit": "photo",
+    "critical": true,
+    "label": "2 photos"
+   }
+  ]
+ },
+ {
+  "id": "payslip",
+  "context": "workplace",
+  "text": "Your salary of 2500 AED will be paid on Thursday. Submit your form by Monday.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "salary",
+    "type": "amount",
+    "value": 2500,
+    "unit": "AED",
+    "critical": true,
+    "label": "2500 AED"
+   },
+   {
+    "id": "paid",
+    "type": "date",
+    "value": "thursday",
+    "unit": null,
+    "critical": true,
+    "label": "paid Thursday"
+   },
+   {
+    "id": "due",
+    "type": "date",
+    "value": "monday",
+    "unit": null,
+    "critical": true,
+    "label": "form by Monday"
+   },
+   {
+    "id": "form",
+    "type": "dose",
+    "value": 1,
+    "unit": "form",
+    "critical": true,
+    "label": "1 form"
+   }
+  ]
+ },
+ {
+  "id": "visa-medical",
+  "context": "visa",
+  "text": "Do your medical test on Tuesday at 9:30 and bring 4 photos. The fee is 320 AED.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "day",
+    "type": "date",
+    "value": "tuesday",
+    "unit": null,
+    "critical": true,
+    "label": "on Tuesday"
+   },
+   {
+    "id": "time",
+    "type": "date",
+    "value": "09:30",
+    "unit": null,
+    "critical": true,
+    "label": "at 9:30"
+   },
+   {
+    "id": "photos",
+    "type": "dose",
+    "value": 4,
+    "unit": "photo",
+    "critical": true,
+    "label": "4 photos"
+   },
+   {
+    "id": "fee",
+    "type": "amount",
+    "value": 320,
+    "unit": "AED",
+    "critical": true,
+    "label": "320 AED"
+   }
+  ]
+ },
+ {
+  "id": "school-fee",
+  "context": "school",
+  "text": "Pay the fee of 450 AED by Wednesday. The school reopens on Monday.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "fee",
+    "type": "amount",
+    "value": 450,
+    "unit": "AED",
+    "critical": true,
+    "label": "450 AED"
+   },
+   {
+    "id": "due",
+    "type": "date",
+    "value": "wednesday",
+    "unit": null,
+    "critical": true,
+    "label": "pay by Wednesday"
+   },
+   {
+    "id": "reopen",
+    "type": "date",
+    "value": "monday",
+    "unit": null,
+    "critical": true,
+    "label": "reopens Monday"
+   }
+  ]
+ },
+ {
+  "id": "child-rash-med",
+  "context": "school",
+  "text": "Give the child 1 tablet after food, twice a day for 3 days. Call us if there is a rash.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "dose",
+    "type": "dose",
+    "value": 1,
+    "unit": "tablet",
+    "critical": true,
+    "label": "1 tablet"
+   },
+   {
+    "id": "timing",
+    "type": "timing",
+    "value": "after_food",
+    "unit": null,
+    "critical": true,
+    "label": "after food"
+   },
+   {
+    "id": "freq",
+    "type": "frequency",
+    "value": 2,
+    "unit": null,
+    "critical": true,
+    "label": "twice a day"
+   },
+   {
+    "id": "dur",
+    "type": "duration",
+    "value": 3,
+    "unit": "day",
+    "critical": true,
+    "label": "3 days"
+   },
+   {
+    "id": "rash",
+    "type": "condition",
+    "value": {
+     "trigger": "rash",
+     "action": "call",
+     "text": "Call us if there is a rash"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "Call if rash"
+   }
+  ]
+ },
+ {
+  "id": "clinic-followup",
+  "context": "pharmacy",
+  "text": "Come back on Friday. Take the medicine 3 times a day for 5 days. Do not travel.",
+  "source": "added",
+  "facts": [
+   {
+    "id": "visit",
+    "type": "date",
+    "value": "friday",
+    "unit": null,
+    "critical": true,
+    "label": "back on Friday"
+   },
+   {
+    "id": "freq",
+    "type": "frequency",
+    "value": 3,
+    "unit": null,
+    "critical": true,
+    "label": "3 times a day"
+   },
+   {
+    "id": "dur",
+    "type": "duration",
+    "value": 5,
+    "unit": "day",
+    "critical": true,
+    "label": "5 days"
+   },
+   {
+    "id": "no_travel",
+    "type": "condition",
+    "value": {
+     "trigger": "travel",
+     "action": "avoid",
+     "text": "Do not travel"
+    },
+    "unit": null,
+    "critical": true,
+    "label": "No travel"
+   }
+  ]
+ }
+]
