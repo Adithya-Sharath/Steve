@@ -3277,9 +3277,9 @@
  },
  "syn-pharmacy-ta-1": {
   "dose": {
-   "status": "unclear",
-   "reason": "Heard a number ('dalawang') with no unit word, so it can't be tied to this fact.",
-   "confidence": 0.4
+   "status": "understood",
+   "reason": "Heard 'dalawang tableet' = 2 tablets; matches expected 2 tablets.",
+   "confidence": 0.879
   },
   "timing": {
    "status": "wrong",
@@ -3287,14 +3287,14 @@
    "confidence": 1.0
   },
   "freq": {
-   "status": "unclear",
-   "reason": "Heard a number ('dalawang') with no unit word, so it can't be tied to this fact.",
-   "confidence": 0.4
+   "status": "missing",
+   "reason": "Did not hear how often (expected 2 times a day).",
+   "confidence": 0.85
   },
   "dur": {
-   "status": "unclear",
-   "reason": "Heard a number ('dalawang') with no unit word, so it can't be tied to this fact.",
-   "confidence": 0.4
+   "status": "missing",
+   "reason": "Did not hear how long (expected 5 days).",
+   "confidence": 0.85
   },
   "rash": {
    "status": "missing",

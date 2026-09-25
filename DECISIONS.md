@@ -104,3 +104,10 @@ hand-written replies. We do not report baseline numbers unless the baseline actu
 * UI: the results page shows a banner ("This reply looks copied from your message ...", with the follow-up button) and each card carries a "copied from the message" tag. The landing playground and inspector pass the message, so pasting it there demonstrates the rule.
 * Storage: `FactResultRow.flags` (JSON). Existing SQLite files are migrated in place at start-up (`db._ensure_columns`, tested).
 * Eval: 3 hand-written copy rows (gold: all `unclear`) added; `run_engine.py` now passes the message.
+
+## D15 — English shorthand and squashed number+unit tokens
+*Trigger:* SMS-style replies ("2tab aftr fud 2wice a day 5dys stp if rash") were mostly unreadable.
+* Squashed digit+letters tokens already split when the letters are a unit/counter word (`5days`, `2tabs`, `3x`, `15min`); the lexicon now knows the SMS spellings, so `5dys`, `5dy`, `2tab`, `2tabl`, `1wk`, `2wks`, `3wek` split and read correctly. Words that *contain* a digit as a letter are matched whole, never split: `2wice` (twice), `3rice`, `1ce`, `b4` (before), and Arabizi `3ashra`, `7ma`.
+* Added English spellings (all ordinary exact variants, no new fuzzy matching): after `aftr aftar aftah`, before `b4 bfr befor`, food `fud`, stop `stp`, tablet `tabl tblt tabz`, day `dys dy dayz`, week `wek weks`, twice `2wice twise twyce`, thrice `3rice`, once `1ce`, times `tmes`, daily `dly`, morning `mrng morn`, night `nite nyt`. `tabs`, `wk`, `wks` already existed.
+* Guards: `dy`/`wk`/`dys` with no number never make a duration; `b4` never becomes the number 4 (tested). The lexicon's sound-key collision test still passes, so no shorthand is equally close to two different meanings.
+* Combined with D12, `dnt stp if rash` is never `understood`.

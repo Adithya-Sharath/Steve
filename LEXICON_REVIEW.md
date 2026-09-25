@@ -48,7 +48,7 @@ Suffixes stripped when matching: `-es`, `-s`
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
-| [x] | **tablet** | tablet | tab, tabs, pill, pills, tablets |  |
+| [x] | **tablet** | tablet | tab, tabs, pill, pills, tablets, tabl, tablt, tblt, tabz, tabets |  |
 | [x] | **capsule** | capsule | capsules, cap, caps |  |
 | [x] | **ml** | ml | mls, milliliter, millilitre, milliliters, millilitres |  |
 | [x] | **spoon** | spoon | teaspoon, tablespoon, tsp, tbsp, spoonful, spoonfuls |  |
@@ -63,23 +63,23 @@ Suffixes stripped when matching: `-es`, `-s`
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
-| [x] | **once** | 1 |  |  |
-| [x] | **twice** | 2 |  |  |
-| [x] | **thrice** | 3 |  |  |
-| [x] | **times** | counter | time, x |  |
+| [x] | **once** | 1 | 1ce, wunce, onse |  |
+| [x] | **twice** | 2 | 2wice, 2ice, twise, twyce, twic, twicee |  |
+| [x] | **thrice** | 3 | 3rice, thrise, thryce, thrce |  |
+| [x] | **times** | counter | time, x, tmes, tyms, tyme |  |
 | [x] | **every** | every | each |  |
-| [x] | **daily** | 1 | everyday |  |
+| [x] | **daily** | 1 | everyday, dly, daly, dayly |  |
 | [x] | **alternate** | 0.5 | every other day, alternate days, alternate day |  |
 
 ### time of day
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
-| [x] | **morning** | morning | mornings |  |
+| [x] | **morning** | morning | mornings, mrng, mrning, morn, mornin |  |
 | [x] | **noon** | noon | midday, lunchtime |  |
 | [x] | **afternoon** | afternoon | afternoons |  |
 | [x] | **evening** | evening | evenings |  |
-| [x] | **night** | night | nights, tonight |  |
+| [x] | **night** | night | nights, tonight, nite, nyt, nght |  |
 | [x] | **bedtime** | bedtime | bed time, before bed, at bedtime, before sleeping |  |
 | [x] | **empty stomach** | empty_stomach | empty stomache, fasting |  |
 
@@ -87,16 +87,16 @@ Suffixes stripped when matching: `-es`, `-s`
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
-| [x] | **after** | after |  |  |
-| [x] | **before** | before |  |  |
-| [x] | **food** | food | meal, meals, eating, eat, lunch, dinner, breakfast |  |
+| [x] | **after** | after | aftr, aftar, aftah, aftrr, aftre |  |
+| [x] | **before** | before | b4, bfr, befor, bfore, befr |  |
+| [x] | **food** | food | meal, meals, eating, eat, lunch, dinner, breakfast, fud, fudd, foood, fod |  |
 
 ### duration unit
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
-| [x] | **day** | day | days |  |
-| [x] | **week** | week | weeks, wk, wks |  |
+| [x] | **day** | day | days, dys, dy, dayz, dai, dais |  |
+| [x] | **week** | week | weeks, wk, wks, wek, weks, weeek, wikk |  |
 | [x] | **month** | month | months |  |
 | [x] | **hour** | hour | hours, hr, hrs |  |
 | [x] | **minute** | minute | minutes, min, mins |  |
@@ -114,7 +114,7 @@ Suffixes stripped when matching: `-es`, `-s`
 
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
-| [x] | **stop** | stop | stopping, stopped, discontinue, quit |  |
+| [x] | **stop** | stop | stopping, stopped, discontinue, quit, stp, stpp, stoppp, stopp |  |
 
 ### 'call / tell'
 
