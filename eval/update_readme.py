@@ -78,8 +78,8 @@ def main() -> None:
     if START not in text or END not in text:
         sys.exit(f"README.md is missing the {START} / {END} markers")
     new = re.sub(re.escape(START) + r".*?" + re.escape(END), f"{START}\n{block}\n{END}", text, flags=re.DOTALL)
-    README.write_text(new, encoding="utf-8")
-    print("README.md evaluation table updated")
+    README.write_text(refresh_counts(new), encoding="utf-8")
+    print("README.md evaluation table and test counts updated")
 
 
 if __name__ == "__main__":
