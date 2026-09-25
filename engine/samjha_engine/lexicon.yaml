@@ -4,7 +4,7 @@
 #   canonical  the headword (romanized)
 #   category   number | number_mult | unit | frequency_phrase | timing | duration_unit | negation |
 #              action_stop | action_call | action_return | action_continue | action_avoid | travel |
-#              symptom | food_relation | filler | currency | weekday | month
+#              symptom | food_relation | filler | currency | weekday | month | concessive
 #   value      what it means to the engine (number, unit name, tag, ...)
 #   variants   common spellings-by-ear (the sound key + fuzzy matcher also catch many more)
 # Optional flags:
@@ -104,6 +104,8 @@ languages:
       - {canonical: "come back", category: action_return, value: come_back, variants: [return, "go back", revisit]}
       - {canonical: continue, category: action_continue, value: continue, variants: ["keep taking", "carry on", continuing]}
       - {canonical: travel, category: travel, value: travel, variants: [travelling, traveling, travels]}
+      # concessives: "even if rash, ..." undermines or flips a rule (see compare.py)
+      - {canonical: "even if", category: concessive, value: true, variants: ["even with", "even when", "even though", "evn if", "even iff", despite, still, anyway, anyways, regardless, although, though, "no matter"]}
       # symptoms
       - {canonical: rash, category: symptom, value: rash, variants: [rashes, rasch]}
       - {canonical: dizzy, category: symptom, value: dizzy, variants: [dizziness, dizzi, dizy, faint, fainting]}
@@ -244,6 +246,7 @@ languages:
       - {canonical: khane, category: food_relation, value: food, variants: [khana, khaane, khaana, khaney, khane, khanaa, khaye, khaya]}
       - {canonical: nahi, category: negation, value: true, variants: [nahin, nhi, nahee, nai, nahiin, nahii]}
       - {canonical: mat, category: negation, value: true, variants: [matt]}
+      - {canonical: bhi, category: concessive, value: true, variants: [bhee]}
       - {canonical: mt, category: negation, value: true, requires_near: [karo, kar, kro, kijiye, do, dena, jana, lena, lo, band, rok]}
       - {canonical: na, category: negation, value: true, requires_near: [karo, kar, kro, kijiye, do, dena, jana, lena, lo, leni, band, rok, khana]}
       - {canonical: band, category: action_stop, value: stop, requires_near: [karo, kar, kro, kijiye, kijiyega, do, dena, mat, kardo, kardena]}
@@ -357,6 +360,7 @@ languages:
       - {canonical: pagkatapos, category: food_relation, value: after, variants: [pagkatapos, pagkatapus, pagktapos, pagkatapoz, matapos, pagkatapos]}
       - {canonical: bago, category: food_relation, value: before, variants: [bago, bagoo, bagu]}
       - {canonical: kumain, category: food_relation, value: food, variants: [kumain, kumaen, kumen, kain, pagkain, kumaen, kumainn]}
+      - {canonical: kahit, category: concessive, value: true, variants: [kahet, "kahit na"]}
       - {canonical: huwag, category: negation, value: true, variants: [wag, huwaag, hwag, wagg, huag, huwagg]}
       - {canonical: hindi, category: negation, value: true, variants: [hindi, hindii, hnde, hindee, hinde, hnd, hndi]}
       - {canonical: di, category: negation, value: true, ambiguous: true}

@@ -82,3 +82,14 @@ hand-written replies. We do not report baseline numbers unless the baseline actu
 * The matcher now fuzzy-matches **known negators only** (`_negator_typos`): SMS vowel-dropping (`dnt`->`dont`), one dropped/inserted letter (len>=4), one substitution (len>=5), first and last sound must match; ambiguous negators never fuzzy-match. Ordinary look-alikes (`note`, `dot`, `don`, `nod`) are tested not to match.
 * Everything here can only move a result towards `negated`/`unclear`, never towards `understood`.
 * Also: `eval/update_readme.py` now refreshes the test counts in the README (and refuses to if a suite is red).
+
+## D13 — Concessive clauses can never be `understood`
+*Trigger:* `stop only after 5 days even if rash` returned `understood`.
+* New lexicon category `concessive`: English `even if / even with / even when / even though / despite / still / anyway / regardless / although / though / no matter`, Hindi `bhi`, Tagalog `kahit (na)`; Malayalam `-alum` (`vannalum`) is detected on the token itself (>= 6 letters, unmatched suffix).
+* Rule (`compare.concessive_near`): a concessive within **3 content tokens of the condition's trigger, in the same sentence**, means the reply undermines the rule:
+  * an un-negated `continue` action nearby => **`negated`** ("even if rash, continue");
+  * otherwise => **`unclear`** ("stop only after 5 days even if rash" stays `unclear`, not `negated`, because we cannot read "only after 5 days" as "don't stop").
+  * an already-negated action (`nirthanda`, `don't stop`) stays `negated`.
+* **Exemption:** a fact whose own action is `continue` ("keep taking it even if rash") ignores concessives, because "even if" is the natural wording of that rule.
+* Far-away or other-sentence concessives are ignored ("main bhi do goli lunga, rash aaye to band karo" is still understood), since Hindi `bhi` = "also" is everywhere.
+* Known limit: `avoid` facts are unchanged (an un-negated "travel" is already `unclear`).

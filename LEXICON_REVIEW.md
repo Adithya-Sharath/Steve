@@ -6,9 +6,9 @@ Every non-English entry is **unverified**. Native speakers: please check each li
 (1) is the meaning right? (2) are these spellings something people really type? (3) is anything missing that people say in real life?
 Wrong or doubtful words should be removed rather than guessed. Change `verified: false` → `true` per entry in the YAML once checked.
 
-Total entries: **303** across **5** languages.
+Total entries: **306** across **5** languages.
 
-## English (`en`) — 94 entries — verified (plain English)
+## English (`en`) — 95 entries — verified (plain English)
 
 Suffixes stripped when matching: `-es`, `-s`
 
@@ -139,6 +139,12 @@ Suffixes stripped when matching: `-es`, `-s`
 | ✓ | word | means | spellings by ear | flags |
 |---|---|---|---|---|
 | [x] | **travel** | travel | travelling, traveling, travels |  |
+
+### concessive
+
+| ✓ | word | means | spellings by ear | flags |
+|---|---|---|---|---|
+| [x] | **even if** | yes | even with, even when, even though, evn if, even iff, despite, still, anyway, anyways, regardless, although, though, no matter |  |
 
 ### symptom
 
@@ -336,7 +342,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **sheri** | yes | sheriyaanu, shari, sheriyaa |  |
 | [ ] | **aanu** | yes | aan, ennu, enn |  |
 
-## Hindi / Urdu (romanized / Hinglish) (`hi`) — 57 entries — UNVERIFIED — needs a native speaker
+## Hindi / Urdu (romanized / Hinglish) (`hi`) — 58 entries — UNVERIFIED — needs a native speaker
 
 ### number
 
@@ -413,6 +419,12 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 | [ ] | **mat** | yes | matt |  |
 | [ ] | **mt** | yes |  | needs nearby: karo/kar/kro/kijiye |
 | [ ] | **na** | yes |  | needs nearby: karo/kar/kro/kijiye |
+
+### concessive
+
+| ✓ | word | means | spellings by ear | flags |
+|---|---|---|---|---|
+| [ ] | **bhi** | yes | bhee |  |
 
 ### 'stop'
 
@@ -604,7 +616,7 @@ Suffixes stripped when matching: `-yil`, `-inu`, `-yum`, `-kku`, `-il`, `-nu`, `
 |---|---|---|---|---|
 | [ ] | **al** | yes | el, il, wa, ala, 3ala, fi, min, be, bi |  |
 
-## Tagalog (Taglish) (`tl`) — 49 entries — UNVERIFIED — needs a native speaker
+## Tagalog (Taglish) (`tl`) — 50 entries — UNVERIFIED — needs a native speaker
 
 Suffixes stripped when matching: `-ng`
 
@@ -666,6 +678,12 @@ Suffixes stripped when matching: `-ng`
 | [ ] | **pagkatapos** | after | pagkatapus, pagktapos, pagkatapoz, matapos |  |
 | [ ] | **bago** | before | bagoo, bagu |  |
 | [ ] | **kumain** | food | kumaen, kumen, kain, pagkain, kumaen, kumainn |  |
+
+### concessive
+
+| ✓ | word | means | spellings by ear | flags |
+|---|---|---|---|---|
+| [ ] | **kahit** | yes | kahet, kahit na |  |
 
 ### negation
 

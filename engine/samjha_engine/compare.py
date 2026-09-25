@@ -438,6 +438,25 @@ def _is_negated(env: Env, m: Match) -> bool:
     return m.entry.negates or id(m) in env.match_neg
 
 
+CONCESSIVE_WINDOW = 3
+
+
+def concessive_near(env: Env, trigger: Match) -> Match | None:
+    """A concessive marker ("even if", "despite", "still", "anyway", Hindi bhi, Tagalog kahit, Malayalam -alum) within a few
+    content tokens of the trigger, in the same sentence. Returns the marker (or a stand-in for a Malayalam -alum word)."""
+    ctx = env.ctx
+    sent = ctx.tokens[trigger.i].sent
+    for m in ctx.matches:
+        if m.category == "concessive" and ctx.tokens[m.i].sent == sent and ctx.cdist(trigger, m) <= CONCESSIVE_WINDOW:
+            return m
+    for t in ctx.tokens:  # Malayalam "-alum" = "even if" glued to the verb: vannalum, aayalum
+        if t.is_word and t.sent == sent and len(t.norm) >= 6 and t.norm.endswith("alum") and not (trigger.i <= t.idx <= trigger.j):
+            fake = Match(t.idx, t.idx, trigger.entry, 100, "suffix", t.text, t.start, t.end)
+            if ctx.cdist(trigger, fake) <= CONCESSIVE_WINDOW:
+                return fake
+    return None
+
+
 def compare_condition(env: Env, fact: Fact) -> FactResult:
     ctx = env.ctx
     val = fact.value if isinstance(fact.value, dict) else {}
@@ -467,6 +486,19 @@ def compare_condition(env: Env, fact: Fact) -> FactResult:
         return [m for m in ms if _dist(ctx, tm[0], m) <= CONDITION_WINDOW]
 
     ok_near = near(exp_ok)
+
+    # "stop only after 5 days even if rash", "rash vannalum ...": a concessive next to the trigger undermines the rule.
+    # It can never be `understood`. (Exempt: a fact that itself says "continue", where "continue even if" is the rule.)
+    conc = concessive_near(env, tm[0]) if trig_present and action != "continue" else None
+    if conc is not None and not exp_neg:
+        cont_ok = [m for m in ctx.matches if m.category == "action_continue" and not _is_negated(env, m)]
+        cont_near = near(cont_ok)
+        if cont_near:
+            c = cont_near[0]
+            return _result(fact, Status.negated, "continue", tm + [conc, c], env, min(tconf, c.score / 100),
+                           f"Heard '{conc.surface}' with '{tname}' and '{c.surface}' (continue): the reply keeps going where the rule says {action.replace('_', ' ')}: {want}.")
+        return _result(fact, Status.unclear, None, tm + [conc] + ok_near[:1], env, 0.5,
+                       f"Heard '{conc.surface}' next to '{tname}', which undermines the rule ({want}); can't confirm it was understood.")
     if exp_ok and exp_neg:
         return _result(fact, Status.unclear, None, exp_ok + exp_neg + tm, env, 0.5,
                        f"Reply both says and denies the action ({exp_ok[0].surface!r} / {exp_neg[0].surface!r}); not marked understood.")
