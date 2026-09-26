@@ -29,13 +29,17 @@ jobs:
       - name: Install (no API keys anywhere in CI)
         run: pip install -e "engine[dev]" -e "api[dev]"
       - name: Lint
-        run: ruff check engine api eval tools
+        run: ruff check engine api eval tools scripts
       - name: Engine tests
         working-directory: engine
         run: pytest -q
       - name: API tests
         working-directory: api
         run: pytest -q
+      - name: Public contract (openapi.json and docs/API.md must match the running app)
+        run: |
+          python scripts/export_openapi.py --check
+          python scripts/make_api_docs.py --check
       - name: STT tooling tests (no network, no audio, no token)
         run: |
           pip install -r tools/requirements.txt
@@ -62,5 +66,34 @@ jobs:
         run: npm run lint
       - name: Type check
         run: npx tsc --noEmit
+      - name: Type check the TypeScript client
+        run: npm run typecheck:client
       - name: Build
         run: npm run build
+
+  browser:
+    name: browser flows (Chromium, mock Sarvam, no keys)
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: pip install -e "engine[dev]" -e "api[dev]"
+      - run: npm ci
+        working-directory: web
+      - run: npm run build
+        working-directory: web
+      - run: npx playwright install --with-deps chromium
+        working-directory: web
+      - name: Check mode, Listen and the TypeScript client against the real API
+        run: node e2e/run.mjs all
+        working-directory: web

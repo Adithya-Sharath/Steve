@@ -51,6 +51,9 @@ class Settings:
     # the optional LLM may never make the composer wait: hard deadline, then fall back to the built-in extractor
     llm_timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "10")))
     llm_cooldown_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_COOLDOWN_SECONDS", "60")))
+    # CORS (D47): CORS_ORIGINS is a comma-separated list, or * for any origin (the API uses no cookies, so this exposes nothing a caller could not already fetch
+    # with curl). CORS_ALLOW_LOCALHOST=false drops the built-in "any localhost port" rule for a locked-down deployment.
+    cors_allow_localhost: bool = field(default_factory=lambda: _bool("CORS_ALLOW_LOCALHOST", True))
     # X-Forwarded-For / CF-Connecting-IP are only believed when a proxy really sits in front (D31)
     trust_proxy: bool = field(default_factory=lambda: _bool("TRUST_PROXY", False))
     trusted_proxies: list[str] = field(

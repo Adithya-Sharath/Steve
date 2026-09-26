@@ -17,9 +17,20 @@ from starlette.formparsers import MultiPartParser
 from ..auth import worker_hash
 from ..budget import snapshot, stt_budget
 from ..ratelimit import limit, limit_worker
-from ..schemas import ACCENT_HINTS, NOT_SURE, REPLY_LANGUAGES, ClarifyIn, DecodeIn, DecodeResponse
+from ..schemas import (
+    ACCENT_HINTS,
+    NOT_SURE,
+    REPLY_LANGUAGES,
+    ClarifyIn,
+    DecodeExamples,
+    DecodeHealthOut,
+    DecodeIn,
+    DecodeResponse,
+    ErrorOut,
+)
 from ..services import decode_translation
 from ..services.audio import duration_seconds
+from ..services.decode_examples import build_examples
 from ..services.decode_flow import respond, run_decode
 from ..services.decode_sessions import Session, store
 from ..services.stt import STTUnavailable, get_decode_stt
@@ -29,6 +40,13 @@ from ..settings import settings
 MultiPartParser.spool_max_size = 8 * 1024 * 1024
 
 router = APIRouter(tags=["decode"])
+
+# documented error answers (see docs/API.md); every one has the body {"detail": "..."}
+ERRORS = {
+    403: {"model": ErrorOut, "description": "Missing or malformed `X-Worker-Key` (it must look like `wk_` followed by 24 to 128 URL-safe characters)."},
+    422: {"model": ErrorOut, "description": "Bad input: empty or over-long text, an unknown `accent_hint` or `reply_language`, no text and no audio."},
+    429: {"model": ErrorOut, "description": "A rate limit was hit (per IP or per worker). The `Retry-After` header says how many seconds to wait."},
+}
 
 VOICE_UNAVAILABLE = "Voice isn't available right now, please type or paste the message."
 VOICE_LIMIT = "Voice is busy for today, please type or paste the message."
@@ -89,6 +107,7 @@ def _transcribe(audio: bytes, content_type: str) -> tuple[str, str | None]:
 @router.post(
     "/decode",
     response_model=DecodeResponse,
+    responses={**ERRORS, 413: {"model": ErrorOut, "description": "The voice note is over 4 MB, or (WAV and Ogg only) over 30 seconds, or the whole request is over 5 MB."}},
     dependencies=[
         Depends(limit("decode", per_minute=lambda: settings.rl_decode_per_min, per_day=lambda: settings.rl_decode_per_day)),
         Depends(limit_worker("decode_worker", per_day=lambda: settings.decode_per_worker_day)),
@@ -122,7 +141,7 @@ async def decode_endpoint(request: Request, worker: str = Depends(worker_hash)) 
     return await run_in_threadpool(respond, card, session=session, decode_id=None, transcript=transcript, notes=notes)
 
 
-@router.post("/decode/clarify", response_model=DecodeResponse)
+@router.post("/decode/clarify", response_model=DecodeResponse, responses={**ERRORS, 404: {"model": ErrorOut, "description": "The question expired (10 minutes without an answer), was already fully answered, or belongs to another worker key."}})
 async def clarify_endpoint(body: ClarifyIn, worker: str = Depends(worker_hash)) -> DecodeResponse:
     session = store.get(body.decode_id, worker)
     if session is None:
@@ -146,7 +165,13 @@ async def clarify_endpoint(body: ClarifyIn, worker: str = Depends(worker_hash)) 
     return await run_in_threadpool(respond, card, session=session, decode_id=body.decode_id, transcript=transcript, notes=notes)
 
 
-@router.get("/decode/health")
+@router.get("/decode/examples", response_model=DecodeExamples)
+def decode_examples() -> DecodeExamples:
+    """Six ready-made inputs with the cards the engine returns for them right now (for demo buttons). No worker key needed."""
+    return DecodeExamples(examples=build_examples())
+
+
+@router.get("/decode/health", response_model=DecodeHealthOut)
 def decode_health() -> dict:
     """What works right now, with no secrets: features, languages and today's remaining budgets (numbers only)."""
     budget = snapshot()

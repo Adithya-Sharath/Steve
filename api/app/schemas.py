@@ -123,10 +123,17 @@ ReplyLanguage = Literal["en", "ml", "hi", "ur", "tl", "bn"]
 NOT_SURE = "not_sure"
 
 
+class ErrorOut(BaseModel):
+    """Every non-2xx answer has this shape (FastAPI's default): a human-readable `detail`. 429 also carries a `Retry-After` header (seconds)."""
+
+    detail: str
+
+
 class DecodeIn(BaseModel):
     text: str = Field(min_length=1, max_length=2000)
     accent_hint: Literal["ar", "hi", "ml", "tl"] | None = None
     reply_language: ReplyLanguage | None = None
+    model_config = {"json_schema_extra": {"examples": [{"text": "yalla habibi come to the barking gate tree", "accent_hint": "ar", "reply_language": "ml"}]}}
 
 
 class TranslatedPhrase(BaseModel):
@@ -160,7 +167,40 @@ class DecodeResponse(BaseModel):
     say_back: list[str] = []  # short plain English the worker can show the other person (text only)
 
 
+class TranslationAvailability(BaseModel):
+    available: bool
+    languages: dict[str, list[str]] = {}  # language -> provider names that could serve it right now (names only)
+    budget_remaining: int = -1
+
+
+class DecodeHealthOut(BaseModel):
+    """`GET /decode/health`: what works right now. No secrets, only names and numbers."""
+
+    typed: bool
+    voice: bool
+    translation: TranslationAvailability
+    languages: list[ReplyLanguage]
+    accent_hints: list[Literal["ar", "hi", "ml", "tl"]]
+    budget: dict[str, int]  # stt_remaining, stt_cap (-1 = unlimited)
+    limits: dict[str, int]  # audio_seconds, audio_bytes, clarify_minutes
+
+
 class ClarifyIn(BaseModel):
     decode_id: str = Field(min_length=6, max_length=64)
     question_index: int = Field(ge=0, le=20)
     choice: str = Field(min_length=1, max_length=80)  # one of the question's options, or "not_sure"
+    model_config = {"json_schema_extra": {"examples": [{"decode_id": "kR3x9Q0aV2mZ", "question_index": 0, "choice": "parking"}]}}
+
+
+class DecodeExample(BaseModel):
+    """One ready-made input and what the engine returns for it RIGHT NOW (computed per request, never stored text)."""
+
+    id: str
+    label: str
+    request: DecodeIn  # send this to POST /decode to get the same card, then answer any question with POST /decode/clarify
+    response: DecodeResponse
+
+
+class DecodeExamples(BaseModel):
+    examples: list[DecodeExample]
+    computed_live: bool = True

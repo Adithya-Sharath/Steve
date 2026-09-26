@@ -11,10 +11,10 @@ from .routes import decode, messages, misc, reader
 from .security import (
     BodyLimitMiddleware,
     SecurityHeadersMiddleware,
+    cors_options,
     install_log_filters,
     unhandled_exception_handler,
 )
-from .settings import settings
 
 
 @asynccontextmanager
@@ -25,8 +25,8 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(
     title="Steve API",
-    version="0.1.0",
-    description="Teach-back for mixed-language messages. Deterministic engine; LLM and STT are optional helpers.",
+    version="2.0.0",
+    description="Decode: plain English, where / when / what / how much, from accented or mixed speech and messages (text in, text out). Check mode: teach-back for mixed-language messages. Deterministic engine; LLM, speech-to-text and translation are optional helpers. Decode contract: docs/API.md.",
     lifespan=lifespan,
     dependencies=[Depends(default_ip_limit)],
 )
@@ -34,14 +34,7 @@ app = FastAPI(
 # Starlette puts the LAST added middleware outermost. Security headers wrap everything (even CORS preflights), CORS wraps
 # the body limit so a 413 or 429 is still readable by the browser, and the body limit sits next to the routes.
 app.add_middleware(BodyLimitMiddleware)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.cors_origins,
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["Retry-After"],
-)
+app.add_middleware(CORSMiddleware, **cors_options())
 app.add_middleware(SecurityHeadersMiddleware)
 
 app.add_exception_handler(Exception, unhandled_exception_handler)
