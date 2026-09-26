@@ -289,7 +289,7 @@ def build() -> tuple[list[dict], list[dict], int]:
         for r in inst:
             v = _ear_variant(rng, r["sentence"], in_pack)
             if v:
-                text, acc, swaps, hint = v
+                text, _acc, swaps, hint = v
                 add("typed_ear", text, hint, r["sentence"], r["id"], swaps, "true" if in_pack else "false")
     return inst, rows, dropped
 

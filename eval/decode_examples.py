@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "engine"))
 
-from steve_engine.decode import decode  # noqa: E402
+from steve_engine.decode import decode
 
 # (heard or typed, accent hint, path). Ten cases that show what the decoder does and, as importantly, what it leaves alone.
 CASES = [

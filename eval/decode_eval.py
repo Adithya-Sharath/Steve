@@ -31,9 +31,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "engine"))
 sys.path.insert(0, str(ROOT / "eval"))
 
-from steve_engine.decode import decode  # noqa: E402
-from steve_engine.decode.actions import parse_number  # noqa: E402
-from steve_engine.decode.safety import apply_changes  # noqa: E402
+from steve_engine.decode import decode
+from steve_engine.decode.actions import parse_number
+from steve_engine.decode.safety import apply_changes
 
 DATA = ROOT / "data" / "decode"
 SLOTS = ("where", "when", "what", "how_much")
@@ -229,6 +229,9 @@ def status() -> str:
     if SET == "v1":
         return ("**Status: CONTAMINATED.** The first scoring run of this set (eval/results/decode_eval_v1_first_run.md) was used to find and fix gaps in the extractor and the typed "
                 "decoder (D44), so these numbers are tuned-on numbers, not a fresh test. Use the first-run file and the v2 set for honest numbers.")
+    if TAG != "first_run":
+        return ("**Status: CONTAMINATED.** Its first scoring run (eval/results/decode_eval_v2_first_run.md) showed a clock-time bug, an over-eager object rule and a vocabulary gap, "
+                "which were fixed afterwards (D44); these numbers are a re-score after those fixes, not a fresh test.")
     return ("**Status: untouched.** Written after the D44 fixes, without looking at how the decoder handles these sentences, and scored once. "
             "(Same author and conventions as v1, so it is fresher, not independent.)")
 

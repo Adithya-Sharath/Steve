@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "eval"))
 
-import decode_eval_set as base  # noqa: E402
+import decode_eval_set as base
 
 # (sentence, where, when, what, how_much, phrases)
 I2 = [
