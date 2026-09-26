@@ -30,6 +30,8 @@ Rules that do not change: deterministic rules first; an LLM is optional, guarded
 uncertainty becomes a clarifying question, never a silent guess; dignity (never "wrong" or "bad English", no scores); audio never stored, phone numbers hashed;
 every accent rule and glossary entry is `verified: false` until a native speaker reviews it; the full decode pipeline works with zero keys.
 
+**Evidence gap (owner, 2026-09-26):** no real recordings or real typed messages will be provided for now. Real-world validation (real voice notes, real typed messages) is missing; all current numbers come from public read speech (L2-ARCTIC) plus synthetic data. To narrow the gap the owner asked for a WhatsApp-like simulation of the 389 scripted clips (noise, Opus, phone quality; D42), which is still a simulation.
+
 ## Check mode (teach-back): what was built (kept, still working)
 Phases from `docs/build-prompt.md` §10:
 
@@ -65,7 +67,7 @@ Phases from `docs/build-prompt.md` §10:
 D1 repo/brief · D2 widened units/types · D3 code-point offsets · D4 claiming · D5 conflict⇒unclear · D6 words left out (partly superseded by D12) · D7 bare numbers ·
 D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set · D11 safety rules from error analysis · **D12** SMS/typo negators + fuzzy negator match ·
 **D13** concessive clauses · **D14** copy-paste detection (two deliberate deviations from the spec'd rule) · **D15** English shorthand · **D16** sender-key auth ·
-**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D30** admin-only LLM switch · **D31** TRUST_PROXY client IP · **D32** rate limits · **D33** daily spending caps · **D34** prompt hardening + validation · **D35** headers, body cap, generic 500, masked logs · **D36** Decode pivot · **D37** STT reality-test tooling · **D38** L2-ARCTIC 4th source (CC-BY-NC) · **D39** first STT result, Svarah/SAA importers, WhatsApp audio · **D40** STT normalises accent words: Phase 2 redesigned (voice vs typed paths) · **D27** Gemini needs a >= 10 s deadline.
+**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D30** admin-only LLM switch · **D31** TRUST_PROXY client IP · **D32** rate limits · **D33** daily spending caps · **D34** prompt hardening + validation · **D35** headers, body cap, generic 500, masked logs · **D36** Decode pivot · **D37** STT reality-test tooling · **D38** L2-ARCTIC 4th source (CC-BY-NC) · **D39** first STT result, Svarah/SAA importers, WhatsApp audio · **D40** STT normalises accent words: Phase 2 redesigned (voice vs typed paths) · **D41** Phase 2 go-ahead specifics · **D42** WhatsApp-like simulation (clean 89.9% -> noisy 87.4% intended; wrong-real-word 4.4% -> 6.9%) and the evidence gap · **D27** Gemini needs a >= 10 s deadline.
 
 ## Known gaps / risks (honest list)
 - Lexicon: ~300 headwords, 5 languages, all non-English entries **unverified**; numbers above ten only as digits; unknown words give `missing`/`unclear`, never a guess.

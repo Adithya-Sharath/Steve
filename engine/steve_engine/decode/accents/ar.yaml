@@ -1,0 +1,8 @@
+# Arabic-influenced English (Decode). WORKING RULES, every entry verified: false until a native speaker reviews it (ACCENT_REVIEW.md).
+id: ar
+name: "Arabic-influenced English"
+verified: false
+swaps:
+  - {heard: "b", meant: "p", weight: 0.9, phones: [B, P], note: "Arabic has no /p/ sound (barking for parking)", verified: false}
+  - {heard: "f", meant: "v", weight: 0.7, phones: [F, V], note: "Arabic has no /v/ sound (fery for very)", verified: false}
+phrases: []

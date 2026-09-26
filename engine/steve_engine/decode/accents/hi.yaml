@@ -1,0 +1,8 @@
+# Hindi/Urdu-influenced English (Decode). WORKING RULES, verified: false.
+id: hi
+name: "Hindi/Urdu-influenced English"
+verified: false
+swaps:
+  - {heard: "w", meant: "v", weight: 0.7, phones: [W, V], note: "v and w are often not told apart (wery for very)", verified: false}
+  - {heard: "v", meant: "w", weight: 0.7, phones: [V, W], note: "v and w are often not told apart (vait for wait)", verified: false}
+phrases: []
