@@ -1,3 +1,5 @@
+> Original build prompt; the project was later renamed from Samjha to Steve.
+
 # Claude Code Build Prompt — "Samjha" (Mixed-Language Teach-Back)
 
 > Paste everything below the line into Claude Code, from an empty folder that will become the GitHub repo.

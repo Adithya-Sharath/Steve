@@ -1,7 +1,7 @@
-# CLAUDE.md — Samjha
+# CLAUDE.md — Steve
 
 Instructions for Claude Code (and humans) working in this repo. Keep it short and true; update it when reality changes.
-Read `DECISIONS.md` first (D1–D20: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
+Read `DECISIONS.md` first (D1–D28: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
 
 ## What this is
 Teach-back for mixed-language (Manglish / Hinglish / Arabizi / Taglish) replies. A sender writes an important message, confirms

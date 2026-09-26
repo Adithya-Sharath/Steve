@@ -1,4 +1,4 @@
-# Samjha — developer commands.
+# Steve — developer commands.
 # Windows users without `make`: run the equivalent commands from README "Setup" (they are one-liners),
 # or use Git Bash / WSL.
 

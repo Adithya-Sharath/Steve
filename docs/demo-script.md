@@ -11,6 +11,6 @@ If speech-to-text is slow or off, use the **preset reply buttons**: nothing in t
 | **0:45–1:10** | Phone: reader page. Record (or type): *"randu gulika, food kazhinju, raavile vaikittu, oru week"*. Thank-you screen | "The patient explains it back in Manglish, spelled however they like. They never see a score." |
 | **1:10–1:35** | Laptop `/app/m/…` updates live. Cards flip from shimmer to status. **Duration: Wrong** ("oru week = 7 days ≠ 5 days"); **Stop if rash: Missing**. Hover a card → its words light up in the transcript. Click **Draft follow-up** | "Duration is wrong: 'oru week' is seven days, not five. And the rash warning was never mentioned. She re-explains only what failed." |
 | **1:35–1:50** | Flip **LLM helper** off (nav). Repeat a preset reply from the sender page: still works. Cut to `/eval`: false "understood" tile | "Turn the LLM off and nothing changes: the judge is deterministic code. The number we care about is false 'understood'." |
-| **1:50–2:00** | Landing headline, repo URL | "'ok 👍' isn't understanding. Samjha." |
+| **1:50–2:00** | Landing headline, repo URL | "'ok 👍' isn't understanding. Steve." |
 
 **Honest-numbers reminder for the eval shot:** say "on our development data" if you quote a number; the eval page's caveat box is on screen.
