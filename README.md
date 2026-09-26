@@ -399,9 +399,9 @@ docker-compose.yml, Makefile, .env.example
 
 ## Team
 
-- NAME_1 — role
-- NAME_2 — role
-- NAME_3 — role
+- Adithya Sharath Kumar - Fullstack 
+- Ananya Kadam
+- Vignesh Radhakrishnan
 
 ## License
 
