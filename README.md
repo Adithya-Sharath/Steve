@@ -152,6 +152,8 @@ Copy `.env.example` to `.env`. Everything is optional.
 | `STEVE_DATA_DIR`, `STEVE_EVAL_DIR` | Override where the API reads scenario data and evaluation results (used by the Docker image). |
 | `PUBLIC_WEB_URL`, `CORS_ORIGINS` | Where the web app lives (used in reader links and CORS). |
 | `UNCLEAR_THRESHOLD` | Confidence below this becomes `unclear` (default 0.6). |
+| `REPLY_RATE_LIMIT` | Maximum replies per minute from one client to one reader link (default 12). |
+| `STEVE_EMBEDDINGS` | Set to `1` to enable the optional embedding fallback for condition facts (needs `sentence-transformers`; off until calibrated). |
 | `NEXT_PUBLIC_API_URL` | Web to API base URL (default `http://localhost:8000`); baked in at build time. |
 
 **Phone testing:** the microphone needs HTTPS or localhost. A free Cloudflare tunnel for the web app and one for the API works well: set `PUBLIC_WEB_URL` and `CORS_ORIGINS` to the web tunnel address, `NEXT_PUBLIC_API_URL` to the API tunnel address, then rebuild the web app.
