@@ -79,6 +79,7 @@ class Settings:
     decode_per_worker_day: int = field(default_factory=lambda: _int("DECODE_PER_WORKER_DAY", 200))  # POST /decode, per worker key
     decode_max_audio_bytes: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_BYTES", 4 * 1024 * 1024))
     decode_max_audio_seconds: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_SECONDS", 30))
+    translate_daily_cap: int = field(default_factory=lambda: _int("TRANSLATE_DAILY_CAP", 300))  # global translation calls per UTC day (Sarvam and Gemini)
     clarify_ttl_seconds: int = field(default_factory=lambda: _int("CLARIFY_TTL_SECONDS", 600))  # in-memory clarify state, then gone
 
     @property

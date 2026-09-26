@@ -160,6 +160,7 @@ Copy `.env.example` to `.env`. Everything is optional.
 | `LLM_DAILY_CAP`, `STT_DAILY_CAP` | Global calls per UTC day to Gemini (200) and Sarvam (300). Over the cap the built-in extractor answers ("daily AI limit reached") and voice replies ask the reader to type. `/health` shows what is left. `0` blocks the service, negative means unlimited. |
 | `RL_DECODE_PER_MIN`, `RL_DECODE_PER_DAY`, `DECODE_PER_WORKER_DAY` | Decode (`POST /decode`): per IP per minute (30) and per day (500), and per worker key per day (200). |
 | `SARVAM_BASE_URL` | Tests and proxies only (default `https://api.sarvam.ai`): the browser tests point it at a local mock. |
+| `TRANSLATE_DAILY_CAP` | Global translation calls per UTC day (default 300, Sarvam and Gemini together). Over the cap, or with no provider, the card stays in English with a note. |
 | `DECODE_MAX_AUDIO_BYTES`, `DECODE_MAX_AUDIO_SECONDS`, `CLARIFY_TTL_SECONDS` | Decode voice notes: at most 4 MB and 30 s (the length is read from WAV and Ogg files; other formats rely on the byte cap and Sarvam's own 30 s limit). An open clarifying question is kept in memory for 600 s, never on disk. |
 | `MAX_BODY_BYTES` | Requests larger than this are refused with 413 (default 5 MB). |
 | `STEVE_EMBEDDINGS` | Set to `1` to enable the optional embedding fallback for condition facts (needs `sentence-transformers`; off until calibrated). |

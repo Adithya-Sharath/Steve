@@ -119,7 +119,7 @@ async def decode_endpoint(request: Request, worker: str = Depends(worker_hash)) 
 
     session = Session(worker=worker, text=text, accent_hint=hint, path=path, reply_language=lang)
     card = await run_in_threadpool(run_decode, session)
-    return respond(card, session=session, decode_id=None, transcript=transcript, notes=notes)
+    return await run_in_threadpool(respond, card, session=session, decode_id=None, transcript=transcript, notes=notes)
 
 
 @router.post("/decode/clarify", response_model=DecodeResponse)
@@ -143,7 +143,7 @@ async def clarify_endpoint(body: ClarifyIn, worker: str = Depends(worker_hash)) 
         session.resolved[q.span.start] = match
     card = await run_in_threadpool(run_decode, session)
     transcript = session.text if session.path == "voice" else None
-    return respond(card, session=session, decode_id=body.decode_id, transcript=transcript, notes=notes)
+    return await run_in_threadpool(respond, card, session=session, decode_id=body.decode_id, transcript=transcript, notes=notes)
 
 
 @router.get("/decode/health")
