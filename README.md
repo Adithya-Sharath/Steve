@@ -31,7 +31,10 @@ Someone says:  "Yalla, drop it at Al Quoz before Maghrib. No signature, just cal
 That is the real WhatsApp reply for that sentence (an automated test compares this block with the engine's output). **It is narrower than a person would be:** it reads the first
 action verb only ("drop", not "then call the person") and does not pull out "no signature needed". Steve is honest about what it did not extract; the plain-English sentence and the
 original are always next to the extracted lines.
-[MEET STEVE HERE]([https://your-link-here.com](https://steve-landing-page-nine.vercel.app?_vercel_share=6N5qLScjk9grlSqbkdlRTpjOTZTbbsk2))
+
+
+[MEET STEVE HERE](https://steve-landing-page-nine.vercel.app?_vercel_share=6N5qLScjk9grlSqbkdlRTpjOTZTbbsk2)
+
 
 ## The demo (this repo's web app)
 
