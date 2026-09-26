@@ -110,7 +110,8 @@ def test_a_full_run_classifies_and_lists_plausible_but_wrong_words(env, parquet)
     assert "| scripted | Arabic | 1 | 0 | 1 | 0 | 0 | 0 |" in report  # pit: written as the intended word
     assert "| scripted | Hindi | 1 | 0 | 0 | 1 | 1 | 0 |" in report  # pat heard as bat; Sarvam wrote "bit": neither, but a real word
     assert "| rrbi_0002 | Hindi | pat | bat | **bit** | real-word swap |" in report
-    assert "Total: 1 of 2 accent words." in report
+    assert "## Kept: Sarvam wrote the HEARD word" in report
+    assert "Total: 1 of 2 accent words; 0 of them look like" in report
     assert (env / "results_l2arctic_scripted.json").exists()
 
 
@@ -131,3 +132,19 @@ def test_classify_words_is_reused_for_the_outcomes(inv):
     v = wa.utterance_words("the pit was big", g2p("the pit was big"), g2p("the bit was big"), LEX, inv)
     assert [k for _, k, _ in we.classify_words(v, "the bit was big")] == [we.KEPT]
     assert se.is_real("pit", LEX) and not se.is_real("zzz", LEX) and not se.is_real(None, LEX)
+
+
+def test_likely_variants_are_marked_but_different_words_are_not():
+    for intended, wrote in (("gray", "grey"), ("shadows", "shadow"), ("picked", "pick"), ("twentieth", "th"), ("faces", "face")):
+        assert se.likely_variant(intended, wrote), (intended, wrote)
+    for intended, wrote in (("coal", "cold"), ("boat", "board"), ("the", "evidence"), ("river", "for")):
+        assert not se.likely_variant(intended, wrote), (intended, wrote)
+    assert not se.likely_variant("river", None)
+
+
+def test_the_spontaneous_rows_are_not_duplicated(env, parquet, monkeypatch):
+    monkeypatch.setattr(se, "spontaneous_summary", lambda lex, inv: {"Arabic": dict(n=1, kept=0, fixed=1, other=0, none=0, real=0),
+                                                                     "all": dict(n=1, kept=0, fixed=1, other=0, none=0, real=0)})
+    assert se.main(["--file", str(parquet), "--out", str(env), "--yes", "--sleep", "0"]) == 0
+    report = (env / "report_l2arctic_scripted.md").read_text(encoding="utf-8")
+    assert report.count("| spontaneous (earlier run) | all |") == 1

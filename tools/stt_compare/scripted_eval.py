@@ -30,6 +30,7 @@ import l2arctic_spontaneous as l2  # noqa: E402
 import phone_scoring as ps  # noqa: E402
 import word_align as wa  # noqa: E402
 import word_eval as we  # noqa: E402
+from rapidfuzz.distance import Levenshtein  # noqa: E402
 
 import run  # noqa: E402
 from providers import Sarvam  # noqa: E402
@@ -88,6 +89,14 @@ def is_real(word: str | None, lex: dict) -> bool:
     return bool(word) and word in lex
 
 
+def likely_variant(intended: str, wrote: str | None) -> bool:
+    """Spelling, plural, tense or a digit leftover rather than a different word (gray/grey, shadows/shadow, twentieth/'th')."""
+    if not wrote:
+        return False
+    a, b = intended.lower(), wrote.lower()
+    return a.startswith(b) or b.startswith(a) or (len(b) >= 2 and a.endswith(b)) or Levenshtein.distance(a, b) <= 1
+
+
 def build_report(rows, plain, clips, lex, calls: int, minutes: float, stopped: str | None, spont: dict | None) -> str:
     accents = sorted({c["accent"] for c in clips})
     L = ["# STT reality test: L2-ARCTIC SCRIPTED, targeted subset (utterances with a real-word swap), Sarvam saaras:v3 transcribe / en-IN", "",
@@ -114,7 +123,7 @@ def build_report(rows, plain, clips, lex, calls: int, minutes: float, stopped: s
         n = c[we.KEPT] + c[we.FIXED] + c["other"] + c[we.NONE]
         L.append(f"| scripted | {a} | {n} | {c[we.KEPT]} | {c[we.FIXED]} | {c['other']} | {c['other: a different real word']} | {c[we.NONE]} |")
     if spont:
-        for a in sorted(spont) + [k for k in ("all",) if k in spont]:
+        for a in [k for k in sorted(spont) if k != "all"] + (["all"] if "all" in spont else []):
             s = spont[a]
             L.append(f"| spontaneous (earlier run) | {a} | {s['n']} | {s['kept']} | {s['fixed']} | {s['other']} | {s.get('real', 'n/a')} | {s['none']} |")
     L += ["", "## Accent words that are not real-word swaps (the heard form is not a word)", "",
@@ -130,14 +139,21 @@ def build_report(rows, plain, clips, lex, calls: int, minutes: float, stopped: s
         L.append(f"| {a} | {c['n']} | {c[we.RECOGNISED]} | {c[we.OTHER]} | {c['real']} | {c[we.NONE]} |")
 
     L += ["", "## Plausible-but-wrong: Sarvam wrote a DIFFERENT REAL WORD than the intended one at an accent word", "",
-          "| Clip | Accent | Intended | Heard (annotators) | Sarvam wrote | Kind |", "|---|---|---|---|---|---|"]
+          "| Clip | Accent | Intended | Heard (annotators) | Sarvam wrote | Kind | Note |", "|---|---|---|---|---|---|---|"]
     bad = [(a, cl, wv, k, w) for a, cl, wv, k, w in rows if k in (we.GARBLED, we.OTHER) and is_real(w, lex)]
     for a, cl, wv, _k, w in sorted(bad, key=lambda r: (r[2].word, r[1])):
         heard = wv.swap_word or "".join(wv.heard)
-        L.append(f"| {cl} | {a} | {wv.word} | {heard}{'' if wv.swap_word else ' (not a word)'} | **{w}** | {'real-word swap' if wv.swap_word else 'non-word distortion'} |")
+        note = "likely spelling / plural / tense / digit variant" if likely_variant(wv.word, w) else ""
+        L.append(f"| {cl} | {a} | {wv.word} | {heard}{'' if wv.swap_word else ' (not a word)'} | **{w}** | {'real-word swap' if wv.swap_word else 'non-word distortion'} | {note} |")
     if not bad:
-        L.append("| _none_ | | | | | |")
-    L += ["", f"Total: {len(bad)} of {len(rows)} accent words.", ""]
+        L.append("| _none_ | | | | | | |")
+    variants = sum(likely_variant(wv.word, w) for _, _, wv, _, w in bad)
+    L += ["", f"Total: {len(bad)} of {len(rows)} accent words; {variants} of them look like spelling, plural, tense or digit variants, "
+              f"{len(bad) - variants} change the word.", ""]
+    kept = [(a, cl, wv, w) for a, cl, wv, k, w in rows if k == we.KEPT]
+    L += ["## Kept: Sarvam wrote the HEARD word (the accent survived into the text)", "", "| Clip | Accent | Intended | Sarvam wrote (= heard) |", "|---|---|---|---|"]
+    L += [f"| {cl} | {a} | {wv.word} | **{w}** |" for a, cl, wv, w in sorted(kept, key=lambda r: (r[2].word, r[1]))] or ["| _none_ | | | |"]
+    L.append("")
     if plain:
         L += ["## Baseline: words that were NOT heard differently", "", "How often does the intended word fail to appear anywhere in the transcript, for words the annotators heard as normal?", "",
               "| Accent | Words | Intended word not in the transcript | Share |", "|---|---:|---:|---:|"]
