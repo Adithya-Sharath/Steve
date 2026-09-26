@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Check, ListChecks, MessageSquareText, Mic, X } from "lucide-react";
+import { ArrowUpRight, Check, X } from "lucide-react";
 import Link from "next/link";
 import { LlmToggle, useHealth } from "@/components/llm-toggle";
-import { NumberTicker } from "@/components/metric-tile";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -25,83 +24,7 @@ export function SectionHead({ eyebrow, title, body, className }: { eyebrow: stri
   );
 }
 
-const STATS = [
-  {
-    value: 19, suffix: "%", decimals: 0,
-    text: "of patients’ answers about their own prescription labels were wrong. Dose (52%) and frequency (28%) errors dominate.",
-    src: "AAFP, 2007", href: "https://www.aafp.org/pubs/afp/issues/2007/0615/p1851a.html",
-  },
-  {
-    value: 11.9, suffix: "%", decimals: 1,
-    text: "comprehension deficits with teach-back, down from 49% (483-patient emergency department study). It excluded patients with language barriers.",
-    src: "Int J Emerg Med", href: "https://link.springer.com/article/10.1186/s12245-020-00306-9",
-  },
-  {
-    value: 12, suffix: " pts", decimals: 0, prefix: "5–",
-    text: "F1 points worse for LLMs on romanized Indian-language health messages than on native script, because of spelling noise.",
-    src: "arXiv 2512.10780", href: "https://arxiv.org/html/2512.10780v1",
-  },
-  {
-    value: 38, suffix: "%", decimals: 0, prefix: "~",
-    text: "of UAE residents are Indian; Pakistanis ~17%, Bangladeshis ~7%, Filipinos ~7%. Most write their languages in Latin script.",
-    src: "GMI 2026", href: "https://www.globalmediainsight.com/blog/uae-population-statistics/",
-  },
-];
-
-export function ProblemStats() {
-  return (
-    <div className="mt-10 grid gap-4 sm:grid-cols-2">
-      {STATS.map((s, i) => (
-        <motion.figure key={s.src} {...fade} transition={{ ...fade.transition, delay: i * 0.07 }} className="card-soft p-6">
-          <p className="font-display text-6xl leading-none text-primary">
-            {s.prefix}
-            <NumberTicker value={s.value} decimals={s.decimals} suffix={s.suffix} />
-          </p>
-          <figcaption className="mt-3 text-[15px] leading-relaxed text-foreground/85">
-            {s.text}{" "}
-            <a href={s.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 whitespace-nowrap text-sm text-primary underline underline-offset-4">
-              {s.src}
-              <ArrowUpRight className="size-3.5" aria-hidden />
-            </a>
-          </figcaption>
-        </motion.figure>
-      ))}
-    </div>
-  );
-}
-
-const STEPS = [
-  { icon: MessageSquareText, title: "Write the message", body: "Any important instruction. In your own language, however you write it." },
-  { icon: ListChecks, title: "Confirm the key facts", body: "Doses, dates, amounts and “if … then” rules become typed facts. You confirm them." },
-  { icon: Mic, title: "Reader explains it back", body: "By voice or text, in any mix, spelled any way. They never see a score." },
-  { icon: Check, title: "See it fact by fact", body: "Understood, wrong, missing, negated or unclear, with the exact words as evidence. Re-explain only what failed." },
-];
-
-export function HowSteps() {
-  return (
-    <ol className="mt-10 grid gap-4 md:grid-cols-4">
-      {STEPS.map((s, i) => (
-        <motion.li key={s.title} {...fade} transition={{ ...fade.transition, delay: i * 0.09 }} className="card-soft relative p-5">
-          <span className="font-display text-5xl text-primary/30">{i + 1}</span>
-          <s.icon className="mt-2 size-6 text-primary" aria-hidden />
-          <h3 className="mt-3 font-medium">{s.title}</h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-          {i < STEPS.length - 1 && (
-            <motion.span
-              aria-hidden
-              className="absolute -right-3 top-1/2 hidden h-px w-6 bg-primary/40 md:block"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 + i * 0.15 }}
-              style={{ originX: 0 }}
-            />
-          )}
-        </motion.li>
-      ))}
-    </ol>
-  );
-}
+export { HowSteps, ProblemStats } from "./landing-stats-steps";
 
 export function WhyNotTranslate() {
   const rows: [string, string][] = [

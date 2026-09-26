@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useReducedMotionSafe } from "@/hooks/use-reduced-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Mic } from "lucide-react";
 import { useEffect, useState } from "react";
 import { StatusBadge } from "@/components/status-badge";
@@ -19,7 +20,7 @@ const CHIPS: { label: string; detail: string; status: Status }[] = [
 ];
 
 export function HeroDemo() {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const [animPhase, setPhase] = useState(0); // 0 msg, 1 typing reply, 2.. chips
   const [animTyped, setTyped] = useState(0);
   const [animChips, setChips] = useState(0);

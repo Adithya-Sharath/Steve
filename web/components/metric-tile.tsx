@@ -1,38 +1,50 @@
 "use client";
 
-import { animate, useInView, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useReducedMotionSafe } from "@/hooks/use-reduced-motion";
+import { animate, motion, useInView, useMotionValue, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Counts up when scrolled into view. Approach adapted from the 21st.dev "Number Ticker" (danielpetho/basic-number-ticker):
+ * a motion value is tweened and rendered directly, so the number updates without a React re-render per frame.
+ * Ours adds decimals/prefix/suffix, in-view triggering, an optional `delay`, and reduced-motion (shows the final value).
+ */
 export function NumberTicker({
   value,
   decimals = 0,
   suffix = "",
   prefix = "",
-  duration = 1.1,
+  duration = 1.6,
+  delay = 0,
 }: {
   value: number;
   decimals?: number;
   suffix?: string;
   prefix?: string;
   duration?: number;
+  delay?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
-  const reduce = useReducedMotion();
-  const [n, setN] = useState(0);
+  const reduce = useReducedMotionSafe();
+  const count = useMotionValue(0);
+  const text = useTransform(count, (v) => `${prefix}${v.toFixed(decimals)}${suffix}`);
+
   useEffect(() => {
-    if (!inView || reduce) return;
-    const c = animate(0, value, { duration, ease: [0.22, 1, 0.36, 1], onUpdate: setN });
-    return () => c.stop();
-  }, [inView, value, duration, reduce]);
-  const shown = reduce ? value : n;
+    if (reduce) {
+      count.set(value);
+      return;
+    }
+    if (!inView) return;
+    const controls = animate(count, value, { duration, delay, ease: [0.22, 1, 0.36, 1] });
+    return () => controls.stop();
+  }, [inView, reduce, value, duration, delay, count]);
+
   return (
-    <span ref={ref} className="tabular-nums">
-      {prefix}
-      {shown.toFixed(decimals)}
-      {suffix}
-    </span>
+    <motion.span ref={ref} className="tabular-nums">
+      {text}
+    </motion.span>
   );
 }
 

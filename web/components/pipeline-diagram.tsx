@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotionSafe } from "@/hooks/use-reduced-motion";
+import { motion } from "framer-motion";
 import { AudioLines, Ban, Boxes, Eraser, Scale, ShieldCheck, type LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -34,7 +35,7 @@ export function PipelineDiagram({
   onSelect?: (i: number) => void;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const [auto, setAuto] = useState(0);
   useEffect(() => {
     if (active != null || !autoplay || reduce) return;
