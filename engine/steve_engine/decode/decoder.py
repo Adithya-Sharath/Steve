@@ -106,6 +106,8 @@ def decode(text: str, accent_hint: str | None = None, path: str = "typed", cfg: 
         actions.when = None
     if "amount" in open_slots:
         actions.how_much = None
+    if "negation" in open_slots:
+        actions.what = None  # it is not clear whether this is an instruction or its opposite
     tips = list(dict.fromkeys(review.tips))[:1]
     confidence = 0.95
     if changes:

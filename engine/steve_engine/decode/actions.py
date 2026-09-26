@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from ..schema import Span
 from .domain import Domain
 from .schema import Actions, ActionValue
-from .spans import NUMBERED
+from .spans import AMBIGUOUS_AT, FUNCTION_WORDS, NUMBERED, PLACE_ONLY, TIME_ONLY
 from .tokens import Token
 
 UNITS = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11,
@@ -22,6 +22,12 @@ NEGATORS = {"not", "never", "dont", "don't", "cannot", "cant", "can't", "won't",
 DAY_WORDS = {"today", "tomorrow", "tonight", "yesterday", "now", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
 PART_OF_DAY = {"morning", "afternoon", "evening", "night", "noon", "midnight", "fajr", "zuhr", "dhuhr", "asr", "maghrib", "isha"}
 CURRENCY = {"dirham", "dirhams", "aed", "riyal", "riyals", "rupee", "rupees", "dollar", "dollars"}
+PREP_ANCHORS = PLACE_ONLY | AMBIGUOUS_AT | {"of"}  # a place phrase follows one of these (D44)
+MOTION = {"come", "go", "reach", "enter", "visit", "arrive", "leave"}  # ...or one of these ("go home", "come gate 3")
+DET = {"the", "a", "an", "this", "that", "my", "your", "our", "his", "her", "their"}
+PARTICLES = {"up", "down", "out", "off", "away", "back"}
+ADVERBS = {"home", "here", "there", "inside", "outside", "upstairs", "downstairs", "together", "alone", "again", "early", "late", "fast", "slowly", "quickly", "carefully"}
+OBJECT_VERBS_EXTRA = {"park", "leave", "start", "finish"}
 FETCH = {"bring", "take", "get", "carry", "send", "give", "drop", "deliver", "collect", "buy", "hand", "pick", "load", "unload", "clean", "fix", "wash", "open", "close"}
 OPENERS = {"please", "ok", "okay", "yalla", "listen", "hello", "now", "then", "and", "so", "you", "we", "i", "will", "should", "must", "can", "could"}
 
@@ -112,29 +118,69 @@ def extract(effs: list[Eff], text: str, dom: Domain, unresolved: set[int]) -> Ac
     return actions
 
 
+def _is_modifier(w: str) -> bool:
+    """A word that can sit between the article and a place word ("main gate", "labour camp", "petrol station")."""
+    return (w not in FUNCTION_WORDS and w not in PREP_ANCHORS and w not in DAY_WORDS and w not in PART_OF_DAY and w not in CURRENCY and w not in NEGATORS
+            and w not in OPENERS and w not in MOTION and w not in TIME_ONLY and not w.isdigit() and w.isalpha() and len(w) > 2)
+
+
+def _anchor(words: list[str], p: int) -> int | None:
+    """Index where the phrase around the place word at p begins, if a preposition or a motion verb introduces it; otherwise None.
+
+    Only an introduced place counts: "the lift is not working" and "do not open the door" name no place to go to (D44)."""
+    k, mods = p - 1, 0
+    while k >= 0 and mods < 2 and _is_modifier(words[k]) and words[k] not in DET:
+        k -= 1
+        mods += 1
+    first = k + 1
+    if k >= 0 and words[k] in DET:
+        k -= 1
+    if k >= 0 and (words[k] in PREP_ANCHORS or words[k] in MOTION):
+        return first
+    return None
+
+
 def _where(effs, words, place_idx, dom) -> tuple[int, int, str] | None:
-    if not place_idx:
-        return None
-    start = place_idx[0]
-    a = b = start
-    parts: list[str] = []
-    i = start
-    while i < len(words):
-        if dom.in_category(words[i], "place") and words[i] not in {"stop", "time"}:
-            parts.append(words[i])
-            b = i
-            i += 1
+    for p in place_idx:
+        first = _anchor(words, p)
+        if first is None:
             continue
-        n = parse_number(words, i)
-        if parts and n and words[i - 1] == parts[-1] and words[i - 1] in NUMBERED:
-            parts.append(str(n[0]))
-            b = n[1] - 1
-            i = n[1]
-            continue
-        break
-    if not parts:
+        parts: list[str] = list(words[first:p])
+        a = first
+        b = p
+        i = p
+        while i < len(words):
+            if dom.in_category(words[i], "place") and (words[i] != "stop" or (parts and dom.in_category(words[i - 1], "place"))) and words[i] != "time":
+                parts.append(words[i])
+                b = i
+                i += 1
+                continue
+            n = parse_number(words, i)
+            if parts and n and words[i - 1] == parts[-1] and words[i - 1] in NUMBERED:
+                parts.append(str(n[0]))
+                b = n[1] - 1
+                i = n[1]
+                continue
+            break
+        return a, b, " ".join(parts)
+    return None
+
+
+def _clock(words: list[str], i: int) -> tuple[int, int, str] | None:
+    """A clock time at words[i]: "five", "six thirty" (6:30), "half past six" (6:30), "quarter to seven" (6:45). Returns (hour, next index, label).
+
+    Reading only "six" out of "six thirty" would give the wrong time on a critical slot (D44), so the minutes are taken with it."""
+    if words[i] in {"half", "quarter"} and i + 2 < len(words) and words[i + 1] in {"past", "to"} and (h := parse_number(words, i + 2)):
+        minutes = 30 if words[i] == "half" else 15
+        hour, mm = (h[0], minutes) if words[i + 1] == "past" else (h[0] - 1, 60 - minutes)
+        return hour, h[1], f"{hour}:{mm:02d}"
+    n = parse_number(words, i)
+    if not n:
         return None
-    return a, b, " ".join(parts)
+    m = parse_number(words, n[1]) if n[1] < len(words) else None
+    if m and m[0] in {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55} and n[0] <= 24 and not (m[1] < len(words) and words[m[1]] in CURRENCY):
+        return n[0], m[1], f"{n[0]}:{m[0]:02d}"
+    return n[0], n[1], str(n[0])
 
 
 def _when(effs, words, used: set[int]) -> tuple[int, int, str] | None:
@@ -142,15 +188,15 @@ def _when(effs, words, used: set[int]) -> tuple[int, int, str] | None:
     i = 0
     while i < len(words):
         w = words[i]
-        if w in DAY_WORDS or w in PART_OF_DAY:
+        if (w in DAY_WORDS or w in PART_OF_DAY) and not (w in PART_OF_DAY and i > 0 and words[i - 1] == "good"):  # "good morning" is a greeting
             j = i
             label = w
             if i > 0 and words[i - 1] == "this" and w in PART_OF_DAY:
                 label = "this " + w
             hits.append((i, j, label))
-        elif w == "at" and i + 1 < len(words) and (n := parse_number(words, i + 1)) and i + 1 not in used:
+        elif w == "at" and i + 1 < len(words) and (n := _clock(words, i + 1)) and i + 1 not in used:
             end = n[1] - 1
-            label = str(n[0])
+            label = n[2]
             if n[1] < len(words) and words[n[1]] in {"am", "pm"}:
                 label += " " + words[n[1]]
                 end = n[1]
@@ -179,14 +225,23 @@ def _what(effs, words, dom) -> tuple[int, int, str] | None:
         start = neg if neg is not None else i
         label = w
         end = i
-        if w in FETCH:
-            j = i + 1
-            while j < len(words) and words[j] in {"the", "a", "an", "my", "your", "these", "those"}:
+        if w in FETCH or w in OBJECT_VERBS_EXTRA:
+            obj, j = [], i + 1
+            while j < len(words) and (words[j] in DET or words[j] in PARTICLES):
                 j += 1
-            if j < len(words) and dom.in_category(words[j], "thing"):
-                label, end = f"{w} {words[j]}", j
+            while j < len(words) and len(obj) < 2 and _is_object_word(words, j):
+                obj.append(words[j])
+                end = j
+                j += 1
+            if obj:
+                label = " ".join([w, *obj])
         if neg is not None:
             n = words[neg]
             label = ("don't " if n in {"not", "dont", "don't"} else "never " if n == "never" else "cannot " if n in {"cannot", "cant", "can't"} else n + " ") + label
         return start, end, label
     return None
+
+
+def _is_object_word(words: list[str], j: int) -> bool:
+    w = words[j]
+    return _is_modifier(w) and w not in DET and w not in PARTICLES and w not in ADVERBS and w != "and" and w != "or" and parse_number(words, j) is None

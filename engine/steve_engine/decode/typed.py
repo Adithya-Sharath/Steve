@@ -80,6 +80,26 @@ def _respelled_function_word(review: Review, tok, swaps: tuple[Swap, ...]) -> bo
     return best is not None
 
 
+NEGATION_WORDS = {"never", "not", "cannot"}  # words a respelling can hide behind a real word ("newer come" for "never come")
+
+
+def _ask_about_hidden_negation(review: Review, tokens: list[Token], meant: dict[int, str], respelled: set[int], skip: set[int] | None, swaps: tuple[Swap, ...], dom: Domain) -> None:
+    """A real word that one accent swap away is "never" / "not" / "cannot", right before an action word, might be a negation typed by ear. A negation is never
+    rewritten silently (D40), and a lost negation reverses the instruction, so this is always a question (D44)."""
+    done = {q.span.start for q in review.clarify} | {c.span.start for c in review.changes}
+    for k, tok in enumerate(tokens[:-1]):
+        if tok.start in done or tok.i in respelled or (skip and tok.i in skip) or not tok.norm.isalpha() or tok.norm in NEGATION_WORDS:
+            continue
+        nxt = tokens[k + 1]
+        if not dom.in_category(meant.get(nxt.start, nxt.norm), "action"):
+            continue
+        for c in spelling_candidates(tok.norm, swaps, max_swaps=1):
+            if c.word in NEGATION_WORDS and c.cost <= 0.6:
+                options = [c.word, tok.norm]
+                review.clarify.append(Clarify(span=Span(start=tok.start, end=tok.end, text=tok.text), options=options, question=f"{c.word.capitalize()} or {tok.norm}?", slot="negation"))
+                break
+
+
 def review_typed(text: str, accent_hint: str | None = None, cfg: SafetyConfig | None = None, domain: Domain | None = None,
                  skip: set[int] | None = None) -> Review:
     """Sound-swap decoding of typed text. `skip` = token indexes already explained (glossary phrases)."""
@@ -123,5 +143,6 @@ def review_typed(text: str, accent_hint: str | None = None, cfg: SafetyConfig | 
             options = tuple(dict.fromkeys([best.word, *(c.word for c in close), tok.norm]))
             question = " or ".join(o.capitalize() if k == 0 else o for k, o in enumerate(options)) + "?"
             review.clarify.append(Clarify(span=span, options=list(options), question=question, slot=slot.kind if slot else ""))
+    _ask_about_hidden_negation(review, tokens, meant, respelled, skip, swaps, dom)
     return review
 
