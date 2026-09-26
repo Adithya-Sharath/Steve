@@ -111,7 +111,7 @@ export function DecodedCardView({
         {plain}
       </p>
 
-      {(card.phrases.length > 0 || view?.phrases.length) && !detail && (
+      {(card.phrases.length > 0 || (view?.phrases.length ?? 0) > 0) && !detail && (
         <p className="text-sm text-muted-foreground">Tap a highlighted word below to see what it means.</p>
       )}
 

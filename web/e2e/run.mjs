@@ -7,7 +7,7 @@ import { startStack, ADMIN_KEY } from "./stack.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const which = process.argv[2] || "all";
-const scripts = { check: ["check-mode.mjs"], listen: ["listen.mjs"], client: ["client.mjs"], all: ["check-mode.mjs", "listen.mjs", "client.mjs"] }[which];
+const scripts = { check: ["check-mode.mjs"], listen: ["demo.mjs"], demo: ["demo.mjs"], client: ["client.mjs"], all: ["check-mode.mjs", "demo.mjs", "client.mjs"], shots: ["screenshots.mjs"] }[which];
 if (!scripts) { console.error("usage: node e2e/run.mjs [check|listen|client|all]"); process.exit(2); }
 
 // async spawn on purpose: the mock Sarvam server lives in THIS process and must keep answering while a script runs

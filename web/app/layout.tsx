@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { WakingBanner, WarmUp } from "@/components/decode/warmup";
 import { Providers } from "@/components/providers";
 import { SiteFooter, SiteNav } from "@/components/site-nav";
 import "./globals.css";
@@ -9,19 +10,19 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const display = Instrument_Serif({ variable: "--font-display", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
-  title: { default: "Steve: did they really understand?", template: "%s · Steve" },
+  title: { default: "Steve: you know the language, you still miss the message", template: "%s · Steve" },
   description:
-    "Steve checks that an important message actually got through. The reader explains it back in their own mix of languages, and Steve checks every dose, date and warning.",
+    "Steve Decode turns what you hear (accents, local slang, borrowed words) into plain English: where, when, what to do and how much. It asks when it is not sure. Text only.",
   openGraph: {
     type: "website",
     siteName: "Steve",
-    title: "Steve: did they really understand?",
-    description: "“ok 👍” isn't understanding. Steve checks every dose, date and warning in the reader's own words.",
+    title: "Steve: you know the language, you still miss the message",
+    description: "Where, when, what to do and how much, from accented or mixed speech. Text only, nothing stored.",
   },
   twitter: {
     card: "summary",
-    title: "Steve: did they really understand?",
-    description: "“ok 👍” isn't understanding. Steve checks every dose, date and warning in the reader's own words.",
+    title: "Steve: you know the language, you still miss the message",
+    description: "Where, when, what to do and how much, from accented or mixed speech. Text only, nothing stored.",
   },
 };
 
@@ -45,6 +46,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               Skip to content
             </a>
             <SiteNav />
+            <WakingBanner />
+            <WarmUp />
             <main id="main">{children}</main>
             <SiteFooter />
           </div>

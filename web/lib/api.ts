@@ -12,8 +12,11 @@ import type {
   SuggestedFacts,
   Context,
   Reply,
+  DecodeEval,
+  DecodeExamples,
   DecodeHealth,
   DecodeResponse,
+  InspectResult,
   ReplyLanguage,
   AccentHint,
 } from "./types";
@@ -99,6 +102,9 @@ export const api = {
     request<AnalyzeOut>("/analyze", json({ reply, facts, lang_hint, message })),
 
   // Decode (D45): text or a voice note in, a card out. The worker key travels as X-Worker-Key; nothing is stored in this browser but the key and the choices.
+  decodeExamples: () => request<DecodeExamples>("/decode/examples"),
+  inspect: (b: { text: string; accent_hint?: AccentHint; path: "typed" | "voice" }) => request<InspectResult>("/decode/inspect", json(b)),
+  decodeEval: () => request<DecodeEval>("/decode/eval"),
   decodeHealth: () => request<DecodeHealth>("/decode/health"),
   decodeText: (b: { text: string; accent_hint?: AccentHint; reply_language?: ReplyLanguage }) => request<DecodeResponse>("/decode", json(b), "worker"),
   decodeAudio: (audio: Blob, opts: { accent_hint?: AccentHint; reply_language?: ReplyLanguage }) => {

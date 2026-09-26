@@ -24,12 +24,15 @@ export function VoiceRecorder({
   busy,
   autoSend = false,
   onRecordingChange,
+  onMicError,
   idleText,
 }: {
   onSend: (wav: Blob) => void;
   busy: boolean;
   autoSend?: boolean;
   onRecordingChange?: (recording: boolean) => void;
+  /** the microphone could not be used: `denied` (permission refused) or `unavailable` (no device, or the page is not on HTTPS) */
+  onMicError?: (kind: "denied" | "unavailable") => void;
   idleText?: string;
 }) {
   const [phase, setPhase] = useState<Phase>("idle");
@@ -119,8 +122,10 @@ export function VoiceRecorder({
       setPhase("recording");
       onRecordingChange?.(true);
       timer.current = setInterval(() => setSeconds((v) => v + 1), 1000);
-    } catch {
-      toast.error("We couldn't use the microphone. You can type your answer instead.");
+    } catch (e) {
+      const denied = e instanceof DOMException && (e.name === "NotAllowedError" || e.name === "SecurityError");
+      if (onMicError) onMicError(denied ? "denied" : "unavailable");
+      else toast.error("We couldn't use the microphone. You can type your answer instead.");
     }
   };
 

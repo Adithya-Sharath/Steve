@@ -285,6 +285,42 @@ export interface DecodeResponse {
   notes: string[];
   say_back: string[];
 }
+export interface DecodeExample {
+  id: string;
+  label: string;
+  request: { text: string; accent_hint?: AccentHint | null; reply_language?: ReplyLanguage | null };
+  response: DecodeResponse;
+}
+export interface DecodeExamples {
+  examples: DecodeExample[];
+  computed_live: boolean;
+}
+export interface InspectResult {
+  path: "typed" | "voice";
+  tokens: { i: number; text: string; start: number; end: number }[];
+  glossary: { phrase: string; span: Span; category: string }[];
+  slots: { token: string; kind: string; expects: string[]; trigger: string }[];
+  examined: {
+    token: string;
+    slot: string;
+    decision: "fits" | "no_alternative" | "keep" | "rewrite" | "clarify";
+    best: string | null;
+    margin: number;
+    options: string[];
+    candidates: { word: string; score: number }[];
+    original_score: number;
+  }[];
+  effective_words: string[];
+  unresolved_tokens: number[];
+  card: DecodedCard;
+}
+export interface DecodeEval {
+  available: boolean;
+  message: string | null;
+  generated_from: string[];
+  caveats: string[];
+  sections: { id: string; title: string; label: string; note: string | null; rows: { metric: string; value: string; detail: string | null }[] }[];
+}
 export interface DecodeHealth {
   typed: boolean;
   voice: boolean;
