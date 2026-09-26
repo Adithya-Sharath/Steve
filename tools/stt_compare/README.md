@@ -84,7 +84,7 @@ audio or derived text (all of it lands in gitignored folders), and see DECISIONS
 transcript in the dataset, no scripted split in the repo).
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r toolsequirements.txt
+..venvScriptspython.exe -m pip install -r toolsequirements.txt
 .\.venv\Scripts\python.exe tools\stt_compare\importers\l2arctic_spontaneous.py inspect
 ```
 
