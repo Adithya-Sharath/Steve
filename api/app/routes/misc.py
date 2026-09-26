@@ -12,6 +12,7 @@ from steve_engine import check_reply, inspect_reply, lexicon_stats
 from ..auth import admin_required, sender_hash
 from ..db import Fact as FactRow
 from ..db import FactResultRow, Message, ReaderLink, Reply, get_session
+from ..ratelimit import limit
 from ..schemas import AnalyzeIn, CheckIn, LlmToggle
 from ..services.replies import process_reply
 from ..services.stt import get_stt
@@ -41,13 +42,13 @@ def set_llm(body: LlmToggle, _admin: None = Depends(admin_required)):
     return {"llm_switch": settings.llm_enabled, "llm_enabled": settings.llm_available}
 
 
-@router.post("/check", tags=["engine"])
+@router.post("/check", tags=["engine"], dependencies=[Depends(limit("check", per_minute=lambda: settings.rl_check_per_min))])
 def check(body: CheckIn):
     """Stateless: {facts, reply} -> per-fact results. Used by the landing playground and the eval."""
     return [r.model_dump(mode="json") for r in check_reply(body.facts, body.reply, body.lang_hint, message=body.message)]
 
 
-@router.post("/analyze", tags=["engine"])
+@router.post("/analyze", tags=["engine"], dependencies=[Depends(limit("analyze", per_minute=lambda: settings.rl_check_per_min))])
 def analyze(body: AnalyzeIn):
     """Stage-by-stage view (tokens, lexicon matches, slots, results) for /how-it-works."""
     return inspect_reply(body.reply, body.lang_hint, body.facts, message=body.message)
@@ -73,7 +74,7 @@ def demo_scenarios():
     return _scenarios()
 
 
-@router.post("/demo/seed", tags=["demo"])
+@router.post("/demo/seed", tags=["demo"], dependencies=[Depends(limit("seed", per_minute=lambda: settings.rl_seed_per_min))])
 def demo_seed(owner: str = Depends(sender_hash), session: Session = Depends(get_session)):
     """(Re)load data/scenarios.json as confirmed demo messages OWNED BY THE CALLER (ids carry a per-sender suffix).
     The first one gets a pre-baked 'subtle mistake' reply."""

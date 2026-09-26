@@ -8,6 +8,9 @@ os.environ["LLM_ENABLED"] = "false"
 os.environ["GEMINI_API_KEY"] = ""
 os.environ["SARVAM_API_KEY"] = ""
 os.environ["REPLY_RATE_LIMIT"] = "1000"
+# the suite makes hundreds of calls from one "IP": lift the rate limits here; test_rate_limits.py sets them per test
+for _name in ("RL_MESSAGES_PER_MIN", "RL_MESSAGES_PER_DAY", "RL_MESSAGES_PER_SENDER_DAY", "RL_CHECK_PER_MIN", "RL_SEED_PER_MIN", "RL_DEFAULT_PER_MIN"):
+    os.environ[_name] = "1000000"
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
@@ -16,6 +19,15 @@ from app.main import app  # noqa: E402
 
 KEY_A = "sk_" + "A" * 32
 KEY_B = "sk_" + "B" * 32
+
+
+@pytest.fixture(autouse=True)
+def _fresh_rate_limits():
+    from app.ratelimit import limiter
+
+    limiter.reset()
+    yield
+    limiter.reset()
 
 
 @pytest.fixture(scope="session")

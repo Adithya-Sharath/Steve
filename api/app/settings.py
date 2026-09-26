@@ -13,6 +13,13 @@ load_dotenv(REPO_ROOT / ".env")
 load_dotenv(REPO_ROOT / "api" / ".env")
 
 
+def _int(name: str, default: int) -> int:
+    try:
+        return int(os.getenv(name, "").strip() or default)
+    except ValueError:
+        return default
+
+
 def _bool(name: str, default: bool) -> bool:
     v = os.getenv(name)
     if v is None or v == "":
@@ -49,8 +56,16 @@ class Settings:
     )
     # the global LLM switch is admin-only: without ADMIN_KEY the runtime toggle is disabled and LLM_ENABLED decides (D30)
     admin_key: str = field(default_factory=lambda: os.getenv("ADMIN_KEY", "").strip())
-    reply_rate_limit: int = field(default_factory=lambda: int(os.getenv("REPLY_RATE_LIMIT", "12")))
+    # rate limits (in-memory sliding windows, D32). A value <= 0 switches that rule off.
+    rl_messages_per_min: int = field(default_factory=lambda: _int("RL_MESSAGES_PER_MIN", 10))  # POST /messages, per IP
+    rl_messages_per_day: int = field(default_factory=lambda: _int("RL_MESSAGES_PER_DAY", 100))  # per IP
+    rl_messages_per_sender_day: int = field(default_factory=lambda: _int("RL_MESSAGES_PER_SENDER_DAY", 30))  # per sender key
+    reply_rate_limit: int = field(default_factory=lambda: _int("REPLY_RATE_LIMIT", 12))  # per reader link + IP, per minute
     reply_rate_window: int = 60
+    reply_cap_per_message: int = field(default_factory=lambda: _int("REPLY_CAP_PER_MESSAGE", 30))  # hard cap, replies in total
+    rl_check_per_min: int = field(default_factory=lambda: _int("RL_CHECK_PER_MIN", 60))  # POST /check and /analyze, per IP each
+    rl_seed_per_min: int = field(default_factory=lambda: _int("RL_SEED_PER_MIN", 5))  # POST /demo/seed, per IP
+    rl_default_per_min: int = field(default_factory=lambda: _int("RL_DEFAULT_PER_MIN", 120))  # everything else, per IP
 
     @property
     def llm_available(self) -> bool:

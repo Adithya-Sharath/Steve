@@ -13,6 +13,7 @@ from sqlmodel import Session, delete, select
 from ..auth import FORBIDDEN, sender_hash, sender_hash_header_or_query
 from ..db import Fact as FactRow
 from ..db import Message, ReaderLink, get_session
+from ..ratelimit import limit, limit_sender
 from ..schemas import (
     ConfirmIn,
     ConfirmOut,
@@ -41,8 +42,17 @@ def _get(session: Session, message_id: str, owner: str) -> Message:
     return m
 
 
-@router.post("/messages", response_model=SuggestedFacts)
-def create_message(body: MessageIn, owner: str = Depends(sender_hash), session: Session = Depends(get_session)):
+@router.post(
+    "/messages",
+    response_model=SuggestedFacts,
+    dependencies=[Depends(limit("messages", per_minute=lambda: settings.rl_messages_per_min, per_day=lambda: settings.rl_messages_per_day))],
+)
+def create_message(
+    body: MessageIn,
+    owner: str = Depends(sender_hash),
+    _sender_cap: None = Depends(limit_sender("messages_sender", per_day=lambda: settings.rl_messages_per_sender_day)),
+    session: Session = Depends(get_session),
+):
     m = Message(id=uuid.uuid4().hex[:10], text=body.text.strip(), sender_name=body.sender_name.strip(), context=body.context, owner_hash=owner)
     session.add(m)
     session.commit()

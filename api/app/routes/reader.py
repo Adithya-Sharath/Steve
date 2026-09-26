@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-import time
-from collections import defaultdict, deque
-
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
-from sqlmodel import Session
+from sqlmodel import Session, func, select
 
 from ..clientip import client_ip
-from ..db import Message, ReaderLink, get_session
+from ..db import Message, ReaderLink, Reply, get_session
+from ..ratelimit import MINUTE, Rule, limiter
 from ..services.broker import broker
 from ..services.replies import process_reply
 from ..services.stt import STTUnavailable, get_stt
@@ -18,17 +16,6 @@ from ..settings import settings
 router = APIRouter(tags=["reader"])
 
 MAX_AUDIO_BYTES = 4 * 1024 * 1024
-_hits: dict[str, deque] = defaultdict(deque)
-
-
-def rate_limit(key: str) -> None:
-    now = time.monotonic()
-    q = _hits[key]
-    while q and now - q[0] > settings.reply_rate_window:
-        q.popleft()
-    if len(q) >= settings.reply_rate_limit:
-        raise HTTPException(429, "Too many replies. Please wait a moment and try again.")
-    q.append(now)
 
 
 def _link_and_message(session: Session, token: str) -> tuple[ReaderLink, Message]:
@@ -64,7 +51,11 @@ async def reader_reply(
     session: Session = Depends(get_session),
 ):
     _, m = _link_and_message(session, token)
-    rate_limit(f"{token}:{client_ip(request)}")
+    # hard cap on stored replies for one message (a runaway script or a shared link cannot grow the database forever)
+    total = session.exec(select(func.count()).select_from(Reply).where(Reply.message_id == m.id)).one()
+    if settings.reply_cap_per_message > 0 and total >= settings.reply_cap_per_message:
+        raise HTTPException(429, f"This message has reached its limit of {settings.reply_cap_per_message} replies.")
+    limiter.enforce("reply", f"{token}:{client_ip(request)}", [Rule(settings.reply_rate_limit, settings.reply_rate_window or MINUTE)])
 
     source = "text"
     if audio is not None and audio.filename:

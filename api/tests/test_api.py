@@ -1,7 +1,6 @@
 import asyncio
 import json
 
-from app.routes import reader as reader_routes
 from app.services.broker import Broker
 from app.services.extractor import regex_extract
 from app.settings import settings
@@ -152,7 +151,6 @@ def test_demo_seed_and_eval_empty_state(client):
 def test_rate_limit(client, monkeypatch):
     _, _, conf = _flow(client)
     t = conf["reader_token"]
-    reader_routes._hits.clear()
     monkeypatch.setattr(settings, "reply_rate_limit", 2)
     codes = [client.post(f"/r/{t}/reply", data={"text": "ok"}).status_code for _ in range(4)]
     assert codes[:2] == [200, 200] and codes[2:] == [429, 429]
