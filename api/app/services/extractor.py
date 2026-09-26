@@ -20,6 +20,7 @@ from steve_engine.matcher import Match, prepare
 from steve_engine.negation import assign
 from steve_engine.slots import fill_slots
 
+from ..budget import llm_budget
 from ..settings import settings
 
 log = logging.getLogger("steve.extractor")
@@ -216,6 +217,9 @@ def suggest_facts(text: str) -> tuple[list[Fact], str, str | None]:
     wait = _paused_for()
     if wait > 0:
         return regex_extract(text), "regex", f"LLM paused for another {wait:.0f} s after a recent failure; used the built-in extractor."
+    if not llm_budget.try_spend():  # global daily cap (D33): no Gemini call, the built-in extractor answers
+        log.warning("LLM_DAILY_CAP reached; using the built-in extractor until 00:00 UTC")
+        return regex_extract(text), "regex", "LLM unavailable (daily AI limit reached); used the built-in extractor."
     try:
         return _extract_with_deadline(text), "llm", None
     except FutureTimeout:

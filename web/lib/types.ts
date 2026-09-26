@@ -116,6 +116,7 @@ export interface Health {
   llm_switch: boolean;
   llm_key_present: boolean;
   admin_toggle_available: boolean;
+  budget?: { llm_cap: number; llm_remaining: number; stt_cap: number; stt_remaining: number };
   stt_enabled: boolean;
   lexicon: { entries: number; by_language: Record<string, number> };
   version: string;

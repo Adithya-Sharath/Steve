@@ -23,11 +23,16 @@ KEY_B = "sk_" + "B" * 32
 
 @pytest.fixture(autouse=True)
 def _fresh_rate_limits():
+    from app.budget import llm_budget, stt_budget
     from app.ratelimit import limiter
 
     limiter.reset()
+    llm_budget.reset()
+    stt_budget.reset()
     yield
     limiter.reset()
+    llm_budget.reset()
+    stt_budget.reset()
 
 
 @pytest.fixture(scope="session")

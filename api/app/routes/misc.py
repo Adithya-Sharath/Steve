@@ -10,6 +10,7 @@ from sqlmodel import Session, delete, select
 from steve_engine import check_reply, inspect_reply, lexicon_stats
 
 from ..auth import admin_required, sender_hash
+from ..budget import snapshot
 from ..db import Fact as FactRow
 from ..db import FactResultRow, Message, ReaderLink, Reply, get_session
 from ..ratelimit import limit
@@ -29,6 +30,7 @@ def health():
         "llm_switch": settings.llm_enabled,
         "llm_key_present": bool(settings.gemini_api_key),
         "admin_toggle_available": bool(settings.admin_key),
+        "budget": snapshot(),  # numbers only: daily caps and calls left (-1 = unlimited)
         "stt_enabled": get_stt().enabled,
         "lexicon": lexicon_stats(),
         "version": "0.1.0",

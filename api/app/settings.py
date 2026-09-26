@@ -56,6 +56,9 @@ class Settings:
     )
     # the global LLM switch is admin-only: without ADMIN_KEY the runtime toggle is disabled and LLM_ENABLED decides (D30)
     admin_key: str = field(default_factory=lambda: os.getenv("ADMIN_KEY", "").strip())
+    # global daily caps on paid / quota-limited calls (D33): 0 blocks the service, a negative value means unlimited
+    llm_daily_cap: int = field(default_factory=lambda: _int("LLM_DAILY_CAP", 200))
+    stt_daily_cap: int = field(default_factory=lambda: _int("STT_DAILY_CAP", 300))
     # rate limits (in-memory sliding windows, D32). A value <= 0 switches that rule off.
     rl_messages_per_min: int = field(default_factory=lambda: _int("RL_MESSAGES_PER_MIN", 10))  # POST /messages, per IP
     rl_messages_per_day: int = field(default_factory=lambda: _int("RL_MESSAGES_PER_DAY", 100))  # per IP

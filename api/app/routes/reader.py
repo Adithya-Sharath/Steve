@@ -5,6 +5,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from sqlmodel import Session, func, select
 
+from ..budget import stt_budget
 from ..clientip import client_ip
 from ..db import Message, ReaderLink, Reply, get_session
 from ..ratelimit import MINUTE, Rule, limiter
@@ -65,6 +66,8 @@ async def reader_reply(
         data = await audio.read(MAX_AUDIO_BYTES + 1)  # held in memory only, never persisted
         if len(data) > MAX_AUDIO_BYTES:
             raise HTTPException(413, "That recording is too long. Please keep it under 30 seconds.")
+        if not stt_budget.try_spend():  # global daily cap on paid speech-to-text calls (D33)
+            raise HTTPException(429, "Voice replies have reached today's limit. Please type your reply instead.")
         try:
             text = stt.transcribe(data, audio.content_type or "audio/wav", lang_hint)
         except STTUnavailable as e:
