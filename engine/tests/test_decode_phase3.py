@@ -179,3 +179,19 @@ def test_not_sure_keeps_the_slot_empty_and_keeps_the_question_for_saying_back():
 def test_answers_for_spans_that_do_not_exist_are_ignored():
     c = decode("come to the parking", None, resolved={999: "gate"})
     assert c.changes == [] and c.clarify == []
+
+
+# ---- the demo sentence: an area name with the Arabic article, a prayer-time word, a glossary comma (D47) -----------------------------------------------
+
+
+@pytest.mark.parametrize("path", ["typed", "voice"])
+def test_al_quoz_before_maghrib(path):
+    c = decode("Yalla, drop it at Al Quoz before Maghrib. No signature, just call the guy.", None, path)
+    assert val(c.actions.where) == "al quoz" and val(c.actions.when) == "maghrib" and val(c.actions.what) == "drop"
+    assert c.clarify == [] and c.changes == []  # "Al" is an article, not a mistyped "Am"
+    assert [p.phrase for p in c.phrases] == ["yalla", "maghrib"]
+    assert c.plain_english.startswith("Come on, drop it at Al Quoz")  # one comma, not two
+
+
+def test_the_glossary_comma_is_not_doubled():
+    assert ",," not in decode("yalla, come to the gate").plain_english

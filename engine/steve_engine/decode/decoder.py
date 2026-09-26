@@ -12,6 +12,8 @@ Wording: decoded, probably meant, often sounds like. Never "wrong" or "bad Engli
 
 from __future__ import annotations
 
+import re
+
 from .actions import Eff, extract, parse_number
 from .domain import get_domain
 from .glossary import Hit, find_phrases, to_phrase_hit
@@ -78,7 +80,7 @@ def _plain(text: str, effs: list[Eff], changes: list[Change], hits: list[Hit]) -
         out += [text[pos:s], new]
         pos = e
     plain = "".join(out) + text[pos:]
-    plain = " ".join(plain.split()).replace(" ,", ",")
+    plain = re.sub(r",\s*,", ",", " ".join(plain.split()).replace(" ,", ","))  # "Come on," + the original comma
     return plain[:1].upper() + plain[1:] if plain else plain
 
 

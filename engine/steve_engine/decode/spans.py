@@ -26,6 +26,7 @@ FUNCTION_WORDS = {
     "where", "why", "how", "there", "here", "then", "than", "so", "if", "but", "with", "as", "is", "am", "are", "was", "were", "be", "been", "being",
     "do", "does", "did", "have", "has", "had", "will", "would", "can", "could", "shall", "should", "may", "might", "must", "yes", "ok", "okay", "all",
     "any", "some", "each", "another", "other", "more", "most", "much", "many", "such", "just", "also", "very", "too", "again", "already", "still",
+    "al", "el",  # the Arabic article in place names ("Al Quoz"): never the word a slot depends on
     "yalla", "habibi", "hello", "hi", "listen", "sir", "madam", "myself", "yourself", "himself", "herself", "themselves", "ourselves",
 }
 

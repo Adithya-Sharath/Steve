@@ -9,7 +9,8 @@ categories:
           elevator, stairs, room, door, office, store, shop, site, road, street, house, hotel, hospital, airport, bank, market, garden,
           garage, kitchen, tower, block, camp, warehouse, entrance, exit, corridor, roof, pool, gym, school, clinic, pharmacy, restaurant,
           supermarket, bus, stop, terminal, port, farm, factory, yard, desk, counter, canteen, cafeteria, rooftop, workshop, dock, depot, showroom, laundry, salon, bakery, cabin,
-          dormitory, hall, lounge, balcony, junction, roundabout, bridge, tunnel, cafe]
+          dormitory, hall, lounge, balcony, junction, roundabout, bridge, tunnel, cafe,
+          quoz, deira, karama, satwa, jumeirah, barsha, qusais, mirdif, sharjah, ajman, musaffah, dubai]
   # when
   time: [now, today, tomorrow, yesterday, tonight, morning, afternoon, evening, night, noon, midnight, monday, tuesday, wednesday, thursday,
          friday, saturday, sunday, oclock, "o'clock", am, pm, minute, minutes, hour, hours, day, days, week, weeks, month, months, later,

@@ -120,8 +120,8 @@ def extract(effs: list[Eff], text: str, dom: Domain, unresolved: set[int]) -> Ac
 
 def _is_modifier(w: str) -> bool:
     """A word that can sit between the article and a place word ("main gate", "labour camp", "petrol station")."""
-    return (w not in FUNCTION_WORDS and w not in PREP_ANCHORS and w not in DAY_WORDS and w not in PART_OF_DAY and w not in CURRENCY and w not in NEGATORS
-            and w not in OPENERS and w not in MOTION and w not in TIME_ONLY and not w.isdigit() and w.isalpha() and len(w) > 2)
+    return ((w not in FUNCTION_WORDS or w in {"al", "el"}) and w not in PREP_ANCHORS and w not in DAY_WORDS and w not in PART_OF_DAY and w not in CURRENCY and w not in NEGATORS
+            and w not in OPENERS and w not in MOTION and w not in TIME_ONLY and not w.isdigit() and w.isalpha() and (len(w) > 2 or w in {"al", "el"}))
 
 
 def _anchor(words: list[str], p: int) -> int | None:
