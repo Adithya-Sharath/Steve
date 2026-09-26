@@ -38,6 +38,9 @@ from steve_engine.decode.safety import apply_changes  # noqa: E402
 DATA = ROOT / "data" / "decode"
 SLOTS = ("where", "when", "what", "how_much")
 STOP = {"the", "a", "an", "at", "in", "on", "to", "by", "near", "from", "for", "until", "before", "after", "o'clock", "please", "of", "me", "this", "it"}
+SET = sys.argv[sys.argv.index("--set") + 1] if "--set" in sys.argv else "v1"  # which frozen set to score
+INST_FILE = "workplace_instructions.csv" if SET == "v1" else f"workplace_instructions_{SET}.csv"
+EVAL_FILE = f"eval_{SET}.csv"
 NEGATIONS = {"don't", "never", "cannot", "not", "no", "can't", "won't"}
 _WORDS = re.compile(r"[a-z']+|\d+")
 
@@ -120,8 +123,8 @@ def score_row(row: dict, gold: dict, card) -> dict:
 
 
 def run() -> tuple[list[dict], dict]:
-    inst = {r["id"]: r for r in load("workplace_instructions.csv")}
-    rows = load("eval_v1.csv")
+    inst = {r["id"]: r for r in load(INST_FILE)}
+    rows = load(EVAL_FILE)
     results = []
     for r in rows:
         path = "voice" if r["view"] == "voice_clean" else "typed"
@@ -182,7 +185,7 @@ def summarise(results: list[dict]) -> dict:
         ext[view] = per
     out["extraction"] = ext
     neg = [x for x in results if any(w in norm_words(x["row"]["intended"]) for w in ("don't", "do", "never", "cannot")) and re.search(r"\b(don't|do not|never|cannot)\b", x["row"]["intended"])]
-    out["negation"] = Counter(n=len(neg), kept=sum(bool(re.search(r"\b(don't|do not|never|cannot|not)\b", x["effective"].lower())) and bool(re.search(r"\b(don't|do not|never|cannot|not)\b", x["card"].plain_english.lower())) for x in neg))
+    out["negation"] = Counter(n=len(neg), kept=sum(any(q.slot == "negation" for q in x["card"].clarify) or bool(re.search(r"\b(don't|do not|never|cannot|not)\b", x["effective"].lower())) and bool(re.search(r"\b(don't|do not|never|cannot|not)\b", x["card"].plain_english.lower())) for x in neg))
     return out
 
 
@@ -217,14 +220,27 @@ def empties(results: list[dict]) -> Counter:
     return c
 
 
+TAG = sys.argv[sys.argv.index("--tag") + 1] if "--tag" in sys.argv else "latest"
+
+
+def status() -> str:
+    if SET == "v1" and TAG == "first_run":
+        return "**Status: untouched.** It was committed before its first scoring run; the engine had not been run on it and nothing was tuned on it."
+    if SET == "v1":
+        return ("**Status: CONTAMINATED.** The first scoring run of this set (eval/results/decode_eval_v1_first_run.md) was used to find and fix gaps in the extractor and the typed "
+                "decoder (D44), so these numbers are tuned-on numbers, not a fresh test. Use the first-run file and the v2 set for honest numbers.")
+    return ("**Status: untouched.** Written after the D44 fixes, without looking at how the decoder handles these sentences, and scored once. "
+            "(Same author and conventions as v1, so it is fresher, not independent.)")
+
+
 def report(results: list[dict], summ: dict) -> str:
     L: list[str] = []
     a = L.append
-    inst_hash, ev_hash = file_hash("workplace_instructions.csv"), file_hash("eval_v1.csv")
+    inst_hash, ev_hash = file_hash(INST_FILE), file_hash(EVAL_FILE)
     a("# Decode Phase 3 evaluation (D44)\n")
-    a(f"Frozen evaluation set `data/decode/eval_v1.csv` (sha256 {ev_hash}), built from `workplace_instructions.csv` (sha256 {inst_hash}): {len(results)} scored rows from "
-      f"{len(load('workplace_instructions.csv'))} hand-written UAE workplace instructions. **Synthetic, one author: sentences, gold labels and by-ear respellings.** "
-      "It was committed before its first scoring run and nothing was tuned on it. It measures whether the decoder does what its author intended on a fresh sample; it says nothing about "
+    a(f"Frozen evaluation set `data/decode/{EVAL_FILE}` (sha256 {ev_hash}), built from `{INST_FILE}` (sha256 {inst_hash}): {len(results)} scored rows from "
+      f"{len(load(INST_FILE))} hand-written UAE workplace instructions. **Synthetic, one author: sentences, gold labels and by-ear respellings.** "
+      f"{status()} It measures whether the decoder does what its author intended on a sample it was not built from; it says nothing about "
       "how real workers write or speak (real-world validation is missing, D42). Every rule, phrase and word list is `verified: false`.\n")
     fa = summ["false_alarm"]
     a("## 1. False-alarm rate (headline)\n")
@@ -265,7 +281,7 @@ def report(results: list[dict], summ: dict) -> str:
             none_ = c["none"] + c["spurious"]
             a(f"| {labels[view]} | {s} | {g} | {rate(c['correct'], g)} | {c['partial']} | {c['empty']} | {rate(c['wrong'], g)} | {rate(c['spurious'], none_)} |")
     neg = summ["negation"]
-    a(f"\nNegation kept: {neg['kept']} of {neg['n']} negated sentences still contain the negation in the plain English (a negation must never be lost).\n")
+    a(f"\nNegation kept: {neg['kept']} of {neg['n']} negated sentences still contain the negation in the plain English, or the card asked about a possible hidden negation (a negation must never be silently lost).\n")
     a("## 4. Voice safety net catch rate (secondary; read the labels)\n")
     import decode_safety_eval as dse
 
@@ -294,13 +310,13 @@ def report(results: list[dict], summ: dict) -> str:
 
 
 def main() -> None:
-    tag = sys.argv[sys.argv.index("--tag") + 1] if "--tag" in sys.argv else "latest"
+    tag = TAG
     results, _ = run()
     summ = summarise(results)
-    text = report(results, summ).replace("# Decode Phase 3 evaluation (D44)", f"# Decode Phase 3 evaluation (D44), run: {tag}", 1)
+    text = report(results, summ).replace("# Decode Phase 3 evaluation (D44)", f"# Decode Phase 3 evaluation (D44), set {SET}, run: {tag}", 1)
     print(text)
     if "--write" in sys.argv:
-        out = ROOT / "eval" / "results" / f"decode_eval_v1_{tag}.md"
+        out = ROOT / "eval" / "results" / f"decode_eval_{SET}_{tag}.md"
         out.parent.mkdir(exist_ok=True)
         out.write_text(text + "\n", encoding="utf-8")
         print("\nWrote", out)

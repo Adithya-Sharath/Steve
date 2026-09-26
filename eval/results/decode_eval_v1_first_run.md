@@ -1,3 +1,5 @@
+> **Record of the first scoring run, engine as of commit e2149c1 + 3f189f6 (before the D44 fixes).** It cannot be regenerated with the current engine. Status of the set at that time: untouched (committed before this run). The 'left as typed / wrong rewrite', 'partial' and 'negation lost = wrong' splits were added to the scorer after seeing these numbers (D44).
+
 # Decode Phase 3 evaluation (D44), run: first_run
 
 Frozen evaluation set `data/decode/eval_v1.csv` (sha256 b92dbd62c860dffb), built from `workplace_instructions.csv` (sha256 5a747434d5093c57): 458 scored rows from 136 hand-written UAE workplace instructions. **Synthetic, one author: sentences, gold labels and by-ear respellings.** It was committed before its first scoring run and nothing was tuned on it. It measures whether the decoder does what its author intended on a fresh sample; it says nothing about how real workers write or speak (real-world validation is missing, D42). Every rule, phrase and word list is `verified: false`.
