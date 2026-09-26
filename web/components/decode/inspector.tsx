@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useDecodeExamples } from "@/components/decode/example-chips";
 import { ErrorState } from "@/components/states";
 import { Button } from "@/components/ui/button";
@@ -138,20 +138,14 @@ function Stages({ d }: { d: InspectResult }) {
 
 /** How Decode works: type any text and watch every stage happen. Deterministic rules, no model: this is the proof that it is not a wrapper around an LLM. */
 export function DecodeInspector() {
-  const [text, setText] = useState("yalla habibi come to the barking gate tree");
-  const [accent, setAccent] = useState<AccentHint | "">("ar");
+  const [text, setText] = useState("");
+  const [accent, setAccent] = useState<AccentHint | "">("");
   const [path, setPath] = useState<"typed" | "voice">("typed");
   const ex = useDecodeExamples();
   const run = useMutation({
     mutationFn: (b: { text: string; accent: AccentHint | ""; path: "typed" | "voice" }) =>
       withWake(() => api.inspect({ text: b.text, accent_hint: b.accent || undefined, path: b.path })),
   });
-  const started = useRef(false);
-  useEffect(() => {
-    if (started.current) return;
-    started.current = true;
-    run.mutate({ text, accent, path });
-  }, [run, text, accent, path]);
   return (
     <div className="space-y-5">
       <form
@@ -162,7 +156,7 @@ export function DecodeInspector() {
         }}
       >
         <label htmlFor="ins-text" className="text-sm font-medium text-muted-foreground">Any message (English as heard or typed)</label>
-        <Textarea id="ins-text" value={text} onChange={(e) => setText(e.target.value)} maxLength={500} className="min-h-24 text-base" />
+        <Textarea id="ins-text" value={text} onChange={(e) => setText(e.target.value)} maxLength={500} className="min-h-24 text-base" placeholder="Type a message, or tap an example below" />
         <div className="grid gap-3 sm:grid-cols-2">
           <div>
             <label htmlFor="ins-accent" className="text-sm font-medium text-muted-foreground">Who is speaking?</label>
@@ -197,6 +191,7 @@ export function DecodeInspector() {
         <Button type="submit" className="h-12 px-6 text-base" disabled={run.isPending || !text.trim()}>Show the stages</Button>
       </form>
       {run.isError && <ErrorState message={(run.error as Error).message} onRetry={() => run.mutate({ text, accent, path })} />}
+      {!run.data && !run.isPending && !run.isError && <p className="text-muted-foreground" data-testid="inspector-empty">Nothing has been decoded yet. Type a message or tap an example, then choose “Show the stages”.</p>}
       {run.data && !run.isError && <Stages d={run.data} />}
       <p className="text-sm text-muted-foreground">No language model is used for any of these stages: the same text always gives the same answer. (An LLM is only ever used, optionally, to translate the finished card.)</p>
     </div>

@@ -1,15 +1,35 @@
 "use client";
 
-import { MapPin, Clock, ListChecks } from "lucide-react";
-import { useDecodeExamples } from "@/components/decode/example-chips";
+import { useQuery } from "@tanstack/react-query";
+import { Clock, ListChecks, Loader2, MapPin } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { api } from "@/lib/api";
+import { withWake } from "@/lib/waking";
 
-/** On the entry page: the first example, decoded LIVE by the real engine through `GET /decode/examples` (never a stored card). Quietly absent if the API is unreachable. */
+/**
+ * On the entry page: nothing is decoded until the visitor asks. The button fetches `GET /decode/examples` and the FIRST example is then decoded by the real engine
+ * at that moment (never a stored card). Quietly falls back to a message if the API is unreachable.
+ */
 export function LiveExample() {
-  const q = useDecodeExamples();
+  const [asked, setAsked] = useState(false);
+  const q = useQuery({ queryKey: ["intro-example"], queryFn: () => withWake(api.decodeExamples), enabled: asked, retry: false });
   const ex = q.data?.examples[0];
-  if (q.isError) return null;
+  if (!asked)
+    return (
+      <div className="mt-10 w-full max-w-xl">
+        <Button variant="outline" className="h-12 px-6 text-base" onClick={() => setAsked(true)} data-testid="see-example">
+          See an example decode
+        </Button>
+      </div>
+    );
+  if (q.isError) return <p className="mt-10 text-sm text-muted-foreground" role="status">The example could not be loaded right now. Tap “Try it” to use the real thing.</p>;
   if (!ex)
-    return <div className="shimmer mt-10 h-40 w-full max-w-xl rounded-2xl" aria-hidden />;
+    return (
+      <p role="status" className="mt-10 flex items-center gap-2 text-muted-foreground" data-testid="example-loading">
+        <Loader2 className="size-4 animate-spin motion-reduce:animate-none" aria-hidden /> decoding…
+      </p>
+    );
   const a = ex.response.card!.actions;
   const rows = [
     [MapPin, "Where", a.where?.value],
