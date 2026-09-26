@@ -8,6 +8,7 @@ from collections import defaultdict, deque
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from sqlmodel import Session
 
+from ..clientip import client_ip
 from ..db import Message, ReaderLink, get_session
 from ..services.broker import broker
 from ..services.replies import process_reply
@@ -63,7 +64,7 @@ async def reader_reply(
     session: Session = Depends(get_session),
 ):
     _, m = _link_and_message(session, token)
-    rate_limit(f"{token}:{request.client.host if request.client else '?'}")
+    rate_limit(f"{token}:{client_ip(request)}")
 
     source = "text"
     if audio is not None and audio.filename:
