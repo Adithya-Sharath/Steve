@@ -1,7 +1,7 @@
 # CLAUDE.md — Steve
 
 Instructions for Claude Code (and humans) working in this repo. Keep it short and true; update it when reality changes.
-Read `DECISIONS.md` first (D1–D42: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
+Read `DECISIONS.md` first (D1–D43: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
 
 ## What this is
 **Steve is pivoting to Decode** (D36, branch `decode`): an interpreter that helps immigrant workers in the UAE understand the English they
@@ -14,7 +14,7 @@ important message, confirms its key facts, the reader explains it back in their 
 **deterministic engine** marks each fact `understood | wrong | missing | negated | unclear`. BitNBuild'26 hackathon project; the original brief is
 `docs/build-prompt.md`.
 
-**Next task:** finish Phase 1 (STT reality test in `tools/stt_compare/`: the owner's recordings and `truth.csv`, the 389-utterance scripted report). **Do not write Phase 2 code until the owner has seen that report.** D40 already fixes the design: speech-to-text normalises accent-shaped words on clear audio, so the **voice path** is STT (Sarvam transcribe) -> glossary -> actions -> negation -> meaning-level sanity checks -> clarify -> translate/speak, with sound-swap rules only as a safety net when a transcribed word fits the context poorly, and the **typed-text path** (WhatsApp, spelled by ear, `tools/stt_compare/typed_truth.csv`) gets full sound-swap decoding. Main new risk: silent plausible-but-wrong STT corrections, handled with context checks on where/when/amount and clarifying questions. Work on the `decode` branch; never push to `main` or force-push.
+**Next task:** Phase 2 is built and stopped at **Checkpoint 2** (D43): wait for the owner's review before Phase 3 (evaluation). The decoder is `engine/steve_engine/decode/` (`decode(text, accent_hint, path)`); voice path = STT -> glossary -> safety net on critical spans only -> actions -> clarify, typed path = full sound-swap decoding. Never silently rewrite negations, numbers, amounts or named times; ask a question instead. Tune only on the synthetic sets (`data/decode/`, `eval/decode_synth.py`); L2-ARCTIC is test-only. Real-world validation is missing (D42). Work on the `decode` branch; never push to `main` or force-push.
 
 **Decode rules (in addition to the ones below):** deterministic rules first; an LLM is optional, guarded (`llm_guard.py`) and never the sole judge of a
 where/when/amount; if two readings are close, ask a clarifying question instead of guessing; never call speech "wrong" or "bad English" and show no
