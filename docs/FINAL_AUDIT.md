@@ -1,8 +1,8 @@
 # Final audit
 
-Run by `python scripts/final_audit.py` at 2026-09-26 17:09 UTC on branch `decode` at commit `c164c5f` (full run).
+Run by `python scripts/final_audit.py` at 2026-09-26 17:12 UTC on branch `decode` at commit `633ea2c` (full run).
 
-**Result: RED** (24 of 25 checks passed). `decode` is merged into `main` and tagged `v2.0.0` only when this is green.
+**Result: GREEN** (25 of 25 checks passed). `decode` is merged into `main` and tagged `v2.0.0` only when this is green.
 
 | # | Check | Result | Detail |
 |---|---|---|---|
@@ -19,9 +19,9 @@ Run by `python scripts/final_audit.py` at 2026-09-26 17:09 UTC on branch `decode
 | 11 | browser flows (Check mode, Listen + Paste + inspector + eval demo, TypeScript client) on the production build | PASS | 3/3 scripts passed, 128 checks |
 | 12 | Check-mode evaluation reruns keyless and reproduces the committed numbers (only the timestamp differs) | PASS | identical |
 | 13 | Decode scorer runs on the frozen v2 set (current engine, contaminated label) | PASS | false alarm 1.4% of 144 |
-| 14 | secrets scan of the working tree (key patterns) | **FAIL** | REVIEW: error, usage |
+| 14 | secrets scan of the working tree (key patterns) | PASS | no key-shaped strings |
 | 15 | the exact values of the secret-named variables in the local .env files are not in any tracked file | PASS | 3 secret values checked (GEMINI_API_KEY, HF_TOKEN, SARVAM_API_KEY), none found |
-| 16 | secrets scan of the full history (88 revisions, key patterns and the exact .env values) | PASS | nothing found |
+| 16 | secrets scan of the full history (89 revisions, key patterns and the exact .env values) | PASS | nothing found |
 | 17 | no .env file, database, log or audio file is tracked | PASS | none tracked |
 | 18 | .env, web/.env.local and eval/.cache are git-ignored | PASS | .env web/.env.local eval/.cache |
 | 19 | no L2-ARCTIC audio or derived text is committed | PASS | only tooling and our own reports of counts |
