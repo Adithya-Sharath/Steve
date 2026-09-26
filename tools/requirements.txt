@@ -1,2 +1,3 @@
 huggingface_hub>=0.24
 pyarrow>=15
+cmudict>=1.0

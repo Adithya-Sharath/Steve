@@ -91,6 +91,30 @@ transcript in the dataset, no scripted split in the repo).
 `inspect` prints the columns, whether a word-level transcript exists, the clip counts per accent and split, and the estimated speech-to-text usage
 (clips x provider variants). It calls no speech provider and writes no audio.
 
+## Phone-level test on L2-ARCTIC (no word gold needed)
+
+`phone_eval.py` runs the spontaneous L2-ARCTIC clips through Sarvam and scores, for every sound the annotators heard differently, whether the
+transcript kept the accented phone, fixed it to the canonical one, or garbled it (proxy through CMUdict; directional only; see DECISIONS D39).
+
+```powershell
+.\.venv\Scripts\python.exe tools\stt_compare\phone_eval.py --quick          # plan only: clips and calls, sends nothing
+.\.venv\Scripts\python.exe tools\stt_compare\phone_eval.py --quick --yes    # 25 clips x 2 variants = 50 calls
+```
+
+Output (`report_l2arctic_spont.md`, `results_l2arctic_spont.json`), the clips (`recordings/l2arctic-spont/`) and the cache are gitignored.
+
+## Other sources (inspect only, they print counts and estimated usage and stop)
+
+- `importers/svarah.py inspect [--languages Hindi,Malayalam]`: Svarah (CC BY 4.0, gated); human transcripts, no phone annotation, so word error rate only.
+- `importers/speech_accent_archive.py inspect --dir <folder>`: a local copy of the Speech Accent Archive (CC BY-NC-SA 4.0); everyone reads the same paragraph.
+- `importers/l2arctic_spontaneous.py inspect`: see the section above.
+
+## WhatsApp voice notes and other audio formats
+
+Drop them into `recordings/` as they are. `.ogg` and `.opus` (what WhatsApp saves) and the other formats on Sarvam's list are sent unchanged;
+`.oga`, `.3gp`, `.caf`, `.mka`, `.mov` and similar are converted with ffmpeg to 16 kHz mono WAV (in `.cache/converted/`, originals untouched).
+Clips over 30 s trigger a warning (Sarvam's REST limit). Install ffmpeg or set `FFMPEG_DIR` if a conversion is needed.
+
 ## Adding another provider
 
 Subclass `Provider` in `providers.py` (`available()`, `variants()`, `transcribe()`), raise `ProviderError` on failure (never include a key in

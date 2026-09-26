@@ -52,3 +52,5 @@ tools/**/*.mp4
 tools/stt_compare/.cache/
 tools/stt_compare/report.md
 tools/stt_compare/results.json
+tools/stt_compare/report_*.md
+tools/stt_compare/results_*.json
