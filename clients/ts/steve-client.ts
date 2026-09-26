@@ -116,6 +116,33 @@ export interface DecodeHealth {
   limits: { audio_seconds: number; audio_bytes: number; clarify_minutes: number };
 }
 
+export interface InspectResult {
+  path: "typed" | "voice";
+  tokens: { i: number; text: string; start: number; end: number }[];
+  glossary: { phrase: string; span: Span; category: string }[];
+  slots: { token: string; kind: string; expects: string[]; trigger: string }[];
+  examined: {
+    token: string;
+    slot: string;
+    decision: "fits" | "no_alternative" | "keep" | "rewrite" | "clarify";
+    best: string | null;
+    margin: number;
+    options: string[];
+    candidates: { word: string; score: number }[];
+    original_score: number;
+  }[];
+  effective_words: string[];
+  unresolved_tokens: number[];
+  card: DecodedCard;
+}
+export interface DecodeEval {
+  available: boolean;
+  message: string | null;
+  generated_from: string[];
+  caveats: string[];
+  sections: { id: string; title: string; label: string; note: string | null; rows: { metric: string; value: string; detail: string | null }[] }[];
+}
+
 export interface DecodeOptions {
   accentHint?: AccentHint;
   replyLanguage?: ReplyLanguage;
@@ -210,6 +237,20 @@ export class SteveClient {
   /** What works right now (typed, voice, translation, languages, today's budgets). No key needed, no secrets in it. */
   health(): Promise<DecodeHealth> {
     return this.call<DecodeHealth>("/decode/health", {}, false);
+  }
+
+  /** Every stage of one decode (tokens, glossary, critical slots, candidates and decisions, the card). No key needed, nothing stored. */
+  inspect(input: { text: string; accentHint?: AccentHint; path?: "typed" | "voice" }): Promise<InspectResult> {
+    return this.call<InspectResult>(
+      "/decode/inspect",
+      { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text: input.text, accent_hint: input.accentHint, path: input.path ?? "typed" }) },
+      false,
+    );
+  }
+
+  /** The Decode evaluation numbers, each section with the label that must travel with it. No key needed. */
+  evaluation(): Promise<DecodeEval> {
+    return this.call<DecodeEval>("/decode/eval", {}, false);
   }
 
   /** Six ready-made inputs with the cards the engine returns for them right now (for demo buttons). No key needed. */

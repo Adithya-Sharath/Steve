@@ -150,6 +150,7 @@ SPECIFIC_ROUTES = {
     ("POST", "/analyze"),
     ("POST", "/demo/seed"),
     ("POST", "/decode"),
+    ("POST", "/decode/inspect"),
     ("POST", "/whatsapp/webhook"),
 }
 

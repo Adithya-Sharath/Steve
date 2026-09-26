@@ -60,6 +60,13 @@ def build() -> str:
     e403 = call(TestClient(app), "POST", "/decode", json={"text": "hi"})
     e422 = call(c, "POST", "/decode", json={"text": ""})
     e404 = call(c, "POST", "/decode/clarify", json={"decode_id": "expired-or-unknown", "question_index": 0, "choice": "parking"})
+    insp = call(TestClient(app), "POST", "/decode/inspect", json={"text": TEXT, "accent_hint": "ar"}).json()
+    insp_view = {"path": insp["path"], "tokens": insp["tokens"][:2], "glossary": [{"phrase": g["phrase"], "category": g["category"]} for g in insp["glossary"]],
+                 "slots": insp["slots"], "examined": [e for e in insp["examined"] if e["decision"] != "fits"], "effective_words": insp["effective_words"],
+                 "unresolved_tokens": insp["unresolved_tokens"], "card": "(the same DecodedCard that POST /decode returns)"}
+    ev = call(TestClient(app), "GET", "/decode/eval").json()
+    ev_view = {"available": ev["available"], "caveats": ev["caveats"], "sections": [{"id": s["id"], "title": s["title"], "label": s["label"], "rows": s["rows"][:1]} for s in ev["sections"][:1]],
+               "more_sections": [s["id"] for s in ev["sections"][1:]]}
     slim_examples = {"examples": [{"id": e["id"], "label": e["label"], "request": e["request"]} for e in examples["examples"]], "computed_live": True, "each_example_also_has": "response: a full DecodeResponse"}
 
     text = f"""# Steve Decode API
@@ -79,7 +86,7 @@ needs a decision record in `DECISIONS.md`, a regenerated `openapi.json` and this
 | Base URL | wherever the API runs, for example `http://localhost:8000` |
 | Format | JSON (`application/json`), or `multipart/form-data` for a voice note |
 | Identity | header `X-Worker-Key: wk_<24 to 128 URL-safe characters>` on `POST /decode` and `POST /decode/clarify`. Create one per device in the browser (`crypto.getRandomValues`, base64url) and keep it; the client library does this for you. It is a capability, not a password: only its SHA-256 is used and nothing about the worker is stored. |
-| Public (no key) | `GET /decode/health`, `GET /decode/examples`, `GET /health`, `GET /docs` |
+| Public (no key) | `GET /decode/health`, `GET /decode/examples`, `POST /decode/inspect`, `GET /decode/eval`, `GET /health`, `GET /docs` |
 | CORS | any origin listed in `CORS_ORIGINS` (comma-separated, or `*`) may call the API from a browser; `CORS_ALLOW_LOCALHOST=false` removes the built-in "any localhost port" rule. Headers `X-Worker-Key` and `Content-Type` are allowed; `Retry-After` is exposed. No cookies are used. |
 | Works without keys | yes: typed text always returns an English card. Voice, translation and WhatsApp degrade gracefully (see `notes`). |
 | Offsets | every `span` uses Unicode **code points** of the text it points into (`original_text`), not UTF-16 units: slice with `Array.from(text)` in JavaScript. |
@@ -176,6 +183,27 @@ The first example, `response.card.actions`, as the engine returns it today:
 
 ```json
 {pj(first["response"]["card"]["actions"])}
+```
+
+### `POST /decode/inspect`
+
+Every stage of one decode, for a "how it works" view (no key needed, nothing stored; it runs the same engine as `POST /decode`). Body `{{"text": string (1-500 chars), "accent_hint"?, "path"?: "typed"|"voice"}}`.
+Response (`InspectOut`), abridged:
+
+```json
+{pj(insp_view)}
+```
+
+`slots` are the critical spans the decoder looks at (where, when, a number, an amount, what); `examined` lists each word it weighed with the best alternatives and their scores, and its decision
+(`fits`, `no_alternative`, `keep`, `rewrite`, `clarify`). `effective_words` are the words as the decoder read them; `unresolved_tokens` are words with an open question.
+
+### `GET /decode/eval`
+
+The Decode evaluation numbers with their labels, read from a committed results file (never computed on request). Every section has a `label` that must travel with its numbers
+(for example "synthetic, author-written, tuned on it"). Response (`DecodeEvalOut`), abridged:
+
+```json
+{pj(ev_view)}
 ```
 
 ## 3. The card (`DecodedCard`)

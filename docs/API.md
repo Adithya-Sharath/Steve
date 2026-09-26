@@ -15,7 +15,7 @@ needs a decision record in `DECISIONS.md`, a regenerated `openapi.json` and this
 | Base URL | wherever the API runs, for example `http://localhost:8000` |
 | Format | JSON (`application/json`), or `multipart/form-data` for a voice note |
 | Identity | header `X-Worker-Key: wk_<24 to 128 URL-safe characters>` on `POST /decode` and `POST /decode/clarify`. Create one per device in the browser (`crypto.getRandomValues`, base64url) and keep it; the client library does this for you. It is a capability, not a password: only its SHA-256 is used and nothing about the worker is stored. |
-| Public (no key) | `GET /decode/health`, `GET /decode/examples`, `GET /health`, `GET /docs` |
+| Public (no key) | `GET /decode/health`, `GET /decode/examples`, `POST /decode/inspect`, `GET /decode/eval`, `GET /health`, `GET /docs` |
 | CORS | any origin listed in `CORS_ORIGINS` (comma-separated, or `*`) may call the API from a browser; `CORS_ALLOW_LOCALHOST=false` removes the built-in "any localhost port" rule. Headers `X-Worker-Key` and `Content-Type` are allowed; `Retry-After` is exposed. No cookies are used. |
 | Works without keys | yes: typed text always returns an English card. Voice, translation and WhatsApp degrade gracefully (see `notes`). |
 | Offsets | every `span` uses Unicode **code points** of the text it points into (`original_text`), not UTF-16 units: slice with `Array.from(text)` in JavaScript. |
@@ -445,6 +445,147 @@ The first example, `response.card.actions`, as the engine returns it today:
     }
   },
   "how_much": null
+}
+```
+
+### `POST /decode/inspect`
+
+Every stage of one decode, for a "how it works" view (no key needed, nothing stored; it runs the same engine as `POST /decode`). Body `{"text": string (1-500 chars), "accent_hint"?, "path"?: "typed"|"voice"}`.
+Response (`InspectOut`), abridged:
+
+```json
+{
+  "path": "typed",
+  "tokens": [
+    {
+      "i": 0,
+      "text": "yalla",
+      "start": 0,
+      "end": 5
+    },
+    {
+      "i": 1,
+      "text": "habibi",
+      "start": 6,
+      "end": 12
+    }
+  ],
+  "glossary": [
+    {
+      "phrase": "yalla",
+      "category": "urgency"
+    },
+    {
+      "phrase": "habibi",
+      "category": "address"
+    }
+  ],
+  "slots": [
+    {
+      "token": "barking",
+      "kind": "where",
+      "expects": [
+        "place"
+      ],
+      "trigger": "to"
+    },
+    {
+      "token": "tree",
+      "kind": "number",
+      "expects": [
+        "number"
+      ],
+      "trigger": "gate"
+    }
+  ],
+  "examined": [
+    {
+      "token": "barking",
+      "slot": "where",
+      "decision": "rewrite",
+      "best": "parking",
+      "margin": 1.97,
+      "options": [
+        "parking"
+      ],
+      "candidates": [
+        {
+          "word": "parking",
+          "score": 3.19
+        }
+      ],
+      "original_score": 1.23
+    },
+    {
+      "token": "tree",
+      "slot": "number",
+      "decision": "rewrite",
+      "best": "three",
+      "margin": 1.75,
+      "options": [
+        "three"
+      ],
+      "candidates": [
+        {
+          "word": "three",
+          "score": 3.44
+        }
+      ],
+      "original_score": 1.7
+    }
+  ],
+  "effective_words": [
+    "yalla",
+    "habibi",
+    "come",
+    "to",
+    "the",
+    "parking",
+    "gate",
+    "three"
+  ],
+  "unresolved_tokens": [],
+  "card": "(the same DecodedCard that POST /decode returns)"
+}
+```
+
+`slots` are the critical spans the decoder looks at (where, when, a number, an amount, what); `examined` lists each word it weighed with the best alternatives and their scores, and its decision
+(`fits`, `no_alternative`, `keep`, `rewrite`, `clarify`). `effective_words` are the words as the decoder read them; `unresolved_tokens` are words with an open question.
+
+### `GET /decode/eval`
+
+The Decode evaluation numbers with their labels, read from a committed results file (never computed on request). Every section has a `label` that must travel with its numbers
+(for example "synthetic, author-written, tuned on it"). Response (`DecodeEvalOut`), abridged:
+
+```json
+{
+  "available": true,
+  "caveats": [
+    "Every number is a development number from public read speech or synthetic, author-written data (one author wrote sentences, gold labels and respellings).",
+    "Frozen sets were committed before their first scoring run; sets used to find fixes are labelled contaminated."
+  ],
+  "sections": [
+    {
+      "id": "false_alarm",
+      "title": "False alarms (headline)",
+      "label": "synthetic, author-written; v2 was written after the engine was tuned and scored once, v1 was frozen before its first run",
+      "rows": [
+        {
+          "metric": "v2 first run: any change or question",
+          "value": "1.4% (2/144)",
+          "detail": "silent rewrites: 0.0% (0/144); questions only: 1.4% (2/144)"
+        }
+      ]
+    }
+  ],
+  "more_sections": [
+    "typed_ear",
+    "extraction",
+    "voice_net",
+    "stt",
+    "baseline",
+    "missing"
+  ]
 }
 ```
 

@@ -22,11 +22,14 @@ from ..schemas import (
     NOT_SURE,
     REPLY_LANGUAGES,
     ClarifyIn,
+    DecodeEvalOut,
     DecodeExamples,
     DecodeHealthOut,
     DecodeIn,
     DecodeResponse,
     ErrorOut,
+    InspectIn,
+    InspectOut,
 )
 from ..services import decode_translation
 from ..services.audio import duration_seconds
@@ -169,6 +172,28 @@ async def clarify_endpoint(body: ClarifyIn, worker: str = Depends(worker_hash)) 
 def decode_examples() -> DecodeExamples:
     """Six ready-made inputs with the cards the engine returns for them right now (for demo buttons). No worker key needed."""
     return DecodeExamples(examples=build_examples())
+
+
+@router.post(
+    "/decode/inspect",
+    response_model=InspectOut,
+    responses={422: ERRORS[422], 429: ERRORS[429]},
+    dependencies=[Depends(limit("decode_inspect", per_minute=lambda: settings.rl_check_per_min))],
+)
+def decode_inspect(body: InspectIn) -> dict:
+    """Every stage of one decode, for the how-it-works inspector: nothing is stored, no key is needed, and it runs the same engine as `POST /decode`."""
+    from steve_engine.decode import inspect_decode
+
+    return inspect_decode(body.text, body.accent_hint, body.path)
+
+
+@router.get("/decode/eval", response_model=DecodeEvalOut)
+def decode_eval() -> dict:
+    """The Decode evaluation numbers, each section carrying its label (synthetic, author-written, tuned on it ...). Read from `decode_metrics.json`, never computed on request."""
+    path = settings.eval_dir / "decode_metrics.json"
+    if not path.exists():
+        return {"available": False, "message": "No Decode evaluation results yet. Run python eval/decode_metrics_export.py."}
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 @router.get("/decode/health", response_model=DecodeHealthOut)

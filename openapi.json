@@ -345,6 +345,55 @@
         "title": "ConfirmOut",
         "type": "object"
       },
+      "DecodeEvalOut": {
+        "description": "`GET /decode/eval`: the Decode numbers, each section with its label, read from a committed results file.",
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "caveats": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Caveats",
+            "type": "array"
+          },
+          "generated_from": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Generated From",
+            "type": "array"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "sections": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EvalSection"
+            },
+            "title": "Sections",
+            "type": "array"
+          }
+        },
+        "required": [
+          "available"
+        ],
+        "title": "DecodeEvalOut",
+        "type": "object"
+      },
       "DecodeExample": {
         "description": "One ready-made input and what the engine returns for it RIGHT NOW (computed per request, never stored text).",
         "properties": {
@@ -683,6 +732,77 @@
         "title": "ErrorOut",
         "type": "object"
       },
+      "EvalRow": {
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "metric": {
+            "title": "Metric",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "metric",
+          "value"
+        ],
+        "title": "EvalRow",
+        "type": "object"
+      },
+      "EvalSection": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/EvalRow"
+            },
+            "title": "Rows",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "label",
+          "rows"
+        ],
+        "title": "EvalSection",
+        "type": "object"
+      },
       "Fact": {
         "properties": {
           "critical": {
@@ -776,6 +896,283 @@
           }
         },
         "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "InspectCandidate": {
+        "properties": {
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "word": {
+            "title": "Word",
+            "type": "string"
+          }
+        },
+        "required": [
+          "word",
+          "score"
+        ],
+        "title": "InspectCandidate",
+        "type": "object"
+      },
+      "InspectExamined": {
+        "properties": {
+          "best": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Best"
+          },
+          "candidates": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/InspectCandidate"
+            },
+            "title": "Candidates",
+            "type": "array"
+          },
+          "decision": {
+            "title": "Decision",
+            "type": "string"
+          },
+          "margin": {
+            "default": 0.0,
+            "title": "Margin",
+            "type": "number"
+          },
+          "options": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Options",
+            "type": "array"
+          },
+          "original_score": {
+            "default": 0.0,
+            "title": "Original Score",
+            "type": "number"
+          },
+          "slot": {
+            "title": "Slot",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "slot",
+          "decision"
+        ],
+        "title": "InspectExamined",
+        "type": "object"
+      },
+      "InspectGlossary": {
+        "properties": {
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "phrase": {
+            "title": "Phrase",
+            "type": "string"
+          },
+          "span": {
+            "$ref": "#/components/schemas/Span"
+          }
+        },
+        "required": [
+          "phrase",
+          "span",
+          "category"
+        ],
+        "title": "InspectGlossary",
+        "type": "object"
+      },
+      "InspectIn": {
+        "examples": [
+          {
+            "accent_hint": "ar",
+            "path": "typed",
+            "text": "yalla habibi come to the barking gate tree"
+          }
+        ],
+        "properties": {
+          "accent_hint": {
+            "anyOf": [
+              {
+                "enum": [
+                  "ar",
+                  "hi",
+                  "ml",
+                  "tl"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accent Hint"
+          },
+          "path": {
+            "default": "typed",
+            "enum": [
+              "typed",
+              "voice"
+            ],
+            "title": "Path",
+            "type": "string"
+          },
+          "text": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "InspectIn",
+        "type": "object"
+      },
+      "InspectOut": {
+        "description": "`POST /decode/inspect`: every stage of one decode (tokens, glossary, critical slots, candidates and the decision for each examined word, the words as meant, the card).",
+        "properties": {
+          "card": {
+            "$ref": "#/components/schemas/DecodedCard"
+          },
+          "effective_words": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Effective Words",
+            "type": "array"
+          },
+          "examined": {
+            "items": {
+              "$ref": "#/components/schemas/InspectExamined"
+            },
+            "title": "Examined",
+            "type": "array"
+          },
+          "glossary": {
+            "items": {
+              "$ref": "#/components/schemas/InspectGlossary"
+            },
+            "title": "Glossary",
+            "type": "array"
+          },
+          "path": {
+            "enum": [
+              "typed",
+              "voice"
+            ],
+            "title": "Path",
+            "type": "string"
+          },
+          "slots": {
+            "items": {
+              "$ref": "#/components/schemas/InspectSlot"
+            },
+            "title": "Slots",
+            "type": "array"
+          },
+          "tokens": {
+            "items": {
+              "$ref": "#/components/schemas/InspectToken"
+            },
+            "title": "Tokens",
+            "type": "array"
+          },
+          "unresolved_tokens": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Unresolved Tokens",
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "tokens",
+          "glossary",
+          "slots",
+          "examined",
+          "effective_words",
+          "unresolved_tokens",
+          "card"
+        ],
+        "title": "InspectOut",
+        "type": "object"
+      },
+      "InspectSlot": {
+        "properties": {
+          "expects": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Expects",
+            "type": "array"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          },
+          "trigger": {
+            "title": "Trigger",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "kind",
+          "expects",
+          "trigger"
+        ],
+        "title": "InspectSlot",
+        "type": "object"
+      },
+      "InspectToken": {
+        "properties": {
+          "end": {
+            "title": "End",
+            "type": "integer"
+          },
+          "i": {
+            "title": "I",
+            "type": "integer"
+          },
+          "start": {
+            "title": "Start",
+            "type": "integer"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "i",
+          "text",
+          "start",
+          "end"
+        ],
+        "title": "InspectToken",
         "type": "object"
       },
       "LatestFact": {
@@ -1683,6 +2080,28 @@
         ]
       }
     },
+    "/decode/eval": {
+      "get": {
+        "description": "The Decode evaluation numbers, each section carrying its label (synthetic, author-written, tuned on it ...). Read from `decode_metrics.json`, never computed on request.",
+        "operationId": "decode_eval_decode_eval_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecodeEvalOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Decode Eval",
+        "tags": [
+          "decode"
+        ]
+      }
+    },
     "/decode/examples": {
       "get": {
         "description": "Six ready-made inputs with the cards the engine returns for them right now (for demo buttons). No worker key needed.",
@@ -1722,6 +2141,58 @@
           }
         },
         "summary": "Decode Health",
+        "tags": [
+          "decode"
+        ]
+      }
+    },
+    "/decode/inspect": {
+      "post": {
+        "description": "Every stage of one decode, for the how-it-works inspector: nothing is stored, no key is needed, and it runs the same engine as `POST /decode`.",
+        "operationId": "decode_inspect_decode_inspect_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InspectIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InspectOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Bad input: empty or over-long text, an unknown `accent_hint` or `reply_language`, no text and no audio."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "A rate limit was hit (per IP or per worker). The `Retry-After` header says how many seconds to wait."
+          }
+        },
+        "summary": "Decode Inspect",
         "tags": [
           "decode"
         ]

@@ -18,7 +18,7 @@ from app.settings import settings
 
 ROOT = Path(__file__).resolve().parents[2]
 WK = "wk_" + "c" * 32
-PATHS = ("/decode", "/decode/clarify", "/decode/health", "/decode/examples")
+PATHS = ("/decode", "/decode/clarify", "/decode/health", "/decode/examples", "/decode/inspect", "/decode/eval")
 
 
 def run_script(name: str) -> subprocess.CompletedProcess:
@@ -204,3 +204,87 @@ def test_the_running_app_answers_a_preflight_for_the_configured_origin(anon):
 def test_cors_settings_are_documented():
     ex = (ROOT / ".env.example").read_text(encoding="utf-8")
     assert "CORS_ORIGINS" in ex and "CORS_ALLOW_LOCALHOST" in ex
+
+
+# ---- /decode/inspect and /decode/eval (D50): additions, no existing shape changed ------------------------------------------------------------------------
+
+
+def test_the_new_shapes_are_pinned():
+    schemas = json.loads((ROOT / "openapi.json").read_text(encoding="utf-8"))["components"]["schemas"]
+    assert set(schemas["InspectOut"]["properties"]) == {"path", "tokens", "glossary", "slots", "examined", "effective_words", "unresolved_tokens", "card"}
+    assert set(schemas["InspectExamined"]["properties"]) == {"token", "slot", "decision", "best", "margin", "options", "candidates", "original_score"}
+    assert set(schemas["DecodeEvalOut"]["properties"]) == {"available", "message", "generated_from", "caveats", "sections"}
+    assert set(schemas["EvalSection"]["properties"]) == {"id", "title", "label", "note", "rows"}
+
+
+def test_inspect_shows_every_stage_and_matches_the_engine(anon):
+    from steve_engine.decode import inspect_decode
+
+    text = "yalla habibi come to the barking gate tree"
+    r = anon.post("/decode/inspect", json={"text": text, "accent_hint": "ar"})
+    assert r.status_code == 200
+    j = r.json()
+    assert j["card"] == decode(text, "ar", "typed").model_dump(mode="json")
+    assert [g["phrase"] for g in j["glossary"]] == ["yalla", "habibi"] and any(s["kind"] == "where" for s in j["slots"])
+    ex = {e["token"]: e for e in j["examined"]}
+    assert ex["barking"]["decision"] == "rewrite" and ex["barking"]["best"] == "parking" and ex["barking"]["candidates"][0]["word"] == "parking"
+    assert ex["tree"]["decision"] == "rewrite" and ex["barking"]["margin"] > 0
+    assert j["effective_words"] == inspect_decode(text, "ar", "typed")["effective_words"] and "parking" in j["effective_words"]
+
+
+def test_inspect_covers_the_voice_path_and_a_question(anon):
+    j = anon.post("/decode/inspect", json={"text": "come to the barking or the building?", "accent_hint": "ar", "path": "voice"}).json()
+    assert j["path"] == "voice" and j["unresolved_tokens"] and any(e["decision"] == "clarify" for e in j["examined"])
+
+
+@pytest.mark.parametrize("body", [{"text": ""}, {"text": "x" * 501}, {"text": "hi", "path": "audio"}, {"text": "hi", "accent_hint": "zz"}, {}])
+def test_inspect_rejects_bad_input(anon, body):
+    assert anon.post("/decode/inspect", json=body).status_code == 422
+
+
+def test_inspect_is_rate_limited_and_logs_no_text(anon, monkeypatch, caplog):
+    import logging
+
+    caplog.set_level(logging.DEBUG)
+    monkeypatch.setattr(settings, "rl_check_per_min", 2)
+    codes = [anon.post("/decode/inspect", json={"text": "quokka barking gate"}).status_code for _ in range(3)]
+    assert codes == [200, 200, 429] and "quokka" not in caplog.text.lower()
+
+
+def test_eval_serves_labelled_sections_from_the_committed_file(anon):
+    j = anon.get("/decode/eval").json()
+    assert j["available"] is True and j["caveats"] and len(j["sections"]) >= 6
+    ids = {s["id"] for s in j["sections"]}
+    assert {"false_alarm", "typed_ear", "extraction", "voice_net", "stt", "baseline", "missing"} <= ids
+    for s in j["sections"]:
+        assert s["label"] and s["rows"] and all(r["metric"] and r["value"] for r in s["rows"])
+    voice = next(s for s in j["sections"] if s["id"] == "voice_net")
+    assert "tuned on it" in voice["label"] and any("0/72" in r["value"] for r in voice["rows"])  # the two labels the owner requires travel with the catch rate
+    assert "real-world validation" in json.dumps(j["sections"][-1]).lower() or j["sections"][-1]["id"] == "missing"
+
+
+def test_eval_says_so_when_there_is_no_file(anon, monkeypatch, tmp_path):
+    monkeypatch.setattr(settings, "eval_dir", tmp_path)
+    j = anon.get("/decode/eval").json()
+    assert j["available"] is False and "decode_metrics_export" in j["message"] and j["sections"] == []
+
+
+def test_the_metrics_file_is_regenerated_from_its_sources():
+    """decode_metrics.json must not drift from the reports it is built from."""
+    r = subprocess.run([sys.executable, str(ROOT / "eval" / "decode_metrics_export.py")], capture_output=True, text=True, timeout=180, cwd=ROOT)
+    assert r.returncode == 0, r.stderr
+    committed = subprocess.run(["git", "diff", "--quiet", "--", "eval/results/decode_metrics.json"], cwd=ROOT)
+    assert committed.returncode == 0, "eval/results/decode_metrics.json changed when regenerated: commit the new file"
+
+
+def test_the_readme_example_is_what_the_engine_and_the_whatsapp_reply_really_produce():
+    """The README shows the reply for the Al Quoz / Maghrib sentence and says a test compares it with the engine (D50)."""
+    from app.schemas import DecodeResponse
+    from app.services.decode_flow import say_back
+    from app.services.whatsapp import format_card
+
+    c = decode("Yalla, drop it at Al Quoz before Maghrib. No signature, just call the guy.", None, "typed")
+    block = format_card(DecodeResponse(card=c, say_back=say_back(c)))
+    readme = (ROOT / "README.md").read_text(encoding="utf-8").replace("\r\n", "\n")
+    assert block in readme, block
+    assert 'Someone says:  "Yalla, drop it at Al Quoz before Maghrib. No signature, just call the guy."' in readme
