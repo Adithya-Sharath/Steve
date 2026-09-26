@@ -9,6 +9,10 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutureTimeout
 
 from samjha_engine import Fact, FactType
 from samjha_engine.compare import describe_value
@@ -137,7 +141,11 @@ def llm_extract(text: str) -> list[Fact]:
     from google import genai  # imported lazily: optional dependency path
     from google.genai import types
 
-    client = genai.Client(api_key=settings.gemini_api_key)
+    # the SDK gets the same deadline (milliseconds) so its worker thread also ends instead of lingering
+    client = genai.Client(
+        api_key=settings.gemini_api_key,
+        http_options=types.HttpOptions(timeout=int(settings.llm_timeout_seconds * 1000)),
+    )
     resp = client.models.generate_content(
         model=settings.gemini_model,
         contents=_PROMPT.format(text=text),
@@ -154,12 +162,56 @@ def llm_extract(text: str) -> list[Fact]:
     return facts
 
 
+# ------------------------------------------------------------------------------------------------------------
+# Deadline + circuit breaker. The LLM is an optional helper: it must never make the sender wait or fail.
+#  * every call has a hard wall-clock deadline (default 5 s) -> built-in extractor
+#  * after a timeout/quota/other failure the LLM is skipped for a cooldown (default 60 s; 15 min for a DAILY quota),
+#    so a judge clicking "Find key facts" repeatedly waits at most once, not on every click
+# ------------------------------------------------------------------------------------------------------------
+_pool = ThreadPoolExecutor(max_workers=4, thread_name_prefix="llm-extract")
+_breaker_lock = threading.Lock()
+_paused_until = 0.0
+DAILY_QUOTA_COOLDOWN = 15 * 60
+
+
+def reset_breaker() -> None:
+    global _paused_until
+    with _breaker_lock:
+        _paused_until = 0.0
+
+
+def _trip(seconds: float) -> None:
+    global _paused_until
+    with _breaker_lock:
+        _paused_until = max(_paused_until, time.monotonic() + seconds)
+
+
+def _paused_for() -> float:
+    with _breaker_lock:
+        return max(0.0, _paused_until - time.monotonic())
+
+
+def _extract_with_deadline(text: str) -> list[Fact]:
+    future = _pool.submit(llm_extract, text)
+    return future.result(timeout=settings.llm_timeout_seconds)  # raises concurrent.futures.TimeoutError
+
+
 def suggest_facts(text: str) -> tuple[list[Fact], str, str | None]:
-    """-> (facts, extractor name, note)"""
-    if settings.llm_available:
-        try:
-            return llm_extract(text), "llm", None
-        except Exception as e:  # noqa: BLE001 - any failure must degrade to the deterministic path
-            log.warning("LLM extraction failed, using regex extractor: %s", e)
-            return regex_extract(text), "regex", f"LLM unavailable ({type(e).__name__}); used the built-in extractor."
-    return regex_extract(text), "regex", None
+    """-> (facts, extractor name, note). Never raises and never waits longer than `llm_timeout_seconds` for the LLM."""
+    if not settings.llm_available:
+        return regex_extract(text), "regex", None
+    wait = _paused_for()
+    if wait > 0:
+        return regex_extract(text), "regex", f"LLM paused for another {wait:.0f} s after a recent failure; used the built-in extractor."
+    try:
+        return _extract_with_deadline(text), "llm", None
+    except FutureTimeout:
+        _trip(settings.llm_cooldown_seconds)
+        reason = f"timed out after {settings.llm_timeout_seconds:g} s"
+    except Exception as e:  # noqa: BLE001 - any failure must degrade to the deterministic path
+        msg = str(e)
+        daily = "PerDay" in msg
+        _trip(DAILY_QUOTA_COOLDOWN if daily else settings.llm_cooldown_seconds)
+        reason = "daily quota used up" if daily else "rate limit hit" if "429" in msg or "RESOURCE_EXHAUSTED" in msg else type(e).__name__
+    log.warning("LLM extraction unavailable (%s); using the built-in extractor", reason)
+    return regex_extract(text), "regex", f"LLM unavailable ({reason}); used the built-in extractor."

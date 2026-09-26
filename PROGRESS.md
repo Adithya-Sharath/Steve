@@ -14,10 +14,11 @@ Everything is committed locally; **nothing has been pushed to GitHub.**
 | 9 | Demo mode, polish, README, architecture, demo script | done |
 | 10 | Final check + human checklist | done (below) |
 | — | UI polish round (21st.dev MCP, 2 free downloads/day; all four targets committed, D21-D24): **buttons with depth** (D21) and **landing stats bento + how-it-works timeline** (D22) done; **staggered fact-card resolve** (D23) and **reader record button** (D24) done | done |
+| — | LLM safety net (D26): **5 s deadline + automatic fallback to the built-in extractor + 60 s cooldown**; default `GEMINI_MODEL` is now `gemini-3.1-flash-lite` (settings, `.env.example`, README, baseline runner) | done |
 | — | Follow-up round: negation typos, concessives, copy-paste, SMS shorthand, sender auth, Docker `$PORT`, production screenshots, this file | done (D12–D20) |
 
 ## Numbers (2026-09-25 final run)
-- **Engine tests:** 275 passed, 1 skipped. **API tests:** 42 passed. `ruff`, `eslint`, `tsc` clean. Fresh-clone install + tests + eval + web build all pass.
+- **Engine tests:** 275 passed, 1 skipped. **API tests:** 53 passed (incl. 11 for D26). `ruff`, `eslint`, `tsc` clean. Fresh-clone install + tests + eval + web build all pass.
 - **Eval (development numbers, see D10):** 2,268 labelled fact checks over 561 replies (114 hand-written, 447 synthetic).
   Accuracy 96.9%. **False "understood": 0 of 921** not-understood facts (hand-written 0/69, held-out 0/41, synthetic 0/811).
   Hand-written 98.8%, held-out 89.1% (first blind run, before any fix: 87.4%), synthetic 97.3%. Read the caveats: denominators are small and the data is ours.
@@ -30,7 +31,7 @@ Everything is committed locally; **nothing has been pushed to GitHub.**
 D1 repo/brief · D2 widened units/types · D3 code-point offsets · D4 claiming · D5 conflict⇒unclear · D6 words left out (partly superseded by D12) · D7 bare numbers ·
 D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set · D11 safety rules from error analysis · **D12** SMS/typo negators + fuzzy negator match ·
 **D13** concessive clauses · **D14** copy-paste detection (two deliberate deviations from the spec'd rule) · **D15** English shorthand · **D16** sender-key auth ·
-**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md.
+**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default.
 
 ## Known gaps / risks (honest list)
 - Lexicon: ~300 headwords, 5 languages, all non-English entries **unverified**; numbers above ten only as digits; unknown words give `missing`/`unclear`, never a guess.
@@ -39,7 +40,7 @@ D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set 
 - Sender key lives in one browser (no recovery/rotation); the LLM toggle is global; old rows without an owner are unreadable.
 - Docker images were **never built** (Docker Desktop was off); compose file only validated. `make` is not installed on this machine (targets were run as direct commands).
 - Voice: Sarvam covers Malayalam/Hindi/English only, and was tested with a **mocked** HTTP call, never against the live service.
-- Gemini `gemini-3.8-flash` is a valid id (live call OK) but the free tier allows about 20 requests/day; use a lite model or a paid key for anything bigger. Sarvam and voice were not exercised against the live service.
+- Gemini `gemini-3.8-flash` is a valid id but the free tier allows about 20 requests/day; the default is now the lite model and every LLM call has a 5 s deadline with fallback (D26). A local `.env` that sets `GEMINI_MODEL=gemini-3.8-flash` explicitly still overrides the default. Sarvam and voice were not exercised against the live service.
 - Held-out data is no longer blind; there is no real native-speaker data yet.
 
 ## Human checklist (things only you can do)

@@ -20,11 +20,16 @@ def _bool(name: str, default: bool) -> bool:
     return v.strip().lower() in ("1", "true", "yes", "on")
 
 
+# Lite model on purpose: on a free key the larger Gemini models allow only ~20 requests per DAY (D25/D26), which
+# would make "Find key facts" fail after a handful of clicks. Override with GEMINI_MODEL.
+DEFAULT_GEMINI_MODEL = "gemini-3.1-flash-lite"
+
+
 @dataclass
 class Settings:
     llm_enabled: bool = field(default_factory=lambda: _bool("LLM_ENABLED", False))
     gemini_api_key: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))
-    gemini_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", "gemini-3.8-flash"))
+    gemini_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL))
     sarvam_api_key: str = field(default_factory=lambda: os.getenv("SARVAM_API_KEY", ""))
     stt_flag: bool = field(default_factory=lambda: _bool("STT_ENABLED", True))
     database_url: str = field(default_factory=lambda: os.getenv("DATABASE_URL", "sqlite:///./samjha.db"))
@@ -34,6 +39,9 @@ class Settings:
     )
     data_dir: Path = field(default_factory=lambda: Path(os.getenv("SAMJHA_DATA_DIR", REPO_ROOT / "data")))
     eval_dir: Path = field(default_factory=lambda: Path(os.getenv("SAMJHA_EVAL_DIR", REPO_ROOT / "eval" / "results")))
+    # the optional LLM may never make the composer wait: hard deadline, then fall back to the built-in extractor
+    llm_timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "5")))
+    llm_cooldown_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_COOLDOWN_SECONDS", "60")))
     reply_rate_limit: int = field(default_factory=lambda: int(os.getenv("REPLY_RATE_LIMIT", "12")))
     reply_rate_window: int = 60
 

@@ -2,7 +2,7 @@
 
 > **Teach-back for mixed-language messages.** Send an important instruction. The reader explains it back in Manglish, Hinglish, Arabizi or Taglish, spelled however they like, and we check every key fact, *exactly*.
 
-![tests](https://img.shields.io/badge/engine%20tests-275%20passing-2e7d6b) ![api](https://img.shields.io/badge/api%20tests-42%20passing-2e7d6b) ![keys](https://img.shields.io/badge/API%20keys%20needed-0-0f6b6b) ![llm](https://img.shields.io/badge/LLM%20in%20the%20verdict-never-8a3ffc)
+![tests](https://img.shields.io/badge/engine%20tests-275%20passing-2e7d6b) ![api](https://img.shields.io/badge/api%20tests-53%20passing-2e7d6b) ![keys](https://img.shields.io/badge/API%20keys%20needed-0-0f6b6b) ![llm](https://img.shields.io/badge/LLM%20in%20the%20verdict-never-8a3ffc)
 
 **BitNBuild'26 · UAE regional round · AI/ML track** &nbsp;|&nbsp; 🎥 **Demo video:** _add link here_ &nbsp;|&nbsp; 🌐 **Live demo:** _add link here_
 
@@ -170,7 +170,8 @@ Open <http://localhost:3000/demo> (it seeds four UAE scenarios) or <http://local
 | Variable | Purpose |
 |---|---|
 | `LLM_ENABLED` | `true` lets Gemini *suggest* facts (needs `GEMINI_API_KEY`). Also toggleable at runtime from the nav. |
-| `GEMINI_API_KEY`, `GEMINI_MODEL` | Optional. Check <https://ai.google.dev/gemini-api/docs/models> for the current model id. |
+| `GEMINI_API_KEY`, `GEMINI_MODEL` | Optional. `GEMINI_MODEL` defaults to **`gemini-3.1-flash-lite`**: larger Gemini models allow only about 20 requests/day on a free key. Model ids: <https://ai.google.dev/gemini-api/docs/models>. |
+| `LLM_TIMEOUT_SECONDS`, `LLM_COOLDOWN_SECONDS` | The LLM fact suggestion has a hard **5 s** deadline (default) and then the built-in extractor is used; after a failure it is skipped for 60 s (15 min after a daily-quota error), so "Find key facts" never hangs. |
 | `SARVAM_API_KEY`, `STT_ENABLED` | Optional voice replies (Malayalam, Hindi, English). Arabizi and Taglish are typed for now. |
 | `DATABASE_URL` | Default `sqlite:///./samjha.db` |
 | `PUBLIC_WEB_URL`, `CORS_ORIGINS` | Where the web app lives (used in reader links / CORS) |
@@ -178,7 +179,7 @@ Open <http://localhost:3000/demo> (it seeds four UAE scenarios) or <http://local
 | `NEXT_PUBLIC_API_URL` | Web → API base URL (default `http://localhost:8000`) |
 
 **Docker:** `docker compose up --build` (api :8000, web :3000, SQLite volume).
-**Tests:** `make test` (engine 275 + API 42) · `make lint` · **Eval:** `make eval` (works without a Gemini key; the baseline is then skipped and clearly marked "not run").
+**Tests:** `make test` (engine 275 + API 53) · `make lint` · **Eval:** `make eval` (works without a Gemini key; the baseline is then skipped and clearly marked "not run").
 **Phone testing:** the microphone needs HTTPS or localhost. Use a tunnel or a deployed URL for real-phone voice.
 **Deploy:** web → Vercel (`NEXT_PUBLIC_API_URL` = your API URL); API → Render / Railway / Fly using `api/Dockerfile` (build context = repo root), set `PUBLIC_WEB_URL` and `CORS_ORIGINS` to the web URL, mount a volume for SQLite.
 
@@ -186,7 +187,7 @@ Open <http://localhost:3000/demo> (it seeds four UAE scenarios) or <http://local
 
 ```
 engine/   pure-Python checker: lexicon.yaml, matcher, slots, negation, compare, check_reply()   (+275 tests)
-api/      FastAPI: routes, SQLModel db, extractor, STT interface, follow-up drafts, SSE           (+42 tests)
+api/      FastAPI: routes, SQLModel db, extractor, STT interface, follow-up drafts, SSE           (+53 tests)
 web/      Next.js app: landing, /app, /app/new, /app/m/[id], /r/[token], /eval, /how-it-works, /demo
 data/     scenarios.json (demo), messages.json + replies.csv (eval gold data)
 eval/     generate.py, run_engine.py, run_baseline.py, metrics.py, update_readme.py, results/

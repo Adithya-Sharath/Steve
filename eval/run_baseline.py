@@ -9,7 +9,7 @@ Free-tier friendly: calls are sequential and paced (`--rpm`), the server's "retr
 stops the run cleanly. Whatever finished is written out (partial coverage is reported by metrics.py, never hidden).
 
     python eval/run_baseline.py [--runs 5] [--synthetic-sample 120] [--limit N] [--rpm 4]
-    GEMINI_MODEL=gemini-3.5-flash python eval/run_baseline.py --runs 3 --synthetic-sample 40
+    GEMINI_MODEL=gemini-3.1-flash-lite python eval/run_baseline.py --runs 3 --synthetic-sample 40
 """
 
 from __future__ import annotations
@@ -98,7 +98,7 @@ def main() -> None:
     out = RESULTS / "baseline_predictions.json"
 
     key = os.getenv("GEMINI_API_KEY", "")
-    model = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+    model = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")
     if not key:
         dump(out, {"available": False, "reason": "GEMINI_API_KEY not set; baseline skipped"})
         print("baseline: no GEMINI_API_KEY, skipped (results will say 'baseline not run').")
