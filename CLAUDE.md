@@ -32,7 +32,7 @@ is `docs/build-prompt.md`.
 | lexicon sheet | `make lexicon-review` | `python engine/tools/make_lexicon_review.py` |
 
 ## Layout
-`engine/` pure Python (`samjha_engine`: normalize, lexicon.yaml, matcher, slots, negation, compare, copycheck, check) ·
+`engine/` pure Python (`steve_engine`: normalize, lexicon.yaml, matcher, slots, negation, compare, copycheck, check) ·
 `api/` FastAPI + SQLModel/SQLite (`app/`: routes, services, auth, db) · `web/` Next.js 16 App Router (Tailwind v4, shadcn/ui on Base UI,
 Framer Motion, TanStack Query) · `data/` scenarios.json (demo **and** regression tests), messages.json + replies.csv (eval gold) ·
 `eval/` pipeline · `docs/` architecture, demo script, screenshots.

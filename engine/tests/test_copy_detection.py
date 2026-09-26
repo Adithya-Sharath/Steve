@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from samjha_engine import COPY_REASON, Status, check_reply, copy_similarity, looks_copied
+from steve_engine import COPY_REASON, Status, check_reply, copy_similarity, looks_copied
 
 SCENARIOS = json.loads((Path(__file__).resolve().parents[2] / "data" / "scenarios.json").read_text(encoding="utf-8"))
 PHARMACY = SCENARIOS[0]
@@ -94,7 +94,7 @@ def test_every_demo_preset_is_not_a_copy_of_its_own_message():
     ],
 )
 def test_honest_restatements_in_english_are_not_copies(reply):
-    from samjha_engine.copycheck import order_similarity
+    from steve_engine.copycheck import order_similarity
 
     msg = {
         "5 ml": "Give the child 5 ml three times a day for 7 days. Call the clinic if there is fever.",

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from collections import Counter
 
-from samjha_engine.matcher import prepare
+from steve_engine.matcher import prepare
 
 FAILED = ("wrong", "missing", "negated", "unclear")
 

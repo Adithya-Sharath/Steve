@@ -1,4 +1,4 @@
-// Mirrors engine/samjha_engine/schema.py and api/app/schemas.py — keep in sync.
+// Mirrors engine/steve_engine/schema.py and api/app/schemas.py — keep in sync.
 
 export type FactType = "dose" | "frequency" | "timing" | "duration" | "date" | "amount" | "condition";
 export type Status = "understood" | "wrong" | "missing" | "negated" | "unclear";

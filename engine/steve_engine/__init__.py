@@ -1,4 +1,4 @@
-"""samjha_engine — deterministic, LLM-free fact checking for mixed-language teach-back replies."""
+"""steve_engine — deterministic, LLM-free fact checking for mixed-language teach-back replies."""
 
 from .check import check_reply, inspect_reply, lexicon_stats
 from .compare import EngineConfig

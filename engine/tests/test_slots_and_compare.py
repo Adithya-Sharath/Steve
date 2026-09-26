@@ -274,7 +274,7 @@ def test_no_false_understood_on_wrong_numbers(run, rx_facts):
 
 
 def test_confidence_threshold_makes_weak_matches_unclear():
-    from samjha_engine import EngineConfig, check_reply
+    from steve_engine import EngineConfig, check_reply
 
     facts = [mk("d", "dose", 2, "tablet")]
     strict = check_reply(facts, "rendu gulikka", config=EngineConfig(unclear_threshold=0.99))[0]
@@ -293,7 +293,7 @@ def test_empty_and_nonsense_reply(run, rx_facts):
 
 
 def test_lexicon_loads_and_only_english_is_verified():
-    from samjha_engine.lexicon import get_lexicon
+    from steve_engine.lexicon import get_lexicon
 
     lex = get_lexicon()
     assert len(lex.entries) > 250
@@ -376,8 +376,8 @@ def test_two_unmatched_same_kind_facts_are_unclear_not_wrong(run):
 
 def test_no_sound_key_collisions_between_different_meanings():
     """A misspelling must never be equally close to two different meanings (e.g. sab3a=7 vs sabah=morning)."""
-    from samjha_engine.lexicon import get_lexicon
-    from samjha_engine.normalize import phrase_key, sound_key
+    from steve_engine.lexicon import get_lexicon
+    from steve_engine.normalize import phrase_key, sound_key
 
     seen: dict[str, set[tuple]] = {}
     for e in get_lexicon().entries:

@@ -62,7 +62,7 @@ flowchart LR
   G --> H[Sender re-explains only what failed]
 ```
 
-Engine pipeline (all deterministic, all in [`engine/`](engine/samjha_engine)): **clean** (offsets preserved) → **match by ear** (exact / suffix / sound key / guarded fuzzy over a multilingual lexicon) → **negation** (per-language scope) → **slots** (dose, frequency, timing, duration, date, amount, condition) → **compare** (exact) → **decide** (low confidence never becomes "understood"). Details: [docs/architecture.md](docs/architecture.md).
+Engine pipeline (all deterministic, all in [`engine/`](engine/steve_engine)): **clean** (offsets preserved) → **match by ear** (exact / suffix / sound key / guarded fuzzy over a multilingual lexicon) → **negation** (per-language scope) → **slots** (dose, frequency, timing, duration, date, amount, condition) → **compare** (exact) → **decide** (low confidence never becomes "understood"). Details: [docs/architecture.md](docs/architecture.md).
 
 Example: `randu gulika, food kazhinju, raavile vaikittu, oru week` against *2 tablets · after food · twice a day · 5 days · stop if rash* gives dose ✅, timing ✅, frequency ✅ (inferred from morning + evening, lower confidence), **duration ❌ "oru week" = 7 days ≠ 5 days**, **rash warning ⚠️ missing**.
 
@@ -143,7 +143,7 @@ Baseline self-consistency across runs: **100.0%** (our engine: 100%, determinist
 
 1. Add rows to `data/replies.csv`: `reply_id, message_id, lang_mix, reply_text, gold_labels, author, synthetic` with `synthetic=false`. `gold_labels` is JSON mapping each fact id (see `data/messages.json`) to `understood|wrong|missing|negated|unclear` **as a human would judge it, not what the engine says**.
 2. Use your own language and spelling; hard cases are the valuable ones (words outside the lexicon, questions, half-answers, typos).
-3. Run `make eval`, open `/eval`, and read the error explorer. Fix the *lexicon* (`engine/samjha_engine/lexicon.yaml`) or the rules, never the labels.
+3. Run `make eval`, open `/eval`, and read the error explorer. Fix the *lexicon* (`engine/steve_engine/lexicon.yaml`) or the rules, never the labels.
 4. Native speakers: also review [LEXICON_REVIEW.md](LEXICON_REVIEW.md); every non-English entry is `verified: false` until you sign it off. Remove words you doubt rather than keeping guesses.
 
 ## 8. Setup

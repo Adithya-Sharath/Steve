@@ -1,5 +1,5 @@
-from samjha_engine.matcher import prepare
-from samjha_engine.normalize import sound_key, tokenize
+from steve_engine.matcher import prepare
+from steve_engine.normalize import sound_key, tokenize
 
 
 def cats(text, lang=None):

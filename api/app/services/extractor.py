@@ -14,11 +14,11 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import TimeoutError as FutureTimeout
 
-from samjha_engine import Fact, FactType
-from samjha_engine.compare import describe_value
-from samjha_engine.matcher import Match, prepare
-from samjha_engine.negation import assign
-from samjha_engine.slots import fill_slots
+from steve_engine import Fact, FactType
+from steve_engine.compare import describe_value
+from steve_engine.matcher import Match, prepare
+from steve_engine.negation import assign
+from steve_engine.slots import fill_slots
 
 from ..settings import settings
 

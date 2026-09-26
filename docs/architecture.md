@@ -11,7 +11,7 @@ flowchart LR
   end
   subgraph API["FastAPI + SQLite"]
     X[extractor<br/>rules; LLM optional]
-    E[["samjha_engine<br/>(pure Python, no network)"]]
+    E[["steve_engine<br/>(pure Python, no network)"]]
     S[STT interface<br/>Sarvam or Null]
     B[SSE broker]
   end
@@ -33,7 +33,7 @@ flowchart LR
 4. **A false "understood" is the worst error.** Low confidence => `unclear`. A conflicting second value => `unclear`.
 5. **Every result is explainable:** evidence spans (character offsets into the original text), matched terms with scores, and a plain-English reason.
 
-## The engine (`engine/samjha_engine/`)
+## The engine (`engine/steve_engine/`)
 
 | Stage | File | What it does |
 |---|---|---|

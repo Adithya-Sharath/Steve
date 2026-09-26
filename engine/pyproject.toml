@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "samjha-engine"
+name = "steve-engine"
 version = "0.1.0"
 description = "Deterministic fact-by-fact checker for mixed-language (Manglish/Hinglish/Arabizi/Taglish) teach-back replies."
 requires-python = ">=3.11"
@@ -18,10 +18,10 @@ embeddings = ["sentence-transformers>=2.7"]
 dev = ["pytest>=8", "ruff>=0.5"]
 
 [tool.setuptools.packages.find]
-include = ["samjha_engine*"]
+include = ["steve_engine*"]
 
 [tool.setuptools.package-data]
-samjha_engine = ["lexicon.yaml", "fallback_config.json"]
+steve_engine = ["lexicon.yaml", "fallback_config.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
