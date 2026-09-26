@@ -142,6 +142,7 @@ await axe(p, "resolved card");
 await p.getByRole("tab", { name: /Paste/ }).click();
 await p.locator("#accent").selectOption("hi");
 await p.locator("#msg").fill("wery good, come at fife");
+ok("Paste: the previous answer disappears as soon as the text changes (no answer before Decode is pressed)", (await p.getByTestId("decoded-card").count()) === 0);
 await big(p, 'button:has-text("Decode")', "Decode button");
 await p.getByRole("button", { name: "Decode" }).click();
 await p.waitForFunction(() => document.querySelector('[data-testid="original"]')?.textContent?.includes("wery"), null, { timeout: 20000 });
@@ -290,6 +291,7 @@ ok("inspector: barking is rewritten to parking with scores", /rewritten: parking
 ok("inspector: the local phrases are found first", /yalla/.test(await I.p.getByTestId("inspector-stages").innerText()));
 ok("inspector: plain English at stage 5", (await I.p.getByTestId("inspector-plain").innerText()).includes("parking gate 3"));
 await I.p.locator("#ins-text").fill("come to the barking or the building?");
+ok("inspector: the previous stages disappear as soon as the text changes", (await I.p.getByTestId("inspector-stages").count()) === 0);
 await I.p.getByRole("button", { name: "Show the stages" }).click();
 await I.p.waitForFunction(() => document.querySelector('[data-testid="inspector-stages"]')?.textContent?.includes("Question instead of a guess"), null, { timeout: 15000 });
 ok("inspector: an open question is shown, not a guess", true);

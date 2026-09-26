@@ -77,6 +77,13 @@ export function ListenScreen() {
   const busy = decode.isPending || answer.isPending;
   const voiceProblem = result && !result.data.card && VOICE_TROUBLE.test(result.data.notes.join(" "));
 
+  // an answer belongs to the text it was made from: as soon as the text changes, the old card goes away and nothing is shown until Decode is pressed again
+  const clearResult = () => {
+    setResult(null);
+    decode.reset();
+    answer.reset();
+  };
+
   const pickExample = (ex: DecodeExample) => {
     setUserTab("paste");
     setText(ex.request.text);
@@ -90,7 +97,7 @@ export function ListenScreen() {
 
       <header className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-4xl leading-none">Listen</h1>
-        <Button variant="outline" className="h-12 px-4 text-base" onClick={() => setChangingLang(true)} aria-label={`Language: ${info.english}. Change language`}>
+        <Button variant="outline" className="h-12 px-4 text-base" onClick={() => { clearResult(); setChangingLang(true); }} aria-label={`Language: ${info.english}. Change language`}>
           <Languages aria-hidden /> <span lang={info.bcp47} dir={info.dir}>{info.native}</span>
         </Button>
       </header>
@@ -102,7 +109,7 @@ export function ListenScreen() {
         <select
           id="accent"
           value={accent}
-          onChange={(e) => setAccent(e.target.value as AccentHint | "")}
+          onChange={(e) => { setAccent(e.target.value as AccentHint | ""); clearResult(); }}
           className="mt-1 block h-12 w-full rounded-xl border-2 border-input bg-card px-3 text-base"
         >
           {ACCENTS.map((a) => (
@@ -168,7 +175,7 @@ export function ListenScreen() {
             }}
           >
             <label htmlFor="msg" className="text-sm font-medium text-muted-foreground">Paste or type the message</label>
-            <Textarea id="msg" value={text} onChange={(e) => setText(e.target.value)} maxLength={2000} className="min-h-40 text-lg" placeholder="For example: yalla habibi come to the barking gate tree" />
+            <Textarea id="msg" value={text} onChange={(e) => { setText(e.target.value); clearResult(); }} maxLength={2000} className="min-h-40 text-lg" placeholder="For example: yalla habibi come to the barking gate tree" />
             <Button type="submit" className="h-12 w-full text-lg" disabled={busy || !text.trim()}>
               <Ear aria-hidden /> Decode
             </Button>
