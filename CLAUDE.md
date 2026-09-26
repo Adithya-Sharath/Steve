@@ -1,7 +1,7 @@
 # CLAUDE.md — Steve
 
 Instructions for Claude Code (and humans) working in this repo. Keep it short and true; update it when reality changes.
-Read `DECISIONS.md` first (D1–D28: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
+Read `DECISIONS.md` first (D1–D35: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
 
 ## What this is
 Teach-back for mixed-language (Manglish / Hinglish / Arabizi / Taglish) replies. A sender writes an important message, confirms
@@ -48,6 +48,8 @@ Framer Motion, TanStack Query) · `data/` scenarios.json (demo **and** regressio
 
 ## API / auth
 Sender endpoints need `X-Sender-Key: sk_<32+ chars>` (SSE stream may use `?key=`); the server stores only its SHA-256 hash (D16).
+The global LLM switch needs `X-Admin-Key` = `ADMIN_KEY` (unset = 403 for all, D30). Client IP comes from `clientip.client_ip`, which trusts proxy headers only with `TRUST_PROXY=true` (D31).
+Every limit is in `settings.py` and `.env.example`: rate limits (D32), daily caps (D33), LLM answer validation (D34), body cap/headers/500 (D35). In API tests limits are lifted in `conftest.py` and reset per test; add a test that sets them when you touch one.
 Reader endpoints (`/r/{token}...`) are open by token. In API tests the `client` fixture is sender A, `other` is sender B, `anon` has no key.
 Existing SQLite files are migrated in place by `db._ensure_columns()` (add new columns there).
 

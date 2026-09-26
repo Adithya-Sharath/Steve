@@ -28,7 +28,7 @@ flowchart LR
 1. **An LLM never decides whether a fact was understood.** Numbers, doses, frequencies, durations, dates, amounts and
    negations are decided by deterministic code in `engine/`.
 2. **The engine runs with zero API keys.** LLM (Gemini) may only *suggest* facts (the sender confirms) and power the eval baseline.
-   Speech-to-text (Sarvam) is optional; typed replies always work. `POST /settings/llm` toggles the LLM at runtime (the wrapper test).
+   Speech-to-text (Sarvam) is optional; typed replies always work. `POST /settings/llm` (admin-only, `X-Admin-Key`) toggles the LLM at runtime (the wrapper test).
 3. **No translation anywhere.** The reader's words are shown verbatim.
 4. **A false "understood" is the worst error.** Low confidence => `unclear`. A conflicting second value => `unclear`.
 5. **Every result is explainable:** evidence spans (character offsets into the original text), matched terms with scores, and a plain-English reason.
@@ -61,7 +61,7 @@ flowchart LR
 | `POST /check`, `POST /analyze` | stateless engine calls (playground, inspector, eval) |
 | `GET /eval/results` | `eval/results/latest.json` or an empty state |
 | `POST /demo/seed`, `GET /demo/scenarios` | demo mode |
-| `POST /settings/llm` | runtime LLM toggle |
+| `POST /settings/llm` | runtime LLM toggle, admin-only (`ADMIN_KEY`, header `X-Admin-Key`) |
 
 **Sender authentication:** every sender endpoint (`POST/GET /messages`, `/confirm`, `/followup`, `/stream`, `/demo/seed`, `/settings/llm`) needs the
 per-browser `X-Sender-Key` (`sk_…`); the server stores only its SHA-256 hash on the message and answers 403 otherwise. `/stream` also accepts `?key=` because

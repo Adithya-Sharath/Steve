@@ -51,7 +51,7 @@ Example: `randu gulika, food kazhinju, raavile vaikittu, oru week` against *2 ta
 
 1. **An LLM is never the judge of a safety-critical fact.** Numbers, doses, frequencies, durations, dates, amounts and negations are decided by deterministic code we wrote and tested (275 engine tests).
 2. **Zero keys needed.** LLMs are optional helpers: (a) suggesting facts the sender confirms, with a 10 s deadline and automatic fallback to the built-in extractor; (b) the evaluation baseline. Speech-to-text is optional; typed replies always work.
-3. **The LLM-off toggle.** Flip the *LLM helper* switch in the nav (it calls `POST /settings/llm`). Compose, reply and check all keep working and the results page shows an "LLM off" badge.
+3. **The LLM-off test.** Run with `LLM_ENABLED=false`, or (as the operator, with `ADMIN_KEY` set and pasted once on `/admin`) flip the *LLM helper* switch in the nav. Compose, reply and check all keep working and the results page shows an "LLM off" badge. The switch is global, so it is admin-only and hidden from everyone else.
 4. **A false "understood" is the worst error,** so low confidence, conflicts, concessives ("even if rash") and pasted-back messages end in `unclear`, `missing` or `negated`, never `understood`.
 5. **Why not just ask an LLM?** LLMs score 5-12 F1 points worse on romanized Indian-language health messages than on native script, because of spelling noise ([arXiv 2512.10780](https://arxiv.org/html/2512.10780v1)). We measured a baseline (table below): on the same 180 not-understood facts, **our engine has 0 false "understood" and the Gemini baseline has 11**. In the interest of honesty: the baseline is slightly *more accurate* on plain accuracy (96.6% vs 95.9% once pasted-message rows are excluded), and our engine was tuned while reading this data, so the comparison favours us.
 6. **Voice via Sarvam, verified live on an iPhone in Malayalam.** Speech-to-text is Sarvam Saaras in transliteration mode (romanized, **not** translated) behind a `SpeechToText` interface with a null fallback. The recording is sent for one request and never stored.
@@ -144,19 +144,25 @@ Copy `.env.example` to `.env`. Everything is optional.
 
 | Variable | Purpose |
 |---|---|
-| `LLM_ENABLED` | `true` lets Gemini *suggest* facts (needs `GEMINI_API_KEY`). Also toggleable at runtime from the nav. |
+| `LLM_ENABLED` | `true` lets Gemini *suggest* facts (needs `GEMINI_API_KEY`). The operator can also flip it at runtime with `ADMIN_KEY`. |
+| `ADMIN_KEY` | Operator key (header `X-Admin-Key`, constant-time compare) for the **global** LLM switch, `POST /settings/llm`. Unset = the switch is disabled for everyone and `LLM_ENABLED` decides. Use 32+ random characters; paste it once on the unlinked `/admin` page to show the switch in the nav. |
 | `GEMINI_API_KEY`, `GEMINI_MODEL` | Optional. `GEMINI_MODEL` defaults to **`gemini-3.1-flash-lite`**: larger Gemini models allow only about 20 requests/day on a free key. Model ids: <https://ai.google.dev/gemini-api/docs/models>. |
 | `LLM_TIMEOUT_SECONDS`, `LLM_COOLDOWN_SECONDS` | Fact suggestion has a hard **10 s** deadline (default; the Gemini API itself rejects anything under 10 s), then the built-in extractor answers. After a failure the LLM is skipped for 60 s (15 min after a daily-quota error), so "Find key facts" never hangs. |
 | `SARVAM_API_KEY`, `STT_ENABLED` | Optional voice replies (Malayalam, Hindi, English). `STT_ENABLED` defaults to `true` but only takes effect when a key is set. Arabizi and Taglish are typed for now. |
 | `DATABASE_URL` | Default `sqlite:///./steve.db` |
 | `STEVE_DATA_DIR`, `STEVE_EVAL_DIR` | Override where the API reads scenario data and evaluation results (used by the Docker image). |
 | `PUBLIC_WEB_URL`, `CORS_ORIGINS` | Where the web app lives (used in reader links and CORS). |
+| `TRUST_PROXY`, `TRUSTED_PROXIES` | Default `false`. Set `true` only behind a reverse proxy or tunnel to read the client IP from `CF-Connecting-IP` / the right-most untrusted `X-Forwarded-For` entry (`TRUSTED_PROXIES`: extra hops to skip, IPs/CIDRs). When false those headers are ignored, because clients can forge them. |
 | `UNCLEAR_THRESHOLD` | Confidence below this becomes `unclear` (default 0.6). |
-| `REPLY_RATE_LIMIT` | Maximum replies per minute from one client to one reader link (default 12). |
+| `RL_MESSAGES_PER_MIN`, `RL_MESSAGES_PER_DAY`, `RL_MESSAGES_PER_SENDER_DAY` | `POST /messages` limits: per IP per minute (10) and per day (100), and per sender key per day (30). |
+| `REPLY_RATE_LIMIT`, `REPLY_CAP_PER_MESSAGE` | Replies: maximum per minute from one client to one reader link (12), and a hard cap of stored replies per message (30). |
+| `RL_CHECK_PER_MIN`, `RL_SEED_PER_MIN`, `RL_DEFAULT_PER_MIN` | `/check` and `/analyze` (60/min per IP each), `/demo/seed` (5/min), every other route (120/min per IP). A value of 0 turns a rule off; blocked requests get `429` with `Retry-After`. |
+| `LLM_DAILY_CAP`, `STT_DAILY_CAP` | Global calls per UTC day to Gemini (200) and Sarvam (300). Over the cap the built-in extractor answers ("daily AI limit reached") and voice replies ask the reader to type. `/health` shows what is left. `0` blocks the service, negative means unlimited. |
+| `MAX_BODY_BYTES` | Requests larger than this are refused with 413 (default 5 MB). |
 | `STEVE_EMBEDDINGS` | Set to `1` to enable the optional embedding fallback for condition facts (needs `sentence-transformers`; off until calibrated). |
 | `NEXT_PUBLIC_API_URL` | Web to API base URL (default `http://localhost:8000`); baked in at build time. |
 
-**Phone testing:** the microphone needs HTTPS or localhost. A free Cloudflare tunnel for the web app and one for the API works well: set `PUBLIC_WEB_URL` and `CORS_ORIGINS` to the web tunnel address, `NEXT_PUBLIC_API_URL` to the API tunnel address, then rebuild the web app.
+**Phone testing:** the microphone needs HTTPS or localhost. A free Cloudflare tunnel for the web app and one for the API works well: set `PUBLIC_WEB_URL` and `CORS_ORIGINS` to the web tunnel address, `NEXT_PUBLIC_API_URL` to the API tunnel address, **`TRUST_PROXY=true`** (the tunnel sends `CF-Connecting-IP`, so each visitor gets their own rate-limit bucket instead of sharing the tunnel's address), then rebuild the web app. Do not also expose port 8000 to your network while `TRUST_PROXY=true`.
 **Deploy:** web on Vercel (`NEXT_PUBLIC_API_URL` = your API URL); API on Render, Railway or Fly using `api/Dockerfile` (build context = repo root), with `PUBLIC_WEB_URL` and `CORS_ORIGINS` set to the web URL and a volume for SQLite.
 
 ## Testing and evaluation
@@ -229,7 +235,8 @@ Also planned: WhatsApp Business delivery (today: copy and QR), Arabic-script and
 - **Lexicon coverage is small and unverified.** Five languages, about 300 headwords, every non-English entry awaiting native-speaker review. Unknown words produce `missing` or `unclear`, never a guess. Numbers above ten are only recognised as digits.
 - **Synthetic and self-authored eval data** (see Testing and evaluation). Baseline numbers appear only if the baseline actually ran.
 - **Known weak spots:** misspelled negation words; replies that use an unlisted word for a fact ("pani" for fever, "saade barah baje" for 12:30); an unnumbered "form" or "bottle" is counted as one; two unmatched facts of the same kind can only be `unclear`.
-- **Privacy:** audio is held in memory for a single speech-to-text request and never stored; the reader never sees results; replies are stored as text. Sender endpoints require a per-browser **sender key** (sent as `X-Sender-Key`, stored server-side only as a hash); readers need only their link. Trade-off: the key lives in one browser, so clearing site data or switching device loses access to those messages. The runtime LLM toggle needs a valid key but is global, so on a public deployment set `LLM_ENABLED` in the environment. See [SECURITY.md](SECURITY.md).
+- **Privacy:** audio is held in memory for a single speech-to-text request and never stored; the reader never sees results; replies are stored as text. Sender endpoints require a per-browser **sender key** (sent as `X-Sender-Key`, stored server-side only as a hash); readers need only their link. Trade-off: the key lives in one browser, so clearing site data or switching device loses access to those messages. The global LLM switch is admin-only (`ADMIN_KEY`); a sender key cannot flip it. See [SECURITY.md](SECURITY.md).
+- **Abuse and cost controls are a brake, not a shield.** Rate limits, daily Gemini/Sarvam caps and the request-size cap live in the API process (a restart or several workers weaken them) and do not stop a determined attacker with many IPs; the daily caps are not billing, so also set a spending limit with each provider. The Gemini fact extractor treats the sender's message as data and its answer is validated server-side (at most 12 facts, sane ranges, invalid facts dropped), but a validator cannot tell a plausible wrong fact from a right one: the sender always confirms the facts, and the engine, not the model, judges replies. An admin key pasted into a browser lives in its local storage, so use it on a demo machine.
 - **Voice** uses Sarvam (Indian languages); Gulf Arabic and Tagalog voice are not supported yet.
 - **Closest competitor: Hippocratic AI**, whose AI voice agents make post-discharge calls (active in the UAE via Burjeel). We differ: Steve is a *checking layer any sender (human or AI) can use*, focused on romanized code-mixed replies, with exact checks on numbers.
 
