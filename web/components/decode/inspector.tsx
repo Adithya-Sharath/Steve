@@ -156,11 +156,11 @@ export function DecodeInspector() {
         }}
       >
         <label htmlFor="ins-text" className="text-sm font-medium text-muted-foreground">Any message (English as heard or typed)</label>
-        <Textarea id="ins-text" value={text} onChange={(e) => setText(e.target.value)} maxLength={500} className="min-h-24 text-base" placeholder="Type a message, or tap an example below" />
+        <Textarea id="ins-text" value={text} onChange={(e) => { setText(e.target.value); run.reset(); }} maxLength={500} className="min-h-24 text-base" placeholder="Type a message, or tap an example below" />
         <div className="grid gap-3 sm:grid-cols-2">
           <div>
             <label htmlFor="ins-accent" className="text-sm font-medium text-muted-foreground">Who is speaking?</label>
-            <select id="ins-accent" value={accent} onChange={(e) => setAccent(e.target.value as AccentHint | "")} className="mt-1 block h-12 w-full rounded-xl border-2 border-input bg-card px-3 text-base">
+            <select id="ins-accent" value={accent} onChange={(e) => { setAccent(e.target.value as AccentHint | ""); run.reset(); }} className="mt-1 block h-12 w-full rounded-xl border-2 border-input bg-card px-3 text-base">
               {ACCENTS.map((a) => (
                 <option key={a.id} value={a.id}>{a.label}</option>
               ))}
@@ -170,7 +170,7 @@ export function DecodeInspector() {
             <legend className="text-sm font-medium text-muted-foreground">The text came from</legend>
             <div className="mt-1 flex gap-2">
               {(["typed", "voice"] as const).map((p) => (
-                <button key={p} type="button" aria-pressed={path === p} onClick={() => setPath(p)}
+                <button key={p} type="button" aria-pressed={path === p} onClick={() => { setPath(p); run.reset(); }}
                   className={cn("h-12 flex-1 rounded-xl border-2 px-3 text-base", path === p ? "border-primary bg-teal-soft font-medium" : "border-input bg-card")}>
                   {p === "typed" ? "Typed (WhatsApp)" : "Speech-to-text"}
                 </button>
