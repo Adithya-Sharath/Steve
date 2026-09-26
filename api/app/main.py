@@ -8,6 +8,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from .db import init_db
 from .ratelimit import default_ip_limit
 from .routes import messages, misc, reader
+from .security import (
+    BodyLimitMiddleware,
+    SecurityHeadersMiddleware,
+    install_log_filters,
+    unhandled_exception_handler,
+)
 from .settings import settings
 
 
@@ -25,6 +31,9 @@ app = FastAPI(
     dependencies=[Depends(default_ip_limit)],
 )
 
+# Starlette puts the LAST added middleware outermost. Security headers wrap everything (even CORS preflights), CORS wraps
+# the body limit so a 413 or 429 is still readable by the browser, and the body limit sits next to the routes.
+app.add_middleware(BodyLimitMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -33,6 +42,10 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["Retry-After"],
 )
+app.add_middleware(SecurityHeadersMiddleware)
+
+app.add_exception_handler(Exception, unhandled_exception_handler)
+install_log_filters()
 
 app.include_router(misc.router)
 app.include_router(messages.router)
