@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { WakingBanner, WarmUp } from "@/components/decode/warmup";
 import { Providers } from "@/components/providers";
-import { SiteFooter, SiteNav } from "@/components/site-nav";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -45,11 +44,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             >
               Skip to content
             </a>
-            <SiteNav />
             <WakingBanner />
             <WarmUp />
             <main id="main">{children}</main>
-            <SiteFooter />
           </div>
         </Providers>
       </body>

@@ -1,4 +1,4 @@
-// `node e2e/run.mjs [check|listen|client|all]`: start the stack (mock Sarvam, API, production web), run the browser flow scripts, stop everything.
+// `node e2e/run.mjs [showcase|client|all]`: start the stack (mock Sarvam, API, production web), run the browser flow scripts, stop everything.
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -7,8 +7,8 @@ import { startStack, ADMIN_KEY } from "./stack.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const which = process.argv[2] || "all";
-const scripts = { check: ["check-mode.mjs"], listen: ["demo.mjs"], demo: ["demo.mjs"], client: ["client.mjs"], all: ["check-mode.mjs", "demo.mjs", "client.mjs"], shots: ["screenshots.mjs"] }[which];
-if (!scripts) { console.error("usage: node e2e/run.mjs [check|listen|client|all]"); process.exit(2); }
+const scripts = { showcase: ["showcase.mjs"], client: ["client.mjs"], all: ["showcase.mjs", "client.mjs"] }[which];
+if (!scripts) { console.error("usage: node e2e/run.mjs [showcase|client|all]"); process.exit(2); }
 
 // async spawn on purpose: the mock Sarvam server lives in THIS process and must keep answering while a script runs
 const run = (file) => new Promise((resolve) => {
