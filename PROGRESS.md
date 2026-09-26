@@ -18,9 +18,9 @@ Channels: WhatsApp, and in person ("Tap to listen"). Check mode stays as a secon
 | 3 | Decode evaluation (D44): frozen synthetic sets `eval_v1` (458 rows) and `eval_v2` (245 rows, written after the fixes), `eval/decode_eval.py`, reports in `eval/results/`. Headline (fresh v2 first run): **false alarm 1.4% (2/144, questions only)**; typed by ear in-pack 94.0% exact / out-of-pack 0% decoded (left as typed); extraction where 91.7% / when 87.1% / what 95.0% / how much 100%. Voice-net catch only with its label (synthetic, author-written, tuned on it: 66.5%; held-out L2-ARCTIC 0/72, outside critical slots). Optional accented-TTS test and Gemini baseline **not run: awaiting the owner** | **done (Checkpoint 3)**, awaiting review |
 | 4 | Decode API (D45): `POST /decode` (JSON text or multipart audio), `POST /decode/clarify`, `GET /decode/health`; worker key `X-Worker-Key`, in-memory clarify state (10 min), per-IP/per-worker limits, audio caps, fake-STT tests, no text or audio in logs | **done** (50 API tests) |
 | 5 | Translation, **text only, no TTS anywhere** (D46): Sarvam `sarvam-translate:v1` for ml/hi/ur/bn, guarded Gemini for tl and as fallback, protected numbers/times/places/amounts, exact-match number check (a failing translation is never shown), cache, budgets; one live Sarvam call and one live Gemini call succeeded | **done** (57 tests; API suite 334) |
-| 6 | `/listen` web screen (Listen + Paste tabs), card UI, clarify buttons, "say it back" as large text, other-person notice (EN + AR, native review), language picker, RTL, a11y | not started |
+| 6 | **Reference** `/listen` (D47: minimal and working, not polished; the teammate's UI is the demo site): language picker, Listen + Paste, card, clarify buttons, say-it-back, notice EN + AR, states; plus the **public API contract**: `docs/API.md`, `openapi.json`, `clients/ts/steve-client.ts`, `GET /decode/examples`, configurable CORS; browser flows `web/e2e/{listen,client}.mjs` | **done** (API suite 354, engine+tools 698) |
 | 7 | WhatsApp (Twilio sandbox, text replies only), signed webhook, voice notes, numbered clarify replies, onboarding, hashed numbers | not started |
-| 8 | Product surface (landing copy, nav, how-it-works inspector, eval page with Decode tab, Gemini baseline on v2), README, SECURITY, CONTRIBUTING, screenshots, CI, final audit, merge to `main` and tag `v2.0.0` only if the audit is fully green | not started |
+| 8 | README (Decode primary), evaluation with a Gemini baseline on v2, SECURITY, CONTRIBUTING, screenshots, CI, final audit, merge to `main` and tag `v2.0.0` only if the audit is fully green. **Skipped by the owner (D47): landing-page redesign and the How-it-works inspector UI in this web app.** | not started |
 
 ## Phases 4 to 8: run plan (owner prompt `CLAUDE_CODE_PROMPT_Steve_Phases_4_to_8.md`; scope: text output only, NO text-to-speech anywhere)
 
@@ -32,6 +32,10 @@ Phase gate (every phase): engine + tools + api tests, `ruff check engine api eva
 **Phase 5 plan (done).** `services/translate.py`, `decode_translation.py` seam, `TRANSLATE_DAILY_CAP`, `tests/test_translate.py`. Done criteria met: fake translator, placeholder round trip, number-mismatch rejection (3 -> 8), fallbacks, budget handling, one live Sarvam + one live Gemini call logged in D46.
 
 **Phase 6 plan.** Web `/listen` (Listen + Paste tabs), worker key + language picker in `lib/`, card UI with clarify buttons and translation toggle, "say it back" as large text, EN + AR other-person notice (`copy_review.md`), RTL, 56 px targets, `web/e2e/listen.mjs` (fake mic, mock Sarvam) + axe + Lighthouse >= 95. Done when all Phase 6 tests and the phase gate pass.
+
+**Phase 6 plan (revised by D47).** Reference `/listen` only; public contract (`docs/API.md`, `openapi.json`, TS client, `/decode/examples`, CORS); browser flows `listen` and `client`. Done: see the table.
+
+**Phase 7 plan.** `services/messaging/` (provider interface, Twilio sandbox first, seam for Meta), `POST /whatsapp/webhook` (signature verified, text + voice + image), hashed numbers (`WORKER_HASH_SECRET`), in-memory numbered clarify state, onboarding and commands, per-number limits, `tests/test_whatsapp.py` with mocked Twilio, `docs/whatsapp-setup.md`. No live message is sent in this run.
 
 Typed-text truth file: `tools/stt_compare/typed_truth.csv` (`text_as_typed, intended_meaning, accent, source, notes`; the owner supplies WhatsApp screenshots/examples; anonymised; validator rejects phone numbers, e-mails and links).
 

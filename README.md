@@ -138,6 +138,10 @@ make dev        # API on :8000 and web on :3000 together
 
 Open <http://localhost:3000/demo> (it seeds four UAE scenarios) or <http://localhost:3000/app/new>. Prerequisites: Python 3.11+, Node 20+ (22 tested). Optional: `cp .env.example .env` to add keys. Docker: `docker compose up --build` (the images have not been built in our environment; the compose file is only validated).
 
+## Decode API (public contract)
+
+Steve Decode is an API first: text or a voice note in, plain English (and optionally the same card in the worker's language) out, **text only**. Read [`docs/API.md`](docs/API.md) (every endpoint with real JSON), use [`openapi.json`](openapi.json) or the typed client [`clients/ts/steve-client.ts`](clients/ts/steve-client.ts), and try `GET /decode/examples` for six live outputs. Another site may call it: list its origin in `CORS_ORIGINS`. Response shapes are stable (D47).
+
 ## Configuration
 
 Copy `.env.example` to `.env`. Everything is optional.
@@ -151,7 +155,7 @@ Copy `.env.example` to `.env`. Everything is optional.
 | `SARVAM_API_KEY`, `STT_ENABLED` | Optional voice replies (Malayalam, Hindi, English). `STT_ENABLED` defaults to `true` but only takes effect when a key is set. Arabizi and Taglish are typed for now. |
 | `DATABASE_URL` | Default `sqlite:///./steve.db` |
 | `STEVE_DATA_DIR`, `STEVE_EVAL_DIR` | Override where the API reads scenario data and evaluation results (used by the Docker image). |
-| `PUBLIC_WEB_URL`, `CORS_ORIGINS` | Where the web app lives (used in reader links and CORS). |
+| `PUBLIC_WEB_URL`, `CORS_ORIGINS`, `CORS_ALLOW_LOCALHOST` | Where the web app lives (reader links) and which origins may call the API from a browser: a comma-separated list, or `*` for any origin (no cookies are used, keys travel in headers). `CORS_ALLOW_LOCALHOST=false` removes the built-in "any localhost port" rule. Another site (for example a separate demo UI) is allowed by listing its origin. |
 | `TRUST_PROXY`, `TRUSTED_PROXIES` | Default `false`. Set `true` only behind a reverse proxy or tunnel to read the client IP from `CF-Connecting-IP` / the right-most untrusted `X-Forwarded-For` entry (`TRUSTED_PROXIES`: extra hops to skip, IPs/CIDRs). When false those headers are ignored, because clients can forge them. |
 | `UNCLEAR_THRESHOLD` | Confidence below this becomes `unclear` (default 0.6). |
 | `RL_MESSAGES_PER_MIN`, `RL_MESSAGES_PER_DAY`, `RL_MESSAGES_PER_SENDER_DAY` | `POST /messages` limits: per IP per minute (10) and per day (100), and per sender key per day (30). |
