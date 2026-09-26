@@ -137,15 +137,28 @@ Return JSON: a list of facts. Message:
 \"\"\"{text}\"\"\""""
 
 
+# Gemini rejects a request deadline under 10 s ("400 INVALID_ARGUMENT: Manually set deadline 5s is too short"), so the
+# SDK is never given less, however small our own wrapper deadline is (D27).
+MIN_SDK_TIMEOUT_SECONDS = 10.0
+
+
+def sdk_timeout_ms() -> int:
+    return int(max(settings.llm_timeout_seconds, MIN_SDK_TIMEOUT_SECONDS) * 1000)
+
+
+def _safe_error(e: Exception) -> str:
+    """The provider's message for the log, with the API key removed and length capped."""
+    msg = f"{type(e).__name__}: {e}"
+    if settings.gemini_api_key:
+        msg = msg.replace(settings.gemini_api_key, "***")
+    return " ".join(msg.split())[:400]
+
+
 def llm_extract(text: str) -> list[Fact]:
     from google import genai  # imported lazily: optional dependency path
     from google.genai import types
 
-    # the SDK gets the same deadline (milliseconds) so its worker thread also ends instead of lingering
-    client = genai.Client(
-        api_key=settings.gemini_api_key,
-        http_options=types.HttpOptions(timeout=int(settings.llm_timeout_seconds * 1000)),
-    )
+    client = genai.Client(api_key=settings.gemini_api_key, http_options=types.HttpOptions(timeout=sdk_timeout_ms()))
     resp = client.models.generate_content(
         model=settings.gemini_model,
         contents=_PROMPT.format(text=text),
@@ -164,8 +177,8 @@ def llm_extract(text: str) -> list[Fact]:
 
 # ------------------------------------------------------------------------------------------------------------
 # Deadline + circuit breaker. The LLM is an optional helper: it must never make the sender wait or fail.
-#  * every call has a hard wall-clock deadline (default 5 s) -> built-in extractor
-#  * after a timeout/quota/other failure the LLM is skipped for a cooldown (default 60 s; 15 min for a DAILY quota),
+#  * every call has a hard wall-clock deadline (default 10 s) -> built-in extractor
+#  * after a timeout/503/rate limit/other failure the LLM is skipped for a cooldown (default 60 s; 15 min only for a DAILY quota),
 #    so a judge clicking "Find key facts" repeatedly waits at most once, not on every click
 # ------------------------------------------------------------------------------------------------------------
 _pool = ThreadPoolExecutor(max_workers=4, thread_name_prefix="llm-extract")
@@ -208,10 +221,20 @@ def suggest_facts(text: str) -> tuple[list[Fact], str, str | None]:
     except FutureTimeout:
         _trip(settings.llm_cooldown_seconds)
         reason = f"timed out after {settings.llm_timeout_seconds:g} s"
+        detail = reason
     except Exception as e:  # noqa: BLE001 - any failure must degrade to the deterministic path
         msg = str(e)
         daily = "PerDay" in msg
+        # only a DAILY quota earns the long pause; 503 UNAVAILABLE / per-minute 429 / anything else is the short cooldown
         _trip(DAILY_QUOTA_COOLDOWN if daily else settings.llm_cooldown_seconds)
-        reason = "daily quota used up" if daily else "rate limit hit" if "429" in msg or "RESOURCE_EXHAUSTED" in msg else type(e).__name__
-    log.warning("LLM extraction unavailable (%s); using the built-in extractor", reason)
+        if daily:
+            reason = "daily quota used up"
+        elif "503" in msg or "UNAVAILABLE" in msg:
+            reason = "service unavailable (503)"
+        elif "429" in msg or "RESOURCE_EXHAUSTED" in msg:
+            reason = "rate limit hit"
+        else:
+            reason = type(e).__name__
+        detail = _safe_error(e)
+    log.warning("LLM extraction unavailable (%s); using the built-in extractor. Provider said: %s", reason, detail)
     return regex_extract(text), "regex", f"LLM unavailable ({reason}); used the built-in extractor."

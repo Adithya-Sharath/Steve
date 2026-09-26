@@ -40,7 +40,7 @@ class Settings:
     data_dir: Path = field(default_factory=lambda: Path(os.getenv("SAMJHA_DATA_DIR", REPO_ROOT / "data")))
     eval_dir: Path = field(default_factory=lambda: Path(os.getenv("SAMJHA_EVAL_DIR", REPO_ROOT / "eval" / "results")))
     # the optional LLM may never make the composer wait: hard deadline, then fall back to the built-in extractor
-    llm_timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "5")))
+    llm_timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "10")))
     llm_cooldown_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_COOLDOWN_SECONDS", "60")))
     reply_rate_limit: int = field(default_factory=lambda: int(os.getenv("REPLY_RATE_LIMIT", "12")))
     reply_rate_window: int = 60
