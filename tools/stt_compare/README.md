@@ -85,7 +85,6 @@ transcript in the dataset, no scripted split in the repo).
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r tools\requirements.txt
-equirements.txt
 .\.venv\Scripts\python.exe tools\stt_compare\importers\l2arctic_spontaneous.py inspect
 ```
 
