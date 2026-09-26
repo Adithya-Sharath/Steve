@@ -28,3 +28,10 @@ eval/.cache/
 Thumbs.db
 .idea/
 *.log
+
+# local tooling and tunnels (never commit)
+cloudflared*
+.mcp.json
+.claude/settings.local.json
+web/AGENTS.md
+web/CLAUDE.md

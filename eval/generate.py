@@ -167,6 +167,7 @@ def main() -> None:
     for mid, msg in messages.items():
         for lang in T.LANGS:
             for k in range(args.variants):
+                # seed string kept from the project's first name on purpose: changing it would regenerate every synthetic reply (D28)
                 rng = random.Random(f"samjha|{mid}|{lang}|{k}")
                 text, gold = make_reply(msg, lang, rng)
                 if (mid, text) in seen:
