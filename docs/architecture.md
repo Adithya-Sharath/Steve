@@ -10,7 +10,7 @@ flowchart LR
     RP["/r/token: voice or text"]
   end
   subgraph API["FastAPI + SQLite"]
-    X[extractor<br/>rules; LLM optional]
+    X[extractor<br/>rules; Gemini optional, 10 s deadline then rules]
     E[["steve_engine<br/>(pure Python, no network)"]]
     S[STT interface<br/>Sarvam or Null]
     B[SSE broker]

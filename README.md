@@ -1,110 +1,168 @@
-# Steve?
+# Steve
 
-> **Teach-back for mixed-language messages.** Send an important instruction. The reader explains it back in Manglish, Hinglish, Arabizi or Taglish, spelled however they like, and we check every key fact, *exactly*.
+> **"ok 👍" isn't understanding.**
+> Steve checks that an important message actually got through. The reader explains it back in their own mix of languages, and Steve checks every dose, date and warning.
 
-![tests](https://img.shields.io/badge/engine%20tests-275%20passing-2e7d6b) ![api](https://img.shields.io/badge/api%20tests-67%20passing-2e7d6b) ![keys](https://img.shields.io/badge/API%20keys%20needed-0-0f6b6b) ![llm](https://img.shields.io/badge/LLM%20in%20the%20verdict-never-8a3ffc)
+[![CI](https://github.com/Adithya-Sharath/Steve/actions/workflows/ci.yml/badge.svg)](https://github.com/Adithya-Sharath/Steve/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000)
+![engine tests](https://img.shields.io/badge/engine%20tests-275%20passing-2e7d6b) ![api tests](https://img.shields.io/badge/api%20tests-67%20passing-2e7d6b)
+![false understood](https://img.shields.io/badge/false%20%22understood%22-0%20%2F%20180-2e7d6b)
+![API keys needed](https://img.shields.io/badge/API%20keys%20needed-0-0f6b6b)
 
-**BitNBuild'26 · UAE regional round · AI/ML track** &nbsp;|&nbsp; 🎥 **Demo video:** _add link here_ &nbsp;|&nbsp; 🌐 **Live demo:** _add link here_
+**BitNBuild'26 · UAE regional round · AI/ML track** &nbsp;|&nbsp; [▶ Watch the 2-minute demo](VIDEO_LINK_HERE)
 
-| | |
-|---|---|
-| ![Landing](docs/screenshots/landing.png) | ![Live results](docs/screenshots/results.png) |
-| ![Reader (mobile)](docs/screenshots/reader-mobile.png) | ![Composer](docs/screenshots/composer.png) |
-| ![A copied reply is flagged](docs/screenshots/copied.png) | ![Evaluation](docs/screenshots/eval.png) |
-| ![Buttons: rest, hover, pressed](docs/screenshots/buttons.png) | ![The problem, stats bento](docs/screenshots/landing-problem.png) |
-| ![How it works timeline](docs/screenshots/landing-how.png) | ![Stats in dark mode](docs/screenshots/landing-problem-dark.png) |
-| ![Reader recording: level-reactive halo and 30 s ring](docs/screenshots/reader-recording.png) | |
+![Steve: the landing page](docs/screenshots/landing.png)
 
-_Screenshots are real (Playwright against a production build: `next build && next start`). Replace or add GIFs from the demo recording._
+The false-"understood" badge is the engine on the 180 fact checks that were not understood within the baseline's subset (see [Evaluation](#testing-and-evaluation)); it is a development number, not a claim about real-world accuracy.
 
----
+## About the name
 
-## 1. The problem, and how we read it
+Steve comes from the meme "it's me and you, and you and me, and your friend Steve": the friend in the middle who makes sure the two of you actually understood each other. The project started as "Samjha" (Hindi/Urdu for "understood?").
+
+## The problem
+
+- About **19%** of patients' answers about their own prescription labels were wrong, mostly dose (52%) and frequency (28%). [AAFP, 2007](https://www.aafp.org/pubs/afp/issues/2007/0615/p1851a.html)
+- Teach-back cut comprehension deficits from **49% to 11.9%** in a 483-patient emergency-department study, but that study **excluded patients with language barriers**. [Int J Emerg Med](https://link.springer.com/article/10.1186/s12245-020-00306-9) · AHRQ recommends teach-back ([tool 5](https://www.ahrq.gov/health-literacy/improve/precautions/tool5.html))
+- In the UAE, residents are about 38% Indian, 17% Pakistani, 7% Bangladeshi and 7% Filipino (GMI 2026), and many switch languages mid-sentence and write one language in another's script. [source](https://www.globalmediainsight.com/blog/uae-population-statistics/)
+
+## What Steve does
+
+1. **The sender writes** an important message (a dose, a visa deadline, a safety rule).
+2. **Key facts are confirmed.** Facts are extracted into typed slots; the sender confirms or edits them.
+3. **The reader explains it back**, by voice or text, in any language mix and any spelling, from a link or QR code with no login.
+4. **The engine checks each fact:** `understood`, `wrong`, `missing`, `negated` or `unclear`, with the evidence and a plain reason.
+5. **The sender sees what didn't land** and re-explains only that. **The reader is never shown a score**, only a thank-you.
+
+Example: `randu gulika, food kazhinju, raavile vaikittu, oru week` against *2 tablets, after food, twice a day, 5 days, stop if rash* gives dose understood, timing understood, frequency understood (inferred from morning and evening, lower confidence), **duration wrong ("oru week" = 7 days, not 5)** and **rash warning missing**.
+
+## How we read the problem statement
 
 > *"Language tools learn one clean official version of a language, then meet people who switch tongues within a sentence, spell by ear, and write one language in another's script."*
 
-Most teams will build a translator or a normaliser that turns mixed language into "proper" English. **We deliberately don't**: that forces people back into the one clean version the statement criticises.
-
-The three workshop questions, answered:
-
-| Question | Our answer |
+| Workshop question | Our answer |
 |---|---|
-| **What did we cross out?** | **Translation / normalisation.** We never translate the message or the reply. The reader's words are shown verbatim. |
-| **What is the different moment?** | **The response.** When someone sends an important instruction (a dose, a visa deadline, a safety rule) the reader answers "ok 👍" and nobody knows if it landed. We fix that moment. |
-| **Who else is in the sentence?** | **The sender**, who cannot tell whether the message landed. |
+| **What did we cross out?** | ~~Translation and normalisation.~~ Most tools turn mixed language into "proper" English, which forces people back into the one clean version the statement criticises. Steve never translates the message or the reply; the reader's words are shown verbatim. |
+| **What is the different moment?** | **The response**, not the message. Everyone works on how instructions are sent; nobody checks what happens when the reader answers a bare "ok". |
+| **Who else is in the sentence?** | **The sender**, who cannot tell whether the message landed. Steve is built for them. |
 
-**The product** is the digital version of the clinical **teach-back** method:
+## Why this isn't an AI wrapper
 
-1. The sender writes an important message.
-2. Key facts are extracted into typed slots; the sender confirms them.
-3. The reader explains the message back in their own words, by voice or text, in any mix, spelled any way.
-4. Our engine checks every key fact: `understood`, `wrong`, `missing`, `negated` or `unclear`.
-5. The sender sees a fact-by-fact result and re-explains only what failed. **The reader is never shown a score.**
+1. **An LLM is never the judge of a safety-critical fact.** Numbers, doses, frequencies, durations, dates, amounts and negations are decided by deterministic code we wrote and tested (275 engine tests).
+2. **Zero keys needed.** LLMs are optional helpers: (a) suggesting facts the sender confirms, with a 10 s deadline and automatic fallback to the built-in extractor; (b) the evaluation baseline. Speech-to-text is optional; typed replies always work.
+3. **The LLM-off toggle.** Flip the *LLM helper* switch in the nav (it calls `POST /settings/llm`). Compose, reply and check all keep working and the results page shows an "LLM off" badge.
+4. **A false "understood" is the worst error,** so low confidence, conflicts, concessives ("even if rash") and pasted-back messages end in `unclear`, `missing` or `negated`, never `understood`.
+5. **Why not just ask an LLM?** LLMs score 5-12 F1 points worse on romanized Indian-language health messages than on native script, because of spelling noise ([arXiv 2512.10780](https://arxiv.org/html/2512.10780v1)). We measured a baseline (table below): on the same 180 not-understood facts, **our engine has 0 false "understood" and the Gemini baseline has 11**. In the interest of honesty: the baseline is slightly *more accurate* on plain accuracy (96.6% vs 95.9% once pasted-message rows are excluded), and our engine was tuned while reading this data, so the comparison favours us.
+6. **Voice via Sarvam, verified live on an iPhone in Malayalam.** Speech-to-text is Sarvam Saaras in transliteration mode (romanized, **not** translated) behind a `SpeechToText` interface with a null fallback. The recording is sent for one request and never stored.
 
-## 2. The evidence
+## Screenshots
 
-- About **19%** of patients' answers about their own prescription labels were wrong; dose (52%) and frequency (28%) errors dominate. [AAFP, 2007](https://www.aafp.org/pubs/afp/issues/2007/0615/p1851a.html)
-- Teach-back cut comprehension deficits from **49% to 11.9%** in a 483-patient emergency-department study, but that study **excluded patients with language barriers**. [Int J Emerg Med](https://link.springer.com/article/10.1186/s12245-020-00306-9) · AHRQ recommends teach-back: [tool 5](https://www.ahrq.gov/health-literacy/improve/precautions/tool5.html)
-- LLMs score **5-12 F1 points worse** on romanized Indian-language health messages than on native script, because of spelling noise. [arXiv 2512.10780](https://arxiv.org/html/2512.10780v1)
-- UAE residents: Indians ~38%, Pakistanis ~17%, Bangladeshis ~7%, Filipinos ~7% (GMI 2026). [source](https://www.globalmediainsight.com/blog/uae-population-statistics/)
-- **Closest competitor: Hippocratic AI**, whose AI voice agents make post-discharge calls (active in the UAE via Burjeel). We differ: we are a *checking layer any sender (human or AI) can use*, focused on romanized code-mixed replies, with exact checks on numbers.
+| | | |
+|---|---|---|
+| ![Landing](docs/screenshots/landing.png) | ![Composer with confirmable fact chips](docs/screenshots/composer.png) | ![Live results, fact by fact](docs/screenshots/results.png) |
+| **Landing.** The pitch, and a live example of message, voice reply and per-fact result. | **Composer.** Facts are extracted into chips the sender confirms; works with the LLM off. | **Results.** Cards flip from shimmer to status over SSE; the reader's words stay verbatim with evidence highlighted. |
+| ![Reader page on a phone](docs/screenshots/reader-mobile.png) | ![A pasted-back reply is flagged](docs/screenshots/copied.png) | ![Evaluation page](docs/screenshots/eval.png) |
+| **Reader (mobile).** Big record button, text fallback, no login and no score. | **Copied reply.** A reply that just parrots the message is flagged instead of counted as understood. | **Evaluation.** Metrics computed from `eval/results/*.json`, confusion matrix, error explorer. |
 
-## 3. How it works
+More: [results in dark mode](docs/screenshots/results-dark.png) · [recording with a mic-level halo](docs/screenshots/reader-recording.png) · [buttons: rest, hover, pressed](docs/screenshots/buttons.png) · [stats bento](docs/screenshots/landing-problem.png) · [how-it-works timeline](docs/screenshots/landing-how.png)
+
+_Screenshots are real: Playwright against a production build (`next build && next start`)._
+
+## Architecture
 
 ```mermaid
 flowchart LR
-  A[Sender writes message] --> B[Facts extracted<br/>rules; LLM optional]
-  B --> C[Sender confirms facts]
-  C --> D[Reader link / QR]
-  D --> E[Reader explains back<br/>voice or text, any mix]
-  E --> F["Engine: clean → match by ear → negation → slots → compare → decide"]
-  F --> G[Per-fact result + evidence + reason]
-  G --> H[Sender re-explains only what failed]
+  subgraph Reader["Reader (phone, no login)"]
+    RP["Reader page /r/token<br/>voice or text"]
+  end
+  subgraph Web["Web (Next.js)"]
+    SD["Sender dashboard<br/>composer, live results, follow-up"]
+  end
+  subgraph API["API (FastAPI + SQLite)"]
+    X["Fact suggestion<br/>rules, or Gemini with a 10 s deadline<br/>then fallback to rules"]
+    STT["Speech-to-text interface<br/>Sarvam or null"]
+    E[["Engine (pure Python)<br/>clean, match by ear, negation,<br/>slots, compare, decide"]]
+    SSE["SSE broker"]
+  end
+  SD -->|"message"| X
+  X -->|"facts, sender confirms"| SD
+  RP -->|"voice"| STT --> E
+  RP -->|"text"| E
+  E -->|"per-fact result"| DB[(SQLite)]
+  E --> SSE -->|"live update"| SD
+  X -.->|"optional"| G(("Gemini"))
+  STT -.->|"optional"| S(("Sarvam"))
 ```
 
-Engine pipeline (all deterministic, all in [`engine/`](engine/steve_engine)): **clean** (offsets preserved) → **match by ear** (exact / suffix / sound key / guarded fuzzy over a multilingual lexicon) → **negation** (per-language scope) → **slots** (dose, frequency, timing, duration, date, amount, condition) → **compare** (exact) → **decide** (low confidence never becomes "understood"). Details: [docs/architecture.md](docs/architecture.md).
-
-Example: `randu gulika, food kazhinju, raavile vaikittu, oru week` against *2 tablets · after food · twice a day · 5 days · stop if rash* gives dose ✅, timing ✅, frequency ✅ (inferred from morning + evening, lower confidence), **duration ❌ "oru week" = 7 days ≠ 5 days**, **rash warning ⚠️ missing**.
-
-## 4. Why this is not an AI wrapper
-
-1. **An LLM is never the final judge of a safety-critical fact.** Numbers, doses, frequencies, durations, dates, amounts and negations are decided by deterministic code we wrote and tested (275 engine tests).
-2. **The engine runs with zero API keys.** LLMs are optional helpers: (a) suggesting facts the sender confirms, (b) the evaluation baseline. Speech-to-text is optional; typed replies always work.
-3. **No translation features anywhere.**
-4. **A false "understood" is the worst error.** When confidence is low the answer is `unclear`, never `understood`. A conflicting second value is `unclear`.
-5. **Every result is explainable:** exact evidence spans plus a plain-English reason.
-6. **The wrapper test:** flip the *LLM helper* switch in the nav (it calls `POST /settings/llm`). Compose, reply and check all keep working, and the results page shows an "LLM off" badge.
-
-What we built ourselves: the multilingual lexicon and by-ear matcher, per-language suffix and negation-scope rules, the slot fillers, the exact comparison and confidence logic, the claiming/conflict rules between facts, the evaluation harness, and the whole product around it.
-
-## 5. Features
-
-- Sender dashboard with status rings, filters, seeded demo data · composer with editable fact chips (works with the LLM off) · share sheet (link, QR, prefilled WhatsApp message)
-- **Live results over SSE**: cards flip from shimmer to status, the reader's transcript is shown verbatim with evidence spans highlighted (hover a card ↔ its words), matched terms with scores (`randu → 2 · ml · 100`)
-- Follow-up draft for **failed facts only**
-- Reader page (mobile-first, no login): huge record button, live waveform, timer, re-record, text fallback; hides voice gracefully when STT is off
-- `/how-it-works`: stage-by-stage inspector (tokens, lexicon matches, negation, slots, results) and the wrapper-test toggle
-- `/eval`: metrics computed from `eval/results/*.json` only (never hard-coded), confusion matrix, error explorer
-- `/demo`: pre-seeded scenarios and one-click preset replies so a video never depends on a microphone
-- Light/dark theme, reduced-motion support, keyboard accessible (Lighthouse accessibility 98-100 on the main pages in dev mode)
-
-## 6. Tech stack
-
-| Layer | Tech |
+| Component | What it is |
 |---|---|
-| Engine | Python 3.11+, `rapidfuzz`, `pyyaml`, `pydantic`; optional `sentence-transformers` (multilingual-e5-small) for the disabled-by-default condition fallback |
-| API | FastAPI, Pydantic v2, SQLModel on SQLite, `httpx`, `python-dotenv`, Server-Sent Events |
-| Optional LLM | Google Gemini via `google-genai` (fact suggestion + eval baseline only) |
-| Optional STT | Sarvam AI Saaras (`saaras:v3`, `mode=translit`: romanized, **not** translated) behind a `SpeechToText` interface with a `NullSpeechToText` fallback |
-| Web | Next.js (App Router), TypeScript strict, Tailwind v4, shadcn/ui, Framer Motion, TanStack Query, Recharts, `qrcode.react`, `sonner`; Geist + Instrument Serif |
-| Tooling | `pytest`, `ruff`, ESLint + Prettier, Docker Compose, Makefile |
+| [`engine/`](engine/steve_engine) | Pure-Python checker: multilingual lexicon, by-ear matcher (exact, suffix, sound key, guarded fuzzy), per-language negation scope, slot fillers, exact comparison, copy detection. No network, no LLM. |
+| [`api/`](api) | FastAPI and SQLModel on SQLite. Sender-key auth, reader-token endpoints, fact suggestion, speech-to-text interface, follow-up drafts, Server-Sent Events. |
+| [`web/`](web) | Next.js App Router, TypeScript, Tailwind v4, shadcn/ui, Framer Motion, TanStack Query. Sender dashboard, mobile reader page, `/how-it-works`, `/eval`, `/demo`. |
+| [`eval/`](eval) | Data generator, engine runner, Gemini baseline runner, metrics, README updater. |
 
-## 7. Evaluation
+Pipeline detail: [docs/architecture.md](docs/architecture.md).
 
-Methodology: 15 messages with gold facts (`data/messages.json`) × replies with per-fact gold labels (`data/replies.csv`):
-**hand-written** replies (written by a human reading them; a *development* seed set and a small *held-out* set), plus **synthetic** variants expanded from templates
-(`eval/generate.py`: swapped numbers, spelling variants, word order, dropped facts, negation flips, typos), always marked `synthetic=true` and reported separately.
-Metrics (`eval/metrics.py`): fact-level accuracy, **false "understood" rate** (gold ∈ {wrong, missing, negated} but predicted understood), per-language and per-type breakdowns, confusion matrix, and the Gemini baseline's self-consistency over 5 runs. Run it yourself: `make eval`.
+## Quick start
+
+No API keys are required for any of this.
+
+**Windows (PowerShell)**
+
+```powershell
+git clone https://github.com/Adithya-Sharath/Steve.git
+cd Steve
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -e "engine[dev]" -e "api[dev]"
+cd web; npm install; cd ..
+
+# terminal 1: API
+cd api; uvicorn app.main:app --port 8000
+
+# terminal 2: web
+cd web; npm run dev
+```
+
+**macOS / Linux**
+
+```bash
+git clone https://github.com/Adithya-Sharath/Steve.git
+cd Steve
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e "engine[dev]" -e "api[dev]"
+(cd web && npm install)
+make dev        # API on :8000 and web on :3000 together
+```
+
+Open <http://localhost:3000/demo> (it seeds four UAE scenarios) or <http://localhost:3000/app/new>. Prerequisites: Python 3.11+, Node 20+ (22 tested). Optional: `cp .env.example .env` to add keys. Docker: `docker compose up --build` (the images have not been built in our environment; the compose file is only validated).
+
+## Configuration
+
+Copy `.env.example` to `.env`. Everything is optional.
+
+| Variable | Purpose |
+|---|---|
+| `LLM_ENABLED` | `true` lets Gemini *suggest* facts (needs `GEMINI_API_KEY`). Also toggleable at runtime from the nav. |
+| `GEMINI_API_KEY`, `GEMINI_MODEL` | Optional. `GEMINI_MODEL` defaults to **`gemini-3.1-flash-lite`**: larger Gemini models allow only about 20 requests/day on a free key. Model ids: <https://ai.google.dev/gemini-api/docs/models>. |
+| `LLM_TIMEOUT_SECONDS`, `LLM_COOLDOWN_SECONDS` | Fact suggestion has a hard **10 s** deadline (default; the Gemini API itself rejects anything under 10 s), then the built-in extractor answers. After a failure the LLM is skipped for 60 s (15 min after a daily-quota error), so "Find key facts" never hangs. |
+| `SARVAM_API_KEY`, `STT_ENABLED` | Optional voice replies (Malayalam, Hindi, English). `STT_ENABLED` defaults to `true` but only takes effect when a key is set. Arabizi and Taglish are typed for now. |
+| `DATABASE_URL` | Default `sqlite:///./steve.db` |
+| `STEVE_DATA_DIR`, `STEVE_EVAL_DIR` | Override where the API reads scenario data and evaluation results (used by the Docker image). |
+| `PUBLIC_WEB_URL`, `CORS_ORIGINS` | Where the web app lives (used in reader links and CORS). |
+| `UNCLEAR_THRESHOLD` | Confidence below this becomes `unclear` (default 0.6). |
+| `NEXT_PUBLIC_API_URL` | Web to API base URL (default `http://localhost:8000`); baked in at build time. |
+
+**Phone testing:** the microphone needs HTTPS or localhost. A free Cloudflare tunnel for the web app and one for the API works well: set `PUBLIC_WEB_URL` and `CORS_ORIGINS` to the web tunnel address, `NEXT_PUBLIC_API_URL` to the API tunnel address, then rebuild the web app.
+**Deploy:** web on Vercel (`NEXT_PUBLIC_API_URL` = your API URL); API on Render, Railway or Fly using `api/Dockerfile` (build context = repo root), with `PUBLIC_WEB_URL` and `CORS_ORIGINS` set to the web URL and a volume for SQLite.
+
+## Testing and evaluation
+
+**Tests:** `make test` (engine 275 + API 67), `make lint`; without `make`, `scripts/test.ps1` or the commands in [CONTRIBUTING.md](CONTRIBUTING.md). CI runs them on every push.
+**Evaluation:** `make eval` (works without a Gemini key; the baseline is then skipped and clearly marked "not run").
+
+Methodology: 15 messages with gold facts (`data/messages.json`) times replies with per-fact gold labels (`data/replies.csv`): **hand-written** replies (a development set and a small held-out set) plus **synthetic** variants expanded from templates (`eval/generate.py`: swapped numbers, spelling variants, word order, dropped facts, negation flips, typos), always marked `synthetic=true` and reported separately. Metrics (`eval/metrics.py`): fact-level accuracy, the **false "understood" rate** (gold is wrong, missing or negated but predicted understood), per-language and per-type breakdowns, a confusion matrix and the baseline's self-consistency.
 
 <!-- EVAL:START -->
 _Generated by `eval/update_readme.py` from `eval/results/latest.json` on 2026-09-26T08:16:36+00:00. 2268 labelled fact checks across 561 replies (114 hand-written, 447 synthetic)._
@@ -137,78 +195,48 @@ Baseline self-consistency across runs: **100.0%** (our engine: 100%, determinist
 - The baseline agreed with itself on every item across 3 runs, so consistency is NOT an advantage we can claim over this model (our engine is deterministic by construction).
 <!-- EVAL:END -->
 
-**Read this honestly.** The engine was developed while reading this data, and the synthetic replies reuse vocabulary the lexicon already knows, so these are *development* numbers, not a claim about real-world accuracy. The held-out set's first blind run (before any fix) scored **87.4%** accuracy with 0 false "understood" out of 41; we then fixed what it exposed, so it is no longer blind ([DECISIONS D10](DECISIONS.md)). "0 false understood" on small denominators is **not** evidence of 0%. The known residual risk is a misspelled negation word we do not recognise. We need real replies from real speakers (next section).
+**Read this honestly.** The engine was developed while reading this data, and the synthetic replies reuse vocabulary the lexicon already knows, so these are *development* numbers, not a claim about real-world accuracy. The held-out set's first blind run (before any fix) scored **87.4%** accuracy with 0 false "understood" out of 41; we then fixed what it exposed, so it is no longer blind ([DECISIONS D10](DECISIONS.md)). "0 false understood" on small denominators is **not** evidence of 0%. The known residual risk is a misspelled negation word we do not recognise. We need real replies from real speakers: see [CONTRIBUTING.md](CONTRIBUTING.md#add-real-replies-most-useful).
 
-### Adding real replies (teammates, please!)
-
-1. Add rows to `data/replies.csv`: `reply_id, message_id, lang_mix, reply_text, gold_labels, author, synthetic` with `synthetic=false`. `gold_labels` is JSON mapping each fact id (see `data/messages.json`) to `understood|wrong|missing|negated|unclear` **as a human would judge it, not what the engine says**.
-2. Use your own language and spelling; hard cases are the valuable ones (words outside the lexicon, questions, half-answers, typos).
-3. Run `make eval`, open `/eval`, and read the error explorer. Fix the *lexicon* (`engine/steve_engine/lexicon.yaml`) or the rules, never the labels.
-4. Native speakers: also review [LEXICON_REVIEW.md](LEXICON_REVIEW.md); every non-English entry is `verified: false` until you sign it off. Remove words you doubt rather than keeping guesses.
-
-## 8. Setup
-
-**Prerequisites:** Python 3.11+, Node 20+ (22 tested), optionally Docker. No API keys are required.
-
-```bash
-cp .env.example .env        # optional: all keys can stay empty
-make install                # pip install -e engine api  +  npm install
-make dev                    # api on :8000 and web on :3000 together
-```
-
-No `make` (Windows)? Run the same steps directly:
-
-```powershell
-py -3.12 -m venv .venv ; .\.venv\Scripts\Activate.ps1
-pip install -e "engine[dev]" -e "api[dev]"
-cd api ; uvicorn app.main:app --reload --port 8000        # terminal 1
-cd web ; npm install ; npm run dev                         # terminal 2
-```
-
-Open <http://localhost:3000/demo> (it seeds four UAE scenarios) or <http://localhost:3000/app/new>.
-
-| Variable | Purpose |
-|---|---|
-| `LLM_ENABLED` | `true` lets Gemini *suggest* facts (needs `GEMINI_API_KEY`). Also toggleable at runtime from the nav. |
-| `GEMINI_API_KEY`, `GEMINI_MODEL` | Optional. `GEMINI_MODEL` defaults to **`gemini-3.1-flash-lite`**: larger Gemini models allow only about 20 requests/day on a free key. Model ids: <https://ai.google.dev/gemini-api/docs/models>. |
-| `LLM_TIMEOUT_SECONDS`, `LLM_COOLDOWN_SECONDS` | The LLM fact suggestion has a hard **10 s** deadline (default; the Gemini API itself rejects anything under 10 s) and then the built-in extractor is used; after a failure it is skipped for 60 s (15 min after a daily-quota error), so "Find key facts" never hangs. |
-| `SARVAM_API_KEY`, `STT_ENABLED` | Optional voice replies (Malayalam, Hindi, English). Arabizi and Taglish are typed for now. |
-| `DATABASE_URL` | Default `sqlite:///./steve.db` |
-| `PUBLIC_WEB_URL`, `CORS_ORIGINS` | Where the web app lives (used in reader links / CORS) |
-| `UNCLEAR_THRESHOLD` | Confidence below this becomes `unclear` (default 0.6) |
-| `NEXT_PUBLIC_API_URL` | Web → API base URL (default `http://localhost:8000`) |
-
-**Docker:** `docker compose up --build` (api :8000, web :3000, SQLite volume).
-**Tests:** `make test` (engine 275 + API 67) · `make lint` · **Eval:** `make eval` (works without a Gemini key; the baseline is then skipped and clearly marked "not run").
-**Phone testing:** the microphone needs HTTPS or localhost. Use a tunnel or a deployed URL for real-phone voice.
-**Deploy:** web → Vercel (`NEXT_PUBLIC_API_URL` = your API URL); API → Render / Railway / Fly using `api/Dockerfile` (build context = repo root), set `PUBLIC_WEB_URL` and `CORS_ORIGINS` to the web URL, mount a volume for SQLite.
-
-## 9. Project structure
+## Project structure
 
 ```
 engine/   pure-Python checker: lexicon.yaml, matcher, slots, negation, compare, check_reply()   (+275 tests)
 api/      FastAPI: routes, SQLModel db, extractor, STT interface, follow-up drafts, SSE           (+67 tests)
 web/      Next.js app: landing, /app, /app/new, /app/m/[id], /r/[token], /eval, /how-it-works, /demo
-data/     scenarios.json (demo), messages.json + replies.csv (eval gold data)
+data/     scenarios.json (demo and regression tests), messages.json + replies.csv (eval gold data)
 eval/     generate.py, run_engine.py, run_baseline.py, metrics.py, update_readme.py, results/
-docs/     architecture.md, demo-script.md, screenshots/, build-prompt.md
-DECISIONS.md · PROGRESS.md · CLAUDE.md · LEXICON_REVIEW.md · docker-compose.yml · Makefile · .env.example
+docs/     architecture.md, demo-script.md, build-prompt.md, screenshots/, README.md (index)
+scripts/  Windows helpers: dev.ps1, test.ps1, eval.ps1
+.github/  CI workflow, issue and pull-request templates
+DECISIONS.md, PROGRESS.md, CLAUDE.md, LEXICON_REVIEW.md, CONTRIBUTING.md, SECURITY.md, LICENSE
+docker-compose.yml, Makefile, .env.example
 ```
 
-## 10. Limitations and ethics
+## Roadmap
+
+- **A call plugin.** The same engine as a channel for phone calls: a turn-based IVR where the instruction plays, the reader explains it back after the beep, consent comes first and audio is never stored.
+- **Native-speaker lexicon review** and a real blind test set, so the numbers stop being development numbers.
+- **More languages via language packs:** a lexicon block plus test data, no retraining. Arabic and Tagalog voice come with them.
+- **A B2B dashboard for clinics and pharmacies** with message-level results only (no per-worker scoring).
+
+Also planned: WhatsApp Business delivery (today: copy and QR), Arabic-script and Devanagari input, larger numbers and ordinals per language, and calibrating the embedding fallback for conditions.
+
+## Limitations and ethics
 
 - **Not medical advice.** Steve checks whether a message was understood; the sender decides what to do. It is not a clinical device.
-- **Lexicon coverage is small and unverified.** Five languages, ~300 headwords, every non-English entry awaiting native-speaker review. Unknown words produce `missing` or `unclear`, never a guess. Numbers above ten are only recognised as digits.
-- **Synthetic and self-authored eval data** (see Evaluation). Baseline numbers appear only if the baseline actually ran.
-- **Known weak spots:** misspelled negation words; replies that use an unlisted word for a fact ("pani" for fever, "saade barah baje" for 12:30); an unnumbered "form"/"bottle" is counted as one; two unmatched facts of the same kind can only be `unclear`.
-- **Privacy:** audio is held in memory for a single STT request and never stored; the reader never sees results; replies are stored as text. Sender endpoints require a per-browser **sender key** (sent as `X-Sender-Key`, stored server-side only as a hash); readers need only their link. Trade-off: the key lives in one browser, so clearing site data or switching device loses access to those messages. The runtime LLM toggle needs a valid key but is global, so on a public deployment set `LLM_ENABLED` in the environment.
+- **Lexicon coverage is small and unverified.** Five languages, about 300 headwords, every non-English entry awaiting native-speaker review. Unknown words produce `missing` or `unclear`, never a guess. Numbers above ten are only recognised as digits.
+- **Synthetic and self-authored eval data** (see Testing and evaluation). Baseline numbers appear only if the baseline actually ran.
+- **Known weak spots:** misspelled negation words; replies that use an unlisted word for a fact ("pani" for fever, "saade barah baje" for 12:30); an unnumbered "form" or "bottle" is counted as one; two unmatched facts of the same kind can only be `unclear`.
+- **Privacy:** audio is held in memory for a single speech-to-text request and never stored; the reader never sees results; replies are stored as text. Sender endpoints require a per-browser **sender key** (sent as `X-Sender-Key`, stored server-side only as a hash); readers need only their link. Trade-off: the key lives in one browser, so clearing site data or switching device loses access to those messages. The runtime LLM toggle needs a valid key but is global, so on a public deployment set `LLM_ENABLED` in the environment. See [SECURITY.md](SECURITY.md).
 - **Voice** uses Sarvam (Indian languages); Gulf Arabic and Tagalog voice are not supported yet.
-- **Closest competitor** and how we differ: see §2.
+- **Closest competitor: Hippocratic AI**, whose AI voice agents make post-discharge calls (active in the UAE via Burjeel). We differ: Steve is a *checking layer any sender (human or AI) can use*, focused on romanized code-mixed replies, with exact checks on numbers.
 
-## 11. Roadmap
+## Team
 
-Native-speaker lexicon verification and a real blind test set · Arabic/Tagalog voice · WhatsApp Business API delivery (today: copy/QR) · Arabic-script and Devanagari input · larger numbers and ordinals per language · calibrate and enable the embedding fallback for conditions · per-sender templates for follow-ups in more languages · multi-message conversations.
+- NAME_1 — role
+- NAME_2 — role
+- NAME_3 — role
 
-## 12. Team
+## License
 
-_Add names and roles here._ Built for BitNBuild'26 by the **Steve** team.
+MIT, see [LICENSE](LICENSE).
