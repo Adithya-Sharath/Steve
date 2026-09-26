@@ -50,3 +50,24 @@ content is translated (machine translation, not reviewed). Please tell us whethe
 Produced by Sarvam (`sarvam-translate`) or Gemini, checked only for numbers (a translation that changes a number is dropped). **Nobody has checked that a negation
 ("do not pay") survives translation into Malayalam, Hindi, Urdu, Bengali or Tagalog.** A native speaker should test a set of negated instructions before anyone relies on
 the translated card; until then the English card is one tap away ("Show English") and WhatsApp replies offer "Reply EN for English".
+
+## 6. WhatsApp messages (English; only the privacy line is translated)
+
+| Message | Where |
+|---|---|
+| Hello! I'm Steve. I help you understand what people say to you. Choose your language: reply with a number. 1 മലയാളം ... 6 English | first message from a new number |
+| I delete your voice notes after listening. Your boss can't see this chat. | onboarding, translated into the chosen language (machine translation, unreviewed) |
+| Here is an example. Someone says: ... | onboarding sample |
+| Now forward me a voice note (up to 30 seconds) or send me a message. Reply HELP any time. | onboarding |
+| Steve helps you understand what people say. - Forward or send a voice note... Steve does not save your voice notes or messages. | `HELP` |
+| I can read voice notes and text for now. | an image or other file |
+| That voice note is too long. Please send one up to 30 seconds. / I couldn't listen to that voice note. Please try again, or type the message. | voice problems |
+| I couldn't find anything to decode. Try again or send the message as text. | nothing heard |
+| That question has expired. Please send the message again. | a number sent after 10 minutes |
+| You've sent a lot of messages. Please try again in a little while. | per-number limit (sent once an hour) |
+| I couldn't finish that. Please try again in a moment. | unexpected problem |
+
+**Accuracy question (needs a lawyer, and depends on your Twilio settings):** the onboarding sentence "I delete your voice notes after listening. Your boss can't see this chat."
+is the owner's wording. Steve drops the audio from memory after one speech-to-text call and stores no audio and no text, but **Twilio keeps its own logs and media** unless you
+delete them, and Sarvam receives the audio to transcribe it. Please decide whether the sentence is true enough as written. The WhatsApp commands (`HELP`, `LANGUAGE`, `EN`) are
+English words for now; the prompt asked for commands "in any language", but no verified translations of them exist here, so none were invented.
