@@ -103,6 +103,12 @@ transcript kept the accented phone, fixed it to the canonical one, or garbled it
 
 Output (`report_l2arctic_spont.md`, `results_l2arctic_spont.json`), the clips (`recordings/l2arctic-spont/`) and the cache are gitignored.
 
+## Word level for the spontaneous clips (no new calls)
+
+`word_eval.py` reads the cached Sarvam transcripts and the sibling `KoelLabs/L2Arctic` recordings (gated, CC-BY-NC-4.0, accept its terms), locates each
+clip inside its full recording, gets the words, finds the words heard differently and, when the heard form spells exactly one common English word,
+checks whether the transcript wrote the intended word or the heard one. Output: `report_l2arctic_spont_words.md` (gitignored).
+
 ## Other sources (inspect only, they print counts and estimated usage and stop)
 
 - `importers/svarah.py inspect [--languages Hindi,Malayalam]`: Svarah (CC BY 4.0, gated); human transcripts, no phone annotation, so word error rate only.
