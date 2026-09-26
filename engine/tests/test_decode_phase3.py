@@ -141,3 +141,41 @@ def test_a_lost_negation_is_wrong_never_partial():
     row = {"view": "typed_clean", "text": "come to the site", "accent": "none", "intended": "never come to the site", "in_pack": ""}
     gold = {"where": "", "when": "", "what": "never come", "how_much": ""}
     assert ev.score_row(row, gold, card)["slots"]["what"][0] == "wrong"
+
+
+# ---- answers to clarifying questions (API /decode/clarify, D45) ------------------------------------------------------------------------------------
+
+
+def test_choosing_a_word_resolves_the_question_and_recomputes_the_actions():
+    text = "come to the barking or the building?"
+    q = decode(text, "ar").clarify[0]
+    c = decode(text, "ar", resolved={q.span.start: "parking"})
+    assert c.clarify == [] and [(x.heard, x.meant) for x in c.changes] == [("barking", "parking")] and val(c.actions.where) == "parking"
+    assert "parking" in c.plain_english.lower()
+
+
+def test_choosing_the_original_word_keeps_the_text_and_closes_the_question():
+    text = "come to the gate free"
+    q = decode(text, None, "voice").clarify[0]
+    c = decode(text, None, "voice", resolved={q.span.start: "free"})
+    assert c.clarify == [] and c.changes == []
+
+
+def test_choosing_a_number_word_writes_digits():
+    text = "come to the gate free"
+    q = decode(text, None, "voice").clarify[0]
+    c = decode(text, None, "voice", resolved={q.span.start: "three"})
+    assert c.clarify == [] and val(c.actions.where) == "gate 3" and "gate 3" in c.plain_english
+
+
+def test_not_sure_keeps_the_slot_empty_and_keeps_the_question_for_saying_back():
+    text = "come to the barking or the building?"
+    q = decode(text, "ar").clarify[0]
+    c = decode(text, "ar", resolved={q.span.start: None})
+    assert c.clarify == [] and len(c.skipped) == 1 and c.skipped[0].question == q.question
+    assert c.actions.where is None and c.confidence <= 0.5
+
+
+def test_answers_for_spans_that_do_not_exist_are_ignored():
+    c = decode("come to the parking", None, resolved={999: "gate"})
+    assert c.changes == [] and c.clarify == []

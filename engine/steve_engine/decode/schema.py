@@ -50,6 +50,7 @@ class DecodedCard(BaseModel):
     phrases: list[PhraseHit] = []
     actions: Actions = Actions()
     clarify: list[Clarify] = []
+    skipped: list[Clarify] = []  # questions the worker answered with "not sure": the slot stays empty, the question can be said back to the speaker
     tips: list[str] = []
     confidence: float = Field(default=1.0, ge=0, le=1)
     accent_used: str | None = None

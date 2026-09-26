@@ -16,7 +16,7 @@ from .actions import Eff, extract, parse_number
 from .domain import get_domain
 from .glossary import Hit, find_phrases, to_phrase_hit
 from .safety import Review, SafetyConfig, _match_case, review_transcript
-from .schema import Actions, Change, DecodedCard
+from .schema import Actions, Change, Clarify, DecodedCard
 from .spans import NUMBERED, find_slots
 from .tokens import Token, tokenize
 from .typed import review_typed
@@ -82,7 +82,7 @@ def _plain(text: str, effs: list[Eff], changes: list[Change], hits: list[Hit]) -
     return plain[:1].upper() + plain[1:] if plain else plain
 
 
-def _run(text: str, accent_hint: str | None, path: str, cfg: SafetyConfig | None):
+def _run(text: str, accent_hint: str | None, path: str, cfg: SafetyConfig | None, resolved: dict[int, str | None] | None = None):
     if path not in ("typed", "voice"):
         raise ValueError("path must be 'typed' or 'voice'")
     tokens = tokenize(text)
@@ -90,16 +90,32 @@ def _run(text: str, accent_hint: str | None, path: str, cfg: SafetyConfig | None
     inside = {k for h in hits for k in range(h.first, h.last + 1)}
     review: Review = review_transcript(text, accent_hint, cfg) if path == "voice" else review_typed(text, accent_hint, cfg, skip=inside)
     changes = [c for c in review.changes if not any(h.span.start <= c.span.start < h.span.end for h in hits)]
+    # answers to earlier questions (API /decode/clarify): a chosen word becomes a change, "not sure" (None) keeps the slot empty and the question aside
+    skipped: list[Clarify] = []
+    kept: list[Clarify] = []
+    for q in review.clarify:
+        if resolved is None or q.span.start not in resolved:
+            kept.append(q)
+            continue
+        choice = resolved[q.span.start]
+        if choice is None:
+            skipped.append(q)
+        elif choice.lower() != q.span.text.lower():
+            changes.append(Change(span=q.span, heard=q.span.text, meant=choice, reason="Chosen from the question.", confidence=1.0, source="context"))
+    open_and_skipped = kept + skipped
+    review.clarify = kept
     effs = _effective(tokens, changes)
     by_start = {t.start: t.i for t in tokens}
-    unresolved = {by_start[q.span.start] for q in review.clarify if q.span.start in by_start}
-    return tokens, hits, review, changes, effs, unresolved
+    unresolved = {by_start[q.span.start] for q in open_and_skipped if q.span.start in by_start}
+    return tokens, hits, review, changes, effs, unresolved, skipped
 
 
-def decode(text: str, accent_hint: str | None = None, path: str = "typed", cfg: SafetyConfig | None = None) -> DecodedCard:
-    tokens, hits, review, changes, effs, unresolved = _run(text, accent_hint, path, cfg)
+def decode(text: str, accent_hint: str | None = None, path: str = "typed", cfg: SafetyConfig | None = None,
+           resolved: dict[int, str | None] | None = None) -> DecodedCard:
+    """`resolved` = answers to earlier clarifying questions, keyed by the question's span start (code points): a word = that choice, None = "not sure"."""
+    tokens, hits, review, changes, effs, unresolved, skipped = _run(text, accent_hint, path, cfg, resolved)
     actions = extract(effs, text, get_domain(), unresolved) if effs else Actions()
-    open_slots = {q.slot for q in review.clarify}
+    open_slots = {q.slot for q in review.clarify} | {q.slot for q in skipped}
     if open_slots & {"where", "where_or_when"}:
         actions.where = None  # a question is open about the place: no silent guess
     if open_slots & {"when", "where_or_when"}:
@@ -112,17 +128,17 @@ def decode(text: str, accent_hint: str | None = None, path: str = "typed", cfg: 
     confidence = 0.95
     if changes:
         confidence = min(confidence, min(c.confidence for c in changes))
-    if review.clarify:
+    if review.clarify or skipped:
         confidence = min(confidence, 0.5)
     return DecodedCard(
         original_text=text, plain_english=_plain(text, effs, changes, hits), changes=changes, phrases=[to_phrase_hit(h) for h in hits], actions=actions,
-        clarify=review.clarify, tips=tips, confidence=round(confidence, 2), accent_used=accent_hint, path=path,
+        clarify=review.clarify, skipped=skipped, tips=tips, confidence=round(confidence, 2), accent_used=accent_hint, path=path,
     )
 
 
 def inspect_decode(text: str, accent_hint: str | None = None, path: str = "typed", cfg: SafetyConfig | None = None) -> dict:
     """Every stage, for the how-it-works page: tokens, glossary hits, the slots, what was examined and decided, the effective words, the card."""
-    tokens, hits, review, changes, effs, unresolved = _run(text, accent_hint, path, cfg)
+    tokens, hits, review, changes, effs, unresolved, _skipped = _run(text, accent_hint, path, cfg)
     slots = find_slots(tokens, get_domain(), text)
     return {
         "path": path,
