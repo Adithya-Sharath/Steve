@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-25T21:46:14+00:00",
+ "generated_at": "2026-09-26T05:58:37+00:00",
  "n_fact_checks": 2268,
  "n_replies": 561,
  "n_synthetic": 447,
@@ -185,8 +185,211 @@
   }
  },
  "baseline": {
-  "available": false,
-  "note": "GEMINI_API_KEY not set; baseline skipped"
+  "available": true,
+  "overall": {
+   "n": 665,
+   "correct": 629,
+   "accuracy": 0.9458646616541353,
+   "false_understood": 11,
+   "false_understood_denominator": 180,
+   "false_understood_rate": 0.06111111111111111
+  },
+  "by_language": {
+   "arabizi": {
+    "n": 75,
+    "correct": 72,
+    "accuracy": 0.96,
+    "false_understood": 1,
+    "false_understood_denominator": 22,
+    "false_understood_rate": 0.045454545454545456
+   },
+   "english": {
+    "n": 197,
+    "correct": 177,
+    "accuracy": 0.8984771573604061,
+    "false_understood": 1,
+    "false_understood_denominator": 59,
+    "false_understood_rate": 0.01694915254237288
+   },
+   "hinglish": {
+    "n": 175,
+    "correct": 168,
+    "accuracy": 0.96,
+    "false_understood": 5,
+    "false_understood_denominator": 47,
+    "false_understood_rate": 0.10638297872340426
+   },
+   "manglish": {
+    "n": 101,
+    "correct": 99,
+    "accuracy": 0.9801980198019802,
+    "false_understood": 2,
+    "false_understood_denominator": 20,
+    "false_understood_rate": 0.1
+   },
+   "taglish": {
+    "n": 117,
+    "correct": 113,
+    "accuracy": 0.9658119658119658,
+    "false_understood": 2,
+    "false_understood_denominator": 32,
+    "false_understood_rate": 0.0625
+   }
+  },
+  "by_type": {
+   "amount": {
+    "n": 50,
+    "correct": 47,
+    "accuracy": 0.94,
+    "false_understood": 2,
+    "false_understood_denominator": 15,
+    "false_understood_rate": 0.13333333333333333
+   },
+   "condition": {
+    "n": 102,
+    "correct": 93,
+    "accuracy": 0.9117647058823529,
+    "false_understood": 2,
+    "false_understood_denominator": 46,
+    "false_understood_rate": 0.043478260869565216
+   },
+   "date": {
+    "n": 116,
+    "correct": 110,
+    "accuracy": 0.9482758620689655,
+    "false_understood": 0,
+    "false_understood_denominator": 25,
+    "false_understood_rate": 0.0
+   },
+   "dose": {
+    "n": 155,
+    "correct": 146,
+    "accuracy": 0.9419354838709677,
+    "false_understood": 5,
+    "false_understood_denominator": 33,
+    "false_understood_rate": 0.15151515151515152
+   },
+   "duration": {
+    "n": 97,
+    "correct": 92,
+    "accuracy": 0.9484536082474226,
+    "false_understood": 2,
+    "false_understood_denominator": 26,
+    "false_understood_rate": 0.07692307692307693
+   },
+   "frequency": {
+    "n": 89,
+    "correct": 87,
+    "accuracy": 0.9775280898876404,
+    "false_understood": 0,
+    "false_understood_denominator": 17,
+    "false_understood_rate": 0.0
+   },
+   "timing": {
+    "n": 56,
+    "correct": 54,
+    "accuracy": 0.9642857142857143,
+    "false_understood": 0,
+    "false_understood_denominator": 18,
+    "false_understood_rate": 0.0
+   }
+  },
+  "by_source": {
+   "handwritten": {
+    "n": 332,
+    "correct": 316,
+    "accuracy": 0.9518072289156626,
+    "false_understood": 2,
+    "false_understood_denominator": 69,
+    "false_understood_rate": 0.028985507246376812
+   },
+   "held-out": {
+    "n": 175,
+    "correct": 166,
+    "accuracy": 0.9485714285714286,
+    "false_understood": 3,
+    "false_understood_denominator": 41,
+    "false_understood_rate": 0.07317073170731707
+   },
+   "synthetic": {
+    "n": 158,
+    "correct": 147,
+    "accuracy": 0.930379746835443,
+    "false_understood": 6,
+    "false_understood_denominator": 70,
+    "false_understood_rate": 0.08571428571428572
+   }
+  },
+  "confusion": {
+   "understood": {
+    "understood": 469,
+    "wrong": 1,
+    "missing": 1,
+    "negated": 0,
+    "unclear": 0
+   },
+   "wrong": {
+    "understood": 1,
+    "wrong": 42,
+    "missing": 2,
+    "negated": 3,
+    "unclear": 0
+   },
+   "missing": {
+    "understood": 5,
+    "wrong": 3,
+    "missing": 100,
+    "negated": 0,
+    "unclear": 1
+   },
+   "negated": {
+    "understood": 5,
+    "wrong": 0,
+    "missing": 0,
+    "negated": 18,
+    "unclear": 0
+   },
+   "unclear": {
+    "understood": 14,
+    "wrong": 0,
+    "missing": 0,
+    "negated": 0,
+    "unclear": 0
+   }
+  },
+  "consistency": {
+   "mean_agreement": 1.0,
+   "items": 665,
+   "runs": 3
+  },
+  "note": "model: gemini-3.1-flash-lite, evaluated on 154 replies (all hand-written + a synthetic sample)",
+  "engine_on_same_subset": {
+   "n": 665,
+   "correct": 638,
+   "accuracy": 0.9593984962406015,
+   "false_understood": 0,
+   "false_understood_denominator": 180,
+   "false_understood_rate": 0.0
+  },
+  "excluding_unclear_gold": {
+   "n_excluded": 14,
+   "baseline": {
+    "n": 651,
+    "correct": 629,
+    "accuracy": 0.9662058371735791,
+    "false_understood": 11,
+    "false_understood_denominator": 180,
+    "false_understood_rate": 0.06111111111111111
+   },
+   "engine": {
+    "n": 651,
+    "correct": 624,
+    "accuracy": 0.9585253456221198,
+    "false_understood": 0,
+    "false_understood_denominator": 180,
+    "false_understood_rate": 0.0
+   }
+  }
  },
  "cases": [
   {
@@ -203,7 +406,9 @@
     "status": "unclear",
     "reason": "Heard 'waqqif' (stop) but no mention of 'rash', so it isn't clear when."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "hw-025",
@@ -219,7 +424,9 @@
     "status": "unclear",
     "reason": "Heard 'ittasil' (call) but no mention of 'fever', so it isn't clear when."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "hw-029",
@@ -235,7 +442,27 @@
     "status": "missing",
     "reason": "Did not hear a date/time (expected 12:30)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-034",
+   "message_id": "site-safety",
+   "fact_id": "water",
+   "fact_label": "1 bottle of water",
+   "lang_mix": "hinglish",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "har ghante paani peena hai, 12:30 par break",
+   "gold": "missing",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a dose (expected 1 bottle)."
+   },
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "hw-064",
@@ -251,7 +478,27 @@
     "status": "missing",
     "reason": "Did not hear how long (expected 14 days)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-070",
+   "message_id": "school-fee",
+   "fact_id": "fee",
+   "fact_label": "450 AED",
+   "lang_mix": "taglish",
+   "fact_type": "amount",
+   "synthetic": false,
+   "reply_text": "450 piso sa miyerkules, lunes ang balik",
+   "gold": "wrong",
+   "engine": {
+    "status": "wrong",
+    "reason": "Heard '450 piso' = 450 PHP; expected 450 AED."
+   },
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-002",
@@ -267,7 +514,9 @@
     "status": "missing",
     "reason": "Did not hear how long (expected 5 days)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "wrong"
+   }
   },
   {
    "reply_id": "ho-003",
@@ -283,7 +532,9 @@
     "status": "unclear",
     "reason": "Heard 'rash' but not what to do about it (stop)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-004",
@@ -299,7 +550,9 @@
     "status": "missing",
     "reason": "No mention of 'rash' or what to do about it."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-006",
@@ -315,7 +568,27 @@
     "status": "unclear",
     "reason": "Heard 'rash' but not what to do about it (stop)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "ho-008",
+   "message_id": "pharmacy",
+   "fact_id": "rash",
+   "fact_label": "Stop if rash",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "Just to confirm: two pills, after food, twice a day, five days. If a rash shows up I keep taking them and call you",
+   "gold": "wrong",
+   "engine": {
+    "status": "wrong",
+    "reason": "Heard 'rash' with 'keep taking' (continue); expected stop: Stop taking them if you get a rash."
+   },
+   "baseline": {
+    "status": "negated"
+   }
   },
   {
    "reply_id": "ho-010",
@@ -331,7 +604,9 @@
     "status": "wrong",
     "reason": "Heard before food; expected after food."
    },
-   "baseline": null
+   "baseline": {
+    "status": "unclear"
+   }
   },
   {
    "reply_id": "ho-012",
@@ -347,7 +622,9 @@
     "status": "unclear",
     "reason": "Heard 'vilikkanam' (call) but no mention of 'fever', so it isn't clear when."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-013",
@@ -363,7 +640,9 @@
     "status": "unclear",
     "reason": "Heard 'temperature' but not what to do about it (call)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-016",
@@ -379,7 +658,9 @@
     "status": "missing",
     "reason": "Did not hear a date/time (expected 12:30)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-016",
@@ -395,7 +676,9 @@
     "status": "unclear",
     "reason": "Heard 'chakkar' but not what to do about it (stop)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-018",
@@ -411,7 +694,9 @@
     "status": "unclear",
     "reason": "Heard a number ('isang') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-018",
@@ -427,7 +712,27 @@
     "status": "missing",
     "reason": "No mention of 'dizzy' or what to do about it."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "ho-020",
+   "message_id": "site-safety",
+   "fact_id": "water",
+   "fact_label": "1 bottle of water",
+   "lang_mix": "english",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "drink water and take break in the shade around noon",
+   "gold": "missing",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a dose (expected 1 bottle)."
+   },
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-020",
@@ -443,7 +748,27 @@
     "status": "unclear",
     "reason": "No explicit frequency was said; 'noon' suggests once a day, expected 24 times a day. Please check."
    },
-   "baseline": null
+   "baseline": {
+    "status": "missing"
+   }
+  },
+  {
+   "reply_id": "ho-020",
+   "message_id": "site-safety",
+   "fact_id": "break_at",
+   "fact_label": "at 12:30",
+   "lang_mix": "english",
+   "fact_type": "date",
+   "synthetic": false,
+   "reply_text": "drink water and take break in the shade around noon",
+   "gold": "missing",
+   "engine": {
+    "status": "missing",
+    "reason": "Did not hear a date/time (expected 12:30)."
+   },
+   "baseline": {
+    "status": "wrong"
+   }
   },
   {
    "reply_id": "ho-022",
@@ -459,7 +784,9 @@
     "status": "missing",
     "reason": "No mention of the restriction: Do not travel until your visa is stamped."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-023",
@@ -475,7 +802,9 @@
     "status": "unclear",
     "reason": "Heard 'bumiyahe' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
    },
-   "baseline": null
+   "baseline": {
+    "status": "negated"
+   }
   },
   {
    "reply_id": "ho-024",
@@ -491,7 +820,9 @@
     "status": "unclear",
     "reason": "Heard 'yathra' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-029",
@@ -507,7 +838,9 @@
     "status": "missing",
     "reason": "Did not hear a dose (expected 1 bottle)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "ho-031",
@@ -523,7 +856,27 @@
     "status": "unclear",
     "reason": "Heard 'rash' but not what to do about it (call)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "wrong"
+   }
+  },
+  {
+   "reply_id": "ho-033",
+   "message_id": "payslip",
+   "fact_id": "form",
+   "fact_label": "1 form",
+   "lang_mix": "english",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "salary 2500 dirham on Thursday, form by Monday",
+   "gold": "understood",
+   "engine": {
+    "status": "understood",
+    "reason": "Heard 'form' = 1 form; matches expected 1 form (mentioned without a number, so counted as one)."
+   },
+   "baseline": {
+    "status": "missing"
+   }
   },
   {
    "reply_id": "ho-036",
@@ -539,7 +892,9 @@
     "status": "unclear",
     "reason": "Heard 'safar' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": "negated"
+   }
   },
   {
    "reply_id": "ho-037",
@@ -555,7 +910,261 @@
     "status": "unclear",
     "reason": "Heard 'dizzy' but not what to do about it (stop)."
    },
-   "baseline": null
+   "baseline": {
+    "status": "negated"
+   }
+  },
+  {
+   "reply_id": "hw-073",
+   "message_id": "pharmacy",
+   "fact_id": "dose",
+   "fact_label": "2 tablets",
+   "lang_mix": "english",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-073",
+   "message_id": "pharmacy",
+   "fact_id": "timing",
+   "fact_label": "after food",
+   "lang_mix": "english",
+   "fact_type": "timing",
+   "synthetic": false,
+   "reply_text": "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-073",
+   "message_id": "pharmacy",
+   "fact_id": "freq",
+   "fact_label": "twice a day",
+   "lang_mix": "english",
+   "fact_type": "frequency",
+   "synthetic": false,
+   "reply_text": "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-073",
+   "message_id": "pharmacy",
+   "fact_id": "dur",
+   "fact_label": "5 days",
+   "lang_mix": "english",
+   "fact_type": "duration",
+   "synthetic": false,
+   "reply_text": "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-073",
+   "message_id": "pharmacy",
+   "fact_id": "rash",
+   "fact_label": "Stop if rash",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "Take 2 tablets after food, twice a day, for 5 days. Stop taking them and call us if you get a rash.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-074",
+   "message_id": "site-safety",
+   "fact_id": "water",
+   "fact_label": "1 bottle of water",
+   "lang_mix": "english",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "ok sir Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-074",
+   "message_id": "site-safety",
+   "fact_id": "hourly",
+   "fact_label": "every hour",
+   "lang_mix": "english",
+   "fact_type": "frequency",
+   "synthetic": false,
+   "reply_text": "ok sir Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-074",
+   "message_id": "site-safety",
+   "fact_id": "break_len",
+   "fact_label": "15-minute break",
+   "lang_mix": "english",
+   "fact_type": "duration",
+   "synthetic": false,
+   "reply_text": "ok sir Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-074",
+   "message_id": "site-safety",
+   "fact_id": "break_at",
+   "fact_label": "at 12:30",
+   "lang_mix": "english",
+   "fact_type": "date",
+   "synthetic": false,
+   "reply_text": "ok sir Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-074",
+   "message_id": "site-safety",
+   "fact_id": "dizzy",
+   "fact_label": "Stop work if dizzy",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "ok sir Drink 1 bottle of water every hour. Take a 15-minute break in the shade at 12:30. If you feel dizzy, stop work and tell the supervisor.",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-075",
+   "message_id": "visa-hr",
+   "fact_id": "photos",
+   "fact_label": "2 photos",
+   "lang_mix": "english",
+   "fact_type": "dose",
+   "synthetic": false,
+   "reply_text": "submit your passport copy and 2 photos by thursday the fee is 150 aed do not travel until your visa is stamped",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-075",
+   "message_id": "visa-hr",
+   "fact_id": "deadline",
+   "fact_label": "by Thursday",
+   "lang_mix": "english",
+   "fact_type": "date",
+   "synthetic": false,
+   "reply_text": "submit your passport copy and 2 photos by thursday the fee is 150 aed do not travel until your visa is stamped",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-075",
+   "message_id": "visa-hr",
+   "fact_id": "fee",
+   "fact_label": "150 AED",
+   "lang_mix": "english",
+   "fact_type": "amount",
+   "synthetic": false,
+   "reply_text": "submit your passport copy and 2 photos by thursday the fee is 150 aed do not travel until your visa is stamped",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "hw-075",
+   "message_id": "visa-hr",
+   "fact_id": "no_travel",
+   "fact_label": "No travel until visa stamped",
+   "lang_mix": "english",
+   "fact_type": "condition",
+   "synthetic": false,
+   "reply_text": "submit your passport copy and 2 photos by thursday the fee is 150 aed do not travel until your visa is stamped",
+   "gold": "unclear",
+   "engine": {
+    "status": "unclear",
+    "reason": "Reply looks copied from the message; ask them to say it in their own words."
+   },
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "syn-pharmacy-hi-3",
@@ -571,7 +1180,9 @@
     "status": "unclear",
     "reason": "Heard a number ('do') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "syn-pharmacy-ar-1",
@@ -587,7 +1198,9 @@
     "status": "missing",
     "reason": "Did not hear a dose (expected 2 tablets)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-pharmacy-ar-1",
@@ -603,7 +1216,27 @@
     "status": "missing",
     "reason": "Did not hear how long (expected 5 days)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
+  },
+  {
+   "reply_id": "syn-pharmacy-ar-2",
+   "message_id": "pharmacy",
+   "fact_id": "rash",
+   "fact_label": "Stop if rash",
+   "lang_mix": "arabizi",
+   "fact_type": "condition",
+   "synthetic": true,
+   "reply_text": "marratain . rash contine tamam",
+   "gold": "wrong",
+   "engine": {
+    "status": "wrong",
+    "reason": "Heard 'rash' with 'contine' (continue); expected stop: Stop taking them if you get a rash."
+   },
+   "baseline": {
+    "status": "negated"
+   }
   },
   {
    "reply_id": "syn-site-safety-ma-4",
@@ -619,7 +1252,9 @@
     "status": "unclear",
     "reason": "Heard 'nirthu' (stop) but no mention of 'dizzy', so it isn't clear when."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-site-safety-hi-0",
@@ -635,7 +1270,9 @@
     "status": "unclear",
     "reason": "Heard a number ('teen') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-site-safety-hi-2",
@@ -651,7 +1288,9 @@
     "status": "missing",
     "reason": "Did not hear how often (expected 24 times a day)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-site-safety-ar-0",
@@ -667,7 +1306,9 @@
     "status": "missing",
     "reason": "Did not hear how often (expected 24 times a day)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-site-safety-en-5",
@@ -683,7 +1324,9 @@
     "status": "missing",
     "reason": "Did not hear how often (expected 24 times a day)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-visa-hr-ma-3",
@@ -699,7 +1342,9 @@
     "status": "unclear",
     "reason": "Heard a number ('randu') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-visa-hr-ma-3",
@@ -715,7 +1360,9 @@
     "status": "unclear",
     "reason": "Heard a number ('randu') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-visa-hr-ma-4",
@@ -731,7 +1378,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-visa-hr-ar-0",
@@ -747,7 +1396,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-visa-hr-ta-5",
@@ -763,7 +1414,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel until your visa is stamped."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-trip-ma-4",
@@ -779,7 +1432,9 @@
     "status": "unclear",
     "reason": "Heard 'saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-trip-ma-4",
@@ -795,7 +1450,9 @@
     "status": "unclear",
     "reason": "Heard 'saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected friday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-trip-hi-5",
@@ -811,7 +1468,9 @@
     "status": "unclear",
     "reason": "Heard 'tuesday' = tuesday, but it is unclear which of 2 similar facts it answers; expected monday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-trip-hi-5",
@@ -827,7 +1486,9 @@
     "status": "unclear",
     "reason": "Heard 'tuesday' = tuesday, but it is unclear which of 2 similar facts it answers; expected friday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-trip-ar-4",
@@ -843,7 +1504,9 @@
     "status": "unclear",
     "reason": "Heard 'khamis' = thursday, but it is unclear which of 2 similar facts it answers; expected monday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-trip-ar-4",
@@ -859,7 +1522,9 @@
     "status": "unclear",
     "reason": "Heard 'khamis' = thursday, but it is unclear which of 2 similar facts it answers; expected friday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-trip-ta-2",
@@ -875,7 +1540,9 @@
     "status": "unclear",
     "reason": "Heard 'Saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
    },
-   "baseline": null
+   "baseline": {
+    "status": "missing"
+   }
   },
   {
    "reply_id": "syn-school-trip-ta-2",
@@ -891,7 +1558,27 @@
     "status": "unclear",
     "reason": "Heard 'Saturday' = saturday, but it is unclear which of 2 similar facts it answers; expected friday."
    },
-   "baseline": null
+   "baseline": {
+    "status": "wrong"
+   }
+  },
+  {
+   "reply_id": "syn-bp-tablet-hi-4",
+   "message_id": "bp-tablet",
+   "fact_id": "dur",
+   "fact_label": "30 days",
+   "lang_mix": "hinglish",
+   "fact_type": "duration",
+   "synthetic": true,
+   "reply_text": "nahi ek tablet nahi 30 din",
+   "gold": "negated",
+   "engine": {
+    "status": "negated",
+    "reason": "Heard '30 din' but negated by 'nahi'; the message says 30 days."
+   },
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "syn-child-syrup-ta-3",
@@ -907,7 +1594,9 @@
     "status": "missing",
     "reason": "Did not hear a dose (expected 5 mls)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-inhaler-ma-1",
@@ -923,7 +1612,9 @@
     "status": "missing",
     "reason": "Did not hear how often (expected 2 times a day)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-inhaler-hi-0",
@@ -939,7 +1630,9 @@
     "status": "unclear",
     "reason": "Heard a number ('do') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-inhaler-ar-0",
@@ -955,7 +1648,9 @@
     "status": "missing",
     "reason": "Did not hear a dose (expected 2 puffs)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-inhaler-ar-0",
@@ -971,7 +1666,9 @@
     "status": "negated",
     "reason": "Heard 'marratain' but negated by 'mub'; the message says 2 times a day."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-inhaler-en-3",
@@ -987,7 +1684,9 @@
     "status": "missing",
     "reason": "Did not hear how often (expected 2 times a day)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-eye-drops-ta-4",
@@ -1003,7 +1702,27 @@
     "status": "missing",
     "reason": "Did not hear a dose (expected 1 drop)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
+  },
+  {
+   "reply_id": "syn-payslip-hi-1",
+   "message_id": "payslip",
+   "fact_id": "due",
+   "fact_label": "form by Monday",
+   "lang_mix": "hinglish",
+   "fact_type": "date",
+   "synthetic": true,
+   "reply_text": "1 form, somvaar, shanivaar",
+   "gold": "understood",
+   "engine": {
+    "status": "understood",
+    "reason": "Heard 'somvaar' = monday; matches expected monday."
+   },
+   "baseline": {
+    "status": "wrong"
+   }
   },
   {
    "reply_id": "syn-payslip-ta-2",
@@ -1019,7 +1738,9 @@
     "status": "unclear",
     "reason": "Heard 'biyernes' = friday, but it is unclear which of 2 similar facts it answers; expected thursday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-payslip-ta-2",
@@ -1035,7 +1756,45 @@
     "status": "unclear",
     "reason": "Heard 'biyernes' = friday, but it is unclear which of 2 similar facts it answers; expected monday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
+  },
+  {
+   "reply_id": "syn-visa-medical-ma-1",
+   "message_id": "visa-medical",
+   "fact_id": "photos",
+   "fact_label": "4 photos",
+   "lang_mix": "manglish",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "ji 320 dirham venda . tuesday, nalu phtos venda",
+   "gold": "negated",
+   "engine": {
+    "status": "negated",
+    "reason": "Heard 'nalu phtos' but negated by 'venda'; the message says 4 photos."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "syn-visa-medical-ma-1",
+   "message_id": "visa-medical",
+   "fact_id": "fee",
+   "fact_label": "320 AED",
+   "lang_mix": "manglish",
+   "fact_type": "amount",
+   "synthetic": true,
+   "reply_text": "ji 320 dirham venda . tuesday, nalu phtos venda",
+   "gold": "negated",
+   "engine": {
+    "status": "negated",
+    "reason": "Heard '320 dirham' but negated by 'venda'; the message says 320 AED."
+   },
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "syn-school-fee-hi-5",
@@ -1051,7 +1810,9 @@
     "status": "unclear",
     "reason": "Heard 'shanivaar' = saturday, but it is unclear which of 2 similar facts it answers; expected wednesday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-fee-hi-5",
@@ -1067,7 +1828,9 @@
     "status": "unclear",
     "reason": "Heard 'shanivaar' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-fee-ar-2",
@@ -1083,7 +1846,9 @@
     "status": "unclear",
     "reason": "Heard 'sabt' = saturday, but it is unclear which of 2 similar facts it answers; expected wednesday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-fee-ar-2",
@@ -1099,7 +1864,9 @@
     "status": "unclear",
     "reason": "Heard 'sabt' = saturday, but it is unclear which of 2 similar facts it answers; expected monday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-school-fee-ta-1",
@@ -1115,7 +1882,9 @@
     "status": "missing",
     "reason": "Did not hear a date/time (expected monday)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-child-rash-med-ma-1",
@@ -1131,7 +1900,9 @@
     "status": "unclear",
     "reason": "Heard a number ('onnu') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-child-rash-med-ma-1",
@@ -1147,7 +1918,9 @@
     "status": "unclear",
     "reason": "Heard a number ('onnu') with no unit word, so it can't be tied to this fact."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-child-rash-med-ar-0",
@@ -1163,7 +1936,45 @@
     "status": "missing",
     "reason": "Did not hear how long (expected 3 days)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
+  },
+  {
+   "reply_id": "syn-child-rash-med-ar-5",
+   "message_id": "child-rash-med",
+   "fact_id": "dose",
+   "fact_label": "1 tablet",
+   "lang_mix": "arabizi",
+   "fact_type": "dose",
+   "synthetic": true,
+   "reply_text": "haan ji 1 ayyam ba3d al akl marratain, mub wa7ed habba, rash ittasil noted",
+   "gold": "negated",
+   "engine": {
+    "status": "negated",
+    "reason": "Heard 'wa7ed habba' but negated by 'mub'; the message says 1 tablet."
+   },
+   "baseline": {
+    "status": "understood"
+   }
+  },
+  {
+   "reply_id": "syn-child-rash-med-ar-5",
+   "message_id": "child-rash-med",
+   "fact_id": "dur",
+   "fact_label": "3 days",
+   "lang_mix": "arabizi",
+   "fact_type": "duration",
+   "synthetic": true,
+   "reply_text": "haan ji 1 ayyam ba3d al akl marratain, mub wa7ed habba, rash ittasil noted",
+   "gold": "wrong",
+   "engine": {
+    "status": "wrong",
+    "reason": "Heard '1 ayyam' = 1 day; expected 3 days."
+   },
+   "baseline": {
+    "status": "missing"
+   }
   },
   {
    "reply_id": "syn-clinic-followup-ma-2",
@@ -1179,7 +1990,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-clinic-followup-hi-0",
@@ -1195,7 +2008,9 @@
     "status": "negated",
     "reason": "Heard 'shukravaar' but negated by 'mat'; the message says friday."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-clinic-followup-hi-0",
@@ -1211,7 +2026,9 @@
     "status": "missing",
     "reason": "No mention of the restriction: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-clinic-followup-hi-1",
@@ -1227,7 +2044,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-clinic-followup-hi-2",
@@ -1243,7 +2062,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-clinic-followup-hi-3",
@@ -1259,7 +2080,9 @@
     "status": "unclear",
     "reason": "Heard 'travvel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": "negated"
+   }
   },
   {
    "reply_id": "syn-clinic-followup-ar-3",
@@ -1275,7 +2098,9 @@
     "status": "missing",
     "reason": "Did not hear how often (expected 3 times a day)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-clinic-followup-ar-3",
@@ -1291,7 +2116,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   },
   {
    "reply_id": "syn-clinic-followup-ta-1",
@@ -1307,7 +2134,27 @@
     "status": "missing",
     "reason": "Did not hear how often (expected 3 times a day)."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
+  },
+  {
+   "reply_id": "syn-clinic-followup-ta-3",
+   "message_id": "clinic-followup",
+   "fact_id": "dur",
+   "fact_label": "5 days",
+   "lang_mix": "taglish",
+   "fact_type": "duration",
+   "synthetic": true,
+   "reply_text": "hndi lima araw, huwag bumiyahe",
+   "gold": "negated",
+   "engine": {
+    "status": "negated",
+    "reason": "Heard 'lima araw' but negated by 'hndi'; the message says 5 days."
+   },
+   "baseline": {
+    "status": "understood"
+   }
   },
   {
    "reply_id": "syn-clinic-followup-en-0",
@@ -1323,7 +2170,9 @@
     "status": "unclear",
     "reason": "Heard 'travel' but no 'don't' wording, so it isn't clear the rule was understood: Do not travel."
    },
-   "baseline": null
+   "baseline": {
+    "status": null
+   }
   }
  ],
  "caveats": [
@@ -1331,6 +2180,8 @@
   "The hand-written seed replies were drafted by the developer/assistant, not native speakers, and the engine was iterated while looking at this set. Treat all numbers as development-set numbers.",
   "Lexicon entries for non-English languages are unverified until native speakers review LEXICON_REVIEW.md.",
   "Gold labels for synthetic rows come from construction; for hand-written rows from a human reading the reply. Some real-world replies are genuinely ambiguous.",
-  "The LLM baseline was not run (no Gemini key), so no comparison is claimed."
+  "COMPARISON FAVOURS US: the engine was developed while reading this data; the baseline (gemini-3.1-flash-lite) is one zero-shot prompt that saw none of it. It covers 665 fact checks (154 replies: all hand-written plus a synthetic sample), 3 runs each, majority vote. A stronger model may score higher.",
+  "Where the baseline wins: excluding the 14 pasted-message rows (gold unclear; that rule is ours and was not in its prompt), on the same 651 checks the baseline is MORE accurate than our engine (96.6% vs 95.9%). Our advantage is on false 'understood' (0/180 vs 11/180), not on raw accuracy.",
+  "The baseline agreed with itself on every item across 3 runs, so consistency is NOT an advantage we can claim over this model (our engine is deterministic by construction)."
  ]
 }

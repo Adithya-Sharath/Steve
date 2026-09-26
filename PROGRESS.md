@@ -10,10 +10,10 @@ Everything is committed locally; **nothing has been pushed to GitHub.**
 | 2–3 | Engine (lexicon, by-ear matcher, slots, negation, compare, confidence, evidence spans, optional fallback), `LEXICON_REVIEW.md` | done |
 | 4 | API (routes, SQLite, extractor, STT interface, SSE, follow-up, seed) | done |
 | 5–7 | Web (design system, landing + animated hero + playground, dashboard, composer, results with SSE, reader with voice, how-it-works, demo, eval page) | done |
-| 8 | Eval pipeline (generator, engine runner, Gemini baseline, metrics, README updater) | done; **baseline never run** (no key) |
+| 8 | Eval pipeline (generator, engine runner, Gemini baseline, metrics, README updater) | done; baseline run on a lite model (D25) |
 | 9 | Demo mode, polish, README, architecture, demo script | done |
 | 10 | Final check + human checklist | done (below) |
-| — | UI polish round (21st.dev MCP, 2 free downloads/day): **buttons with depth** (D21) and **landing stats bento + how-it-works timeline** (D22) done; **staggered fact-card resolve** (D23) and **reader record button** (D24) done | done |
+| — | UI polish round (21st.dev MCP, 2 free downloads/day; all four targets committed, D21-D24): **buttons with depth** (D21) and **landing stats bento + how-it-works timeline** (D22) done; **staggered fact-card resolve** (D23) and **reader record button** (D24) done | done |
 | — | Follow-up round: negation typos, concessives, copy-paste, SMS shorthand, sender auth, Docker `$PORT`, production screenshots, this file | done (D12–D20) |
 
 ## Numbers (2026-09-25 final run)
@@ -21,7 +21,7 @@ Everything is committed locally; **nothing has been pushed to GitHub.**
 - **Eval (development numbers, see D10):** 2,268 labelled fact checks over 561 replies (114 hand-written, 447 synthetic).
   Accuracy 96.9%. **False "understood": 0 of 921** not-understood facts (hand-written 0/69, held-out 0/41, synthetic 0/811).
   Hand-written 98.8%, held-out 89.1% (first blind run, before any fix: 87.4%), synthetic 97.3%. Read the caveats: denominators are small and the data is ours.
-- **LLM baseline:** not run. `python eval/run_baseline.py` needs `GEMINI_API_KEY`; without it `/eval` and the README say "baseline not run".
+- **LLM baseline (run, D25):** `gemini-3.1-flash-lite`, 154 replies x 3 runs, 665 fact checks. Baseline accuracy 94.6% vs our 95.9% on the same rows; **false "understood" 11/180 (6.1%) vs 0/180**. Excluding the 14 pasted-message rows (our rule, not in its prompt) the **baseline is more accurate on plain facts: 96.6% vs 95.9%**. Baseline was perfectly self-consistent, so consistency is not our advantage. The comparison favours us (engine tuned on this data). Free-tier quotas on the larger models (about 20 requests/day) forced the lite model.
 - **Browser end-to-end (production build):** 16/16 checks pass (compose → confirm → reader reply → live SSE update → copy banner → follow-up → second browser locked out → demo).
 - **Lighthouse (production build):** accessibility 100 on `/`, `/how-it-works`, `/app`, `/eval`, `/demo`, `/app/new`; best practices 96–100; performance 77–93.
 - **Secret scan:** no keys in the working tree or any git revision; no `.env` exists.
@@ -39,7 +39,7 @@ D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set 
 - Sender key lives in one browser (no recovery/rotation); the LLM toggle is global; old rows without an owner are unreadable.
 - Docker images were **never built** (Docker Desktop was off); compose file only validated. `make` is not installed on this machine (targets were run as direct commands).
 - Voice: Sarvam covers Malayalam/Hindi/English only, and was tested with a **mocked** HTTP call, never against the live service.
-- Gemini default model id (`gemini-3.8-flash`) came from the Gemini docs page but was never called; verify it.
+- Gemini `gemini-3.8-flash` is a valid id (live call OK) but the free tier allows about 20 requests/day; use a lite model or a paid key for anything bigger. Sarvam and voice were not exercised against the live service.
 - Held-out data is no longer blind; there is no real native-speaker data yet.
 
 ## Human checklist (things only you can do)

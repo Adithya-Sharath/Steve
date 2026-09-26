@@ -44,6 +44,10 @@ def build(d: dict) -> str:
     if b.get("available"):
         lines.append(row(f"**Gemini baseline** (same replies, {b['consistency']['runs']} runs, majority vote)", b["overall"]))
         lines.append(row("Our engine on the baseline's exact subset", b.get("engine_on_same_subset")))
+        x = b.get("excluding_unclear_gold")
+        if x:
+            lines.append(row(f"Baseline, excluding {x['n_excluded']} pasted-message rows", x["baseline"]))
+            lines.append(row("Our engine, same rows", x["engine"]))
         lines += ["", f"Baseline self-consistency across runs: **{pct(b['consistency']['mean_agreement'])}** (our engine: 100%, deterministic). {b.get('note', '')}"]
     else:
         lines += ["", "**LLM baseline: not run** (no Gemini key when this was generated), so no comparison is claimed. Set `GEMINI_API_KEY` and run `make eval`."]

@@ -1,11 +1,11 @@
 {
  "available": true,
- "model": "gemini-3.5-flash",
+ "model": "gemini-3.1-flash-lite",
  "runs": 3,
- "n_replies": 3,
- "n_replies_complete": 2,
+ "n_replies": 154,
+ "n_replies_complete": 154,
  "n_replies_planned": 154,
- "stopped": "daily quota exhausted",
+ "stopped": null,
  "predictions": {
   "hw-001": {
    "0": {
@@ -67,6 +67,3171 @@
     "freq": "understood",
     "dur": "understood",
     "rash": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "missing",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   }
+  },
+  "hw-004": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-005": {
+   "0": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-006": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-007": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-008": {
+   "0": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-009": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-010": {
+   "0": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-011": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   }
+  },
+  "hw-012": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-013": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-014": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   }
+  },
+  "hw-015": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   }
+  },
+  "hw-016": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-017": {
+   "0": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "wrong",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-018": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-019": {
+   "0": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   }
+  },
+  "hw-020": {
+   "0": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   }
+  },
+  "hw-021": {
+   "0": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   }
+  },
+  "hw-022": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "hw-023": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "hw-024": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "hw-025": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "hw-026": {
+   "0": {
+    "dose": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "fever": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "fever": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "fever": "missing"
+   }
+  },
+  "hw-027": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "negated"
+   }
+  },
+  "hw-028": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "hw-029": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "hw-030": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "hw-031": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "wrong",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "wrong",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "wrong",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "hw-032": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "negated"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "negated"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "negated"
+   }
+  },
+  "hw-033": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "missing",
+    "break_at": "understood",
+    "dizzy": "missing"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "missing",
+    "break_at": "understood",
+    "dizzy": "missing"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "missing",
+    "break_at": "understood",
+    "dizzy": "missing"
+   }
+  },
+  "hw-034": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "missing",
+    "break_at": "understood",
+    "dizzy": "missing"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "missing",
+    "break_at": "understood",
+    "dizzy": "missing"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "missing",
+    "break_at": "understood",
+    "dizzy": "missing"
+   }
+  },
+  "hw-035": {
+   "0": {
+    "water": "missing",
+    "hourly": "missing",
+    "break_len": "missing",
+    "break_at": "missing",
+    "dizzy": "missing"
+   },
+   "1": {
+    "water": "missing",
+    "hourly": "missing",
+    "break_len": "missing",
+    "break_at": "missing",
+    "dizzy": "missing"
+   },
+   "2": {
+    "water": "missing",
+    "hourly": "missing",
+    "break_len": "missing",
+    "break_at": "missing",
+    "dizzy": "missing"
+   }
+  },
+  "hw-036": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "hw-037": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "hw-038": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "hw-039": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "hw-040": {
+   "0": {
+    "photos": "understood",
+    "deadline": "wrong",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "wrong",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "wrong",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "hw-041": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "wrong",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "wrong",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "wrong",
+    "no_travel": "understood"
+   }
+  },
+  "hw-042": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "negated",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "negated",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "negated",
+    "no_travel": "understood"
+   }
+  },
+  "hw-043": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "missing",
+    "no_travel": "missing"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "missing",
+    "no_travel": "missing"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "missing",
+    "no_travel": "missing"
+   }
+  },
+  "hw-044": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "hw-045": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "hw-046": {
+   "0": {
+    "trip": "understood",
+    "money": "wrong",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "wrong",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "wrong",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "hw-047": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "negated"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "negated"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "negated"
+   }
+  },
+  "hw-048": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "hw-049": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "missing",
+    "form": "missing",
+    "bottle": "missing"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "missing",
+    "form": "missing",
+    "bottle": "missing"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "missing",
+    "form": "missing",
+    "bottle": "missing"
+   }
+  },
+  "hw-050": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-051": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-052": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-053": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "understood"
+   }
+  },
+  "hw-054": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   }
+  },
+  "hw-055": {
+   "0": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "1": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "2": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   }
+  },
+  "hw-056": {
+   "0": {
+    "salary": "wrong",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "1": {
+    "salary": "wrong",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "2": {
+    "salary": "wrong",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   }
+  },
+  "hw-057": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood"
+   }
+  },
+  "hw-058": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "understood"
+   }
+  },
+  "hw-059": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   }
+  },
+  "hw-060": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   }
+  },
+  "hw-061": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   }
+  },
+  "hw-062": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "hw-063": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-064": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "hw-065": {
+   "0": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "understood"
+   },
+   "1": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "understood"
+   },
+   "2": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "understood"
+   }
+  },
+  "hw-066": {
+   "0": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "understood"
+   },
+   "1": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "understood"
+   },
+   "2": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "understood"
+   }
+  },
+  "hw-067": {
+   "0": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "1": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "2": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   }
+  },
+  "hw-068": {
+   "0": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "1": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "2": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   }
+  },
+  "hw-069": {
+   "0": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   },
+   "1": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   },
+   "2": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   }
+  },
+  "hw-070": {
+   "0": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   },
+   "1": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   },
+   "2": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   }
+  },
+  "hw-071": {
+   "0": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "hw-072": {
+   "0": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "ho-001": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "ho-002": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   }
+  },
+  "ho-003": {
+   "0": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "ho-004": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "ho-005": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "ho-006": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "ho-007": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "missing"
+   }
+  },
+  "ho-008": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   }
+  },
+  "ho-009": {
+   "0": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   }
+  },
+  "ho-010": {
+   "0": {
+    "dose": "missing",
+    "timing": "unclear",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "unclear",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "unclear",
+    "freq": "missing",
+    "dur": "missing",
+    "rash": "missing"
+   }
+  },
+  "ho-011": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "ho-012": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "ho-013": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "ho-014": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "fever": "negated"
+   }
+  },
+  "ho-015": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "fever": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "fever": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "fever": "missing"
+   }
+  },
+  "ho-016": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "ho-017": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "ho-018": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "ho-019": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "ho-020": {
+   "0": {
+    "water": "understood",
+    "hourly": "missing",
+    "break_len": "missing",
+    "break_at": "wrong",
+    "dizzy": "missing"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "missing",
+    "break_len": "missing",
+    "break_at": "wrong",
+    "dizzy": "missing"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "missing",
+    "break_len": "missing",
+    "break_at": "wrong",
+    "dizzy": "missing"
+   }
+  },
+  "ho-021": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "ho-022": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "wrong",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "wrong",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "wrong",
+    "no_travel": "understood"
+   }
+  },
+  "ho-023": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "negated"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "negated"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "negated"
+   }
+  },
+  "ho-024": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "ho-025": {
+   "0": {
+    "photos": "wrong",
+    "deadline": "wrong",
+    "fee": "understood",
+    "no_travel": "missing"
+   },
+   "1": {
+    "photos": "wrong",
+    "deadline": "wrong",
+    "fee": "understood",
+    "no_travel": "missing"
+   },
+   "2": {
+    "photos": "wrong",
+    "deadline": "wrong",
+    "fee": "understood",
+    "no_travel": "missing"
+   }
+  },
+  "ho-026": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "ho-027": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "ho-028": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "ho-029": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "ho-030": {
+   "0": {
+    "trip": "wrong",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "missing"
+   },
+   "1": {
+    "trip": "wrong",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "missing"
+   },
+   "2": {
+    "trip": "wrong",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "missing"
+   }
+  },
+  "ho-031": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "wrong"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "wrong"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "wrong"
+   }
+  },
+  "ho-032": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "ho-033": {
+   "0": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "missing"
+   },
+   "1": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "missing"
+   },
+   "2": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "missing"
+   }
+  },
+  "ho-034": {
+   "0": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "1": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "2": {
+    "salary": "understood",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   }
+  },
+  "ho-035": {
+   "0": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "ho-036": {
+   "0": {
+    "visit": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "no_travel": "negated"
+   },
+   "1": {
+    "visit": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "no_travel": "negated"
+   },
+   "2": {
+    "visit": "understood",
+    "freq": "wrong",
+    "dur": "understood",
+    "no_travel": "negated"
+   }
+  },
+  "ho-037": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "negated"
+   }
+  },
+  "ho-038": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dur": "understood"
+   }
+  },
+  "ho-039": {
+   "0": {
+    "dose": "wrong",
+    "freq": "wrong",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "wrong",
+    "freq": "wrong",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "wrong",
+    "freq": "wrong",
+    "dur": "understood"
+   }
+  },
+  "hw-073": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-074": {
+   "0": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "understood",
+    "break_len": "understood",
+    "break_at": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "hw-075": {
+   "0": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "understood",
+    "deadline": "understood",
+    "fee": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "syn-child-rash-med-ar-5": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "missing",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "missing",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "missing",
+    "rash": "understood"
+   }
+  },
+  "syn-school-trip-hi-2": {
+   "0": {
+    "trip": "understood",
+    "money": "wrong",
+    "due": "missing",
+    "form": "understood",
+    "bottle": "missing"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "wrong",
+    "due": "missing",
+    "form": "understood",
+    "bottle": "missing"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "wrong",
+    "due": "missing",
+    "form": "understood",
+    "bottle": "missing"
+   }
+  },
+  "syn-payslip-en-4": {
+   "0": {
+    "salary": "missing",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "1": {
+    "salary": "missing",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   },
+   "2": {
+    "salary": "missing",
+    "paid": "understood",
+    "due": "understood",
+    "form": "understood"
+   }
+  },
+  "syn-shift-start-ar-2": {
+   "0": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "missing"
+   },
+   "1": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "missing"
+   },
+   "2": {
+    "time": "understood",
+    "day": "understood",
+    "photos": "missing"
+   }
+  },
+  "syn-inhaler-ta-0": {
+   "0": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "understood",
+    "dizzy": "understood"
+   }
+  },
+  "syn-school-trip-ma-5": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "syn-bedtime-tablet-ma-0": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "missing",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "missing",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "missing",
+    "rash": "understood"
+   }
+  },
+  "syn-school-fee-ta-4": {
+   "0": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   },
+   "1": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   },
+   "2": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "understood"
+   }
+  },
+  "syn-school-fee-ar-5": {
+   "0": {
+    "fee": "wrong",
+    "due": "understood",
+    "reopen": "missing"
+   },
+   "1": {
+    "fee": "wrong",
+    "due": "understood",
+    "reopen": "missing"
+   },
+   "2": {
+    "fee": "wrong",
+    "due": "understood",
+    "reopen": "missing"
+   }
+  },
+  "syn-school-trip-ta-4": {
+   "0": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "wrong",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "wrong",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "understood",
+    "money": "understood",
+    "due": "wrong",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "syn-pharmacy-ar-5": {
+   "0": {
+    "dose": "understood",
+    "timing": "missing",
+    "freq": "wrong",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "missing",
+    "freq": "wrong",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "missing",
+    "freq": "wrong",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "syn-pharmacy-ma-1": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "syn-eye-drops-ma-1": {
+   "0": {
+    "dose": "missing",
+    "freq": "wrong",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "missing",
+    "freq": "wrong",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "missing",
+    "freq": "wrong",
+    "dur": "understood"
+   }
+  },
+  "syn-site-safety-en-1": {
+   "0": {
+    "water": "understood",
+    "hourly": "missing",
+    "break_len": "wrong",
+    "break_at": "missing",
+    "dizzy": "understood"
+   },
+   "1": {
+    "water": "understood",
+    "hourly": "missing",
+    "break_len": "wrong",
+    "break_at": "missing",
+    "dizzy": "understood"
+   },
+   "2": {
+    "water": "understood",
+    "hourly": "missing",
+    "break_len": "wrong",
+    "break_at": "missing",
+    "dizzy": "understood"
+   }
+  },
+  "syn-clinic-followup-ta-3": {
+   "0": {
+    "visit": "missing",
+    "freq": "missing",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "1": {
+    "visit": "missing",
+    "freq": "missing",
+    "dur": "understood",
+    "no_travel": "understood"
+   },
+   "2": {
+    "visit": "missing",
+    "freq": "missing",
+    "dur": "understood",
+    "no_travel": "understood"
+   }
+  },
+  "syn-school-fee-ta-2": {
+   "0": {
+    "fee": "missing",
+    "due": "missing",
+    "reopen": "missing"
+   },
+   "1": {
+    "fee": "missing",
+    "due": "missing",
+    "reopen": "missing"
+   },
+   "2": {
+    "fee": "missing",
+    "due": "missing",
+    "reopen": "missing"
+   }
+  },
+  "syn-pharmacy-hi-4": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "syn-clinic-followup-hi-3": {
+   "0": {
+    "visit": "understood",
+    "freq": "missing",
+    "dur": "understood",
+    "no_travel": "negated"
+   },
+   "1": {
+    "visit": "understood",
+    "freq": "missing",
+    "dur": "understood",
+    "no_travel": "negated"
+   },
+   "2": {
+    "visit": "understood",
+    "freq": "missing",
+    "dur": "understood",
+    "no_travel": "negated"
+   }
+  },
+  "syn-bp-tablet-ar-5": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "dur": "understood"
+   }
+  },
+  "syn-bp-tablet-ta-3": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "negated"
+   }
+  },
+  "syn-visa-medical-ma-1": {
+   "0": {
+    "day": "understood",
+    "time": "missing",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "1": {
+    "day": "understood",
+    "time": "missing",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "2": {
+    "day": "understood",
+    "time": "missing",
+    "photos": "understood",
+    "fee": "understood"
+   }
+  },
+  "syn-bp-tablet-hi-4": {
+   "0": {
+    "dose": "negated",
+    "timing": "missing",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "negated",
+    "timing": "missing",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "negated",
+    "timing": "missing",
+    "dur": "understood"
+   }
+  },
+  "syn-bp-tablet-en-2": {
+   "0": {
+    "dose": "missing",
+    "timing": "missing",
+    "dur": "negated"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "missing",
+    "dur": "negated"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "missing",
+    "dur": "negated"
+   }
+  },
+  "syn-school-trip-ta-0": {
+   "0": {
+    "trip": "missing",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "1": {
+    "trip": "missing",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   },
+   "2": {
+    "trip": "missing",
+    "money": "understood",
+    "due": "understood",
+    "form": "understood",
+    "bottle": "understood"
+   }
+  },
+  "syn-bedtime-tablet-en-0": {
+   "0": {
+    "dose": "wrong",
+    "timing": "missing",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "wrong",
+    "timing": "missing",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "wrong",
+    "timing": "missing",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "syn-clinic-followup-ma-1": {
+   "0": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "missing",
+    "no_travel": "missing"
+   },
+   "1": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "missing",
+    "no_travel": "missing"
+   },
+   "2": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "missing",
+    "no_travel": "missing"
+   }
+  },
+  "syn-payslip-hi-1": {
+   "0": {
+    "salary": "missing",
+    "paid": "wrong",
+    "due": "wrong",
+    "form": "understood"
+   },
+   "1": {
+    "salary": "missing",
+    "paid": "wrong",
+    "due": "wrong",
+    "form": "understood"
+   },
+   "2": {
+    "salary": "missing",
+    "paid": "wrong",
+    "due": "wrong",
+    "form": "understood"
+   }
+  },
+  "syn-visa-medical-ma-4": {
+   "0": {
+    "day": "wrong",
+    "time": "missing",
+    "photos": "missing",
+    "fee": "understood"
+   },
+   "1": {
+    "day": "wrong",
+    "time": "missing",
+    "photos": "missing",
+    "fee": "understood"
+   },
+   "2": {
+    "day": "wrong",
+    "time": "missing",
+    "photos": "missing",
+    "fee": "understood"
+   }
+  },
+  "syn-school-fee-ta-0": {
+   "0": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "missing"
+   },
+   "1": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "missing"
+   },
+   "2": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "missing"
+   }
+  },
+  "syn-pharmacy-ar-2": {
+   "0": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "understood",
+    "dur": "missing",
+    "rash": "negated"
+   },
+   "1": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "understood",
+    "dur": "missing",
+    "rash": "negated"
+   },
+   "2": {
+    "dose": "missing",
+    "timing": "missing",
+    "freq": "understood",
+    "dur": "missing",
+    "rash": "negated"
+   }
+  },
+  "syn-school-trip-ta-2": {
+   "0": {
+    "trip": "missing",
+    "money": "understood",
+    "due": "wrong",
+    "form": "understood",
+    "bottle": "negated"
+   },
+   "1": {
+    "trip": "missing",
+    "money": "understood",
+    "due": "wrong",
+    "form": "understood",
+    "bottle": "negated"
+   },
+   "2": {
+    "trip": "missing",
+    "money": "understood",
+    "due": "wrong",
+    "form": "understood",
+    "bottle": "negated"
+   }
+  },
+  "syn-bp-tablet-hi-3": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "dur": "understood"
+   }
+  },
+  "syn-school-fee-en-3": {
+   "0": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "missing"
+   },
+   "1": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "missing"
+   },
+   "2": {
+    "fee": "understood",
+    "due": "understood",
+    "reopen": "missing"
+   }
+  },
+  "syn-clinic-followup-en-5": {
+   "0": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "no_travel": "understood"
+   },
+   "1": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "no_travel": "understood"
+   },
+   "2": {
+    "visit": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "no_travel": "understood"
+   }
+  },
+  "syn-visa-medical-en-1": {
+   "0": {
+    "day": "wrong",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "missing"
+   },
+   "1": {
+    "day": "wrong",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "missing"
+   },
+   "2": {
+    "day": "wrong",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "missing"
+   }
+  },
+  "syn-pharmacy-hi-3": {
+   "0": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "wrong",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   }
+  },
+  "syn-visa-medical-hi-4": {
+   "0": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "1": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   },
+   "2": {
+    "day": "understood",
+    "time": "understood",
+    "photos": "understood",
+    "fee": "understood"
+   }
+  },
+  "syn-child-syrup-ta-5": {
+   "0": {
+    "dose": "understood",
+    "freq": "missing",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "freq": "missing",
+    "dur": "understood",
+    "fever": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "freq": "missing",
+    "dur": "understood",
+    "fever": "understood"
+   }
+  },
+  "syn-visa-hr-ta-2": {
+   "0": {
+    "photos": "negated",
+    "deadline": "understood",
+    "fee": "negated",
+    "no_travel": "understood"
+   },
+   "1": {
+    "photos": "negated",
+    "deadline": "understood",
+    "fee": "negated",
+    "no_travel": "understood"
+   },
+   "2": {
+    "photos": "negated",
+    "deadline": "understood",
+    "fee": "negated",
+    "no_travel": "understood"
+   }
+  },
+  "syn-shift-start-ta-0": {
+   "0": {
+    "time": "missing",
+    "day": "missing",
+    "photos": "missing"
+   },
+   "1": {
+    "time": "missing",
+    "day": "missing",
+    "photos": "missing"
+   },
+   "2": {
+    "time": "missing",
+    "day": "missing",
+    "photos": "missing"
    }
   }
  }

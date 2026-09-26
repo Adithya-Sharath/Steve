@@ -66,6 +66,32 @@ def summarize(rows: list[dict], key: str) -> dict:
     }
 
 
+def baseline_caveats(baseline: dict, base: dict) -> list[str]:
+    """Comparison caveats, all computed from the results (nothing typed in by hand)."""
+    ex = baseline["excluding_unclear_gold"]
+    b, e = ex["baseline"], ex["engine"]
+    cons = baseline["consistency"]
+    out = [
+        (
+            f"COMPARISON FAVOURS US: the engine was developed while reading this data; the baseline ({base.get('model')}) is one zero-shot prompt that saw none of it. "
+            f"It covers {baseline['overall']['n']} fact checks ({base.get('n_replies')} replies: all hand-written plus a synthetic sample), {base.get('runs')} runs each, majority vote. A stronger model may score higher."
+        ),
+    ]
+    diff = (b["accuracy"] - e["accuracy"]) * 100
+    if diff > 0:
+        out.append(
+            f"Where the baseline wins: excluding the {ex['n_excluded']} pasted-message rows (gold unclear; that rule is ours and was not in its prompt), on the same {b['n']} checks "
+            f"the baseline is MORE accurate than our engine ({b['accuracy']:.1%} vs {e['accuracy']:.1%}). Our advantage is on false 'understood' ({e['false_understood']}/{e['false_understood_denominator']} vs {b['false_understood']}/{b['false_understood_denominator']}), not on raw accuracy."
+        )
+    else:
+        out.append(
+            f"Excluding the {ex['n_excluded']} pasted-message rows (gold unclear; not in the baseline's prompt), on the same {b['n']} checks: baseline {b['accuracy']:.1%} vs our engine {e['accuracy']:.1%}; false 'understood' {b['false_understood']}/{b['false_understood_denominator']} vs {e['false_understood']}/{e['false_understood_denominator']}."
+        )
+    if cons["mean_agreement"] >= 0.999:
+        out.append(f"The baseline agreed with itself on every item across {cons['runs']} runs, so consistency is NOT an advantage we can claim over this model (our engine is deterministic by construction).")
+    return out
+
+
 def main() -> None:
     messages = load_messages()
     replies = load_replies()
@@ -113,6 +139,13 @@ def main() -> None:
         # apples-to-apples: also score OUR engine on exactly the baseline's subset
         subset = summarize(base_rows, "pred")
         baseline["engine_on_same_subset"] = subset["overall"]
+        # pasted-message rows have gold "unclear", a rule that is OURS (not in the baseline's prompt): also report without them
+        plain = [r for r in base_rows if r["gold"] != "unclear"]
+        baseline["excluding_unclear_gold"] = {
+            "n_excluded": len(base_rows) - len(plain),
+            "baseline": summarize(plain, "bpred")["overall"],
+            "engine": summarize(plain, "pred")["overall"],
+        }
 
     n_syn = sum(1 for r in replies if r["synthetic"])
     out = {
@@ -129,7 +162,7 @@ def main() -> None:
             "The hand-written seed replies were drafted by the developer/assistant, not native speakers, and the engine was iterated while looking at this set. Treat all numbers as development-set numbers.",
             "Lexicon entries for non-English languages are unverified until native speakers review LEXICON_REVIEW.md.",
             "Gold labels for synthetic rows come from construction; for hand-written rows from a human reading the reply. Some real-world replies are genuinely ambiguous.",
-            *(["The LLM baseline was not run (no Gemini key), so no comparison is claimed."] if not baseline["available"] else []),
+            *(["The LLM baseline was not run (no Gemini key), so no comparison is claimed."] if not baseline["available"] else baseline_caveats(baseline, base)),
         ],
     }
     dump(RESULTS / "latest.json", out)
