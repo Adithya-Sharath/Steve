@@ -339,6 +339,23 @@ body::before {
     --lip-color: color-mix(in oklch, var(--destructive) 42%, var(--background));
     --glow: color-mix(in oklch, var(--destructive) 40%, transparent);
   }
+  /* the reader's big record button: while recording it turns red and keeps the same raised, pressable feel */
+  .btn-record {
+    background: var(--wrong);
+    color: var(--background);
+    --lip-color: color-mix(in oklch, var(--wrong) 55%, black);
+    --glow: color-mix(in oklch, var(--wrong) 65%, transparent);
+  }
+  /* an idle button breathes a soft ring to invite the first tap (off for reduced motion) */
+  .record-breathe {
+    animation: record-breathe 2.6s ease-in-out infinite;
+  }
+  @keyframes record-breathe {
+    0%, 100% { box-shadow: 0 var(--lip) 0 0 var(--lip-color), 0 calc(var(--lip) + 5px) 12px -5px var(--glow), inset 0 1px 0 0 var(--hl), 0 0 0 0 color-mix(in oklch, var(--primary) 35%, transparent); }
+    50% { box-shadow: 0 var(--lip) 0 0 var(--lip-color), 0 calc(var(--lip) + 5px) 12px -5px var(--glow), inset 0 1px 0 0 var(--hl), 0 0 0 14px color-mix(in oklch, var(--primary) 0%, transparent); }
+  }
+  .record-breathe:hover, .record-breathe:active, .record-breathe[data-pressed] { animation: none; }
+
   /* flat buttons still respond: soft background + a small squash on press */
   .btn-soft {
     transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -375,6 +392,9 @@ body::before {
   .btn-soft,
   .pressable {
     transition: none !important;
+  }
+  .record-breathe {
+    animation: none;
   }
   .btn-raised::before {
     display: none;

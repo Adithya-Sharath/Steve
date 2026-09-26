@@ -131,7 +131,10 @@ def main() -> None:
         h = hashlib.sha256(f"{model}|{run}|{prompt}".encode()).hexdigest()[:24]
         path = cache_dir / f"{h}.json"
         if path.exists():
-            return json.loads(path.read_text(encoding="utf-8"))
+            try:
+                return json.loads(path.read_text(encoding="utf-8"))
+            except ValueError:  # truncated by a crash mid-write: discard it and fetch again
+                path.unlink(missing_ok=True)
         for _attempt in range(6):
             wait = spacing - (time.monotonic() - state["last_call"])
             if wait > 0:
@@ -140,9 +143,11 @@ def main() -> None:
             try:
                 data = call_gemini(client, model, prompt)
                 state["calls"] += 1
-                path.write_text(json.dumps(data), encoding="utf-8")
+                tmp = path.with_suffix(".tmp")
+                tmp.write_text(json.dumps(data), encoding="utf-8")
+                os.replace(tmp, path)  # atomic: a crash can never leave a half-written cache file
                 return data
-            except Exception as e:  # noqa: BLE001
+            except Exception as e:
                 text = str(e)
                 if "PerDay" in text:
                     raise DailyQuotaExhausted(text[:300]) from e

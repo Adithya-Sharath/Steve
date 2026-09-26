@@ -28,6 +28,31 @@ export function VoiceRecorder({ onSend, busy }: { onSend: (wav: Blob) => void; b
   const stream = useRef<MediaStream | null>(null);
   const actx = useRef<AudioContext | null>(null);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const haloRef = useRef<HTMLSpanElement>(null);
+
+  // the halo breathes with the ACTUAL microphone level (skipped for reduced motion)
+  useEffect(() => {
+    const halo = haloRef.current;
+    if (!halo || !analyser || phase !== "recording") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const buf = new Uint8Array(analyser.fftSize);
+    let raf = 0;
+    let smooth = 0;
+    const tick = () => {
+      analyser.getByteTimeDomainData(buf);
+      let sum = 0;
+      for (let i = 0; i < buf.length; i++) {
+        const v = (buf[i] - 128) / 128;
+        sum += v * v;
+      }
+      const level = Math.min(1, Math.sqrt(sum / buf.length) * 5);
+      smooth += (level - smooth) * 0.25;
+      halo.style.setProperty("--level", smooth.toFixed(3));
+      raf = requestAnimationFrame(tick);
+    };
+    tick();
+    return () => cancelAnimationFrame(raf);
+  }, [analyser, phase]);
 
   const cleanupAudio = useCallback(() => {
     if (timer.current) clearInterval(timer.current);
@@ -101,33 +126,50 @@ export function VoiceRecorder({ onSend, busy }: { onSend: (wav: Blob) => void; b
 
   return (
     <div className="flex flex-col items-center gap-5">
-      <div className="relative grid size-40 place-items-center">
+      <div className="relative grid size-44 place-items-center">
+        {/* 30 s progress ring (decorative: the timer below is the accessible readout) */}
+        <svg aria-hidden viewBox="0 0 176 176" className="pointer-events-none absolute inset-0 -rotate-90">
+          <circle cx="88" cy="88" r="82" fill="none" stroke="var(--border)" strokeWidth="4" />
+          <circle
+            cx="88" cy="88" r="82" fill="none" strokeWidth="4" strokeLinecap="round"
+            stroke={seconds >= MAX_SECONDS - 5 ? "var(--missing)" : "var(--wrong)"}
+            strokeDasharray={2 * Math.PI * 82}
+            strokeDashoffset={2 * Math.PI * 82 * (1 - (phase === "idle" ? 0 : Math.min(seconds, MAX_SECONDS) / MAX_SECONDS))}
+            style={{ transition: "stroke-dashoffset 1s linear, stroke 0.3s" }}
+          />
+        </svg>
         <AnimatePresence>
-          {phase === "recording" &&
-            [0, 1].map((i) => (
-              <motion.span
-                key={i}
+          {phase === "recording" && (
+            <>
+              <span
+                ref={haloRef}
                 aria-hidden
-                className="absolute inset-0 rounded-full bg-wrong/25"
-                initial={{ scale: 0.8, opacity: 0.6 }}
-                animate={{ scale: 1.35, opacity: 0 }}
-                transition={{ duration: 1.8, repeat: Infinity, delay: i * 0.9, ease: "easeOut" }}
+                className="absolute inset-4 rounded-full bg-wrong/25 transition-transform duration-75"
+                style={{ transform: "scale(calc(1 + var(--level, 0) * 0.5))" }}
               />
-            ))}
+              <motion.span
+                aria-hidden
+                className="absolute inset-4 rounded-full bg-wrong/20"
+                initial={{ scale: 0.9, opacity: 0.6 }}
+                animate={{ scale: 1.3, opacity: 0 }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+              />
+            </>
+          )}
         </AnimatePresence>
-        <motion.button
+        <Button
           type="button"
-          whileTap={{ scale: 0.94 }}
           onClick={phase === "recording" ? stop : phase === "idle" ? start : undefined}
           disabled={phase === "recorded" || busy}
           aria-label={phase === "recording" ? "Stop recording" : "Start recording"}
           className={cn(
-            "relative grid size-32 place-items-center rounded-full text-primary-foreground shadow-[0_18px_40px_-14px_color-mix(in_oklch,var(--primary)_70%,transparent)] transition-colors focus-visible:outline-offset-4 disabled:opacity-60",
-            phase === "recording" ? "bg-wrong" : "bg-primary",
+            "size-32 rounded-full p-0 [--lip:7px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring",
+            phase === "recording" && "btn-record",
+            phase === "idle" && "record-breathe",
           )}
         >
           {phase === "recording" ? <Square className="size-10 fill-current" /> : <Mic className="size-12" />}
-        </motion.button>
+        </Button>
       </div>
       <div className="w-full max-w-xs">
         <Waveform analyser={analyser} active={phase === "recording"} />

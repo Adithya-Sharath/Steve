@@ -13,6 +13,7 @@
 | ![A copied reply is flagged](docs/screenshots/copied.png) | ![Evaluation](docs/screenshots/eval.png) |
 | ![Buttons: rest, hover, pressed](docs/screenshots/buttons.png) | ![The problem, stats bento](docs/screenshots/landing-problem.png) |
 | ![How it works timeline](docs/screenshots/landing-how.png) | ![Stats in dark mode](docs/screenshots/landing-problem-dark.png) |
+| ![Reader recording: level-reactive halo and 30 s ring](docs/screenshots/reader-recording.png) | |
 
 _Screenshots are real (Playwright against a production build: `next build && next start`). Replace or add GIFs from the demo recording._
 
