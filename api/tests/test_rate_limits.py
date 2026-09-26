@@ -92,7 +92,7 @@ def test_idle_keys_are_swept_so_memory_does_not_grow_forever():
     for i in range(400):
         lim.check("b", f"ip{i}", [Rule(5, MINUTE)])
     clock.t += DAY + 1
-    for i in range(100):  # crosses the sweep threshold (500 allowed hits)
+    for _ in range(100):  # crosses the sweep threshold (500 allowed hits)
         lim.check("b", "fresh", [Rule(1000, MINUTE)])
     assert len(lim._hits) == 1
 
