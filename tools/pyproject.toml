@@ -1,0 +1,11 @@
+# Lint settings for the tooling scripts (same rules as engine/ and api/); not a package.
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "UP042"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["providers", "report", "run", "scoring"]

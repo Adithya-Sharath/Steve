@@ -1,7 +1,7 @@
 # CLAUDE.md — Steve
 
 Instructions for Claude Code (and humans) working in this repo. Keep it short and true; update it when reality changes.
-Read `DECISIONS.md` first (D1–D36: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
+Read `DECISIONS.md` first (D1–D37: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
 
 ## What this is
 **Steve is pivoting to Decode** (D36, branch `decode`): an interpreter that helps immigrant workers in the UAE understand the English they
@@ -42,6 +42,7 @@ never invent linguistic facts (leave them out); the full pipeline must work with
 | tests | `make test` | `scripts/test.ps1` (`cd engine && pytest -q`; `cd api && pytest -q`) |
 | lint | `make lint` | `ruff check engine api eval`; `cd web && npm run lint && npm run typecheck` |
 | eval | `make eval` | `scripts/eval.ps1` (generate -> run_engine -> run_baseline -> metrics -> update_readme) |
+| STT reality test | - | `python tools/stt_compare/run.py` (plan only) / `--yes` (calls providers); `python -m pytest tools/stt_compare -q` |
 | lexicon sheet | `make lexicon-review` | `python engine/tools/make_lexicon_review.py` |
 
 ## Layout

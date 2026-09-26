@@ -13,7 +13,7 @@ Channels: WhatsApp, and in person ("Tap to listen"). Check mode stays as a secon
 | # | Phase | Status |
 |---|---|---|
 | 0 | Safety net: tag `check-mode-v1`, branch `decode`, decision D36, this checklist, CLAUDE.md | **done** |
-| 1 | STT reality test: `tools/stt_compare/` (recordings are the owner's). Decides how the decoder works | tooling only; **waiting for recordings (Checkpoint 1)** |
+| 1 | STT reality test: `tools/stt_compare/` (recordings are the owner's). Decides how the decoder works | tooling **done** (27 tests, nothing sent to any provider yet); **STOPPED at Checkpoint 1: waiting for "recordings ready"** |
 | 2 | Decoder on text: accent packs (`ar`, `common`, then `hi`/`ml`/`tl`), UAE glossary, candidates, context pick, actions, negation, `DecodedCard`, 80+ tests | not started |
 | 3 | Decode evaluation: 300+ items (30+ real), word-change precision/recall, action accuracy, **wrong-but-confident rate**, Gemini baseline | not started |
 | 4 | Decode API: `POST /decode`, `/decode/clarify`, worker key, limits and budgets reused | not started |
@@ -63,7 +63,7 @@ Phases from `docs/build-prompt.md` §10:
 D1 repo/brief · D2 widened units/types · D3 code-point offsets · D4 claiming · D5 conflict⇒unclear · D6 words left out (partly superseded by D12) · D7 bare numbers ·
 D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set · D11 safety rules from error analysis · **D12** SMS/typo negators + fuzzy negator match ·
 **D13** concessive clauses · **D14** copy-paste detection (two deliberate deviations from the spec'd rule) · **D15** English shorthand · **D16** sender-key auth ·
-**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D30** admin-only LLM switch · **D31** TRUST_PROXY client IP · **D32** rate limits · **D33** daily spending caps · **D34** prompt hardening + validation · **D35** headers, body cap, generic 500, masked logs · **D36** Decode pivot · **D27** Gemini needs a >= 10 s deadline.
+**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D30** admin-only LLM switch · **D31** TRUST_PROXY client IP · **D32** rate limits · **D33** daily spending caps · **D34** prompt hardening + validation · **D35** headers, body cap, generic 500, masked logs · **D36** Decode pivot · **D37** STT reality-test tooling · **D27** Gemini needs a >= 10 s deadline.
 
 ## Known gaps / risks (honest list)
 - Lexicon: ~300 headwords, 5 languages, all non-English entries **unverified**; numbers above ten only as digits; unknown words give `missing`/`unclear`, never a guess.

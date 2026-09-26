@@ -29,13 +29,15 @@ jobs:
       - name: Install (no API keys anywhere in CI)
         run: pip install -e "engine[dev]" -e "api[dev]"
       - name: Lint
-        run: ruff check engine api eval
+        run: ruff check engine api eval tools
       - name: Engine tests
         working-directory: engine
         run: pytest -q
       - name: API tests
         working-directory: api
         run: pytest -q
+      - name: STT tooling tests (no network, no audio)
+        run: pytest tools/stt_compare -q
 
   web:
     name: web (Node 22)
