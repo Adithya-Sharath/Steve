@@ -15,6 +15,7 @@ const shot = (p, name, full = false) => p.screenshot({ path: path.join(OUT, name
 
 let { ctx, p } = await open();
 await p.goto(`${WEB}/`, { waitUntil: "networkidle" });
+await p.getByTestId("see-example").click();
 await p.getByTestId("live-example").waitFor({ timeout: 20000 });
 await shot(p, "decode-home.png", true);
 await p.goto(`${WEB}/listen`, { waitUntil: "networkidle" });
@@ -31,6 +32,7 @@ await ctx.close();
 
 ({ ctx, p } = await open());
 await p.goto(`${WEB}/how-it-works`, { waitUntil: "networkidle" });
+await p.getByRole("button", { name: "Barking gate tree (Arabic speaker)" }).click();
 await p.getByTestId("inspector-stages").waitFor({ timeout: 30000 });
 await shot(p, "decode-inspector.png", true);
 await p.goto(`${WEB}/eval`, { waitUntil: "networkidle" });

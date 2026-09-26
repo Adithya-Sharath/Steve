@@ -47,6 +47,8 @@ await H.p.goto(`${WEB}/`, { waitUntil: "networkidle" });
 ok("/ shows the intro headline", (await H.p.getByRole("heading", { level: 1 }).innerText()).includes("You know the language. You still miss the message."));
 ok("the first page load pings /decode/health (warm-up)", healthCalls.length >= 1);
 await big(H.p, '[data-testid="try-it"]', "Try it button");
+ok("nothing is decoded on the intro until the visitor asks", (await H.p.getByTestId("live-example").count()) === 0 && (await H.p.locator("main").innerText()).indexOf("al quoz") === -1);
+await H.p.getByTestId("see-example").click();
 await H.p.getByTestId("live-example").waitFor({ timeout: 20000 });
 const live = await H.p.getByTestId("live-example").innerText();
 ok("the intro shows a LIVE decoded example (Al Quoz / Maghrib)", /al quoz/i.test(live) && /maghrib/i.test(live) && /Where/.test(live));
@@ -279,6 +281,8 @@ await X.ctx.close();
 // ---- how it works (the inspector) --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const I = await open();
 await I.p.goto(`${WEB}/how-it-works`, { waitUntil: "networkidle" });
+ok("inspector: nothing is decoded before the visitor acts", (await I.p.getByTestId("inspector-stages").count()) === 0 && (await I.p.getByTestId("inspector-empty").count()) === 1 && (await I.p.locator("#ins-text").inputValue()) === "");
+await I.p.getByRole("button", { name: "Barking gate tree (Arabic speaker)" }).click();
 await I.p.getByTestId("inspector-stages").waitFor({ timeout: 30000 });
 ok("inspector shows all six stages", (await I.p.locator('[data-testid="inspector-stages"] section').count()) === 6);
 const barking = await I.p.getByTestId("examined-barking").innerText();
