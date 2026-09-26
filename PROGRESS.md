@@ -22,7 +22,7 @@ Pushed to <https://github.com/Adithya-Sharath/Steve> (`main`, tag `v1.0.0`). The
 | — | Follow-up round: negation typos, concessives, copy-paste, SMS shorthand, sender auth, Docker `$PORT`, production screenshots, this file | done (D12–D20) |
 
 ## Numbers (2026-09-25 final run)
-- **Engine tests:** 275 passed, 1 skipped. **API tests:** 228 passed (incl. 20 for D26/D27, 5 for the rename guard D28, and 136 for the security layer D30-D35). `ruff`, `eslint`, `tsc` clean. Fresh-clone install + tests + eval + web build all pass.
+- **Engine tests:** 275 passed, 1 skipped. **API tests:** 228 passed (incl. 20 for D26/D27, 5 for the rename guard D28, and 161 added for the security layer D30-D35, 67 before it). `ruff`, `eslint`, `tsc` clean. Fresh-clone install + tests + eval + web build all pass.
 - **Eval (development numbers, see D10):** 2,268 labelled fact checks over 561 replies (114 hand-written, 447 synthetic).
   Accuracy 96.9%. **False "understood": 0 of 921** not-understood facts (hand-written 0/69, held-out 0/41, synthetic 0/811).
   Hand-written 98.8%, held-out 89.1% (first blind run, before any fix: 87.4%), synthetic 97.3%. Read the caveats: denominators are small and the data is ours.
