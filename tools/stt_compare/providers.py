@@ -20,7 +20,7 @@ import httpx
 
 SARVAM_URL = "https://api.sarvam.ai/speech-to-text"
 MIME = {
-    ".mp3": "audio/mpeg", ".wav": "audio/wav", ".m4a": "audio/mp4", ".mp4": "audio/mp4", ".ogg": "audio/ogg", ".opus": "audio/ogg",
+    ".mp3": "audio/mpeg", ".wav": "audio/wav", ".m4a": "audio/mp4", ".mp4": "audio/mp4", ".ogg": "audio/ogg", ".oga": "audio/ogg", ".opus": "audio/ogg", ".aif": "audio/aiff", ".aiff": "audio/aiff",
     ".webm": "audio/webm", ".flac": "audio/flac", ".aac": "audio/aac", ".amr": "audio/amr", ".wma": "audio/x-ms-wma",
 }
 

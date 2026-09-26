@@ -23,6 +23,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
+import audio as audio_tools  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
 
 from providers import PROVIDERS, Provider, ProviderError, Sarvam, Variant  # noqa: E402
@@ -31,7 +32,6 @@ from scoring import FileResult, score_file  # noqa: E402
 
 load_dotenv(HERE.parents[1] / ".env")
 COLUMNS = ["file", "spoken_as_heard", "intended_meaning", "accent", "notes"]
-AUDIO = {".mp3", ".wav", ".m4a", ".mp4", ".ogg", ".opus", ".webm", ".flac", ".aac", ".amr", ".wma"}
 
 
 def load_truth(path: Path, recordings: Path) -> tuple[dict[str, dict], list[str]]:
@@ -55,7 +55,7 @@ def load_truth(path: Path, recordings: Path) -> tuple[dict[str, dict], list[str]
             if not (recordings / name).exists():
                 problems.append(f"line {i}: audio file {recordings / name} not found (skipped)")
                 continue
-            if Path(name).suffix.lower() not in AUDIO:
+            if not audio_tools.allowed_extension(name):
                 problems.append(f"line {i}: {name} is not a supported audio type (skipped)")
                 continue
             if not (row["spoken_as_heard"] or "").strip() or not (row["intended_meaning"] or "").strip():
@@ -108,6 +108,11 @@ def main(argv: list[str] | None = None) -> int:
     truth, problems = load_truth(args.truth, args.recordings)
     if args.limit:
         truth = dict(list(truth.items())[: args.limit])
+    if audio_tools.ffprobe():
+        for name in truth:
+            seconds = audio_tools.duration_seconds(args.recordings / name)
+            if seconds and seconds > audio_tools.MAX_SECONDS:
+                problems.append(f"{name} is {seconds:.0f} s: Sarvam's REST limit is {audio_tools.MAX_SECONDS:.0f} s, so it will probably fail")
     for p in problems:
         print("warning:", p, file=sys.stderr)
     if not truth:
@@ -146,9 +151,19 @@ def main(argv: list[str] | None = None) -> int:
     raw: list[dict] = []
     done = 0
     for name, row in truth.items():
-        audio = (args.recordings / name).read_bytes()
+        try:
+            send_name, audio = audio_tools.prepare(args.recordings / name, cache / "converted")
+        except audio_tools.AudioError as e:
+            send_name, audio = name, b""
+            prep_error = str(e)
+        else:
+            prep_error = None
         for prov, v in plan:
-            out = run_variant(prov, v, name, audio, cache, not args.no_cache)
+            out = (
+                {"text": "", "latency": None, "error": prep_error, "cached": False}
+                if prep_error
+                else run_variant(prov, v, send_name, audio, cache, not args.no_cache)
+            )
             done += 1
             r = score_file(name, row["accent"], v.label, row["spoken_as_heard"], row["intended_meaning"], out["text"], out["latency"])
             r.error = out["error"]
