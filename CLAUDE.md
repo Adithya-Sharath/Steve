@@ -1,13 +1,26 @@
 # CLAUDE.md — Steve
 
 Instructions for Claude Code (and humans) working in this repo. Keep it short and true; update it when reality changes.
-Read `DECISIONS.md` first (D1–D35: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
+Read `DECISIONS.md` first (D1–D36: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
 
 ## What this is
-Teach-back for mixed-language (Manglish / Hinglish / Arabizi / Taglish) replies. A sender writes an important message, confirms
-its key facts, the reader explains it back in their own words, and a **deterministic engine** marks each fact
-`understood | wrong | missing | negated | unclear` with evidence and a reason. BitNBuild'26 hackathon project; the original brief
-is `docs/build-prompt.md`.
+**Steve is pivoting to Decode** (D36, branch `decode`): an interpreter that helps immigrant workers in the UAE understand the English they
+actually hear: mother-tongue-influenced pronunciation ("barking" for "parking" because Arabic has no /p/) and local phrases ("yalla", "khalas",
+"inshallah"). It returns plain English, optionally translated into the worker's language and spoken back, over WhatsApp and an in-person
+"Tap to listen" screen. The plan is the phase checklist in `PROGRESS.md`.
+
+**Check mode** (the original product, tag `check-mode-v1`, published on `main`) stays as a secondary feature and must keep working: a sender writes an
+important message, confirms its key facts, the reader explains it back in their own words (Manglish / Hinglish / Arabizi / Taglish), and a
+**deterministic engine** marks each fact `understood | wrong | missing | negated | unclear`. BitNBuild'26 hackathon project; the original brief is
+`docs/build-prompt.md`.
+
+**Next task:** Phase 1, the STT reality test (`tools/stt_compare/`). The owner records the audio; do not build the decoder (Phase 2) until the
+report says whether speech-to-text keeps what was actually said or silently "fixes" it. Work on the `decode` branch; never push to `main` or force-push.
+
+**Decode rules (in addition to the ones below):** deterministic rules first; an LLM is optional, guarded (`llm_guard.py`) and never the sole judge of a
+where/when/amount; if two readings are close, ask a clarifying question instead of guessing; never call speech "wrong" or "bad English" and show no
+scores; audio is never stored and phone numbers are hashed; every accent rule and glossary entry is `verified: false` until a native speaker reviews it;
+never invent linguistic facts (leave them out); the full pipeline must work with zero API keys.
 
 ## Non-negotiable rules
 1. **An LLM never decides a safety-critical fact.** Numbers, doses, frequencies, durations, dates, amounts and negations are decided

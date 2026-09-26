@@ -1,9 +1,36 @@
 # PROGRESS
 
-State of the build. Numbers below were produced by the final check run (see "Verification"), not typed from memory.
-Pushed to <https://github.com/Adithya-Sharath/Steve> (`main`, tag `v1.0.0`). The repo looked **private** to an unauthenticated request (404): make it public before judging. GitHub Actions status has not been observed from here.
+State of the build. Numbers below were produced by check runs, not typed from memory.
+`main` (tag `v1.0.0`) is the published Check-mode product. **Active work is on the `decode` branch** (Decode pivot, D36).
+The tag `check-mode-v1` marks the teach-back product before the pivot. Do not merge `decode` into `main` until the owner says so.
 
-## Phases (from `docs/build-prompt.md` §10)
+## Decode pivot: checklist (branch `decode`)
+
+Decode = an interpreter that helps immigrant workers in the UAE understand the English they actually hear
+(mother-tongue-influenced pronunciation, local phrases), returning plain English, optionally translated and spoken.
+Channels: WhatsApp, and in person ("Tap to listen"). Check mode stays as a secondary, fully working feature.
+
+| # | Phase | Status |
+|---|---|---|
+| 0 | Safety net: tag `check-mode-v1`, branch `decode`, decision D36, this checklist, CLAUDE.md | **done** |
+| 1 | STT reality test: `tools/stt_compare/` (recordings are the owner's). Decides how the decoder works | tooling only; **waiting for recordings (Checkpoint 1)** |
+| 2 | Decoder on text: accent packs (`ar`, `common`, then `hi`/`ml`/`tl`), UAE glossary, candidates, context pick, actions, negation, `DecodedCard`, 80+ tests | not started |
+| 3 | Decode evaluation: 300+ items (30+ real), word-change precision/recall, action accuracy, **wrong-but-confident rate**, Gemini baseline | not started |
+| 4 | Decode API: `POST /decode`, `/decode/clarify`, worker key, limits and budgets reused | not started |
+| 5 | Translation and voice output (optional, graceful) | not started |
+| 6 | `/listen` "Tap to listen" web screen, "say it back", other-person notice (EN + AR, native review), language picker | not started |
+| 7 | WhatsApp adapter (Twilio sandbox first, seam for Meta Cloud API), numbered clarify replies, onboarding | not started |
+| 8 | Product surface and docs: nav, landing, how-it-works, README, SECURITY, CONTRIBUTING, screenshots, CI, final checks | not started |
+
+Checkpoints: 0 (plan and tag: this file) · 1 (STOP and wait for "recordings ready") · 2 (decoder tests and 10 example cards) · 3 (metrics: engine vs baseline) · 6 (/listen) · 7 (WhatsApp steps) · 8 (final report, then wait before merging).
+
+Rules that do not change: deterministic rules first; an LLM is optional, guarded (`llm_guard.py`) and never the sole judge of a where/when/amount;
+uncertainty becomes a clarifying question, never a silent guess; dignity (never "wrong" or "bad English", no scores); audio never stored, phone numbers hashed;
+every accent rule and glossary entry is `verified: false` until a native speaker reviews it; the full decode pipeline works with zero keys.
+
+## Check mode (teach-back): what was built (kept, still working)
+Phases from `docs/build-prompt.md` §10:
+
 | # | Phase | Status |
 |---|---|---|
 | 1 | Scaffold (monorepo, Makefile, compose, env, DECISIONS) | done |
@@ -21,7 +48,7 @@ Pushed to <https://github.com/Adithya-Sharath/Steve> (`main`, tag `v1.0.0`). The
 | — | **API/AI security layer (D30-D35, local commits, not pushed):** admin-only global LLM switch (`ADMIN_KEY`, hidden in the web unless the key is stored via `/admin`), `TRUST_PROXY` real client IP, rate limits (one reusable sliding-window dependency), daily Gemini/Sarvam caps with fallbacks, Gemini prompt hardening + server-side validation, security headers / 5 MB body cap / generic 500 / masked logs, docs | done |
 | — | Follow-up round: negation typos, concessives, copy-paste, SMS shorthand, sender auth, Docker `$PORT`, production screenshots, this file | done (D12–D20) |
 
-## Numbers (2026-09-25 final run)
+## Numbers, Check mode (2026-09-25 final run; API tests since updated)
 - **Engine tests:** 275 passed, 1 skipped. **API tests:** 228 passed (incl. 20 for D26/D27, 5 for the rename guard D28, and 161 added for the security layer D30-D35, 67 before it). `ruff`, `eslint`, `tsc` clean. Fresh-clone install + tests + eval + web build all pass.
 - **Eval (development numbers, see D10):** 2,268 labelled fact checks over 561 replies (114 hand-written, 447 synthetic).
   Accuracy 96.9%. **False "understood": 0 of 921** not-understood facts (hand-written 0/69, held-out 0/41, synthetic 0/811).
@@ -36,7 +63,7 @@ Pushed to <https://github.com/Adithya-Sharath/Steve> (`main`, tag `v1.0.0`). The
 D1 repo/brief · D2 widened units/types · D3 code-point offsets · D4 claiming · D5 conflict⇒unclear · D6 words left out (partly superseded by D12) · D7 bare numbers ·
 D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set · D11 safety rules from error analysis · **D12** SMS/typo negators + fuzzy negator match ·
 **D13** concessive clauses · **D14** copy-paste detection (two deliberate deviations from the spec'd rule) · **D15** English shorthand · **D16** sender-key auth ·
-**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D30** admin-only LLM switch · **D31** TRUST_PROXY client IP · **D32** rate limits · **D33** daily spending caps · **D34** prompt hardening + validation · **D35** headers, body cap, generic 500, masked logs · **D27** Gemini needs a >= 10 s deadline.
+**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D30** admin-only LLM switch · **D31** TRUST_PROXY client IP · **D32** rate limits · **D33** daily spending caps · **D34** prompt hardening + validation · **D35** headers, body cap, generic 500, masked logs · **D36** Decode pivot · **D27** Gemini needs a >= 10 s deadline.
 
 ## Known gaps / risks (honest list)
 - Lexicon: ~300 headwords, 5 languages, all non-English entries **unverified**; numbers above ten only as digits; unknown words give `missing`/`unclear`, never a guess.
