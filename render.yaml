@@ -1,0 +1,46 @@
+# Render Blueprint for the Steve API (D50). Docs: https://render.com/docs/blueprint-spec
+# Secrets are NEVER written here: `sync: false` = Render asks you for the value in the dashboard, `generateValue: true` = Render makes a random one.
+# The free plan sleeps after idle time (the first request wakes it in up to a minute: the web app shows "Waking up the server..." and retries) and its disk is
+# EPHEMERAL: Decode keeps nothing on disk, and Check mode's SQLite starts empty after every restart or deploy (tables are created on boot).
+services:
+  - type: web
+    name: steve-api
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    autoDeployTrigger: commit
+    dockerfilePath: ./api/Dockerfile   # the build context is the repo root (the API needs engine/, data/ and eval/results)
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      # --- where the web app lives (set these after the Vercel project exists; see docs/DEPLOY.md) ---
+      - key: PUBLIC_WEB_URL
+        sync: false                    # e.g. https://steve-demo.vercel.app
+      - key: CORS_ORIGINS
+        sync: false                    # comma-separated: the Vercel URL, the teammates' landing domain, http://localhost:3000
+      # --- behind Render's proxy: read the real client IP so rate limits are per visitor ---
+      - key: TRUST_PROXY
+        value: "true"
+      # --- secrets ---
+      - key: ADMIN_KEY
+        generateValue: true
+      - key: WORKER_HASH_SECRET
+        generateValue: true            # only used when WhatsApp is switched on; never change it once real users exist
+      # --- optional providers: the app fully works without them (Paste mode, English cards) ---
+      - key: SARVAM_API_KEY
+        sync: false                    # voice notes and translation into ml/hi/ur/bn; leave empty to switch them off
+      - key: GEMINI_API_KEY
+        sync: false                    # Tagalog and fallback translation; leave empty to switch it off
+      - key: LLM_ENABLED
+        value: "false"                 # set to "true" only if you set GEMINI_API_KEY
+      # --- daily caps stay ON in production (calls per UTC day, all users together) ---
+      - key: STT_DAILY_CAP
+        value: "100"
+      - key: TRANSLATE_DAILY_CAP
+        value: "100"
+      - key: LLM_DAILY_CAP
+        value: "100"
+      # --- WhatsApp stays OFF until you follow docs/whatsapp-setup.md ---
+      - key: WHATSAPP_ENABLED
+        value: "false"
