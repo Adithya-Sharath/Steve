@@ -1,7 +1,7 @@
 # CLAUDE.md — Steve
 
 Instructions for Claude Code (and humans) working in this repo. Keep it short and true; update it when reality changes.
-Read `DECISIONS.md` first (D1–D50: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
+Read `DECISIONS.md` first (D1–D51: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
 
 ## What this is
 **Steve is pivoting to Decode** (D36, branch `decode`): an interpreter that helps immigrant workers in the UAE understand the English they

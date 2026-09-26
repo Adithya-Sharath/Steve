@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000)
-![engine tests](https://img.shields.io/badge/engine%20tests-579%20passing-2e7d6b) ![api tests](https://img.shields.io/badge/api%20tests-417%20passing-2e7d6b)
+![engine tests](https://img.shields.io/badge/engine%20tests-579%20passing-2e7d6b) ![api tests](https://img.shields.io/badge/api%20tests-438%20passing-2e7d6b)
 ![check mode: false understood](https://img.shields.io/badge/false%20%22understood%22-0%20%2F%20180-2e7d6b)
 ![API keys needed](https://img.shields.io/badge/API%20keys%20needed-0-0f6b6b)
 
@@ -31,6 +31,17 @@ Someone says:  "Yalla, drop it at Al Quoz before Maghrib. No signature, just cal
 That is the real WhatsApp reply for that sentence (an automated test compares this block with the engine's output). **It is narrower than a person would be:** it reads the first
 action verb only ("drop", not "then call the person") and does not pull out "no signature needed". Steve is honest about what it did not extract; the plain-English sentence and the
 original are always next to the extracted lines.
+
+## The demo (this repo's web app)
+
+| | | |
+|---|---|---|
+| ![Entry page](docs/screenshots/decode-home.png) | ![Listen and example chips](docs/screenshots/decode-listen.png) | ![A question instead of a guess, and a phrase to say back](docs/screenshots/decode-question.png) |
+| **Entry.** Three lines and a big "Try it"; the example below is decoded live by the real engine. | **Listen.** Tap to listen or paste; one-tap examples come from `GET /decode/examples`. | **A question, not a guess.** Big answer buttons, "Say it back" as large text, the translated card first. |
+| ![The resolved card](docs/screenshots/decode-card.png) | ![How it works: the stages](docs/screenshots/decode-inspector.png) | ![Evaluation with labels](docs/screenshots/decode-eval.png) |
+| **The card.** Where / when / what / how much, the plain English, tappable highlights. | **How it works.** Every stage of a decode with candidates and scores: no language model in the decision. | **Evaluation.** Every number with its label, "what has not been measured" included. |
+
+_Real screenshots at 375 px from a production build (`node web/e2e/run.mjs shots`; the speech service is a local mock, everything else is the real API and engine)._
 
 ## The problem, and the gap
 
@@ -174,6 +185,7 @@ Then try `curl localhost:8000/decode/examples`, open <http://localhost:3000/list
 Prerequisites: Python 3.11+, Node 20+ (22 tested). Optional keys (`cp .env.example .env`): `SARVAM_API_KEY` (voice notes and translation into Malayalam, Hindi, Urdu, Bengali), `GEMINI_API_KEY` with `LLM_ENABLED=true` (Tagalog and fallback translation).
 **WhatsApp:** off by default; the exact steps for the Twilio sandbox are in [`docs/whatsapp-setup.md`](docs/whatsapp-setup.md) (nothing sends a message until you switch it on).
 Docker: `docker compose up --build` (the images have not been built in our environment; the compose file is only validated).
+**Deploy** (API on Render, web on Vercel): [`docs/DEPLOY.md`](docs/DEPLOY.md) has the click-by-click steps; `render.yaml` and `web/vercel.json` are the config. The final audit is in [`docs/FINAL_AUDIT.md`](docs/FINAL_AUDIT.md).
 
 ## Configuration
 
@@ -302,7 +314,7 @@ Pipeline detail: [docs/architecture.md](docs/architecture.md).
 
 ### Testing and evaluation
 
-**Tests:** `make test` (engine 579 + API 417), `make lint`; without `make`, `scripts/test.ps1` or the commands in [CONTRIBUTING.md](CONTRIBUTING.md). CI runs them on every push.
+**Tests:** `make test` (engine 579 + API 438), `make lint`; without `make`, `scripts/test.ps1` or the commands in [CONTRIBUTING.md](CONTRIBUTING.md). CI runs them on every push.
 **Evaluation:** `make eval` (works without a Gemini key; the baseline is then skipped and clearly marked "not run").
 
 Methodology: 15 messages with gold facts (`data/messages.json`) times replies with per-fact gold labels (`data/replies.csv`): **hand-written** replies (a development set and a small held-out set) plus **synthetic** variants expanded from templates (`eval/generate.py`: swapped numbers, spelling variants, word order, dropped facts, negation flips, typos), always marked `synthetic=true` and reported separately. Metrics (`eval/metrics.py`): fact-level accuracy, the **false "understood" rate** (gold is wrong, missing or negated but predicted understood), per-language and per-type breakdowns, a confusion matrix and the baseline's self-consistency.
@@ -345,8 +357,8 @@ Baseline self-consistency across runs: **100.0%** (our engine: 100%, determinist
 ```
 engine/   pure-Python checkers: Check mode (lexicon.yaml, matcher, slots, negation, compare, check_reply)   (+579 tests)
           and Decode (engine/steve_engine/decode: glossary, accent packs, safety net, actions, decoder)
-api/      FastAPI: Decode routes, translation, WhatsApp, Check-mode routes, SQLModel db, STT interface      (+417 tests)
-web/      Next.js app: /listen (reference Decode UI), Check mode (/app, /r/[token], /demo), /eval, /how-it-works; e2e/ browser flows
+api/      FastAPI: Decode routes, translation, WhatsApp, Check-mode routes, SQLModel db, STT interface      (+438 tests)
+web/      Next.js app: /listen (the Decode demo), / (intro), /how-it-works and /eval (Decode tabs), Check mode (/app, /r/[token], /demo), /eval, /how-it-works; e2e/ browser flows
 clients/  ts/steve-client.ts, the typed client for the Decode API
 data/     decode/ (synthetic evaluation sets), scenarios.json, messages.json + replies.csv (Check-mode eval gold)
 eval/     Decode scorer and baseline (decode_eval.py, decode_baseline.py), Check-mode pipeline, results/
