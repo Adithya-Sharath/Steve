@@ -30,8 +30,8 @@ const speak = async (p) => {
 await setMock({ transcript: "come to the barking or the building", translateMode: "prefix", sttFail: false });
 const { ctx, p } = await open();
 await p.goto(`${WEB}/`, { waitUntil: "networkidle" });
-await p.getByRole("heading", { name: "Listen" }).waitFor();
-ok("/ is the Listen screen", true);
+await p.getByRole("heading", { name: "Steve" }).waitFor();
+ok("/ is the Steve screen, headed in Raleway", (await p.getByRole("heading", { name: "Steve" }).evaluate((el) => getComputedStyle(el).fontFamily)).toLowerCase().includes("raleway"));
 ok("no top nav bar, no footer, no other links on the page", (await p.locator("header nav, nav, footer").count()) === 0 && (await p.locator("a[href]").count()) <= 1, `${await p.locator("a[href]").count()} links`);
 ok("no language picker in the way: it starts in English", (await p.getByRole("heading", { name: "Choose your language" }).count()) === 0);
 ok("nothing is decoded before the visitor speaks", (await p.getByTestId("decoded-card").count()) === 0);
