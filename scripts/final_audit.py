@@ -137,7 +137,7 @@ def secrets() -> None:
     revs = revs.split()
     hits: list[str] = []
     for pat in PATTERNS:
-        _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", pat, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
+        _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", "-e", pat, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
         for line in out.splitlines():
             path, _, rest = line.partition(":")
             text = rest.split(":", 1)[-1].lstrip("\"'(=: ")
@@ -159,7 +159,7 @@ def secrets() -> None:
     for i in range(0, len(revs), step):
         rev = revs[i]
         for pat in PATTERNS:
-            _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", pat, rev, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
+            _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", "-e", pat, rev, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
             for line in out.splitlines():
                 parts = line.split(":", 3)
                 if len(parts) < 4:

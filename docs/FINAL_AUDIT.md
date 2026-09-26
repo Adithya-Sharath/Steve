@@ -1,8 +1,8 @@
 # Final audit
 
-Run by `python scripts/final_audit.py` at 2026-09-26 17:05 UTC on branch `decode` at commit `99dbfcb` (full run).
+Run by `python scripts/final_audit.py` at 2026-09-26 17:09 UTC on branch `decode` at commit `c164c5f` (full run).
 
-**Result: RED** (17 of 22 checks passed). `decode` is merged into `main` and tagged `v2.0.0` only when this is green.
+**Result: RED** (24 of 25 checks passed). `decode` is merged into `main` and tagged `v2.0.0` only when this is green.
 
 | # | Check | Result | Detail |
 |---|---|---|---|
@@ -12,22 +12,25 @@ Run by `python scripts/final_audit.py` at 2026-09-26 17:05 UTC on branch `decode
 | 4 | ruff check engine api eval tools scripts | PASS | All checks passed! |
 | 5 | openapi.json matches the running app | PASS | openapi.json is up to date |
 | 6 | docs/API.md matches the running app (its JSON examples are real) | PASS | docs/API.md is up to date |
-| 7 | web lint | **FAIL** | ✖ 1 problem (1 error, 0 warnings) |
+| 7 | web lint | PASS | clean |
 | 8 | web tsc --noEmit | PASS | clean |
 | 9 | TypeScript client type-checks (strict) | PASS | clean |
 | 10 | web production build | PASS | compiled |
-| 11 | browser flows (Check mode, Listen + Paste + inspector + eval demo, TypeScript client) on the production build | **FAIL** | 2/3 scripts passed, 35 checks |
+| 11 | browser flows (Check mode, Listen + Paste + inspector + eval demo, TypeScript client) on the production build | PASS | 3/3 scripts passed, 128 checks |
 | 12 | Check-mode evaluation reruns keyless and reproduces the committed numbers (only the timestamp differs) | PASS | identical |
 | 13 | Decode scorer runs on the frozen v2 set (current engine, contaminated label) | PASS | false alarm 1.4% of 144 |
-| 14 | secrets scan of the working tree (key patterns) | **FAIL** | REVIEW: api/tests/test_translate.py, engine/tests/test_decode_cards.py, error, usage |
+| 14 | secrets scan of the working tree (key patterns) | **FAIL** | REVIEW: error, usage |
 | 15 | the exact values of the secret-named variables in the local .env files are not in any tracked file | PASS | 3 secret values checked (GEMINI_API_KEY, HF_TOKEN, SARVAM_API_KEY), none found |
-| 16 | secrets | **FAIL** | crashed: IndexError: list index out of range |
-| 17 | `grep -ri samjha`: only the allowed historical hits | PASS | 10 files, all on the allow-list (decision log, the rename guard, the eval seed string, the legacy storage key) |
-| 18 | dignity-word scan of every Decode user-facing string (files) | **FAIL** | REVIEW: engine\steve_engine\decode\safety.py:2: wrong |
-| 19 | dignity tests over live API and WhatsApp responses (every field, all languages) | PASS | 4 passed |
-| 20 | no log call in the Decode, translation or WhatsApp code takes text, a transcript, audio or a phone number | PASS | 9 files reviewed |
-| 21 | no Decode code path writes a file or a database row with audio or message text (the only row is the WhatsApp hash, language and counters) | PASS | no file writes; the one database write is WorkerPref (hash, language, counters) |
-| 22 | tests that capture logs, dump the database and forbid disk spooling of uploads | PASS | 12 passed |
+| 16 | secrets scan of the full history (88 revisions, key patterns and the exact .env values) | PASS | nothing found |
+| 17 | no .env file, database, log or audio file is tracked | PASS | none tracked |
+| 18 | .env, web/.env.local and eval/.cache are git-ignored | PASS | .env web/.env.local eval/.cache |
+| 19 | no L2-ARCTIC audio or derived text is committed | PASS | only tooling and our own reports of counts |
+| 20 | `grep -ri samjha`: only the allowed historical hits | PASS | 10 files, all on the allow-list (decision log, the rename guard, the eval seed string, the legacy storage key) |
+| 21 | dignity-word scan of every Decode user-facing string (files) | PASS | 29 files, no shaming words |
+| 22 | dignity tests over live API and WhatsApp responses (every field, all languages) | PASS | 4 passed |
+| 23 | no log call in the Decode, translation or WhatsApp code takes text, a transcript, audio or a phone number | PASS | 9 files reviewed |
+| 24 | no Decode code path writes a file or a database row with audio or message text (the only row is the WhatsApp hash, language and counters) | PASS | no file writes; the one database write is WorkerPref (hash, language, counters) |
+| 25 | tests that capture logs, dump the database and forbid disk spooling of uploads | PASS | 12 passed |
 
 ## What the audit does not cover
 
