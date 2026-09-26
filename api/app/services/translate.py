@@ -289,12 +289,14 @@ class TranslationService:
         self.clock = clock
         self._cache: OrderedDict[str, tuple[float, TranslatedCard]] = OrderedDict()
         self._paused: dict[str, float] = {}
+        self._line_cache: dict[str, list[str]] = {}
         self._lock = threading.Lock()
 
     def reset(self) -> None:
         with self._lock:
             self._cache.clear()
             self._paused.clear()
+            self._line_cache.clear()
 
     def cache_size(self) -> int:
         with self._lock:
@@ -351,6 +353,44 @@ class TranslationService:
             self._store(key, result)
             return result, []
         return None, [note]
+
+    def translate_lines(self, lines: list[str], language: str | None) -> list[str] | None:
+        """Fixed English sentences (the WhatsApp onboarding text) in the worker's language, with the same protection and number check. None = show English."""
+        if not language or language == "en" or not lines:
+            return None
+        key = hashlib.sha256(json.dumps([language, "lines", lines], ensure_ascii=False).encode()).hexdigest()
+        with self._lock:
+            hit = self._line_cache.get(key)
+        if hit:
+            return hit
+        for prov in [p for p in get_providers(language) if not self._is_paused(p.name)]:
+            if not translate_budget.try_spend():
+                return None
+            try:
+                masked, held = [], []
+                for ln in lines:
+                    m, h = Protector([]).mask(ln)
+                    masked.append(m)
+                    held.append(h)
+                got = prov.translate(masked, language)
+                if len(got) != len(lines):
+                    raise TranslationError("wrong number of lines")
+                out = []
+                for src, tr_, h in zip(lines, got, held, strict=True):
+                    text = unmask(clean(tr_) or "", h)
+                    if not text or not numbers_match(src, text):
+                        raise _CheckFailed(src[:20])
+                    out.append(text)
+            except TranslationError as e:
+                log.warning("translation via %s failed: %s", prov.name, e)
+                self._pause(prov.name)
+                continue
+            except _CheckFailed:
+                continue
+            with self._lock:
+                self._line_cache[key] = out
+            return out
+        return None
 
     def _run(self, prov: Translator, card: DecodedCard, pieces: list[_Piece], language: str) -> TranslatedCard:
         masked, held = [], []

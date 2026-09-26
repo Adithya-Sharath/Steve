@@ -149,7 +149,8 @@ GENERIC_500 = "Something went wrong on our side. Please try again in a moment."
 
 
 def _secrets() -> list[str]:
-    return [s for s in (settings.gemini_api_key, settings.sarvam_api_key, settings.admin_key) if s and len(s) >= 6]
+    return [s for s in (settings.gemini_api_key, settings.sarvam_api_key, settings.admin_key, settings.twilio_auth_token, settings.twilio_account_sid,
+                        settings.worker_hash_secret) if s and len(s) >= 6]
 
 
 def redact(text: str) -> str:

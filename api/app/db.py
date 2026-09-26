@@ -66,6 +66,18 @@ class FactResultRow(SQLModel, table=True):
     flags: Any = Field(default=None, sa_column=Column(JSON))
 
 
+class WorkerPref(SQLModel, table=True):
+    """The ONLY thing kept about a WhatsApp user (D48): a keyed hash of the phone number, the language they chose, and anonymous counts. Never the number,
+    never a message, never audio."""
+
+    worker_hash: str = Field(primary_key=True)  # HMAC-SHA256(WORKER_HASH_SECRET, digits of the number)
+    language: str | None = None  # en | ml | hi | ur | tl | bn; None until they pick one
+    decodes: int = 0
+    voice_notes: int = 0
+    created_at: datetime = Field(default_factory=_now)
+    updated_at: datetime = Field(default_factory=_now)
+
+
 _engine = None
 
 

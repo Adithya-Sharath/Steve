@@ -83,6 +83,15 @@ class Settings:
     decode_max_audio_bytes: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_BYTES", 4 * 1024 * 1024))
     decode_max_audio_seconds: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_SECONDS", 30))
     translate_daily_cap: int = field(default_factory=lambda: _int("TRANSLATE_DAILY_CAP", 300))  # global translation calls per UTC day (Sarvam and Gemini)
+    # WhatsApp (D48): Twilio sandbox first. Replies only; numbers are hashed with WORKER_HASH_SECRET and never stored.
+    whatsapp_enabled: bool = field(default_factory=lambda: _bool("WHATSAPP_ENABLED", False))
+    twilio_account_sid: str = field(default_factory=lambda: os.getenv("TWILIO_ACCOUNT_SID", "").strip())
+    twilio_auth_token: str = field(default_factory=lambda: os.getenv("TWILIO_AUTH_TOKEN", "").strip())
+    worker_hash_secret: str = field(default_factory=lambda: os.getenv("WORKER_HASH_SECRET", "").strip())
+    whatsapp_webhook_url: str = field(default_factory=lambda: os.getenv("WHATSAPP_WEBHOOK_URL", "").strip())  # the exact URL set in Twilio (signature is computed over it)
+    wa_per_number_hour: int = field(default_factory=lambda: _int("WA_PER_NUMBER_HOUR", 20))
+    wa_per_number_day: int = field(default_factory=lambda: _int("WA_PER_NUMBER_DAY", 100))
+    rl_whatsapp_per_min: int = field(default_factory=lambda: _int("RL_WHATSAPP_PER_MIN", 300))  # webhook calls per IP (signature-checked anyway)
     clarify_ttl_seconds: int = field(default_factory=lambda: _int("CLARIFY_TTL_SECONDS", 600))  # in-memory clarify state, then gone
 
     @property
