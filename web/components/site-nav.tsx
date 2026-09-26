@@ -19,7 +19,7 @@ const LINKS = [
 export function Logo({ className }: { className?: string }) {
   return (
     <span className={cn("font-display text-2xl leading-none", className)}>
-      Samjha<span className="text-primary">?</span>
+      Steve
     </span>
   );
 }
@@ -31,7 +31,7 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-md">
       <nav aria-label="Main" className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:px-6">
-        <Link href="/" className="rounded-md" aria-label="Samjha home">
+        <Link href="/" className="rounded-md" aria-label="Steve home">
           <Logo />
         </Link>
         <ul className="ml-4 hidden items-center gap-1 md:flex">
@@ -93,11 +93,11 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-border/70">
       <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p>
-          <Logo className="mr-2 text-lg text-foreground" /> Teach-back for mixed-language messages. Not medical advice: the sender decides.
+          <Logo className="mr-2 text-lg text-foreground" /> Checks that important messages got through. Not medical advice: the sender decides.
         </p>
         <p>
           Built for BitNBuild&apos;26 ·{" "}
-          <a className="underline underline-offset-4 hover:text-foreground" href="https://github.com/Adithya-Sharath/Samjha">
+          <a className="underline underline-offset-4 hover:text-foreground" href="https://github.com/Adithya-Sharath/Steve">
             GitHub
           </a>
         </p>

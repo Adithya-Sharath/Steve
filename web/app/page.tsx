@@ -18,8 +18,8 @@ export default function Landing() {
             “ok 👍” isn&apos;t <em className="text-primary">understanding.</em>
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Send an important instruction. The reader explains it back in their own words, by voice or text, in any language mix and any spelling.
-            We check every key fact, exactly, and show you which ones didn&apos;t land.
+            Steve checks that an important message actually got through. The reader explains it back in their own mix of languages, by voice or
+            text, and Steve checks every dose, date and warning, then shows you which ones didn&apos;t land.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/demo" className={cn(buttonVariants({ size: "lg" }), "h-11 px-5 text-base")}>Try the demo</Link>
@@ -72,6 +72,14 @@ export default function Landing() {
         <div className="mt-10">
           <Playground />
         </div>
+      </section>
+
+      <section className="py-16" aria-labelledby="name">
+        <SectionHead
+          eyebrow="The name"
+          title={<span id="name">It&apos;s me and you, and you and me, and your friend Steve.</span>}
+          body="Steve is the friend in the middle: the one who makes sure the two of you actually understood each other."
+        />
       </section>
 
       <section className="py-16">

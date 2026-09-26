@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "steve-api"
 version = "0.1.0"
-description = "FastAPI backend for Samjha (teach-back for mixed-language messages)."
+description = "FastAPI backend for Steve (teach-back for mixed-language messages)."
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.110",

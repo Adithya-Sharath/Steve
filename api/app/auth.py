@@ -15,7 +15,7 @@ import re
 from fastapi import Header, HTTPException, Query
 
 KEY_RE = re.compile(r"^sk_[A-Za-z0-9_-]{24,128}$")
-FORBIDDEN = "Sender key required. Open Samjha in the browser where you created this message."
+FORBIDDEN = "Sender key required. Open Steve in the browser where you created this message."
 
 
 def hash_key(key: str) -> str:

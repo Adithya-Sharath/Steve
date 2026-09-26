@@ -35,7 +35,7 @@ async function request<T>(path: string, init?: RequestInit, sender = false): Pro
     if (sender) headers.set("X-Sender-Key", getSenderKey());
     res = await fetch(`${API_URL}${path}`, { ...init, headers, cache: "no-store" });
   } catch {
-    throw new ApiError(0, "Can't reach the Samjha server. Is the API running?");
+    throw new ApiError(0, "Can't reach the Steve server. Is the API running?");
   }
   if (!res.ok) {
     let detail = res.statusText;

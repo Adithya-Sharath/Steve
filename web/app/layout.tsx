@@ -9,9 +9,20 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const display = Instrument_Serif({ variable: "--font-display", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
-  title: { default: "Samjha: did they really understand?", template: "%s · Samjha" },
+  title: { default: "Steve: did they really understand?", template: "%s · Steve" },
   description:
-    "Teach-back for mixed-language messages. Readers explain an instruction back in Manglish, Hinglish, Arabizi or Taglish; we check every key fact, exactly.",
+    "Steve checks that an important message actually got through. The reader explains it back in their own mix of languages, and Steve checks every dose, date and warning.",
+  openGraph: {
+    type: "website",
+    siteName: "Steve",
+    title: "Steve: did they really understand?",
+    description: "“ok 👍” isn't understanding. Steve checks every dose, date and warning in the reader's own words.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Steve: did they really understand?",
+    description: "“ok 👍” isn't understanding. Steve checks every dose, date and warning in the reader's own words.",
+  },
 };
 
 export const viewport: Viewport = {

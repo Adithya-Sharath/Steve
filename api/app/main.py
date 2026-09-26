@@ -17,7 +17,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="Samjha API",
+    title="Steve API",
     version="0.1.0",
     description="Teach-back for mixed-language messages. Deterministic engine; LLM and STT are optional helpers.",
     lifespan=lifespan,
