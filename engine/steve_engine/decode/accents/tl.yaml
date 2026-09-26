@@ -1,0 +1,8 @@
+# Tagalog/Filipino-influenced English (Decode). WORKING RULES, verified: false.
+id: tl
+name: "Tagalog-influenced English"
+verified: false
+swaps:
+  - {heard: "p", meant: "f", weight: 0.7, phones: [P, F], note: "f may be said as p (pive for five)", verified: false}
+  - {heard: "b", meant: "v", weight: 0.6, phones: [B, V], note: "v may be said as b (bery for very)", verified: false}
+phrases: []

@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
+  { href: "/listen", label: "Listen" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/eval", label: "Evaluation" },
-  { href: "/demo", label: "Demo" },
-  { href: "/app", label: "Dashboard" },
+  { href: "/check", label: "Check (teach-back)" },
 ];
 
 export function Logo({ className }: { className?: string }) {
@@ -93,7 +93,7 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-border/70">
       <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p>
-          <Logo className="mr-2 text-lg text-foreground" /> Checks that important messages got through. Not medical advice: the sender decides.
+          <Logo className="mr-2 text-lg text-foreground" /> Decodes what you hear into plain English. Text only; nothing you say or paste is stored. Not legal advice.
         </p>
         <p>
           Built for BitNBuild&apos;26 ·{" "}

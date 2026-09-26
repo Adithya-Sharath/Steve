@@ -1,0 +1,9 @@
+# Cross-accent patterns (Decode). WORKING RULES, every entry verified: false until a native speaker or phonetician reviews it.
+# heard/meant are SPELLING fragments (used on typed text); `phones` are ARPAbet phones [heard, meant] (used on transcripts).
+id: common
+name: "Patterns seen across many accents of English"
+verified: false
+swaps:
+  - {heard: "t", meant: "th", weight: 0.6, phones: [T, TH], note: "the th in three is often said as t (tree for three)", verified: false}
+  - {heard: "d", meant: "th", weight: 0.6, phones: [D, DH], note: "the th in this is often said as d (dis for this)", verified: false}
+phrases: []

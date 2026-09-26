@@ -35,3 +35,22 @@ cloudflared*
 .claude/settings.local.json
 web/AGENTS.md
 web/CLAUDE.md
+
+# STT reality test (Decode Phase 1): your recordings, their transcripts and cached provider answers never go to git
+tools/**/recordings/
+tools/**/*.mp3
+tools/**/*.m4a
+tools/**/*.wav
+tools/**/*.ogg
+tools/**/*.opus
+tools/**/*.webm
+tools/**/*.flac
+tools/**/*.aac
+tools/**/*.amr
+tools/**/*.wma
+tools/**/*.mp4
+tools/stt_compare/.cache/
+tools/stt_compare/report.md
+tools/stt_compare/results.json
+tools/stt_compare/report_*.md
+tools/stt_compare/results_*.json

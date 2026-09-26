@@ -32,6 +32,18 @@ def _check(key: str | None) -> str:
     return hash_key(key)
 
 
+WORKER_KEY_RE = re.compile(r"^wk_[A-Za-z0-9_-]{24,128}$")
+WORKER_FORBIDDEN = "Worker key required. Open Steve in the browser where you started."
+
+
+def worker_hash(x_worker_key: str | None = Header(default=None)) -> str:
+    """Decode identity: a device key `wk_<random>` generated in the browser (D45). Like the sender key it is a capability, not a password:
+    only its SHA-256 hash is ever used, and nothing about the worker is stored."""
+    if not x_worker_key or not WORKER_KEY_RE.match(x_worker_key):
+        raise HTTPException(403, WORKER_FORBIDDEN)
+    return hash_key(x_worker_key)
+
+
 def sender_hash(x_sender_key: str | None = Header(default=None)) -> str:
     return _check(x_sender_key)
 

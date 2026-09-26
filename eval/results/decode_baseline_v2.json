@@ -1,0 +1,104 @@
+{
+  "model": "gemini-3.1-flash-lite",
+  "calls_made": 253,
+  "n_answered": 245,
+  "set": "eval_v2 (synthetic, author-written)",
+  "engine_is_contaminated_on_v2": true,
+  "engine": {
+    "clean": {
+      "n": 136,
+      "false_rewrite": 2
+    },
+    "ear": {
+      "true": {
+        "n": 63,
+        "exact": 59,
+        "asked": 3,
+        "wrong_rewrite": 1
+      },
+      "false": {
+        "n": 31,
+        "left": 31
+      }
+    },
+    "slots": {
+      "where": {
+        "correct": 101,
+        "empty": 19,
+        "partial": 2,
+        "none": 118,
+        "spurious": 3,
+        "wrong": 2
+      },
+      "when": {
+        "none": 142,
+        "correct": 89,
+        "empty": 11,
+        "partial": 3
+      },
+      "what": {
+        "correct": 191,
+        "none": 41,
+        "empty": 11,
+        "wrong": 2
+      },
+      "how_much": {
+        "none": 212,
+        "correct": 28,
+        "empty": 4,
+        "wrong": 1
+      }
+    },
+    "neg": {
+      "n": 41,
+      "lost": 0
+    }
+  },
+  "gemini": {
+    "clean": {
+      "n": 136,
+      "false_rewrite": 42
+    },
+    "ear": {
+      "true": {
+        "n": 63,
+        "exact": 51,
+        "wrong_rewrite": 12
+      },
+      "false": {
+        "n": 31,
+        "exact": 23,
+        "wrong_rewrite": 8
+      }
+    },
+    "slots": {
+      "where": {
+        "correct": 113,
+        "wrong": 10,
+        "none": 110,
+        "spurious": 11,
+        "partial": 1
+      },
+      "when": {
+        "none": 138,
+        "wrong": 12,
+        "correct": 91,
+        "spurious": 4
+      },
+      "what": {
+        "wrong": 95,
+        "correct": 109,
+        "spurious": 11,
+        "none": 30
+      },
+      "how_much": {
+        "none": 212,
+        "correct": 33
+      }
+    },
+    "neg": {
+      "n": 41,
+      "lost": 0
+    }
+  }
+}

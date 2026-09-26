@@ -1,0 +1,7 @@
+# Malayalam-influenced English (Decode). WORKING RULES, verified: false. One conservative swap only.
+id: ml
+name: "Malayalam-influenced English"
+verified: false
+swaps:
+  - {heard: "s", meant: "z", weight: 0.4, phones: [S, Z], note: "a z sound may be said as s (pleas for please)", verified: false}
+phrases: []

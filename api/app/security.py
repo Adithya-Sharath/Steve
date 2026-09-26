@@ -18,6 +18,26 @@ from .settings import settings
 
 log = logging.getLogger("steve.security")
 
+# ---- CORS -------------------------------------------------------------------------------------------------------
+
+LOCALHOST_RE = r"https?://(localhost|127\.0\.0\.1)(:\d+)?"
+
+
+def cors_options() -> dict:
+    """Keyword arguments for CORSMiddleware, from CORS_ORIGINS (list, or `*`) and CORS_ALLOW_LOCALHOST. Another site may call the API when its origin is listed (D47)."""
+    origins = list(settings.cors_origins)
+    everything = "*" in origins
+    return {
+        "allow_origins": ["*"] if everything else origins,
+        "allow_origin_regex": LOCALHOST_RE if settings.cors_allow_localhost and not everything else None,
+        "allow_credentials": False,  # the API uses keys in headers, never cookies
+        "allow_methods": ["*"],
+        "allow_headers": ["*"],  # X-Worker-Key, X-Sender-Key, X-Admin-Key, Content-Type
+        "expose_headers": ["Retry-After"],
+        "max_age": 600,
+    }
+
+
 # ---- headers ---------------------------------------------------------------------------------------------------
 
 # A JSON API has no business loading anything: forbid every fetch and framing of its responses.
@@ -129,7 +149,8 @@ GENERIC_500 = "Something went wrong on our side. Please try again in a moment."
 
 
 def _secrets() -> list[str]:
-    return [s for s in (settings.gemini_api_key, settings.sarvam_api_key, settings.admin_key) if s and len(s) >= 6]
+    return [s for s in (settings.gemini_api_key, settings.sarvam_api_key, settings.admin_key, settings.twilio_auth_token, settings.twilio_account_sid,
+                        settings.worker_hash_secret) if s and len(s) >= 6]
 
 
 def redact(text: str) -> str:

@@ -33,7 +33,7 @@ def health():
         "budget": snapshot(),  # numbers only: daily caps and calls left (-1 = unlimited)
         "stt_enabled": get_stt().enabled,
         "lexicon": lexicon_stats(),
-        "version": "0.1.0",
+        "version": "2.0.0",
     }
 
 

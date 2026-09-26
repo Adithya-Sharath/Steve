@@ -38,6 +38,8 @@ class Settings:
     gemini_api_key: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))
     gemini_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL))
     sarvam_api_key: str = field(default_factory=lambda: os.getenv("SARVAM_API_KEY", ""))
+    # only for tests and proxies: the browser tests point this at a local mock so the real Sarvam client code runs without the internet (D45)
+    sarvam_base_url: str = field(default_factory=lambda: os.getenv("SARVAM_BASE_URL", "https://api.sarvam.ai").rstrip("/"))
     stt_flag: bool = field(default_factory=lambda: _bool("STT_ENABLED", True))
     database_url: str = field(default_factory=lambda: os.getenv("DATABASE_URL", "sqlite:///./steve.db"))
     public_web_url: str = field(default_factory=lambda: os.getenv("PUBLIC_WEB_URL", "http://localhost:3000").rstrip("/"))
@@ -49,6 +51,9 @@ class Settings:
     # the optional LLM may never make the composer wait: hard deadline, then fall back to the built-in extractor
     llm_timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "10")))
     llm_cooldown_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_COOLDOWN_SECONDS", "60")))
+    # CORS (D47): CORS_ORIGINS is a comma-separated list, or * for any origin (the API uses no cookies, so this exposes nothing a caller could not already fetch
+    # with curl). CORS_ALLOW_LOCALHOST=false drops the built-in "any localhost port" rule for a locked-down deployment.
+    cors_allow_localhost: bool = field(default_factory=lambda: _bool("CORS_ALLOW_LOCALHOST", True))
     # X-Forwarded-For / CF-Connecting-IP are only believed when a proxy really sits in front (D31)
     trust_proxy: bool = field(default_factory=lambda: _bool("TRUST_PROXY", False))
     trusted_proxies: list[str] = field(
@@ -70,6 +75,24 @@ class Settings:
     rl_check_per_min: int = field(default_factory=lambda: _int("RL_CHECK_PER_MIN", 60))  # POST /check and /analyze, per IP each
     rl_seed_per_min: int = field(default_factory=lambda: _int("RL_SEED_PER_MIN", 5))  # POST /demo/seed, per IP
     rl_default_per_min: int = field(default_factory=lambda: _int("RL_DEFAULT_PER_MIN", 120))  # everything else, per IP
+
+    # Decode (D45): per-IP and per-worker limits, audio caps and the clarify state's lifetime
+    rl_decode_per_min: int = field(default_factory=lambda: _int("RL_DECODE_PER_MIN", 30))  # POST /decode, per IP
+    rl_decode_per_day: int = field(default_factory=lambda: _int("RL_DECODE_PER_DAY", 500))  # POST /decode, per IP
+    decode_per_worker_day: int = field(default_factory=lambda: _int("DECODE_PER_WORKER_DAY", 200))  # POST /decode, per worker key
+    decode_max_audio_bytes: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_BYTES", 4 * 1024 * 1024))
+    decode_max_audio_seconds: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_SECONDS", 30))
+    translate_daily_cap: int = field(default_factory=lambda: _int("TRANSLATE_DAILY_CAP", 300))  # global translation calls per UTC day (Sarvam and Gemini)
+    # WhatsApp (D48): Twilio sandbox first. Replies only; numbers are hashed with WORKER_HASH_SECRET and never stored.
+    whatsapp_enabled: bool = field(default_factory=lambda: _bool("WHATSAPP_ENABLED", False))
+    twilio_account_sid: str = field(default_factory=lambda: os.getenv("TWILIO_ACCOUNT_SID", "").strip())
+    twilio_auth_token: str = field(default_factory=lambda: os.getenv("TWILIO_AUTH_TOKEN", "").strip())
+    worker_hash_secret: str = field(default_factory=lambda: os.getenv("WORKER_HASH_SECRET", "").strip())
+    whatsapp_webhook_url: str = field(default_factory=lambda: os.getenv("WHATSAPP_WEBHOOK_URL", "").strip())  # the exact URL set in Twilio (signature is computed over it)
+    wa_per_number_hour: int = field(default_factory=lambda: _int("WA_PER_NUMBER_HOUR", 20))
+    wa_per_number_day: int = field(default_factory=lambda: _int("WA_PER_NUMBER_DAY", 100))
+    rl_whatsapp_per_min: int = field(default_factory=lambda: _int("RL_WHATSAPP_PER_MIN", 300))  # webhook calls per IP (signature-checked anyway)
+    clarify_ttl_seconds: int = field(default_factory=lambda: _int("CLARIFY_TTL_SECONDS", 600))  # in-memory clarify state, then gone
 
     @property
     def llm_available(self) -> bool:

@@ -17,7 +17,7 @@ import httpx
 
 from ..settings import settings
 
-SARVAM_URL = "https://api.sarvam.ai/speech-to-text"
+SARVAM_URL = "https://api.sarvam.ai/speech-to-text"  # the default; the call uses settings.sarvam_base_url
 LANG_CODES = {"ml": "ml-IN", "hi": "hi-IN", "en": "en-IN"}  # Sarvam covers Indian languages only
 
 
@@ -51,7 +51,7 @@ class SarvamSTT:
             data["language_code"] = LANG_CODES[lang_hint]
         try:
             r = httpx.post(
-                SARVAM_URL,
+                f"{settings.sarvam_base_url}/speech-to-text",
                 headers={"api-subscription-key": self.api_key},
                 files={"file": (f"reply.{ext}", audio, content_type or "audio/wav")},
                 data=data,
@@ -61,6 +61,13 @@ class SarvamSTT:
         except httpx.HTTPError as e:
             raise STTUnavailable(f"Speech service error: {type(e).__name__}") from e
         return (r.json().get("transcript") or "").strip()
+
+
+def get_decode_stt() -> SpeechToText:
+    """Decode wants what was SAID, in the speaker's own English: Sarvam `saaras:v3`, mode `transcribe`, `en-IN` (D37, D40). Not `translit`."""
+    if settings.stt_enabled:
+        return SarvamSTT(settings.sarvam_api_key, mode="transcribe")
+    return NullSpeechToText()
 
 
 def get_stt() -> SpeechToText:

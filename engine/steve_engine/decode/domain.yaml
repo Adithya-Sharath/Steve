@@ -1,0 +1,40 @@
+# Domain vocabulary for everyday worker contexts (Decode, D36/D41). WORKING LISTS: every entry is verified: false until a native or
+# domain speaker reviews it. Plain English words only; add a word only if you are sure it belongs (never invent).
+version: 1
+verified: false
+
+categories:
+  # where
+  place: [parking, gate, building, floor, villa, flat, apartment, reception, lobby, metro, station, masjid, mosque, mall, basement, lift,
+          elevator, stairs, room, door, office, store, shop, site, road, street, house, hotel, hospital, airport, bank, market, garden,
+          garage, kitchen, tower, block, camp, warehouse, entrance, exit, corridor, roof, pool, gym, school, clinic, pharmacy, restaurant,
+          supermarket, bus, stop, terminal, port, farm, factory, yard, desk, counter, canteen, cafeteria, rooftop, workshop, dock, depot, showroom, laundry, salon, bakery, cabin,
+          dormitory, hall, lounge, balcony, junction, roundabout, bridge, tunnel, cafe,
+          quoz, deira, karama, satwa, jumeirah, barsha, qusais, mirdif, sharjah, ajman, musaffah, dubai]
+  # when
+  time: [now, today, tomorrow, yesterday, tonight, morning, afternoon, evening, night, noon, midnight, monday, tuesday, wednesday, thursday,
+         friday, saturday, sunday, oclock, "o'clock", am, pm, minute, minutes, hour, hours, day, days, week, weeks, month, months, later,
+         soon, early, late, fajr, zuhr, dhuhr, asr, maghrib, isha, time]
+  number: [zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen,
+           seventeen, eighteen, nineteen, twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, hundred, thousand, first, second,
+           third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, once, twice, half]
+  # how much
+  amount: [dirham, dirhams, aed, riyal, riyals, rupee, rupees, dollar, dollars, money, salary, cash, payment, price, cost, bonus, deposit]
+  negation: [not, "no", never, none, nothing, nobody, neither, nor, cannot, without, dont, "don't", doesnt, "doesn't", didnt, "didn't", isnt,
+             "isn't", arent, "aren't", wasnt, "wasn't", wont, "won't", cant, "can't", couldnt, "couldn't", shouldnt, "shouldn't", wouldnt,
+             "wouldn't"]
+  # what
+  action: [come, go, wait, bring, call, drop, pick, deliver, clean, fix, stop, start, open, close, send, take, park, leave, return, sign,
+           pay, meet, stay, move, carry, load, unload, finish, work, help, check, wear, follow, stand, sit, turn, push, pull, lock, unlock,
+           collect, buy, sell, cook, wash, paint, repair, install, give, transfer, revert, keep, remove, reach, arrive, enter, tell, ask, show,
+           put, get, use]
+  # what (things a worker is asked to bring, fetch, carry or hand over)
+  thing: [key, keys, bag, bags, box, boxes, water, food, tea, coffee, pepsi, phone, car, truck, van, tools, tool, id, passport, card, paper,
+          papers, file, files, documents, uniform, helmet, gloves, vest, ladder, delivery, package, parcel, order, orders, fridge,
+          generator, machine, laptop, shoes, badge, permit, form, forms, bill, receipt, medicine, lunch, breakfast, dinner, milk, bread]
+
+# a place is expected after these words ("come to the ___", "wait at the ___", "in front of the ___")
+place_triggers: [to, at, in, near, behind, from, inside, outside, towards, into, beside, front, by, around, across, toward, onto]
+# a time is expected after these words ("at ___", "before ___", "every ___")
+time_triggers: [at, by, before, after, until, till, on, every, next, last, this, in, within, since, for]
+determiners: [the, a, an, this, that, my, your, our, his, her, their, its, one]

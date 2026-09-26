@@ -11,6 +11,8 @@ dependencies = [
   "pydantic>=2.5",
   "pyyaml>=6.0",
   "rapidfuzz>=3.5",
+  "cmudict>=1.0",   # pronunciations for Decode (sound-alike candidates); pure-Python data package, no network
+  "wordfreq>=3.0",  # word frequencies for Decode (validity and prior); pure-Python data package, no network
 ]
 
 [project.optional-dependencies]
@@ -21,7 +23,7 @@ dev = ["pytest>=8", "ruff>=0.5"]
 include = ["steve_engine*"]
 
 [tool.setuptools.package-data]
-steve_engine = ["lexicon.yaml", "fallback_config.json"]
+steve_engine = ["lexicon.yaml", "fallback_config.json", "decode/*.yaml", "decode/accents/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

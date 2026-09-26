@@ -221,3 +221,112 @@ export interface EvalResults {
   cases?: EvalCase[];
   caveats?: string[];
 }
+
+// ---- Decode (D45, D46): mirrors api/app/schemas.py and engine/steve_engine/decode/schema.py ------------------------------------------------------
+export type ReplyLanguage = "en" | "ml" | "hi" | "ur" | "tl" | "bn";
+export type AccentHint = "ar" | "hi" | "ml" | "tl";
+
+export interface DecodeChange {
+  span: Span;
+  heard: string;
+  meant: string;
+  reason: string;
+  confidence: number;
+  source: string;
+}
+export interface DecodePhrase {
+  span: Span;
+  phrase: string;
+  literal: string;
+  social_meaning: string;
+  category: string;
+}
+export interface DecodeActionValue {
+  value: string;
+  evidence: Span | null;
+}
+export interface DecodeClarify {
+  span: Span;
+  options: string[];
+  question: string;
+  slot: string;
+}
+export interface DecodedCard {
+  original_text: string;
+  plain_english: string;
+  changes: DecodeChange[];
+  phrases: DecodePhrase[];
+  actions: { where: DecodeActionValue | null; when: DecodeActionValue | null; what: DecodeActionValue | null; how_much: DecodeActionValue | null };
+  clarify: DecodeClarify[];
+  skipped: DecodeClarify[];
+  tips: string[];
+  confidence: number;
+  accent_used: string | null;
+  path: "typed" | "voice";
+}
+export interface TranslatedCard {
+  language: ReplyLanguage;
+  provider: string;
+  verified_numbers: boolean;
+  plain_english: string;
+  where: string | null;
+  when: string | null;
+  what: string | null;
+  how_much: string | null;
+  phrases: { phrase: string; literal: string; social_meaning: string }[];
+  questions: string[];
+  tip: string | null;
+}
+export interface DecodeResponse {
+  card: DecodedCard | null;
+  translation: TranslatedCard | null;
+  transcript: string | null;
+  decode_id: string | null;
+  notes: string[];
+  say_back: string[];
+}
+export interface DecodeExample {
+  id: string;
+  label: string;
+  request: { text: string; accent_hint?: AccentHint | null; reply_language?: ReplyLanguage | null };
+  response: DecodeResponse;
+}
+export interface DecodeExamples {
+  examples: DecodeExample[];
+  computed_live: boolean;
+}
+export interface InspectResult {
+  path: "typed" | "voice";
+  tokens: { i: number; text: string; start: number; end: number }[];
+  glossary: { phrase: string; span: Span; category: string }[];
+  slots: { token: string; kind: string; expects: string[]; trigger: string }[];
+  examined: {
+    token: string;
+    slot: string;
+    decision: "fits" | "no_alternative" | "keep" | "rewrite" | "clarify";
+    best: string | null;
+    margin: number;
+    options: string[];
+    candidates: { word: string; score: number }[];
+    original_score: number;
+  }[];
+  effective_words: string[];
+  unresolved_tokens: number[];
+  card: DecodedCard;
+}
+export interface DecodeEval {
+  available: boolean;
+  message: string | null;
+  generated_from: string[];
+  caveats: string[];
+  sections: { id: string; title: string; label: string; note: string | null; rows: { metric: string; value: string; detail: string | null }[] }[];
+}
+export interface DecodeHealth {
+  typed: boolean;
+  voice: boolean;
+  translation: { available: boolean; languages?: Record<string, string[]>; budget_remaining?: number };
+  languages: ReplyLanguage[];
+  accent_hints: AccentHint[];
+  budget: { stt_remaining: number; stt_cap: number };
+  limits: { audio_seconds: number; audio_bytes: number; clarify_minutes: number };
+}

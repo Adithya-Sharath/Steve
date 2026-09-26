@@ -1,13 +1,25 @@
 # CLAUDE.md — Steve
 
 Instructions for Claude Code (and humans) working in this repo. Keep it short and true; update it when reality changes.
-Read `DECISIONS.md` first (D1–D35: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
+Read `DECISIONS.md` first (D1–D51: every non-obvious choice and why) and `PROGRESS.md` (what is done, what is not).
 
 ## What this is
-Teach-back for mixed-language (Manglish / Hinglish / Arabizi / Taglish) replies. A sender writes an important message, confirms
-its key facts, the reader explains it back in their own words, and a **deterministic engine** marks each fact
-`understood | wrong | missing | negated | unclear` with evidence and a reason. BitNBuild'26 hackathon project; the original brief
-is `docs/build-prompt.md`.
+**Steve is pivoting to Decode** (D36, branch `decode`): an interpreter that helps immigrant workers in the UAE understand the English they
+actually hear: mother-tongue-influenced pronunciation ("barking" for "parking" because Arabic has no /p/) and local phrases ("yalla", "khalas",
+"inshallah"). It returns plain English, optionally translated into the worker's language (text only: Steve never speaks), over WhatsApp and an in-person
+"Tap to listen" screen. The plan is the phase checklist in `PROGRESS.md`.
+
+**Check mode** (the original product, tag `check-mode-v1`, published on `main`) stays as a secondary feature and must keep working: a sender writes an
+important message, confirms its key facts, the reader explains it back in their own words (Manglish / Hinglish / Arabizi / Taglish), and a
+**deterministic engine** marks each fact `understood | wrong | missing | negated | unclear`. BitNBuild'26 hackathon project; the original brief is
+`docs/build-prompt.md`.
+
+**Next task:** Phases 4 to 8 are done and merged (`main` = tag `v2.0.0`; the final audit `docs/FINAL_AUDIT.md` is green). **Phase 9 (deploy) is blocked on the owner:** create the Render and Vercel projects following `docs/DEPLOY.md` and send the web URL and the API URL; then run the post-deploy Playwright smoke test against production (paste example -> card -> clarify -> translation, `/decode/health`, security headers, a real 429, the microphone permission prompt over HTTPS) and record it in the last section of `docs/FINAL_AUDIT.md`. **D50: this web app IS the demo** (a teammates' landing page links to it); the Decode API is a public contract (`docs/API.md`, `openapi.json`, `clients/ts/steve-client.ts`; regenerate with `python scripts/make_api_docs.py` and `python scripts/export_openapi.py`; additions only, each with a decision record). Browser flows: `cd web && NEXT_PUBLIC_API_URL=http://localhost:8000 npm run build && node e2e/run.mjs all` (check | demo | client). Re-run the whole audit with `python scripts/final_audit.py`. Budgets for the whole run: Sarvam at most INR 20 (about INR 3 used), Gemini at most 300 calls (at most 254 used: 253 for the baseline, 1 live translation); the smoke test must stay inside what is left. Never quote the voice-net catch rate without its label (synthetic, author-written, tuned on it; held-out 0/72). Never silently rewrite negations, numbers, amounts or named times. Real-world validation is missing (D42). Never force-push; never commit `.env` or `web/.env.local`.
+
+**Decode rules (in addition to the ones below):** deterministic rules first; an LLM is optional, guarded (`llm_guard.py`) and never the sole judge of a
+where/when/amount; if two readings are close, ask a clarifying question instead of guessing; never call speech "wrong" or "bad English" and show no
+scores; audio is never stored and phone numbers are hashed; every accent rule and glossary entry is `verified: false` until a native speaker reviews it;
+never invent linguistic facts (leave them out); the full pipeline must work with zero API keys.
 
 ## Non-negotiable rules
 1. **An LLM never decides a safety-critical fact.** Numbers, doses, frequencies, durations, dates, amounts and negations are decided
@@ -29,6 +41,7 @@ is `docs/build-prompt.md`.
 | tests | `make test` | `scripts/test.ps1` (`cd engine && pytest -q`; `cd api && pytest -q`) |
 | lint | `make lint` | `ruff check engine api eval`; `cd web && npm run lint && npm run typecheck` |
 | eval | `make eval` | `scripts/eval.ps1` (generate -> run_engine -> run_baseline -> metrics -> update_readme) |
+| STT reality test | - | `python tools/stt_compare/run.py` (plan only) / `--yes` (calls providers); `python -m pytest tools/stt_compare -q` |
 | lexicon sheet | `make lexicon-review` | `python engine/tools/make_lexicon_review.py` |
 
 ## Layout
