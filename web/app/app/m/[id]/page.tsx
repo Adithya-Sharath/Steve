@@ -184,8 +184,8 @@ export default function ResultsPage() {
           <LayoutGroup>
             <ul className="grid gap-3" aria-live="polite">
               <AnimatePresence initial={false}>
-                {sortedFacts.map((f) => (
-                  <FactCard key={f.id} fact={f} result={resultMap.get(f.id)} pending={!current} active={active === f.id} onHover={setActive} />
+                {sortedFacts.map((f, i) => (
+                  <FactCard key={f.id} order={i} fact={f} result={resultMap.get(f.id)} pending={!current} active={active === f.id} onHover={setActive} />
                 ))}
               </AnimatePresence>
             </ul>

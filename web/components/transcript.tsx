@@ -42,6 +42,8 @@ export function Transcript({
             onMouseLeave={() => onHover?.(null)}
             className="hl-sweep rounded-[5px] px-0.5 text-foreground transition-[outline,box-shadow] duration-150"
             style={{
+              // <mark> has a yellow UA background that shows while the sweep is still growing: make the base transparent
+              backgroundColor: "transparent",
               backgroundImage: `linear-gradient(${meta.cssSoft}, ${meta.cssSoft})`,
               boxShadow: `inset 0 -2px 0 ${meta.cssVar}`,
               outline: isActive ? `2px solid ${meta.cssVar}` : "2px solid transparent",
