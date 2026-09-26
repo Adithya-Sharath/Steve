@@ -13,6 +13,7 @@ Everything is committed locally; **nothing has been pushed to GitHub.**
 | 8 | Eval pipeline (generator, engine runner, Gemini baseline, metrics, README updater) | done; **baseline never run** (no key) |
 | 9 | Demo mode, polish, README, architecture, demo script | done |
 | 10 | Final check + human checklist | done (below) |
+| — | UI polish round (21st.dev MCP, 2 free downloads/day): **buttons with depth** (D21) done; landing stats/steps, fact-card resolve, reader record button: in progress (see below) | in progress |
 | — | Follow-up round: negation typos, concessives, copy-paste, SMS shorthand, sender auth, Docker `$PORT`, production screenshots, this file | done (D12–D20) |
 
 ## Numbers (2026-09-25 final run)

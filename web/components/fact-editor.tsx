@@ -57,7 +57,7 @@ function ValueEditor({ fact, onChange }: { fact: Fact; onChange: (patch: Partial
                 const arr = [...next];
                 onChange({ value: arr.length === 1 ? arr[0] : arr });
               }}
-              className={cn("rounded-full border px-2.5 py-1 text-xs transition-colors", tags.has(t) ? "border-primary bg-primary text-primary-foreground" : "border-border hover:bg-muted")}
+              className={cn("rounded-full border px-2.5 py-1 text-xs pressable", tags.has(t) ? "border-primary bg-primary text-primary-foreground" : "border-border hover:bg-muted")}
             >
               {t.replace("_", " ")}
             </button>

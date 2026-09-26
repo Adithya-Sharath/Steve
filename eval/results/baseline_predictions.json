@@ -1,4 +1,73 @@
 {
- "available": false,
- "reason": "GEMINI_API_KEY not set; baseline skipped"
+ "available": true,
+ "model": "gemini-3.5-flash",
+ "runs": 3,
+ "n_replies": 3,
+ "n_replies_complete": 2,
+ "n_replies_planned": 154,
+ "stopped": "daily quota exhausted",
+ "predictions": {
+  "hw-001": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "wrong",
+    "rash": "missing"
+   }
+  },
+  "hw-002": {
+   "0": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   },
+   "2": {
+    "dose": "understood",
+    "timing": "understood",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "understood"
+   }
+  },
+  "hw-003": {
+   "0": {
+    "dose": "understood",
+    "timing": "missing",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   },
+   "1": {
+    "dose": "understood",
+    "timing": "missing",
+    "freq": "understood",
+    "dur": "understood",
+    "rash": "negated"
+   }
+  }
+ }
 }

@@ -107,7 +107,7 @@ export default function ReaderPage() {
                 <div role="radiogroup" aria-label="Language you will speak" className="flex flex-wrap justify-center gap-1.5">
                   {LANGS.map((l) => (
                     <button key={l.id} role="radio" aria-checked={lang === l.id} onClick={() => setLang(l.id)}
-                      className={cn("rounded-full border px-3 py-1 text-sm transition-colors", lang === l.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card")}>
+                      className={cn("rounded-full border px-3 py-1 text-sm pressable", lang === l.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card")}>
                       {l.label}
                     </button>
                   ))}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { HeroDemo } from "@/components/hero-demo";
 import { FinalCta, HowSteps, Languages, NotAWrapper, ProblemStats, SectionHead, WhyNotTranslate } from "@/components/landing-sections";
 import { Playground } from "@/components/playground";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
 export default function Landing() {

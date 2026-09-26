@@ -11,6 +11,7 @@
 | ![Landing](docs/screenshots/landing.png) | ![Live results](docs/screenshots/results.png) |
 | ![Reader (mobile)](docs/screenshots/reader-mobile.png) | ![Composer](docs/screenshots/composer.png) |
 | ![A copied reply is flagged](docs/screenshots/copied.png) | ![Evaluation](docs/screenshots/eval.png) |
+| ![Buttons: rest, hover, pressed](docs/screenshots/buttons.png) | |
 
 _Screenshots are real (Playwright against a production build: `next build && next start`). Replace or add GIFs from the demo recording._
 

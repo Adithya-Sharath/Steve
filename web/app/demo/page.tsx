@@ -78,7 +78,7 @@ export default function DemoPage() {
                     key={p.id}
                     disabled={!seeded || send.isPending}
                     onClick={() => seeded && send.mutate({ token: seeded.reader_token, text: p.text })}
-                    className="group rounded-2xl border border-border bg-background p-3 text-left transition-colors hover:border-primary/50 hover:bg-teal-soft/50 disabled:opacity-50"
+                    className="group rounded-2xl border border-border bg-background p-3 text-left pressable hover:border-primary/50 hover:bg-teal-soft/50 disabled:opacity-50"
                   >
                     <span className="flex items-center justify-between text-xs text-muted-foreground">
                       {LANG_LABEL[p.lang_mix] ?? p.lang_mix}

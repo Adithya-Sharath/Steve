@@ -61,7 +61,7 @@ export function Playground({ initialScenario = 0, className }: { initialScenario
                 setReply(s.presets[1].text);
               }}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-sm transition-colors",
+                "rounded-full border px-3 py-1.5 text-sm pressable",
                 i === idx ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-muted",
               )}
             >
@@ -83,7 +83,7 @@ export function Playground({ initialScenario = 0, className }: { initialScenario
               <button
                 key={p.id}
                 onClick={() => setReply(p.text)}
-                className="rounded-full border border-border bg-card px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="rounded-full border border-border bg-card px-2.5 py-1 text-xs text-muted-foreground pressable hover:bg-muted hover:text-foreground"
               >
                 {p.label}
               </button>

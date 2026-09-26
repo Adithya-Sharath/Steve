@@ -81,7 +81,7 @@ export default function Dashboard() {
             aria-selected={filter === f.id}
             onClick={() => setFilter(f.id)}
             className={cn(
-              "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
+              "rounded-full border px-3.5 py-1.5 text-sm pressable",
               filter === f.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-muted",
             )}
           >

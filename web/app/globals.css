@@ -243,3 +243,144 @@ body::before {
     animation: none;
   }
 }
+
+/* =====================================================================================================
+   Buttons with depth. A "lip" (hard shadow) sits under the surface; hover lifts it, press sinks the surface
+   onto the lip and tilts toward the pointer (--tilt-x / --tilt-y from hooks/use-press-depth.ts).
+   Everything derives from design tokens, so it follows light/dark automatically.
+   ===================================================================================================== */
+@layer components {
+  .btn-raised {
+    --lip: 3px;
+    --lip-color: color-mix(in oklch, var(--foreground) 20%, var(--border));
+    --glow: color-mix(in oklch, var(--foreground) 18%, transparent);
+    --hl: color-mix(in oklch, white 55%, transparent);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transform: translateY(0);
+    box-shadow:
+      0 var(--lip) 0 0 var(--lip-color),
+      0 calc(var(--lip) + 5px) 12px -5px var(--glow),
+      inset 0 1px 0 0 var(--hl);
+    transition:
+      transform 0.28s var(--ease-spring),
+      box-shadow 0.28s var(--ease-spring),
+      background-color 0.15s ease,
+      filter 0.15s ease;
+    will-change: transform;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* a soft sheen that sweeps across on hover */
+  .btn-raised::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(105deg, transparent 35%, color-mix(in oklch, white 32%, transparent) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+  .btn-raised:hover:not(:disabled):not([aria-disabled="true"]) {
+    transform: translateY(-1px);
+    box-shadow:
+      0 calc(var(--lip) + 1px) 0 0 var(--lip-color),
+      0 calc(var(--lip) + 9px) 18px -6px var(--glow),
+      inset 0 1px 0 0 var(--hl);
+    filter: brightness(1.04);
+  }
+  .btn-raised:hover:not(:disabled):not([aria-disabled="true"])::before {
+    transform: translateX(120%);
+  }
+  /* same specificity as the hover rule above and declared after it, so pressing wins while hovering */
+  .btn-raised:active:not(:disabled):not([aria-disabled="true"]),
+  .btn-raised[data-pressed]:not(:disabled):not([aria-disabled="true"]) {
+    transform: perspective(340px) translateY(var(--lip)) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(0.992);
+    box-shadow:
+      0 0 0 0 var(--lip-color),
+      0 2px 5px -3px var(--glow),
+      inset 0 2px 4px 0 color-mix(in oklch, black 16%, transparent);
+    filter: brightness(0.98);
+    transition-duration: 0.07s;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    --lip-color: color-mix(in oklch, var(--primary) 52%, black);
+    --glow: color-mix(in oklch, var(--primary) 60%, transparent);
+  }
+  .btn-outline {
+    background: var(--card);
+    color: var(--foreground);
+    border-color: var(--border);
+    --lip-color: color-mix(in oklch, var(--foreground) 16%, var(--border));
+    --glow: color-mix(in oklch, var(--foreground) 16%, transparent);
+    --hl: color-mix(in oklch, var(--foreground) 6%, transparent);
+  }
+  .dark .btn-outline {
+    background: color-mix(in oklch, var(--card) 88%, white);
+    --lip-color: color-mix(in oklch, white 14%, var(--card));
+    --hl: color-mix(in oklch, white 10%, transparent);
+  }
+  .btn-secondary {
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    --lip-color: color-mix(in oklch, var(--secondary) 72%, var(--foreground));
+    --glow: color-mix(in oklch, var(--foreground) 14%, transparent);
+  }
+  .btn-danger {
+    background: color-mix(in oklch, var(--destructive) 12%, var(--card));
+    color: var(--destructive);
+    border-color: color-mix(in oklch, var(--destructive) 30%, transparent);
+    --lip-color: color-mix(in oklch, var(--destructive) 42%, var(--background));
+    --glow: color-mix(in oklch, var(--destructive) 40%, transparent);
+  }
+  /* flat buttons still respond: soft background + a small squash on press */
+  .btn-soft {
+    transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    touch-action: manipulation;
+  }
+  .btn-soft:hover:not(:disabled) {
+    background: var(--muted);
+    color: var(--foreground);
+  }
+  .btn-soft:active:not(:disabled) {
+    transform: scale(0.96);
+    transition-duration: 0.07s;
+  }
+
+  /* chips / tabs / cards that are plain <button>s: same physical language, lighter touch */
+  .pressable {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background-color 0.15s ease, border-color 0.15s ease;
+    touch-action: manipulation;
+  }
+  .pressable:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px -8px color-mix(in oklch, var(--foreground) 35%, transparent);
+  }
+  .pressable:active:not(:disabled) {
+    transform: translateY(1px) scale(0.985);
+    box-shadow: none;
+    transition-duration: 0.07s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-raised,
+  .btn-raised::before,
+  .btn-soft,
+  .pressable {
+    transition: none !important;
+  }
+  .btn-raised::before {
+    display: none;
+  }
+  .btn-raised:hover:not(:disabled),
+  .pressable:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -95,7 +95,7 @@ export default function Composer() {
                 <legend className="mb-2 text-sm font-medium">What kind of message?</legend>
                 <div className="flex flex-wrap gap-2">
                   {CONTEXTS.map((c) => (
-                    <label key={c.id} className={cn("cursor-pointer rounded-full border px-3.5 py-1.5 text-sm transition-colors has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50", context === c.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-muted")}>
+                    <label key={c.id} className={cn("cursor-pointer rounded-full border px-3.5 py-1.5 text-sm pressable has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50", context === c.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-muted")}>
                       <input type="radio" name="context" value={c.id} checked={context === c.id} onChange={() => setContext(c.id)} className="sr-only" />
                       <span aria-hidden>{c.emoji}</span> {c.label}
                     </label>
