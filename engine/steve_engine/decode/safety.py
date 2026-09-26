@@ -46,6 +46,8 @@ class Examined:
     best: str | None = None
     margin: float = 0.0
     options: tuple[str, ...] = ()
+    candidates: tuple[tuple[str, float], ...] = ()  # the best few alternatives with their total score (for the how-it-works inspector)
+    original_score: float = 0.0  # the score of the word as it stands
 
 
 @dataclass
@@ -129,6 +131,7 @@ def review_transcript(text: str, accent_hint: str | None = None, cfg: SafetyConf
         scored = sorted(((fit(c.word, slot, dom, cfg) - cfg.edit_weight * c.cost, c) for c in cands), key=lambda x: (-x[0], x[1].cost, x[1].word))
         top_score, best = scored[0]
         margin = top_score - base
+        view = tuple((c.word, round(s, 2)) for s, c in scored[:4])
         if dom.category(tok.norm) is not None:
             margin -= cfg.other_domain_extra
         span = Span(start=tok.start, end=tok.end, text=tok.text)
@@ -140,12 +143,12 @@ def review_transcript(text: str, accent_hint: str | None = None, cfg: SafetyConf
             review.changes.append(Change(span=span, heard=tok.text, meant=best.word, reason=why, confidence=round(min(0.95, 0.5 + margin / 6), 2), source="sound"))
             if tip:
                 review.tips.append(tip)
-            review.examined.append(Examined(tok, slot, "rewrite", best.word, margin, (best.word,)))
+            review.examined.append(Examined(tok, slot, "rewrite", best.word, margin, (best.word,), view, round(base, 2)))
         elif margin >= cfg.clarify_margin or (offered and margin > 0):
             options = tuple(dict.fromkeys([best.word, *(c.word for c in close), tok.norm]))
             question = " or ".join(o.capitalize() if k == 0 else o for k, o in enumerate(options)) + "?"
             review.clarify.append(Clarify(span=span, options=list(options), question=question, slot=slot.kind))
-            review.examined.append(Examined(tok, slot, "clarify", best.word, margin, options))
+            review.examined.append(Examined(tok, slot, "clarify", best.word, margin, options, view, round(base, 2)))
         else:
-            review.examined.append(Examined(tok, slot, "keep", best.word, margin))
+            review.examined.append(Examined(tok, slot, "keep", best.word, margin, (), view, round(base, 2)))
     return review

@@ -42,6 +42,8 @@ try:
 except ImportError:
     pass
 
+# the first pass answered 243 rows and 2 failed (at most 4 attempts each); a second pass answered those 2: so no more than 243 + 8 + 2 calls were ever made (owner budget 300)
+TOTAL_CALLS_AT_MOST = 253
 CACHE = ROOT / "eval" / ".cache" / "decode_baseline"
 RESULTS = ROOT / "eval" / "results"
 DATA = ROOT / "data" / "decode"
@@ -248,7 +250,7 @@ def table(g: dict, e: dict) -> list[str]:
         a(f"| Typed by ear, {label}: intended sentence recovered | {rate(ce['exact'], ce['n'])} | {rate(cg['exact'], cg['n'])} |")
         a(f"| Typed by ear, {label}: asked instead of guessing | {rate(ce['asked'], ce['n'])} | n/a (cannot ask) |")
         a(f"| Typed by ear, {label}: left as typed | {rate(ce['left'], ce['n'])} | {rate(cg['left'], cg['n'])} |")
-        a(f"| Typed by ear, {label}: rewritten to something else (wrong-but-confident) | {rate(ce['wrong_rewrite'], ce['n'])} | {rate(cg['wrong_rewrite'], cg['n'])} |")
+        a(f"| Typed by ear, {label}: rewritten so the wording differs from the intended sentence (for Gemini this includes harmless paraphrase) | {rate(ce['wrong_rewrite'], ce['n'])} | {rate(cg['wrong_rewrite'], cg['n'])} |")
     for s in SLOTS:
         for name, x in (("engine", e), ("gemini", g)):
             pass
@@ -270,8 +272,8 @@ def report(res: dict, rows: list[dict]) -> str:
     n = len(preds)
     stopped = "" if not res.get("stopped") else " (stopped: " + res["stopped"] + ")"
     intro = (
-        f"Model `{res['model']}` (lite, temperature 0), prompt \"rewrite in plain neutral English and extract where/when/what/how much as JSON\", the same accent hint as the engine, **{res['calls_made']} calls "
-        f"made in this run** (owner budget 300; answers are cached), {n} of {res['n_rows']} rows answered{stopped}. "
+        f"Model `{res['model']}` (lite, temperature 0), prompt \"rewrite in plain neutral English and extract where/when/what/how much as JSON\", the same accent hint as the engine, **at most {res['calls_made']} Gemini calls "
+        f"in total** (243 answered on the first pass, the 2 others retried; every row had at most 4 attempts) (owner budget 300; answers are cached, so a rerun costs nothing), {n} of {res['n_rows']} rows answered{stopped}. "
         "Data: `data/decode/eval_v2.csv`, **synthetic, one author, gold written by the same author** (D44); the engine column is the CURRENT engine, which has had two small fixes since "
         "its own first scoring of this set (clock minutes, adverbs as objects), so read the engine column as **contaminated on v2**; the fresh first run is in `decode_eval_v2_first_run.md`. "
         "Rows with glossary phrases are left out of the rewrite metrics (replacing \"yalla\" is right for both). No real workers, no real messages (D42).\n"
@@ -279,7 +281,16 @@ def report(res: dict, rows: list[dict]) -> str:
     reading = (
         "\n**How to read it.** Gemini can rewrite any spelling, so it can beat the engine wherever the respelling is outside the engine's accent packs; it has no way to ask, no list of "
         "things it must never rewrite silently, and it is free to paraphrase. The engine is the reverse: narrow, deterministic, asks when unsure. The rows to compare are the false "
-        "rewrites, the wrong values and the lost negations (silent failures), and the recovered-sentence rows (where Gemini is expected to win on out-of-pack respellings).\n"
+        "rewrites, the wrong values and the lost negations (silent failures), and the recovered-sentence rows (where Gemini is expected to win on out-of-pack respellings).\n\n"
+        "**Where Gemini wins, plainly:** it recovers **74.2% of the respellings the engine's accent packs do not model (the engine: 0%, it leaves them as typed)** and **81.0% of the in-pack ones (engine 93.7%)**, "
+        "and it extracts `where` (91.1% vs 81.5%) and `how much` (100% vs 84.8%) better on this mixed set. **Where the engine wins:** it almost never rewrites a correct sentence (1.5% vs 30.9%), never returned a wrong "
+        "`when` (0 vs 12), and it can ask instead of guessing (Gemini cannot).\n\n"
+        "**Read the comparison with these limits.** (1) The gold labels were written around the engine's conventions (`what` = the verb plus its noun object, `where` = the place phrase), so Gemini's "
+        "fuller phrases (\"Come to the main gate\" for `what` = \"come\") are counted as wrong `what` values (47% of rows): that says the conventions differ, not that its instructions were wrong. (2) \"Wording differs\" "
+        "counts any paraphrase (\"do not\" for \"don't\", a capital letter and a full stop are ignored, but a reordered sentence is not), so the false-rewrite and wrong-rewrite rows overstate real damage for Gemini; "
+        "the silent failures that matter, a wrong `when` and a lost negation, are the rows to trust (Gemini: 12 wrong `when` values, 0 lost negations; engine: 0 and 0). (3) Two rows got no answer from Gemini "
+        "(243 of 245 answered). (4) One author wrote the sentences, the gold and the respellings; the engine was built by the same team that wrote them. (5) A lite model at temperature 0 with one prompt "
+        "that saw none of this data; a stronger model or a tuned prompt may do better.\n"
     )
     return "\n".join(["# Gemini baseline vs the engine on the Decode v2 set (D49)\n", intro, *table(g, e), reading])
 
@@ -306,7 +317,7 @@ def main() -> None:
         return
     if args.report:
         preds = {r["id"]: json.loads(cache_path(r).read_text(encoding="utf-8")) for r in rows if cache_path(r).exists()}
-        res = {"available": bool(preds), "model": model_name(), "calls_made": 0, "n_rows": len(rows), "predictions": preds, "reason": "no cached answers"}
+        res = {"available": bool(preds), "model": model_name(), "calls_made": TOTAL_CALLS_AT_MOST, "n_rows": len(rows), "predictions": preds, "reason": "no cached answers"}
     else:
         res = fetch_all(rows, args.rpm, args.max_calls)
     RESULTS.mkdir(exist_ok=True)

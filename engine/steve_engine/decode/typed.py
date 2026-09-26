@@ -14,11 +14,12 @@ from ..schema import Span
 from .accents import Swap, active_swaps
 from .domain import Domain, get_domain
 from .phonetics import PACK_DISCOUNT, is_word, zipf
-from .safety import Review, SafetyConfig, _next_to_or, explain_swap
+from .safety import Examined, Review, SafetyConfig, _next_to_or, explain_swap
 from .schema import Change, Clarify
 from .spans import Slot, find_slots
 from .tokens import Token, tokenize
 
+ANY_SLOT = Slot("any", frozenset(), "", "any word")  # a typed word examined outside a critical span (a respelled function word, a non-word)
 NONWORD_PENALTY = 1.0  # a word that is not a real English word starts behind any real candidate
 
 
@@ -75,6 +76,7 @@ def _respelled_function_word(review: Review, tok, swaps: tuple[Swap, ...]) -> bo
     if best is not None:
         why, tip = explain_swap(tok, best.word, best.swaps, None)
         review.changes.append(Change(span=Span(start=tok.start, end=tok.end, text=tok.text), heard=tok.text, meant=best.word, reason=why, confidence=0.8, source="sound"))
+        review.examined.append(Examined(tok, ANY_SLOT, "rewrite", best.word, 0.0, (best.word,)))
         if tip:
             review.tips.append(tip)
     return best is not None
@@ -121,28 +123,35 @@ def review_typed(text: str, accent_hint: str | None = None, cfg: SafetyConfig | 
         if real and slot is None:
             continue  # a real word outside a critical span is left alone
         if real and dom.category(tok.norm) in slot.expects:
+            review.examined.append(Examined(tok, slot, "fits"))
             continue  # it already fits where it sits
         cands = spelling_candidates(tok.norm, swaps)
         if slot is not None:
             cands = [c for c in cands if dom.category(c.word) in slot.expects or not real]
         if not cands:
+            review.examined.append(Examined(tok, slot or ANY_SLOT, "no_alternative"))
             continue
         base = _fit(tok.norm, slot, dom, cfg) - (0.0 if real else NONWORD_PENALTY)
         scored = sorted(((_fit(c.word, slot, dom, cfg) - cfg.edit_weight * c.cost, c) for c in cands), key=lambda x: (-x[0], x[1].cost, x[1].word))
         top, best = scored[0]
         margin = top - base
+        view = tuple((c.word, round(s, 2)) for s, c in scored[:4])
         close = [c for s, c in scored[1:3] if top - s <= cfg.close_gap]
         span = Span(start=tok.start, end=tok.end, text=tok.text)
         offered = _next_to_or(tokens, tok.i)  # "the barking or the building": choices are on offer, so ask instead of rewriting
         if margin >= cfg.rewrite_margin and not close and not offered:
             why, tip = explain_swap(tok, best.word, best.swaps, slot)
             review.changes.append(Change(span=span, heard=tok.text, meant=best.word, reason=why, confidence=round(min(0.95, 0.5 + margin / 6), 2), source="sound"))
+            review.examined.append(Examined(tok, slot or ANY_SLOT, "rewrite", best.word, margin, (best.word,), view, round(base, 2)))
             if tip:
                 review.tips.append(tip)
         elif margin >= cfg.clarify_margin or (offered and margin > 0):
             options = tuple(dict.fromkeys([best.word, *(c.word for c in close), tok.norm]))
             question = " or ".join(o.capitalize() if k == 0 else o for k, o in enumerate(options)) + "?"
             review.clarify.append(Clarify(span=span, options=list(options), question=question, slot=slot.kind if slot else ""))
+            review.examined.append(Examined(tok, slot or ANY_SLOT, "clarify", best.word, margin, tuple(options), view, round(base, 2)))
+        else:
+            review.examined.append(Examined(tok, slot or ANY_SLOT, "keep", best.word, margin, (), view, round(base, 2)))
     _ask_about_hidden_negation(review, tokens, meant, respelled, skip, swaps, dom)
     return review
 

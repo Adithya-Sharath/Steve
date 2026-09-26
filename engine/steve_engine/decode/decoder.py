@@ -147,7 +147,7 @@ def inspect_decode(text: str, accent_hint: str | None = None, path: str = "typed
         "tokens": [{"i": t.i, "text": t.text, "start": t.start, "end": t.end} for t in tokens],
         "glossary": [{"phrase": h.entry.phrase, "span": h.span.model_dump(), "category": h.entry.category} for h in hits],
         "slots": [{"token": tokens[i].text, "kind": s.kind, "expects": sorted(s.expects), "trigger": s.trigger} for i, s in slots.items()],
-        "examined": [{"token": e.token.text, "slot": e.slot.kind, "decision": e.decision, "best": e.best, "margin": round(e.margin, 2), "options": list(e.options)} for e in review.examined],
+        "examined": [{"token": e.token.text, "slot": e.slot.kind, "decision": e.decision, "best": e.best, "margin": round(e.margin, 2), "options": list(e.options), "candidates": [{"word": w, "score": s} for w, s in e.candidates], "original_score": e.original_score} for e in review.examined],
         "effective_words": [e.word for e in effs],
         "unresolved_tokens": sorted(unresolved),
         "card": decode(text, accent_hint, path, cfg).model_dump(),

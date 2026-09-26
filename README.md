@@ -83,7 +83,7 @@ flowchart LR
 
 ## The Decode API (public contract)
 
-The API is the product; the web `/listen` screen is only a small reference front end. Everything a separate UI needs is in this repo:
+The API is the product, and this repo's web app (`/`, `/listen`, the inspector and the evaluation page) is its demo front end. Anything a separate front end needs is here too:
 
 | | |
 |---|---|
@@ -121,7 +121,21 @@ The sets and the scorer are in `eval/` and `data/decode/`; how each number came 
 
 ### Gemini baseline on the same v2 set
 
-_The Gemini baseline on the v2 set has not been run yet._
+One zero-shot prompt to `gemini-3.1-flash-lite` ("rewrite in plain neutral English and extract where/when/what/how much as JSON", the same accent hint the engine gets), 245 rows, at most 253 calls, against the **current** engine (contaminated on v2: two small fixes after its first run). **Synthetic, author-written data; gold written by the same author who built the engine.** Full table and caveats: [`eval/results/decode_baseline_v2.md`](eval/results/decode_baseline_v2.md).
+
+| | Engine | Gemini (lite) |
+|---|---|---|
+| Respellings the accent packs cover: intended sentence recovered | 93.7% (59/63) | 81.0% (51/63) |
+| Respellings the packs do **not** cover: recovered | **0.0% (0/31)**, left as typed | **74.2% (23/31)** |
+| Correct sentences whose wording was changed (lower is better; for Gemini this includes harmless paraphrase) | 1.5% (2/136) | 30.9% (42/136) |
+| `where` correct / wrong value | 81.5% / 1.6% | 91.1% / 8.1% |
+| `when` correct / wrong value | 86.4% / **0.0%** | 88.3% / 11.7% |
+| `what` correct / wrong value (gold follows the engine's convention: Gemini's fuller phrases count as wrong) | 93.6% / 1.0% | 53.4% / 46.6% |
+| `how much` correct | 84.8% | 100% |
+| Negation lost (of 41) | 0 | 0 |
+| Can ask instead of guessing | yes | no |
+
+**Where Gemini wins:** it decodes respellings the engine does not know and extracts places and amounts better on this mixed set. **Where the engine wins:** it almost never rewrites a correct sentence, never returned a wrong `when`, and it asks when unsure. Neither result says anything about real workers.
 
 
 ## Quick start
