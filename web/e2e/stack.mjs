@@ -18,7 +18,9 @@ export const API = "http://localhost:8000";
 export const MOCK = "http://127.0.0.1:9911";
 export const ADMIN_KEY = "e2e-admin-key-0123456789abcdef0123456789";
 
-const PY = path.join(ROOT, ".venv", "Scripts", "python.exe");
+const WIN = process.platform === "win32";
+// STEVE_PYTHON overrides; otherwise the repo venv on Windows, `python` elsewhere (CI installs the packages into the system Python)
+const PY = process.env.STEVE_PYTHON || (WIN ? path.join(ROOT, ".venv", "Scripts", "python.exe") : "python");
 
 /** The mock Sarvam: `POST /__set` changes what it returns, `GET /__log` shows what it was asked (no audio bytes). */
 function startMock() {
@@ -61,7 +63,9 @@ async function waitFor(url, ms = 60000) {
 }
 
 function kill(child) {
-  if (child?.pid) spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], { stdio: "ignore" });
+  if (!child?.pid) return;
+  if (WIN) spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], { stdio: "ignore" });
+  else child.kill("SIGKILL");
 }
 
 export async function startStack({ extraApiEnv = {} } = {}) {

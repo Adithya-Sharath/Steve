@@ -12,9 +12,14 @@ import type {
   SuggestedFacts,
   Context,
   Reply,
+  DecodeHealth,
+  DecodeResponse,
+  ReplyLanguage,
+  AccentHint,
 } from "./types";
 
 import { getSenderKey } from "./sender-key";
+import { getWorkerKey } from "./worker";
 
 export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 
@@ -27,12 +32,13 @@ export class ApiError extends Error {
   }
 }
 
-/** `sender: true` adds the per-browser sender key (sender endpoints answer 403 without it). Reader endpoints stay open. */
-async function request<T>(path: string, init?: RequestInit, sender = false): Promise<T> {
+/** `sender: true` adds the per-browser sender key (sender endpoints answer 403 without it); `"worker"` adds the Decode device key. Reader endpoints stay open. */
+async function request<T>(path: string, init?: RequestInit, sender: boolean | "worker" = false): Promise<T> {
   let res: Response;
   try {
     const headers = new Headers(init?.headers);
-    if (sender) headers.set("X-Sender-Key", getSenderKey());
+    if (sender === "worker") headers.set("X-Worker-Key", getWorkerKey());
+    else if (sender) headers.set("X-Sender-Key", getSenderKey());
     res = await fetch(`${API_URL}${path}`, { ...init, headers, cache: "no-store" });
   } catch {
     throw new ApiError(0, "Can't reach the Steve server. Is the API running?");
@@ -91,6 +97,18 @@ export const api = {
     request<FactResult[]>("/check", json({ facts, reply, lang_hint, message })),
   analyze: (reply: string, facts?: Fact[], message?: string, lang_hint?: string) =>
     request<AnalyzeOut>("/analyze", json({ reply, facts, lang_hint, message })),
+
+  // Decode (D45): text or a voice note in, a card out. The worker key travels as X-Worker-Key; nothing is stored in this browser but the key and the choices.
+  decodeHealth: () => request<DecodeHealth>("/decode/health"),
+  decodeText: (b: { text: string; accent_hint?: AccentHint; reply_language?: ReplyLanguage }) => request<DecodeResponse>("/decode", json(b), "worker"),
+  decodeAudio: (audio: Blob, opts: { accent_hint?: AccentHint; reply_language?: ReplyLanguage }) => {
+    const fd = new FormData();
+    fd.append("audio", audio, "note.wav");
+    if (opts.accent_hint) fd.append("accent_hint", opts.accent_hint);
+    if (opts.reply_language) fd.append("reply_language", opts.reply_language);
+    return request<DecodeResponse>("/decode", { method: "POST", body: fd }, "worker");
+  },
+  clarify: (b: { decode_id: string; question_index: number; choice: string }) => request<DecodeResponse>("/decode/clarify", json(b), "worker"),
 
   scenarios: () => request<Scenario[]>("/demo/scenarios"),
   seed: () => request<{ seeded: { message_id: string; reader_token: string; scenario: string }[] }>("/demo/seed", { method: "POST" }, true),

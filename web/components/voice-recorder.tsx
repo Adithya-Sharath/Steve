@@ -15,8 +15,23 @@ type Phase = "idle" | "recording" | "recorded";
 
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
-/** Huge record button + live waveform + timer. Stop, listen back, re-record, send. Audio is converted to WAV in the browser. */
-export function VoiceRecorder({ onSend, busy }: { onSend: (wav: Blob) => void; busy: boolean }) {
+/**
+ * Huge record button + live waveform + timer. Stop, listen back, re-record, send. Audio is converted to WAV in the browser.
+ * `autoSend` (the Decode Listen screen): tapping stop sends straight away, no play-back step. `onRecordingChange` tells the page when the mic is live.
+ */
+export function VoiceRecorder({
+  onSend,
+  busy,
+  autoSend = false,
+  onRecordingChange,
+  idleText,
+}: {
+  onSend: (wav: Blob) => void;
+  busy: boolean;
+  autoSend?: boolean;
+  onRecordingChange?: (recording: boolean) => void;
+  idleText?: string;
+}) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [seconds, setSeconds] = useState(0);
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
@@ -87,14 +102,22 @@ export function VoiceRecorder({ onSend, busy }: { onSend: (wav: Blob) => void; b
       mr.ondataavailable = (e) => e.data.size && chunks.current.push(e.data);
       mr.onstop = () => {
         const b = new Blob(chunks.current, { type: mr.mimeType || "audio/webm" });
+        cleanupAudio();
+        onRecordingChange?.(false);
+        if (autoSend) {
+          setPhase("idle");
+          setSeconds(0);
+          void sendBlob(b);
+          return;
+        }
         setBlob(b);
         setUrl(URL.createObjectURL(b));
         setPhase("recorded");
-        cleanupAudio();
       };
       mr.start();
       setSeconds(0);
       setPhase("recording");
+      onRecordingChange?.(true);
       timer.current = setInterval(() => setSeconds((v) => v + 1), 1000);
     } catch {
       toast.error("We couldn't use the microphone. You can type your answer instead.");
@@ -112,17 +135,17 @@ export function VoiceRecorder({ onSend, busy }: { onSend: (wav: Blob) => void; b
     setSeconds(0);
   };
 
-  const send = async () => {
-    if (!blob) return;
+  const sendBlob = async (b: Blob) => {
     setConverting(true);
     try {
-      onSend(await blobToWav(blob));
+      onSend(await blobToWav(b));
     } catch {
       toast.error("Could not prepare that recording. Please try again or type your answer.");
     } finally {
       setConverting(false);
     }
   };
+  const send = () => (blob ? sendBlob(blob) : undefined);
 
   return (
     <div className="flex flex-col items-center gap-5">
@@ -160,7 +183,7 @@ export function VoiceRecorder({ onSend, busy }: { onSend: (wav: Blob) => void; b
         <Button
           type="button"
           onClick={phase === "recording" ? stop : phase === "idle" ? start : undefined}
-          disabled={phase === "recorded" || busy}
+          disabled={phase === "recorded" || busy || converting}
           aria-label={phase === "recording" ? "Stop recording" : "Start recording"}
           className={cn(
             "size-32 rounded-full p-0 [--lip:7px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring",
@@ -177,7 +200,7 @@ export function VoiceRecorder({ onSend, busy }: { onSend: (wav: Blob) => void; b
       <p className="font-mono text-lg tabular-nums" aria-live="off">
         {fmt(seconds)} <span className="text-sm text-muted-foreground">/ {fmt(MAX_SECONDS)}</span>
       </p>
-      {phase === "idle" && <p className="text-sm text-muted-foreground">Tap to speak. Up to {MAX_SECONDS} seconds.</p>}
+      {phase === "idle" && <p className="text-sm text-muted-foreground">{idleText ?? `Tap to speak. Up to ${MAX_SECONDS} seconds.`}</p>}
       {phase === "recording" && <p className="text-sm text-muted-foreground" role="status">Listening… tap the square when you&apos;re done.</p>}
       {phase === "recorded" && url && (
         <div className="flex w-full flex-col items-center gap-3">

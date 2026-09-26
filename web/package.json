@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "typecheck:client": "tsc --noEmit --strict --target es2020 --lib es2020,dom --module esnext --moduleResolution bundler ../clients/ts/steve-client.ts",
+    "e2e": "node e2e/run.mjs all",
     "format": "prettier --write ."
   },
   "dependencies": {
