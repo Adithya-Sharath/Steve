@@ -119,9 +119,12 @@ def test_stateless_check_and_analyze(client):
     assert a["tokens"] and a["matches"] and a["slots"][0]["type"] == "dose" and a["results"][0]["status"] == "understood"
 
 
-def test_llm_toggle_and_wrapper_test(client):
-    assert client.post("/settings/llm", json={"enabled": True}).json()["llm_enabled"] is False  # no key => still off
-    client.post("/settings/llm", json={"enabled": False})
+def test_llm_toggle_and_wrapper_test(client, monkeypatch):
+    monkeypatch.setattr(settings, "admin_key", "admin-key-for-tests-0123456789")
+    monkeypatch.setattr(settings, "llm_enabled", False)
+    admin = {"X-Admin-Key": "admin-key-for-tests-0123456789"}
+    assert client.post("/settings/llm", json={"enabled": True}, headers=admin).json()["llm_enabled"] is False  # no key => still off
+    client.post("/settings/llm", json={"enabled": False}, headers=admin)
     _, facts, conf = _flow(client)  # full flow works with the LLM off
     assert facts and conf["reader_token"]
 

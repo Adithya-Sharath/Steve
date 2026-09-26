@@ -91,10 +91,11 @@ def test_key_is_stored_only_as_a_hash(client):
         assert len(s.exec(select(Message).where(Message.owner_hash == KEY_A)).all()) == 0
 
 
-def test_llm_toggle_needs_a_key_but_not_a_specific_owner(client, anon, other):
+def test_llm_toggle_is_not_available_to_sender_keys(client, anon, other):
+    """D30: a self-issued sender key must not flip a switch that affects everyone (details in test_admin_toggle.py)."""
     assert anon.post("/settings/llm", json={"enabled": False}).status_code == 403
-    assert client.post("/settings/llm", json={"enabled": False}).status_code == 200
-    assert other.post("/settings/llm", json={"enabled": False}).status_code == 200
+    assert client.post("/settings/llm", json={"enabled": False}).status_code == 403
+    assert other.post("/settings/llm", json={"enabled": False}).status_code == 403
 
 
 def test_legacy_rows_without_owner_are_not_readable(client):

@@ -72,7 +72,7 @@ export function NotAWrapper() {
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-primary">The wrapper test</p>
           <p className="mt-2 font-display text-3xl leading-tight">Turn the LLM off. Nothing breaks.</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Flip the switch. Compose, reply and check still work, because the judge is our engine, not a model.
+            The operator can switch the LLM helper off. Compose, reply and check still work, because the judge is our engine, not a model.
           </p>
         </div>
         <div className="flex items-center justify-between rounded-2xl border border-border bg-muted/50 p-4">

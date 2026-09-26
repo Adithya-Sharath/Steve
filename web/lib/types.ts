@@ -115,6 +115,7 @@ export interface Health {
   llm_enabled: boolean;
   llm_switch: boolean;
   llm_key_present: boolean;
+  admin_toggle_available: boolean;
   stt_enabled: boolean;
   lexicon: { entries: number; by_language: Record<string, number> };
   version: string;

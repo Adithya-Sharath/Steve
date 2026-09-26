@@ -10,12 +10,16 @@ EventSource cannot set headers, so the SSE stream alone also accepts `?key=`.
 from __future__ import annotations
 
 import hashlib
+import hmac
 import re
 
 from fastapi import Header, HTTPException, Query
 
+from .settings import settings
+
 KEY_RE = re.compile(r"^sk_[A-Za-z0-9_-]{24,128}$")
 FORBIDDEN = "Sender key required. Open Steve in the browser where you created this message."
+ADMIN_FORBIDDEN = "Admin key required."
 
 
 def hash_key(key: str) -> str:
@@ -34,3 +38,11 @@ def sender_hash(x_sender_key: str | None = Header(default=None)) -> str:
 
 def sender_hash_header_or_query(x_sender_key: str | None = Header(default=None), key: str | None = Query(default=None)) -> str:
     return _check(x_sender_key or key)
+
+
+def admin_required(x_admin_key: str | None = Header(default=None)) -> None:
+    """Gate for settings that affect EVERYONE (the global LLM switch). A self-issued sender key is not enough:
+    the operator sets ADMIN_KEY in the environment. Unset => nobody can use it (403). Compared in constant time."""
+    configured = settings.admin_key
+    if not configured or not x_admin_key or not hmac.compare_digest(x_admin_key.encode("utf-8"), configured.encode("utf-8")):
+        raise HTTPException(403, ADMIN_FORBIDDEN)

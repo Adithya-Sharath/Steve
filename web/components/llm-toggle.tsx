@@ -4,19 +4,25 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
-import { api } from "@/lib/api";
+import { useAdminKey } from "@/lib/admin-key";
+import { ApiError, api } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 export function useHealth() {
   return useQuery({ queryKey: ["health"], queryFn: api.health, refetchInterval: 20_000, retry: false });
 }
 
-/** The "wrapper test" switch: with the LLM OFF the whole product must keep working. */
+/**
+ * The "wrapper test" switch: with the LLM OFF the whole product must keep working.
+ * It changes the LLM for EVERYONE, so it is admin-only: shown only when the server has an ADMIN_KEY (health says so)
+ * AND this browser holds that key (entered on /admin). Everyone else never sees it (D30).
+ */
 export function LlmToggle({ className, label = true }: { className?: string; label?: boolean }) {
   const qc = useQueryClient();
   const { data } = useHealth();
+  const adminKey = useAdminKey();
   const m = useMutation({
-    mutationFn: (v: boolean) => api.setLlm(v),
+    mutationFn: (v: boolean) => api.setLlm(v, adminKey),
     onSuccess: (r) => {
       qc.invalidateQueries({ queryKey: ["health"] });
       toast(r.llm_enabled ? "LLM helper on" : "LLM off: everything still works", {
@@ -25,9 +31,11 @@ export function LlmToggle({ className, label = true }: { className?: string; lab
           : "Facts are extracted by rules, replies are checked by our engine.",
       });
     },
-    onError: () => toast.error("Could not reach the server"),
+    onError: (e: Error) =>
+      toast.error(e instanceof ApiError && e.status === 403 ? "The server did not accept that admin key" : "Could not reach the server"),
   });
   const on = data?.llm_switch ?? false;
+  if (!data?.admin_toggle_available || !adminKey) return null;
   return (
     <label className={cn("flex cursor-pointer items-center gap-2 text-sm", className)}>
       <Sparkles className="size-4 text-muted-foreground" aria-hidden />

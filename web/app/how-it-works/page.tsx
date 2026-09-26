@@ -179,7 +179,7 @@ export default function HowItWorks() {
       <section className="mt-16" aria-labelledby="wrapper">
         <h2 id="wrapper" className="font-display text-3xl">The wrapper test</h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">
-          Flip the switch. With the LLM helper off, composing, replying and checking all still work end to end. The inspector above is running through the same engine either way.
+          The operator can switch the LLM helper off for everyone (an admin-only setting). With it off, composing, replying and checking all still work end to end. The inspector above is running through the same engine either way.
         </p>
         <div className="card-soft mt-5 grid gap-6 p-6 md:grid-cols-2">
           <div className="space-y-4">

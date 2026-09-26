@@ -61,8 +61,12 @@ export interface ConfirmOut {
 
 export const api = {
   health: () => request<Health>("/health"),
-  setLlm: (enabled: boolean) =>
-    request<{ llm_switch: boolean; llm_enabled: boolean }>("/settings/llm", json({ enabled }), true),
+  /** Global switch: admin-only. The operator's key travels in X-Admin-Key, never a sender key (D30). */
+  setLlm: (enabled: boolean, adminKey: string) => {
+    const init = json({ enabled });
+    (init.headers as Record<string, string>)["X-Admin-Key"] = adminKey;
+    return request<{ llm_switch: boolean; llm_enabled: boolean }>("/settings/llm", init);
+  },
 
   createMessage: (b: { text: string; sender_name: string; context: Context }) =>
     request<SuggestedFacts>("/messages", json(b), true),

@@ -42,6 +42,8 @@ class Settings:
     # the optional LLM may never make the composer wait: hard deadline, then fall back to the built-in extractor
     llm_timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "10")))
     llm_cooldown_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_COOLDOWN_SECONDS", "60")))
+    # the global LLM switch is admin-only: without ADMIN_KEY the runtime toggle is disabled and LLM_ENABLED decides (D30)
+    admin_key: str = field(default_factory=lambda: os.getenv("ADMIN_KEY", "").strip())
     reply_rate_limit: int = field(default_factory=lambda: int(os.getenv("REPLY_RATE_LIMIT", "12")))
     reply_rate_window: int = 60
 

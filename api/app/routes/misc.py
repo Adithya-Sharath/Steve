@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, delete, select
 from steve_engine import check_reply, inspect_reply, lexicon_stats
 
-from ..auth import sender_hash
+from ..auth import admin_required, sender_hash
 from ..db import Fact as FactRow
 from ..db import FactResultRow, Message, ReaderLink, Reply, get_session
 from ..schemas import AnalyzeIn, CheckIn, LlmToggle
@@ -27,6 +27,7 @@ def health():
         "llm_enabled": settings.llm_available,
         "llm_switch": settings.llm_enabled,
         "llm_key_present": bool(settings.gemini_api_key),
+        "admin_toggle_available": bool(settings.admin_key),
         "stt_enabled": get_stt().enabled,
         "lexicon": lexicon_stats(),
         "version": "0.1.0",
@@ -34,8 +35,8 @@ def health():
 
 
 @router.post("/settings/llm", tags=["settings"])
-def set_llm(body: LlmToggle, _owner: str = Depends(sender_hash)):
-    """Runtime toggle for the wrapper test: with it OFF, everything still works."""
+def set_llm(body: LlmToggle, _admin: None = Depends(admin_required)):
+    """Runtime toggle for the wrapper test: with it OFF, everything still works. GLOBAL, so admin-only (X-Admin-Key)."""
     settings.llm_enabled = body.enabled
     return {"llm_switch": settings.llm_enabled, "llm_enabled": settings.llm_available}
 
