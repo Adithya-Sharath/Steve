@@ -1,7 +1,7 @@
 # PROGRESS
 
 State of the build. Numbers below were produced by the final check run (see "Verification"), not typed from memory.
-Everything is committed locally. **Not pushed yet:** waiting for the GitHub repository to be renamed `Samjha` -> `Steve` (D29).
+Pushed to <https://github.com/Adithya-Sharath/Steve> (`main`, tag `v1.0.0`). The repo looked **private** to an unauthenticated request (404): make it public before judging. GitHub Actions status has not been observed from here.
 
 ## Phases (from `docs/build-prompt.md` §10)
 | # | Phase | Status |
@@ -17,7 +17,7 @@ Everything is committed locally. **Not pushed yet:** waiting for the GitHub repo
 | — | LLM safety net (D26): **10 s deadline + automatic fallback to the built-in extractor + 60 s cooldown**; default `GEMINI_MODEL` is now `gemini-3.1-flash-lite` (settings, `.env.example`, README, baseline runner) | done |
 | — | Real-phone test through Cloudflare tunnels worked (voice via Sarvam). It exposed a D26 bug: Gemini rejects deadlines under 10 s, so "Find key facts" always fell back. **D27:** SDK deadline never below 10 s, default timeout 10 s, 503 = short cooldown, provider error message logged (key redacted) | done |
 | — | **Rename to Steve (D28)**: package, env vars, DB, Docker, UI, sender-key storage migration; keyless eval numbers identical; screenshots retaken | done |
-| — | **Publish prep (D29)**: MIT licence, CONTRIBUTING, SECURITY, GitHub templates, CI (engine+api on Python 3.11, web on Node 22, verified in a fresh clone), judge-first README, secret scan of tree and full history | done; push pending repo rename |
+| — | **Publish prep (D29)**: MIT licence, CONTRIBUTING, SECURITY, GitHub templates, CI (engine+api on Python 3.11, web on Node 22, verified in a fresh clone), judge-first README, secret scan of tree and full history | done; pushed |
 | — | Follow-up round: negation typos, concessives, copy-paste, SMS shorthand, sender auth, Docker `$PORT`, production screenshots, this file | done (D12–D20) |
 
 ## Numbers (2026-09-25 final run)
@@ -54,7 +54,7 @@ D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set 
 3. ~~Test voice on a real phone~~ done on an iPhone over HTTPS (tunnels). Repeat it on the final deployed URLs.
 4. Build and run the Docker images; deploy web (Vercel) and API (Render/Railway/Fly). Set `LLM_ENABLED` in the environment on a public deployment.
 5. Record the video from `docs/demo-script.md`; replace `VIDEO_LINK_HERE` and the `NAME_n — role` lines in the README (licence: done, MIT).
-6. Rename the GitHub repo `Samjha` -> `Steve` (Settings -> Repository name), then push (D29).
+6. ~~Rename the repo and push~~ done. Make the repository public, set the description and topics, publish the v1.0.0 release, and check the Actions tab is green.
 
 ## Next steps (suggested order)
 Native-speaker lexicon review → real blind test set → run the baseline → deploy → calibrate/enable the embedding fallback → WhatsApp Business delivery → Arabic/Tagalog voice.
