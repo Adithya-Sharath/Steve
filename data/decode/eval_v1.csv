@@ -1,0 +1,459 @@
+id,view,text,accent,intended,base_id,swaps,in_pack,synthetic
+ev0001,typed_clean,come to the main gate,ar,come to the main gate,wi001,,,true
+ev0002,typed_clean,wait at the loading bay,hi,wait at the loading bay,wi002,,,true
+ev0003,typed_clean,meet me in the lobby,ml,meet me in the lobby,wi003,,,true
+ev0004,typed_clean,go to the security cabin,tl,go to the security cabin,wi004,,,true
+ev0005,typed_clean,park near the petrol station,none,park near the petrol station,wi005,,,true
+ev0006,typed_clean,bring the trolley to the warehouse,ar,bring the trolley to the warehouse,wi006,,,true
+ev0007,typed_clean,wait outside the supermarket,hi,wait outside the supermarket,wi007,,,true
+ev0008,typed_clean,come to the labour camp,ml,come to the labour camp,wi008,,,true
+ev0009,typed_clean,go to the bus stop,tl,go to the bus stop,wi009,,,true
+ev0010,typed_clean,meet at the metro station,none,meet at the metro station,wi010,,,true
+ev0011,typed_clean,take the boxes to the store room,ar,take the boxes to the store room,wi011,,,true
+ev0012,typed_clean,come to gate three,hi,come to gate three,wi012,,,true
+ev0013,typed_clean,wait at gate seven,ml,wait at gate seven,wi013,,,true
+ev0014,typed_clean,go to floor twelve,tl,go to floor twelve,wi014,,,true
+ev0015,typed_clean,come to building five,none,come to building five,wi015,,,true
+ev0016,typed_clean,deliver this to flat 204,ar,deliver this to flat 204,wi016,,,true
+ev0017,typed_clean,come to the parking gate four,hi,come to the parking gate four,wi017,,,true
+ev0018,typed_clean,wait in the reception,ml,wait in the reception,wi018,,,true
+ev0019,typed_clean,go to the basement,tl,go to the basement,wi019,,,true
+ev0020,typed_clean,come to the clinic,none,come to the clinic,wi020,,,true
+ev0021,typed_clean,go to the pharmacy,ar,go to the pharmacy,wi021,,,true
+ev0022,typed_clean,wait behind the villa,hi,wait behind the villa,wi022,,,true
+ev0023,typed_clean,leave the keys at the desk,ml,leave the keys at the desk,wi023,,,true
+ev0024,typed_clean,park the truck in the yard,tl,park the truck in the yard,wi024,,,true
+ev0025,typed_clean,take the parcel to the mosque,none,take the parcel to the mosque,wi025,,,true
+ev0026,typed_clean,send the driver to the airport,ar,send the driver to the airport,wi026,,,true
+ev0027,typed_clean,come to the rooftop,hi,come to the rooftop,wi027,,,true
+ev0028,typed_clean,wait near the exit,ml,wait near the exit,wi028,,,true
+ev0029,typed_clean,go to the canteen,tl,go to the canteen,wi029,,,true
+ev0030,typed_clean,come to the site office,none,come to the site office,wi030,,,true
+ev0031,typed_clean,meet me at the car wash,ar,meet me at the car wash,wi031,,,true
+ev0032,typed_clean,come to the mall,hi,come to the mall,wi032,,,true
+ev0033,typed_clean,bring the ladder to tower two,ml,bring the ladder to tower two,wi033,,,true
+ev0034,typed_clean,wait at the bank,tl,wait at the bank,wi034,,,true
+ev0035,typed_clean,come tomorrow,none,come tomorrow,wi035,,,true
+ev0036,typed_clean,come at five,ar,come at five,wi036,,,true
+ev0037,typed_clean,call me at 5 pm,hi,call me at 5 pm,wi037,,,true
+ev0038,typed_clean,start work at seven in the morning,ml,start work at seven in the morning,wi038,,,true
+ev0039,typed_clean,come before noon,tl,come before noon,wi039,,,true
+ev0040,typed_clean,wait until morning,none,wait until morning,wi040,,,true
+ev0041,typed_clean,come after maghrib,ar,come after maghrib,wi041,,,true
+ev0042,typed_clean,call me tonight,hi,call me tonight,wi042,,,true
+ev0043,typed_clean,meet me on friday,ml,meet me on friday,wi043,,,true
+ev0044,typed_clean,come on monday at eight,tl,come on monday at eight,wi044,,,true
+ev0045,typed_clean,come by evening,none,come by evening,wi045,,,true
+ev0046,typed_clean,the shift starts at six,ar,the shift starts at six,wi046,,,true
+ev0047,typed_clean,the meeting is at three pm,hi,the meeting is at three pm,wi047,,,true
+ev0048,typed_clean,come today,ml,come today,wi048,,,true
+ev0049,typed_clean,come now,tl,come now,wi049,,,true
+ev0050,typed_clean,wait ten minutes,none,wait ten minutes,wi050,,,true
+ev0051,typed_clean,come after lunch,ar,come after lunch,wi051,,,true
+ev0052,typed_clean,come next week,hi,come next week,wi052,,,true
+ev0053,typed_clean,send it by tomorrow,ml,send it by tomorrow,wi053,,,true
+ev0054,typed_clean,come at 8 o'clock,tl,come at 8 o'clock,wi054,,,true
+ev0055,typed_clean,start at nine,none,start at nine,wi055,,,true
+ev0056,typed_clean,finish before midnight,ar,finish before midnight,wi056,,,true
+ev0057,typed_clean,come this evening,hi,come this evening,wi057,,,true
+ev0058,typed_clean,come at noon,ml,come at noon,wi058,,,true
+ev0059,typed_clean,pay fifty dirhams,tl,pay fifty dirhams,wi059,,,true
+ev0060,typed_clean,it costs twenty five dirhams,none,it costs twenty five dirhams,wi060,,,true
+ev0061,typed_clean,send 100 dirhams,ar,send 100 dirhams,wi061,,,true
+ev0062,typed_clean,the fine is two hundred dirhams,hi,the fine is two hundred dirhams,wi062,,,true
+ev0063,typed_clean,pay 30 aed at the counter,ml,pay 30 aed at the counter,wi063,,,true
+ev0064,typed_clean,the taxi is fifteen dirhams,tl,the taxi is fifteen dirhams,wi064,,,true
+ev0065,typed_clean,you will get 1500 dirhams,none,you will get 1500 dirhams,wi065,,,true
+ev0066,typed_clean,the rent is 800 dirhams,ar,the rent is 800 dirhams,wi066,,,true
+ev0067,typed_clean,pay five hundred dirhams tomorrow,hi,pay five hundred dirhams tomorrow,wi067,,,true
+ev0068,typed_clean,transfer three thousand dirhams,ml,transfer three thousand dirhams,wi068,,,true
+ev0069,typed_clean,the ticket costs 45 dirhams,tl,the ticket costs 45 dirhams,wi069,,,true
+ev0070,typed_clean,pay 20 dirhams to the driver,none,pay 20 dirhams to the driver,wi070,,,true
+ev0071,typed_clean,give me sixty dirhams,ar,give me sixty dirhams,wi071,,,true
+ev0072,typed_clean,the charge is 12 dirhams,hi,the charge is 12 dirhams,wi072,,,true
+ev0073,typed_clean,send two hundred aed today,ml,send two hundred aed today,wi073,,,true
+ev0074,typed_clean,don't come today,tl,don't come today,wi074,,,true
+ev0075,typed_clean,do not come to the gate,none,do not come to the gate,wi075,,,true
+ev0076,typed_clean,never park here,ar,never park here,wi076,,,true
+ev0077,typed_clean,don't bring the bags,hi,don't bring the bags,wi077,,,true
+ev0078,typed_clean,do not wait at the lobby,ml,do not wait at the lobby,wi078,,,true
+ev0079,typed_clean,i cannot come tomorrow,tl,i cannot come tomorrow,wi079,,,true
+ev0080,typed_clean,don't pay fifty dirhams,none,don't pay fifty dirhams,wi080,,,true
+ev0081,typed_clean,do not go to the basement,ar,do not go to the basement,wi081,,,true
+ev0082,typed_clean,don't call me before eight,hi,don't call me before eight,wi082,,,true
+ev0083,typed_clean,please don't come at five,ml,please don't come at five,wi083,,,true
+ev0084,typed_clean,do not open the door,tl,do not open the door,wi084,,,true
+ev0085,typed_clean,don't send the money today,none,don't send the money today,wi085,,,true
+ev0086,typed_clean,never come to the site alone,ar,never come to the site alone,wi086,,,true
+ev0087,typed_clean,do not bring food to the office,hi,do not bring food to the office,wi087,,,true
+ev0088,typed_clean,don't take the keys,ml,don't take the keys,wi088,,,true
+ev0089,typed_clean,i cannot pay fifty dirhams,tl,i cannot pay fifty dirhams,wi089,,,true
+ev0090,typed_clean,do not come at night,none,do not come at night,wi090,,,true
+ev0091,typed_clean,don't leave the truck at the entrance,ar,don't leave the truck at the entrance,wi091,,,true
+ev0092,typed_clean,do not park in front of the gate,hi,do not park in front of the gate,wi092,,,true
+ev0093,typed_clean,don't wait for me,ml,don't wait for me,wi093,,,true
+ev0094,typed_clean,please do not come tomorrow,tl,please do not come tomorrow,wi094,,,true
+ev0095,typed_clean,come to the parking gate three at five,none,come to the parking gate three at five,wi095,,,true
+ev0096,typed_clean,meet me at the lobby tomorrow at nine,ar,meet me at the lobby tomorrow at nine,wi096,,,true
+ev0097,typed_clean,bring the keys to the reception before noon,hi,bring the keys to the reception before noon,wi097,,,true
+ev0098,typed_clean,pay fifty dirhams at the counter tomorrow,ml,pay fifty dirhams at the counter tomorrow,wi098,,,true
+ev0099,typed_clean,wait at the loading bay until six,tl,wait at the loading bay until six,wi099,,,true
+ev0100,typed_clean,take the parcel to building nine on friday,none,take the parcel to building nine on friday,wi100,,,true
+ev0101,typed_clean,send the driver to the airport at seven,ar,send the driver to the airport at seven,wi101,,,true
+ev0102,typed_clean,come to gate two tomorrow morning,hi,come to gate two tomorrow morning,wi102,,,true
+ev0103,typed_clean,deliver the files to floor eight today,ml,deliver the files to floor eight today,wi103,,,true
+ev0104,typed_clean,pay twenty dirhams at the office tomorrow,tl,pay twenty dirhams at the office tomorrow,wi104,,,true
+ev0105,typed_clean,don't come to the warehouse before eight,none,don't come to the warehouse before eight,wi105,,,true
+ev0106,typed_clean,park the truck near tower three at noon,ar,park the truck near tower three at noon,wi106,,,true
+ev0107,typed_clean,wait at the bus stop until seven,hi,wait at the bus stop until seven,wi107,,,true
+ev0108,typed_clean,collect the bags from the store room at four,ml,collect the bags from the store room at four,wi108,,,true
+ev0109,typed_clean,call me tomorrow at ten,tl,call me tomorrow at ten,wi109,,,true
+ev0110,typed_clean,come to flat 305 at eight pm,none,come to flat 305 at eight pm,wi110,,,true
+ev0111,typed_clean,bring the box to the site office today,ar,bring the box to the site office today,wi111,,,true
+ev0112,typed_clean,pay two hundred dirhams at the reception on monday,hi,pay two hundred dirhams at the reception on monday,wi112,,,true
+ev0113,typed_clean,do not pay at the gate today,ml,do not pay at the gate today,wi113,,,true
+ev0114,typed_clean,meet me at the metro station at six pm,tl,meet me at the metro station at six pm,wi114,,,true
+ev0115,typed_clean,yalla come to the gate,none,yalla come to the gate,wi115,,,true
+ev0116,typed_clean,habibi wait at the lobby,ar,habibi wait at the lobby,wi116,,,true
+ev0117,typed_clean,khalas don't come tomorrow,hi,khalas don't come tomorrow,wi117,,,true
+ev0118,typed_clean,inshallah i come at five,ml,inshallah i come at five,wi118,,,true
+ev0119,typed_clean,yalla bring the bags to the villa,tl,yalla bring the bags to the villa,wi119,,,true
+ev0120,typed_clean,mafi mushkila come tomorrow,none,mafi mushkila come tomorrow,wi120,,,true
+ev0121,typed_clean,kindly revert by tomorrow,ar,kindly revert by tomorrow,wi121,,,true
+ev0122,typed_clean,yalla pay fifty dirhams,hi,yalla pay fifty dirhams,wi122,,,true
+ev0123,typed_clean,shway shway come to the gate,ml,shway shway come to the gate,wi123,,,true
+ev0124,typed_clean,wallah i cannot come today,tl,wallah i cannot come today,wi124,,,true
+ev0125,typed_clean,the lift is not working,none,the lift is not working,wi125,,,true
+ev0126,typed_clean,good morning sir,ar,good morning sir,wi126,,,true
+ev0127,typed_clean,thank you very much,hi,thank you very much,wi127,,,true
+ev0128,typed_clean,how are you,ml,how are you,wi128,,,true
+ev0129,typed_clean,the food is very good,tl,the food is very good,wi129,,,true
+ev0130,typed_clean,my phone is not working,none,my phone is not working,wi130,,,true
+ev0131,typed_clean,i am happy today,ar,i am happy today,wi131,,,true
+ev0132,typed_clean,the boss is angry,hi,the boss is angry,wi132,,,true
+ev0133,typed_clean,we are very tired,ml,we are very tired,wi133,,,true
+ev0134,typed_clean,it is very hot outside,tl,it is very hot outside,wi134,,,true
+ev0135,typed_clean,i like this job,none,i like this job,wi135,,,true
+ev0136,typed_clean,the weather is nice tomorrow,ar,the weather is nice tomorrow,wi136,,,true
+ev0137,voice_clean,Come to the main gate.,ml,come to the main gate,wi001,,,true
+ev0138,voice_clean,Wait at the loading bay.,tl,wait at the loading bay,wi002,,,true
+ev0139,voice_clean,Meet me in the lobby.,none,meet me in the lobby,wi003,,,true
+ev0140,voice_clean,Go to the security cabin.,ar,go to the security cabin,wi004,,,true
+ev0141,voice_clean,Park near the petrol station.,hi,park near the petrol station,wi005,,,true
+ev0142,voice_clean,Bring the trolley to the warehouse.,ml,bring the trolley to the warehouse,wi006,,,true
+ev0143,voice_clean,Wait outside the supermarket.,tl,wait outside the supermarket,wi007,,,true
+ev0144,voice_clean,Come to the labour camp.,none,come to the labour camp,wi008,,,true
+ev0145,voice_clean,Go to the bus stop.,ar,go to the bus stop,wi009,,,true
+ev0146,voice_clean,Meet at the metro station.,hi,meet at the metro station,wi010,,,true
+ev0147,voice_clean,Take the boxes to the store room.,ml,take the boxes to the store room,wi011,,,true
+ev0148,voice_clean,Come to gate three.,tl,come to gate three,wi012,,,true
+ev0149,voice_clean,Wait at gate seven.,none,wait at gate seven,wi013,,,true
+ev0150,voice_clean,Go to floor twelve.,ar,go to floor twelve,wi014,,,true
+ev0151,voice_clean,Come to building five.,hi,come to building five,wi015,,,true
+ev0152,voice_clean,Deliver this to flat 204.,ml,deliver this to flat 204,wi016,,,true
+ev0153,voice_clean,Come to the parking gate four.,tl,come to the parking gate four,wi017,,,true
+ev0154,voice_clean,Wait in the reception.,none,wait in the reception,wi018,,,true
+ev0155,voice_clean,Go to the basement.,ar,go to the basement,wi019,,,true
+ev0156,voice_clean,Come to the clinic.,hi,come to the clinic,wi020,,,true
+ev0157,voice_clean,Go to the pharmacy.,ml,go to the pharmacy,wi021,,,true
+ev0158,voice_clean,Wait behind the villa.,tl,wait behind the villa,wi022,,,true
+ev0159,voice_clean,Leave the keys at the desk.,none,leave the keys at the desk,wi023,,,true
+ev0160,voice_clean,Park the truck in the yard.,ar,park the truck in the yard,wi024,,,true
+ev0161,voice_clean,Take the parcel to the mosque.,hi,take the parcel to the mosque,wi025,,,true
+ev0162,voice_clean,Send the driver to the airport.,ml,send the driver to the airport,wi026,,,true
+ev0163,voice_clean,Come to the rooftop.,tl,come to the rooftop,wi027,,,true
+ev0164,voice_clean,Wait near the exit.,none,wait near the exit,wi028,,,true
+ev0165,voice_clean,Go to the canteen.,ar,go to the canteen,wi029,,,true
+ev0166,voice_clean,Come to the site office.,hi,come to the site office,wi030,,,true
+ev0167,voice_clean,Meet me at the car wash.,ml,meet me at the car wash,wi031,,,true
+ev0168,voice_clean,Come to the mall.,tl,come to the mall,wi032,,,true
+ev0169,voice_clean,Bring the ladder to tower two.,none,bring the ladder to tower two,wi033,,,true
+ev0170,voice_clean,Wait at the bank.,ar,wait at the bank,wi034,,,true
+ev0171,voice_clean,Come tomorrow.,hi,come tomorrow,wi035,,,true
+ev0172,voice_clean,Come at five.,ml,come at five,wi036,,,true
+ev0173,voice_clean,Call me at 5 pm.,tl,call me at 5 pm,wi037,,,true
+ev0174,voice_clean,Start work at seven in the morning.,none,start work at seven in the morning,wi038,,,true
+ev0175,voice_clean,Come before noon.,ar,come before noon,wi039,,,true
+ev0176,voice_clean,Wait until morning.,hi,wait until morning,wi040,,,true
+ev0177,voice_clean,Come after maghrib.,ml,come after maghrib,wi041,,,true
+ev0178,voice_clean,Call me tonight.,tl,call me tonight,wi042,,,true
+ev0179,voice_clean,Meet me on friday.,none,meet me on friday,wi043,,,true
+ev0180,voice_clean,Come on monday at eight.,ar,come on monday at eight,wi044,,,true
+ev0181,voice_clean,Come by evening.,hi,come by evening,wi045,,,true
+ev0182,voice_clean,The shift starts at six.,ml,the shift starts at six,wi046,,,true
+ev0183,voice_clean,The meeting is at three pm.,tl,the meeting is at three pm,wi047,,,true
+ev0184,voice_clean,Come today.,none,come today,wi048,,,true
+ev0185,voice_clean,Come now.,ar,come now,wi049,,,true
+ev0186,voice_clean,Wait ten minutes.,hi,wait ten minutes,wi050,,,true
+ev0187,voice_clean,Come after lunch.,ml,come after lunch,wi051,,,true
+ev0188,voice_clean,Come next week.,tl,come next week,wi052,,,true
+ev0189,voice_clean,Send it by tomorrow.,none,send it by tomorrow,wi053,,,true
+ev0190,voice_clean,Come at 8 o'clock.,ar,come at 8 o'clock,wi054,,,true
+ev0191,voice_clean,Start at nine.,hi,start at nine,wi055,,,true
+ev0192,voice_clean,Finish before midnight.,ml,finish before midnight,wi056,,,true
+ev0193,voice_clean,Come this evening.,tl,come this evening,wi057,,,true
+ev0194,voice_clean,Come at noon.,none,come at noon,wi058,,,true
+ev0195,voice_clean,Pay fifty dirhams.,ar,pay fifty dirhams,wi059,,,true
+ev0196,voice_clean,It costs twenty five dirhams.,hi,it costs twenty five dirhams,wi060,,,true
+ev0197,voice_clean,Send 100 dirhams.,ml,send 100 dirhams,wi061,,,true
+ev0198,voice_clean,The fine is two hundred dirhams.,tl,the fine is two hundred dirhams,wi062,,,true
+ev0199,voice_clean,Pay 30 aed at the counter.,none,pay 30 aed at the counter,wi063,,,true
+ev0200,voice_clean,The taxi is fifteen dirhams.,ar,the taxi is fifteen dirhams,wi064,,,true
+ev0201,voice_clean,You will get 1500 dirhams.,hi,you will get 1500 dirhams,wi065,,,true
+ev0202,voice_clean,The rent is 800 dirhams.,ml,the rent is 800 dirhams,wi066,,,true
+ev0203,voice_clean,Pay five hundred dirhams tomorrow.,tl,pay five hundred dirhams tomorrow,wi067,,,true
+ev0204,voice_clean,Transfer three thousand dirhams.,none,transfer three thousand dirhams,wi068,,,true
+ev0205,voice_clean,The ticket costs 45 dirhams.,ar,the ticket costs 45 dirhams,wi069,,,true
+ev0206,voice_clean,Pay 20 dirhams to the driver.,hi,pay 20 dirhams to the driver,wi070,,,true
+ev0207,voice_clean,Give me sixty dirhams.,ml,give me sixty dirhams,wi071,,,true
+ev0208,voice_clean,The charge is 12 dirhams.,tl,the charge is 12 dirhams,wi072,,,true
+ev0209,voice_clean,Send two hundred aed today.,none,send two hundred aed today,wi073,,,true
+ev0210,voice_clean,Don't come today.,ar,don't come today,wi074,,,true
+ev0211,voice_clean,Do not come to the gate.,hi,do not come to the gate,wi075,,,true
+ev0212,voice_clean,Never park here.,ml,never park here,wi076,,,true
+ev0213,voice_clean,Don't bring the bags.,tl,don't bring the bags,wi077,,,true
+ev0214,voice_clean,Do not wait at the lobby.,none,do not wait at the lobby,wi078,,,true
+ev0215,voice_clean,I cannot come tomorrow.,ar,i cannot come tomorrow,wi079,,,true
+ev0216,voice_clean,Don't pay fifty dirhams.,hi,don't pay fifty dirhams,wi080,,,true
+ev0217,voice_clean,Do not go to the basement.,ml,do not go to the basement,wi081,,,true
+ev0218,voice_clean,Don't call me before eight.,tl,don't call me before eight,wi082,,,true
+ev0219,voice_clean,Please don't come at five.,none,please don't come at five,wi083,,,true
+ev0220,voice_clean,Do not open the door.,ar,do not open the door,wi084,,,true
+ev0221,voice_clean,Don't send the money today.,hi,don't send the money today,wi085,,,true
+ev0222,voice_clean,Never come to the site alone.,ml,never come to the site alone,wi086,,,true
+ev0223,voice_clean,Do not bring food to the office.,tl,do not bring food to the office,wi087,,,true
+ev0224,voice_clean,Don't take the keys.,none,don't take the keys,wi088,,,true
+ev0225,voice_clean,I cannot pay fifty dirhams.,ar,i cannot pay fifty dirhams,wi089,,,true
+ev0226,voice_clean,Do not come at night.,hi,do not come at night,wi090,,,true
+ev0227,voice_clean,Don't leave the truck at the entrance.,ml,don't leave the truck at the entrance,wi091,,,true
+ev0228,voice_clean,Do not park in front of the gate.,tl,do not park in front of the gate,wi092,,,true
+ev0229,voice_clean,Don't wait for me.,none,don't wait for me,wi093,,,true
+ev0230,voice_clean,Please do not come tomorrow.,ar,please do not come tomorrow,wi094,,,true
+ev0231,voice_clean,Come to the parking gate three at five.,hi,come to the parking gate three at five,wi095,,,true
+ev0232,voice_clean,Meet me at the lobby tomorrow at nine.,ml,meet me at the lobby tomorrow at nine,wi096,,,true
+ev0233,voice_clean,Bring the keys to the reception before noon.,tl,bring the keys to the reception before noon,wi097,,,true
+ev0234,voice_clean,Pay fifty dirhams at the counter tomorrow.,none,pay fifty dirhams at the counter tomorrow,wi098,,,true
+ev0235,voice_clean,Wait at the loading bay until six.,ar,wait at the loading bay until six,wi099,,,true
+ev0236,voice_clean,Take the parcel to building nine on friday.,hi,take the parcel to building nine on friday,wi100,,,true
+ev0237,voice_clean,Send the driver to the airport at seven.,ml,send the driver to the airport at seven,wi101,,,true
+ev0238,voice_clean,Come to gate two tomorrow morning.,tl,come to gate two tomorrow morning,wi102,,,true
+ev0239,voice_clean,Deliver the files to floor eight today.,none,deliver the files to floor eight today,wi103,,,true
+ev0240,voice_clean,Pay twenty dirhams at the office tomorrow.,ar,pay twenty dirhams at the office tomorrow,wi104,,,true
+ev0241,voice_clean,Don't come to the warehouse before eight.,hi,don't come to the warehouse before eight,wi105,,,true
+ev0242,voice_clean,Park the truck near tower three at noon.,ml,park the truck near tower three at noon,wi106,,,true
+ev0243,voice_clean,Wait at the bus stop until seven.,tl,wait at the bus stop until seven,wi107,,,true
+ev0244,voice_clean,Collect the bags from the store room at four.,none,collect the bags from the store room at four,wi108,,,true
+ev0245,voice_clean,Call me tomorrow at ten.,ar,call me tomorrow at ten,wi109,,,true
+ev0246,voice_clean,Come to flat 305 at eight pm.,hi,come to flat 305 at eight pm,wi110,,,true
+ev0247,voice_clean,Bring the box to the site office today.,ml,bring the box to the site office today,wi111,,,true
+ev0248,voice_clean,Pay two hundred dirhams at the reception on monday.,tl,pay two hundred dirhams at the reception on monday,wi112,,,true
+ev0249,voice_clean,Do not pay at the gate today.,none,do not pay at the gate today,wi113,,,true
+ev0250,voice_clean,Meet me at the metro station at six pm.,ar,meet me at the metro station at six pm,wi114,,,true
+ev0251,voice_clean,Yalla come to the gate.,hi,yalla come to the gate,wi115,,,true
+ev0252,voice_clean,Habibi wait at the lobby.,ml,habibi wait at the lobby,wi116,,,true
+ev0253,voice_clean,Khalas don't come tomorrow.,tl,khalas don't come tomorrow,wi117,,,true
+ev0254,voice_clean,Inshallah i come at five.,none,inshallah i come at five,wi118,,,true
+ev0255,voice_clean,Yalla bring the bags to the villa.,ar,yalla bring the bags to the villa,wi119,,,true
+ev0256,voice_clean,Mafi mushkila come tomorrow.,hi,mafi mushkila come tomorrow,wi120,,,true
+ev0257,voice_clean,Kindly revert by tomorrow.,ml,kindly revert by tomorrow,wi121,,,true
+ev0258,voice_clean,Yalla pay fifty dirhams.,tl,yalla pay fifty dirhams,wi122,,,true
+ev0259,voice_clean,Shway shway come to the gate.,none,shway shway come to the gate,wi123,,,true
+ev0260,voice_clean,Wallah i cannot come today.,ar,wallah i cannot come today,wi124,,,true
+ev0261,voice_clean,The lift is not working.,hi,the lift is not working,wi125,,,true
+ev0262,voice_clean,Good morning sir.,ml,good morning sir,wi126,,,true
+ev0263,voice_clean,Thank you very much.,tl,thank you very much,wi127,,,true
+ev0264,voice_clean,How are you.,none,how are you,wi128,,,true
+ev0265,voice_clean,The food is very good.,ar,the food is very good,wi129,,,true
+ev0266,voice_clean,My phone is not working.,hi,my phone is not working,wi130,,,true
+ev0267,voice_clean,I am happy today.,ml,i am happy today,wi131,,,true
+ev0268,voice_clean,The boss is angry.,tl,the boss is angry,wi132,,,true
+ev0269,voice_clean,We are very tired.,none,we are very tired,wi133,,,true
+ev0270,voice_clean,It is very hot outside.,ar,it is very hot outside,wi134,,,true
+ev0271,voice_clean,I like this job.,hi,i like this job,wi135,,,true
+ev0272,voice_clean,The weather is nice tomorrow.,ml,the weather is nice tomorrow,wi136,,,true
+ev0273,typed_ear,come to de main gate,hi,come to the main gate,wi001,de>the,true,true
+ev0274,typed_ear,vait at de loading bay,hi,wait at the loading bay,wi002,vait>wait; de>the,true,true
+ev0275,typed_ear,meet me in te lobby,none,meet me in the lobby,wi003,te>the,true,true
+ev0276,typed_ear,go to te security cabin,tl,go to the security cabin,wi004,te>the,true,true
+ev0277,typed_ear,park near te petrol station,tl,park near the petrol station,wi005,te>the,true,true
+ev0278,typed_ear,bring te trolley to te warehouse,ar,bring the trolley to the warehouse,wi006,te>the; te>the,true,true
+ev0279,typed_ear,wait outside te supermarket,none,wait outside the supermarket,wi007,te>the,true,true
+ev0280,typed_ear,come to de labour camp,none,come to the labour camp,wi008,de>the,true,true
+ev0281,typed_ear,go to te bus stop,none,go to the bus stop,wi009,te>the,true,true
+ev0282,typed_ear,meet at te metro station,tl,meet at the metro station,wi010,te>the,true,true
+ev0283,typed_ear,take te boxes to te store room,ml,take the boxes to the store room,wi011,te>the; te>the,true,true
+ev0284,typed_ear,come to gate tree,ar,come to gate three,wi012,tree>three,true,true
+ev0285,typed_ear,wait at gate seben,none,wait at gate seven,wi013,seben>seven,true,true
+ev0286,typed_ear,go to ploor twelbe,tl,go to floor twelve,wi014,twelbe>twelve; ploor>floor,true,true
+ev0287,typed_ear,come to building fiwe,none,come to building five,wi015,fiwe>five,true,true
+ev0288,typed_ear,deliwer dis to flat 204,none,deliver this to flat 204,wi016,deliwer>deliver; dis>this,true,true
+ev0289,typed_ear,come to te barking gate four,ar,come to the parking gate four,wi017,te>the; barking>parking,true,true
+ev0290,typed_ear,wait in te reception,tl,wait in the reception,wi018,te>the,true,true
+ev0291,typed_ear,go to de basement,hi,go to the basement,wi019,de>the,true,true
+ev0292,typed_ear,come to de clinic,hi,come to the clinic,wi020,de>the,true,true
+ev0293,typed_ear,go to te pharmacy,tl,go to the pharmacy,wi021,te>the,true,true
+ev0294,typed_ear,wait behind te filla,ar,wait behind the villa,wi022,te>the; filla>villa,true,true
+ev0295,typed_ear,leawe the keys at de desk,hi,leave the keys at the desk,wi023,leawe>leave; de>the,true,true
+ev0296,typed_ear,park te truck in te yard,none,park the truck in the yard,wi024,te>the; te>the,true,true
+ev0297,typed_ear,take de parcel to de mosque,hi,take the parcel to the mosque,wi025,de>the; de>the,true,true
+ev0298,typed_ear,send the drifer to te airport,ar,send the driver to the airport,wi026,te>the; drifer>driver,true,true
+ev0299,typed_ear,come to te rooftob,ar,come to the rooftop,wi027,rooftob>rooftop; te>the,true,true
+ev0300,typed_ear,wait near te exit,ar,wait near the exit,wi028,te>the,true,true
+ev0301,typed_ear,go to de canteen,hi,go to the canteen,wi029,de>the,true,true
+ev0302,typed_ear,come to de site office,hi,come to the site office,wi030,de>the,true,true
+ev0303,typed_ear,meet me at te car wash,ar,meet me at the car wash,wi031,te>the,true,true
+ev0304,typed_ear,come to te mall,ml,come to the mall,wi032,te>the,true,true
+ev0305,typed_ear,bring te ladder to tower two,tl,bring the ladder to tower two,wi033,te>the,true,true
+ev0306,typed_ear,wait at te bank,none,wait at the bank,wi034,te>the,true,true
+ev0307,typed_ear,come tomorrov,hi,come tomorrow,wi035,tomorrov>tomorrow,true,true
+ev0308,typed_ear,come at fife,ar,come at five,wi036,fife>five,true,true
+ev0309,typed_ear,start work at seben in te morning,tl,start work at seven in the morning,wi038,seben>seven; te>the,true,true
+ev0310,typed_ear,come bepore noon,tl,come before noon,wi039,bepore>before,true,true
+ev0311,typed_ear,vait until morning,none,wait until morning,wi040,vait>wait,true,true
+ev0312,typed_ear,come apter maghrib,tl,come after maghrib,wi041,apter>after,true,true
+ev0313,typed_ear,meet me on priday,tl,meet me on friday,wi043,priday>friday,true,true
+ev0314,typed_ear,come by ebening,tl,come by evening,wi045,ebening>evening,true,true
+ev0315,typed_ear,te shipt starts at six,tl,the shift starts at six,wi046,te>the; shipt>shift,true,true
+ev0316,typed_ear,te meeting is at tree pm,ar,the meeting is at three pm,wi047,tree>three; te>the,true,true
+ev0317,typed_ear,come nov,hi,come now,wi049,nov>now,true,true
+ev0318,typed_ear,vait ten minutes,none,wait ten minutes,wi050,vait>wait,true,true
+ev0319,typed_ear,come apter lunch,none,come after lunch,wi051,apter>after,true,true
+ev0320,typed_ear,come next veek,hi,come next week,wi052,veek>week,true,true
+ev0321,typed_ear,send it by tomorrov,hi,send it by tomorrow,wi053,tomorrov>tomorrow,true,true
+ev0322,typed_ear,pinish bepore midnight,none,finish before midnight,wi056,bepore>before; pinish>finish,true,true
+ev0323,typed_ear,come tis evening,ml,come this evening,wi057,tis>this,true,true
+ev0324,typed_ear,pay pifty dirhams,none,pay fifty dirhams,wi059,pifty>fifty,true,true
+ev0325,typed_ear,it costs twenty fife dirhams,ar,it costs twenty five dirhams,wi060,fife>five,true,true
+ev0326,typed_ear,te pine is two hundred dirhams,tl,the fine is two hundred dirhams,wi062,pine>fine; te>the,true,true
+ev0327,typed_ear,pay 30 aed at te counter,ml,pay 30 aed at the counter,wi063,te>the,true,true
+ev0328,typed_ear,te taxi is fifteen dirhams,ml,the taxi is fifteen dirhams,wi064,te>the,true,true
+ev0329,typed_ear,you vill get 1500 dirhams,hi,you will get 1500 dirhams,wi065,vill>will,true,true
+ev0330,typed_ear,te rent is 800 dirhams,none,the rent is 800 dirhams,wi066,te>the,true,true
+ev0331,typed_ear,bay fife hundred dirhams tomorrow,none,pay five hundred dirhams tomorrow,wi067,fife>five; bay>pay,true,true
+ev0332,typed_ear,transfer dree dousand dirhams,none,transfer three thousand dirhams,wi068,dousand>thousand; dree>three,true,true
+ev0333,typed_ear,te ticket costs 45 dirhams,tl,the ticket costs 45 dirhams,wi069,te>the,true,true
+ev0334,typed_ear,pay 20 dirhams to de driwer,hi,pay 20 dirhams to the driver,wi070,de>the; driwer>driver,true,true
+ev0335,typed_ear,gife me sixty dirhams,ar,give me sixty dirhams,wi071,gife>give,true,true
+ev0336,typed_ear,te charge is 12 dirhams,none,the charge is 12 dirhams,wi072,te>the,true,true
+ev0337,typed_ear,send tvo hundred aed today,hi,send two hundred aed today,wi073,tvo>two,true,true
+ev0338,typed_ear,do not come to te gate,ml,do not come to the gate,wi075,te>the,true,true
+ev0339,typed_ear,nefer bark here,ar,never park here,wi076,bark>park; nefer>never,true,true
+ev0340,typed_ear,don't bring te bags,tl,don't bring the bags,wi077,te>the,true,true
+ev0341,typed_ear,do not vait at de lobby,hi,do not wait at the lobby,wi078,de>the; vait>wait,true,true
+ev0342,typed_ear,i cannot come tomorrov,hi,i cannot come tomorrow,wi079,tomorrov>tomorrow,true,true
+ev0343,typed_ear,don't bay fifty dirhams,none,don't pay fifty dirhams,wi080,bay>pay,true,true
+ev0344,typed_ear,do not go to te basement,tl,do not go to the basement,wi081,te>the,true,true
+ev0345,typed_ear,don't call me bepore eight,tl,don't call me before eight,wi082,bepore>before,true,true
+ev0346,typed_ear,please don't come at fiwe,hi,please don't come at five,wi083,fiwe>five,true,true
+ev0347,typed_ear,do not open de door,hi,do not open the door,wi084,de>the,true,true
+ev0348,typed_ear,don't send te money today,tl,don't send the money today,wi085,te>the,true,true
+ev0349,typed_ear,newer come to de site alone,hi,never come to the site alone,wi086,newer>never; de>the,true,true
+ev0350,typed_ear,do not bring food to de office,hi,do not bring food to the office,wi087,de>the,true,true
+ev0351,typed_ear,don't take de keys,none,don't take the keys,wi088,de>the,true,true
+ev0352,typed_ear,i cannot pay pifty dirhams,tl,i cannot pay fifty dirhams,wi089,pifty>fifty,true,true
+ev0353,typed_ear,don't leave te truck at te entrance,tl,don't leave the truck at the entrance,wi091,te>the; te>the,true,true
+ev0354,typed_ear,do not bark in front of te gate,ar,do not park in front of the gate,wi092,bark>park; te>the,true,true
+ev0355,typed_ear,don't vait for me,none,don't wait for me,wi093,vait>wait,true,true
+ev0356,typed_ear,please do not come tomorrov,hi,please do not come tomorrow,wi094,tomorrov>tomorrow,true,true
+ev0357,typed_ear,come to te parking gate tree at five,tl,come to the parking gate three at five,wi095,tree>three; te>the,true,true
+ev0358,typed_ear,meet me at te lobby tomorrow at nine,tl,meet me at the lobby tomorrow at nine,wi096,te>the,true,true
+ev0359,typed_ear,bring te keys to te reception before noon,ar,bring the keys to the reception before noon,wi097,te>the; te>the,true,true
+ev0360,typed_ear,pay fifty dirhams at de counter tomorrov,none,pay fifty dirhams at the counter tomorrow,wi098,tomorrov>tomorrow; de>the,true,true
+ev0361,typed_ear,wait at te loading bay until six,tl,wait at the loading bay until six,wi099,te>the,true,true
+ev0362,typed_ear,take te parcel to building nine on priday,tl,take the parcel to building nine on friday,wi100,priday>friday; te>the,true,true
+ev0363,typed_ear,send te driver to the airbort at seven,ar,send the driver to the airport at seven,wi101,airbort>airport; te>the,true,true
+ev0364,typed_ear,come to gate tvo tomorrov morning,hi,come to gate two tomorrow morning,wi102,tvo>two; tomorrov>tomorrow,true,true
+ev0365,typed_ear,delifer te files to floor eight today,none,deliver the files to floor eight today,wi103,te>the; delifer>deliver,true,true
+ev0366,typed_ear,pay twenty dirhams at te opfice tomorrow,tl,pay twenty dirhams at the office tomorrow,wi104,te>the; opfice>office,true,true
+ev0367,typed_ear,don't come to te warehouse bepore eight,tl,don't come to the warehouse before eight,wi105,bepore>before; te>the,true,true
+ev0368,typed_ear,park te truck near tower tree at noon,tl,park the truck near tower three at noon,wi106,tree>three; te>the,true,true
+ev0369,typed_ear,wait at the bus stob until sefen,ar,wait at the bus stop until seven,wi107,stob>stop; sefen>seven,true,true
+ev0370,typed_ear,collect de bags from de store room at four,hi,collect the bags from the store room at four,wi108,de>the; de>the,true,true
+ev0371,typed_ear,call me tomorrov at ten,none,call me tomorrow at ten,wi109,tomorrov>tomorrow,true,true
+ev0372,typed_ear,come to plat 305 at eight pm,tl,come to flat 305 at eight pm,wi110,plat>flat,true,true
+ev0373,typed_ear,bring de box to de site office today,hi,bring the box to the site office today,wi111,de>the; de>the,true,true
+ev0374,typed_ear,pay two hundred dirhams at te reception on monday,ml,pay two hundred dirhams at the reception on monday,wi112,te>the,true,true
+ev0375,typed_ear,do not bay at te gate today,ar,do not pay at the gate today,wi113,te>the; bay>pay,true,true
+ev0376,typed_ear,meet me at te metro station at six pm,tl,meet me at the metro station at six pm,wi114,te>the,true,true
+ev0377,typed_ear,yalla come to te gate,none,yalla come to the gate,wi115,te>the,true,true
+ev0378,typed_ear,habibi wait at te lobby,tl,habibi wait at the lobby,wi116,te>the,true,true
+ev0379,typed_ear,khalas don't come tomorrov,hi,khalas don't come tomorrow,wi117,tomorrov>tomorrow,true,true
+ev0380,typed_ear,inshallah i come at fife,none,inshallah i come at five,wi118,fife>five,true,true
+ev0381,typed_ear,yalla bring te bags to te villa,tl,yalla bring the bags to the villa,wi119,te>the; te>the,true,true
+ev0382,typed_ear,mapi mushkila come tomorrow,tl,mafi mushkila come tomorrow,wi120,mapi>mafi,true,true
+ev0383,typed_ear,kindly rebert by tomorrow,tl,kindly revert by tomorrow,wi121,rebert>revert,true,true
+ev0384,typed_ear,yalla bay fifty dirhams,ar,yalla pay fifty dirhams,wi122,bay>pay,true,true
+ev0385,typed_ear,shway shway come to te gate,none,shway shway come to the gate,wi123,te>the,true,true
+ev0386,typed_ear,vallah i cannot come today,hi,wallah i cannot come today,wi124,vallah>wallah,true,true
+ev0387,typed_ear,te lift is not working,ar,the lift is not working,wi125,te>the,true,true
+ev0388,typed_ear,dank you wery much,hi,thank you very much,wi127,wery>very; dank>thank,true,true
+ev0389,typed_ear,hov are you,hi,how are you,wi128,hov>how,true,true
+ev0390,typed_ear,te food is very good,none,the food is very good,wi129,te>the,true,true
+ev0391,typed_ear,my phone is not vorking,none,my phone is not working,wi130,vorking>working,true,true
+ev0392,typed_ear,i am habpy today,ar,i am happy today,wi131,habpy>happy,true,true
+ev0393,typed_ear,de boss is angry,hi,the boss is angry,wi132,de>the,true,true
+ev0394,typed_ear,we are fery tired,ar,we are very tired,wi133,fery>very,true,true
+ev0395,typed_ear,it is fery hot outside,ar,it is very hot outside,wi134,fery>very,true,true
+ev0396,typed_ear,i like tis job,tl,i like this job,wi135,tis>this,true,true
+ev0397,typed_ear,te weater is nice tomorrow,none,the weather is nice tomorrow,wi136,weater>weather; te>the,true,true
+ev0398,typed_ear,wait at the loadin bay,tl,wait at the loading bay,wi002,loadin>loading,false,true
+ev0399,typed_ear,mit me in the lobby,ar,meet me in the lobby,wi003,mit>meet,false,true
+ev0400,typed_ear,park near the petrol istation,hi,park near the petrol station,wi005,istation>station,false,true
+ev0401,typed_ear,brin the trolley to the warehouse,tl,bring the trolley to the warehouse,wi006,brin>bring,false,true
+ev0402,typed_ear,mit at the metro istation,none,meet at the metro station,wi010,mit>meet; istation>station,false,true
+ev0403,typed_ear,take the boxes to the istore rum,tl,take the boxes to the store room,wi011,rum>room; istore>store,false,true
+ev0404,typed_ear,come to gate thri,none,come to gate three,wi012,thri>three,false,true
+ev0405,typed_ear,go to flur twelve,ar,go to floor twelve,wi014,flur>floor,false,true
+ev0406,typed_ear,come to buildin five,tl,come to building five,wi015,buildin>building,false,true
+ev0407,typed_ear,come to the parkin gate four,hi,come to the parking gate four,wi017,parkin>parking,false,true
+ev0408,typed_ear,come to the ruftop,ml,come to the rooftop,wi027,ruftop>rooftop,false,true
+ev0409,typed_ear,go to the cantin,ar,go to the canteen,wi029,cantin>canteen,false,true
+ev0410,typed_ear,mit me at the car wach,ml,meet me at the car wash,wi031,mit>meet; wach>wash,false,true
+ev0411,typed_ear,brin the ladder to tower two,ml,bring the ladder to tower two,wi033,brin>bring,false,true
+ev0412,typed_ear,istart work at seven in the mornin,ar,start work at seven in the morning,wi038,mornin>morning; istart>start,false,true
+ev0413,typed_ear,come before nun,tl,come before noon,wi039,nun>noon,false,true
+ev0414,typed_ear,wait until mornin,hi,wait until morning,wi040,mornin>morning,false,true
+ev0415,typed_ear,mit me on friday,hi,meet me on friday,wi043,mit>meet,false,true
+ev0416,typed_ear,come by evenin,tl,come by evening,wi045,evenin>evening,false,true
+ev0417,typed_ear,the chift istarts at six,hi,the shift starts at six,wi046,istarts>starts; chift>shift,false,true
+ev0418,typed_ear,the meetin is at free pm,tl,the meeting is at three pm,wi047,meetin>meeting; free>three,false,true
+ev0419,typed_ear,come after lunsh,ar,come after lunch,wi051,lunsh>lunch,false,true
+ev0420,typed_ear,come next wik,tl,come next week,wi052,wik>week,false,true
+ev0421,typed_ear,istart at nine,tl,start at nine,wi055,istart>start,false,true
+ev0422,typed_ear,finich before midnight,none,finish before midnight,wi056,finich>finish,false,true
+ev0423,typed_ear,come this evenin,hi,come this evening,wi057,evenin>evening,false,true
+ev0424,typed_ear,come at nun,tl,come at noon,wi058,nun>noon,false,true
+ev0425,typed_ear,the fine is two undred dirhams,ar,the fine is two hundred dirhams,wi062,undred>hundred,false,true
+ev0426,typed_ear,the taxi is fiftin dirhams,tl,the taxi is fifteen dirhams,wi064,fiftin>fifteen,false,true
+ev0427,typed_ear,pay five undred dirhams tomorrow,tl,pay five hundred dirhams tomorrow,wi067,undred>hundred,false,true
+ev0428,typed_ear,transfer free fousand dirhams,none,transfer three thousand dirhams,wi068,free>three; fousand>thousand,false,true
+ev0429,typed_ear,the sharge is 12 dirhams,hi,the charge is 12 dirhams,wi072,sharge>charge,false,true
+ev0430,typed_ear,send two undred aed today,tl,send two hundred aed today,wi073,undred>hundred,false,true
+ev0431,typed_ear,never park ere,ml,never park here,wi076,ere>here,false,true
+ev0432,typed_ear,don't brin the bags,none,don't bring the bags,wi077,brin>bring,false,true
+ev0433,typed_ear,do not open the dur,none,do not open the door,wi084,dur>door,false,true
+ev0434,typed_ear,do not brin fud to the office,tl,do not bring food to the office,wi087,fud>food; brin>bring,false,true
+ev0435,typed_ear,come to the parkin gate free at five,hi,come to the parking gate three at five,wi095,parkin>parking; free>three,false,true
+ev0436,typed_ear,mit me at the lobby tomorrow at nine,ml,meet me at the lobby tomorrow at nine,wi096,mit>meet,false,true
+ev0437,typed_ear,brin the keys to the reception before nun,hi,bring the keys to the reception before noon,wi097,nun>noon; brin>bring,false,true
+ev0438,typed_ear,wait at the loadin bay until six,tl,wait at the loading bay until six,wi099,loadin>loading,false,true
+ev0439,typed_ear,take the parcel to buildin nine on friday,ar,take the parcel to building nine on friday,wi100,buildin>building,false,true
+ev0440,typed_ear,come to gate two tomorrow mornin,ml,come to gate two tomorrow morning,wi102,mornin>morning,false,true
+ev0441,typed_ear,deliver the files to flur eight today,tl,deliver the files to floor eight today,wi103,flur>floor,false,true
+ev0442,typed_ear,park the truck near tower free at nun,none,park the truck near tower three at noon,wi106,free>three; nun>noon,false,true
+ev0443,typed_ear,collect the bags from the istore rum at four,tl,collect the bags from the store room at four,wi108,rum>room; istore>store,false,true
+ev0444,typed_ear,brin the box to the site office today,tl,bring the box to the site office today,wi111,brin>bring,false,true
+ev0445,typed_ear,pay two undred dirhams at the reception on monday,none,pay two hundred dirhams at the reception on monday,wi112,undred>hundred,false,true
+ev0446,typed_ear,mit me at the metro istation at six pm,ml,meet me at the metro station at six pm,wi114,mit>meet; istation>station,false,true
+ev0447,typed_ear,abibi wait at the lobby,ar,habibi wait at the lobby,wi116,abibi>habibi,false,true
+ev0448,typed_ear,inchallah i come at five,hi,inshallah i come at five,wi118,inchallah>inshallah,false,true
+ev0449,typed_ear,yalla brin the bags to the villa,none,yalla bring the bags to the villa,wi119,brin>bring,false,true
+ev0450,typed_ear,mafi muchkila come tomorrow,ml,mafi mushkila come tomorrow,wi120,muchkila>mushkila,false,true
+ev0451,typed_ear,chway chway come to the gate,hi,shway shway come to the gate,wi123,chway>shway; chway>shway,false,true
+ev0452,typed_ear,the lift is not workin,tl,the lift is not working,wi125,workin>working,false,true
+ev0453,typed_ear,gud mornin sir,hi,good morning sir,wi126,gud>good; mornin>morning,false,true
+ev0454,typed_ear,fank you very mush,hi,thank you very much,wi127,mush>much; fank>thank,false,true
+ev0455,typed_ear,the fud is very gud,none,the food is very good,wi129,fud>food; gud>good,false,true
+ev0456,typed_ear,my phone is not workin,none,my phone is not working,wi130,workin>working,false,true
+ev0457,typed_ear,i am appy today,ar,i am happy today,wi131,appy>happy,false,true
+ev0458,typed_ear,the weafer is nice tomorrow,none,the weather is nice tomorrow,wi136,weafer>weather,false,true
