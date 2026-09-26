@@ -74,9 +74,12 @@ def load_pack(pack_id: str) -> Pack:
 
 
 def active_swaps(accent_hint: str | None) -> tuple[Swap, ...]:
-    """common + the hinted pack; with no hint, common + every pack at half weight (we do not know whose accent it is)."""
+    """common + the hinted pack at full weight, and every OTHER pack at half weight (a hint is a guess: people mix, and a sound rule that is right
+    for one background is often right for another). With no hint, every pack is at half weight."""
     common = load_pack("common").swaps
-    if accent_hint:
-        return common + load_pack(accent_hint.lower()).swaps
-    others = [replace(s, weight=round(s.weight / 2, 3)) for pid in PACK_IDS if pid != "common" for s in load_pack(pid).swaps]
-    return common + tuple(others)
+    hint = accent_hint.lower() if accent_hint else None
+    if hint:
+        load_pack(hint)  # unknown pack ids fail loudly
+    full = load_pack(hint).swaps if hint else ()
+    others = [replace(s, weight=round(s.weight / 2, 3)) for pid in PACK_IDS if pid not in ("common", hint) for s in load_pack(pid).swaps]
+    return common + full + tuple(others)

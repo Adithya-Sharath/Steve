@@ -15,7 +15,7 @@ from pathlib import Path
 import yaml
 
 DOMAIN_PATH = Path(__file__).with_name("domain.yaml")
-CATEGORIES = ("place", "time", "number", "amount", "negation", "action")
+CATEGORIES = ("place", "time", "number", "amount", "negation", "action", "thing")
 _DIGITS = re.compile(r"^\d+([.,:]\d+)?(st|nd|rd|th)?$")
 _CLOCK = re.compile(r"^\d{1,2}([:.]\d{2})?(am|pm)$")
 

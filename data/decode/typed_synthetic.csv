@@ -1,0 +1,114 @@
+id,text_as_typed,intended_meaning,accent,changes,clarify_ok,synthetic,note
+ts0001,come to the barking gate three,come to the parking gate three,ar,parking->barking,true,true,accent swaps applied to a clean sentence
+ts0002,bring te pepsi from the fridge,bring the pepsi from the fridge,ar,the->te,true,true,accent swaps applied to a clean sentence
+ts0003,very good come at fife,very good come at five,ar,five->fife,true,true,accent swaps applied to a clean sentence
+ts0004,wait at te basement near te lift,wait at the basement near the lift,ar,the->te; the->te,true,true,accent swaps applied to a clean sentence
+ts0005,te flat number is nine on te third floor,the flat number is nine on the third floor,ar,the->te; the->te,true,true,accent swaps applied to a clean sentence
+ts0006,please delifer the parcel to the reception,please deliver the parcel to the reception,ar,deliver->delifer,true,true,accent swaps applied to a clean sentence
+ts0007,meet me at te metro station tomorrow,meet me at the metro station tomorrow,ar,the->te,true,true,accent swaps applied to a clean sentence
+ts0008,do not come to te barking now,do not come to the parking now,ar,parking->barking; the->te,true,true,accent swaps applied to a clean sentence
+ts0009,bay fifty dirhams tomorrow,pay fifty dirhams tomorrow,ar,pay->bay,true,true,accent swaps applied to a clean sentence
+ts0010,call me before six in te evening,call me before six in the evening,ar,the->te,true,true,accent swaps applied to a clean sentence
+ts0011,take te bags to the villa,take the bags to the villa,ar,the->te,true,true,accent swaps applied to a clean sentence
+ts0012,bark near te building,park near the building,ar,the->te; park->bark,true,true,accent swaps applied to a clean sentence
+ts0013,te lobby is closed today,the lobby is closed today,ar,the->te,true,true,accent swaps applied to a clean sentence
+ts0014,wait for me at te mall,wait for me at the mall,ar,the->te,true,true,accent swaps applied to a clean sentence
+ts0015,bring te keys to the office,bring the keys to the office,ar,the->te,true,true,accent swaps applied to a clean sentence
+ts0016,come to the parking gate tree,come to the parking gate three,hi,three->tree,true,true,accent swaps applied to a clean sentence
+ts0017,bring the pepsi from te fridge,bring the pepsi from the fridge,hi,the->te,true,true,accent swaps applied to a clean sentence
+ts0018,wery good come at five,very good come at five,hi,very->wery,true,true,accent swaps applied to a clean sentence
+ts0019,vait at the basement near te lift,wait at the basement near the lift,hi,wait->vait; the->te,true,true,accent swaps applied to a clean sentence
+ts0020,te flat number is nine on the tird floor,the flat number is nine on the third floor,hi,third->tird; the->te,true,true,accent swaps applied to a clean sentence
+ts0021,please deliver the parcel to te reception,please deliver the parcel to the reception,hi,the->te,true,true,accent swaps applied to a clean sentence
+ts0022,meet me at te metro station tomorrov,meet me at the metro station tomorrow,hi,tomorrow->tomorrov; the->te,true,true,accent swaps applied to a clean sentence
+ts0023,do not come to te parking nov,do not come to the parking now,hi,the->te; now->nov,true,true,accent swaps applied to a clean sentence
+ts0024,pay fifty dirhams tomorrov,pay fifty dirhams tomorrow,hi,tomorrow->tomorrov,true,true,accent swaps applied to a clean sentence
+ts0025,call me before six in te ewening,call me before six in the evening,hi,the->te; evening->ewening,true,true,accent swaps applied to a clean sentence
+ts0026,take the bags to te villa,take the bags to the villa,hi,the->te,true,true,accent swaps applied to a clean sentence
+ts0027,park near te building,park near the building,hi,the->te,true,true,accent swaps applied to a clean sentence
+ts0028,te lobby is closed today,the lobby is closed today,hi,the->te,true,true,accent swaps applied to a clean sentence
+ts0029,vait for me at the mall,wait for me at the mall,hi,wait->vait,true,true,accent swaps applied to a clean sentence
+ts0030,bring the keys to te office,bring the keys to the office,hi,the->te,true,true,accent swaps applied to a clean sentence
+ts0031,come to te parking gate three,come to the parking gate three,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0032,bring te pepsi from te fridge,bring the pepsi from the fridge,ml,the->te; the->te,true,true,accent swaps applied to a clean sentence
+ts0033,wait at the basement near te lift,wait at the basement near the lift,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0034,te flat number is nine on the tird floor,the flat number is nine on the third floor,ml,third->tird; the->te,true,true,accent swaps applied to a clean sentence
+ts0035,please deliver te parcel to te reception,please deliver the parcel to the reception,ml,the->te; the->te,true,true,accent swaps applied to a clean sentence
+ts0036,meet me at te metro station tomorrow,meet me at the metro station tomorrow,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0037,do not come to te parking now,do not come to the parking now,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0038,call me before six in te evening,call me before six in the evening,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0039,take te bags to te villa,take the bags to the villa,ml,the->te; the->te,true,true,accent swaps applied to a clean sentence
+ts0040,park near te building,park near the building,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0041,te lobby is closed today,the lobby is closed today,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0042,wait for me at te mall,wait for me at the mall,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0043,bring te keys to the office,bring the keys to the office,ml,the->te,true,true,accent swaps applied to a clean sentence
+ts0044,come to te parking gate tree,come to the parking gate three,tl,the->te; three->tree,true,true,accent swaps applied to a clean sentence
+ts0045,bring te pepsi from the fridge,bring the pepsi from the fridge,tl,the->te,true,true,accent swaps applied to a clean sentence
+ts0046,very good come at pive,very good come at five,tl,five->pive,true,true,accent swaps applied to a clean sentence
+ts0047,wait at te basement near the lift,wait at the basement near the lift,tl,the->te,true,true,accent swaps applied to a clean sentence
+ts0048,the flat number is nine on the third ploor,the flat number is nine on the third floor,tl,floor->ploor,true,true,accent swaps applied to a clean sentence
+ts0049,please deliber the parcel to the reception,please deliver the parcel to the reception,tl,deliver->deliber,true,true,accent swaps applied to a clean sentence
+ts0050,meet me at te metro station tomorrow,meet me at the metro station tomorrow,tl,the->te,true,true,accent swaps applied to a clean sentence
+ts0051,do not come to te parking now,do not come to the parking now,tl,the->te,true,true,accent swaps applied to a clean sentence
+ts0052,pay pifty dirhams tomorrow,pay fifty dirhams tomorrow,tl,fifty->pifty,true,true,accent swaps applied to a clean sentence
+ts0053,call me before six in the ebening,call me before six in the evening,tl,evening->ebening,true,true,accent swaps applied to a clean sentence
+ts0054,take te bags to te villa,take the bags to the villa,tl,the->te; the->te,true,true,accent swaps applied to a clean sentence
+ts0055,park near te building,park near the building,tl,the->te,true,true,accent swaps applied to a clean sentence
+ts0056,te lobby is closed today,the lobby is closed today,tl,the->te,true,true,accent swaps applied to a clean sentence
+ts0057,wait por me at the mall,wait for me at the mall,tl,for->por,true,true,accent swaps applied to a clean sentence
+ts0058,bring the keys to te opfice,bring the keys to the office,tl,the->te; office->opfice,true,true,accent swaps applied to a clean sentence
+ts0059,the barking dog is at the gate,the barking dog is at the gate,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0060,the barking dog is at the gate,the barking dog is at the gate,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0061,plant a tree near the gate,plant a tree near the gate,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0062,plant a tree near the gate,plant a tree near the gate,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0063,he plays the fife in the band,he plays the fife in the band,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0064,he plays the fife in the band,he plays the fife in the band,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0065,the den is dark,the den is dark,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0066,the den is dark,the den is dark,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0067,put it in the bin,put it in the bin,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0068,put it in the bin,put it in the bin,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0069,the tin is empty,the tin is empty,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0070,the tin is empty,the tin is empty,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0071,this is the third floor,this is the third floor,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0072,this is the third floor,this is the third floor,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0073,they are at the mall,they are at the mall,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0074,they are at the mall,they are at the mall,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0075,the bus is near the station,the bus is near the station,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0076,the bus is near the station,the bus is near the station,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0077,we live in the villa,we live in the villa,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0078,we live in the villa,we live in the villa,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0079,the boss is at the office,the boss is at the office,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0080,the boss is at the office,the boss is at the office,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0081,please keep the door open,please keep the door open,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0082,please keep the door open,please keep the door open,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0083,wait for the bell,wait for the bell,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0084,wait for the bell,wait for the bell,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0085,the tank is full,the tank is full,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0086,the tank is full,the tank is full,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0087,he paid the bill,he paid the bill,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0088,he paid the bill,he paid the bill,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0089,the wall is wet,the wall is wet,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0090,the wall is wet,the wall is wet,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0091,take the bag to the van,take the bag to the van,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0092,take the bag to the van,take the bag to the van,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0093,the fan is not working,the fan is not working,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0094,the fan is not working,the fan is not working,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0095,they will come tomorrow,they will come tomorrow,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0096,they will come tomorrow,they will come tomorrow,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0097,i will pay you on friday,i will pay you on friday,ar,,false,true,tricky control: a real word that resembles a respelling
+ts0098,i will pay you on friday,i will pay you on friday,hi,,false,true,tricky control: a real word that resembles a respelling
+ts0099,come to the parking gate three,come to the parking gate three,none,,false,true,typed correctly: must not be changed
+ts0100,bring the pepsi from the fridge,bring the pepsi from the fridge,none,,false,true,typed correctly: must not be changed
+ts0101,very good come at five,very good come at five,none,,false,true,typed correctly: must not be changed
+ts0102,wait at the basement near the lift,wait at the basement near the lift,none,,false,true,typed correctly: must not be changed
+ts0103,the flat number is nine on the third floor,the flat number is nine on the third floor,none,,false,true,typed correctly: must not be changed
+ts0104,please deliver the parcel to the reception,please deliver the parcel to the reception,none,,false,true,typed correctly: must not be changed
+ts0105,meet me at the metro station tomorrow,meet me at the metro station tomorrow,none,,false,true,typed correctly: must not be changed
+ts0106,do not come to the parking now,do not come to the parking now,none,,false,true,typed correctly: must not be changed
+ts0107,pay fifty dirhams tomorrow,pay fifty dirhams tomorrow,none,,false,true,typed correctly: must not be changed
+ts0108,call me before six in the evening,call me before six in the evening,none,,false,true,typed correctly: must not be changed
+ts0109,take the bags to the villa,take the bags to the villa,none,,false,true,typed correctly: must not be changed
+ts0110,park near the building,park near the building,none,,false,true,typed correctly: must not be changed
+ts0111,the lobby is closed today,the lobby is closed today,none,,false,true,typed correctly: must not be changed
+ts0112,wait for me at the mall,wait for me at the mall,none,,false,true,typed correctly: must not be changed
+ts0113,bring the keys to the office,bring the keys to the office,none,,false,true,typed correctly: must not be changed

@@ -1,0 +1,454 @@
+id,transcript,intended,accent,kind,target,slot,synthetic,note
+vs0001,yalla wait inside the barking,yalla wait inside the parking,tl,risky,barking,place,true,parking written as barking
+vs0002,habibi the truck is behind the barking,habibi the truck is behind the parking,hi,risky,barking,place,true,parking written as barking
+vs0003,listen park near the marking,listen park near the parking,none,risky,marking,place,true,parking written as marking
+vs0004,yalla come to the marking,yalla come to the parking,none,risky,marking,place,true,parking written as marking
+vs0005,come from the packing,come from the parking,ar,risky,packing,place,true,parking written as packing
+vs0006,wait inside the packing,wait inside the parking,hi,risky,packing,place,true,parking written as packing
+vs0007,deliver the box to the date,deliver the box to the gate,ml,risky,date,place,true,gate written as date
+vs0008,deliver the box to the date,deliver the box to the gate,ar,risky,date,place,true,gate written as date
+vs0009,yalla park near the gait,yalla park near the gate,tl,risky,gait,place,true,gate written as gait
+vs0010,ok wait inside the gait,ok wait inside the gate,ar,risky,gait,place,true,gate written as gait
+vs0011,please wait outside the game,please wait outside the gate,hi,risky,game,place,true,gate written as game
+vs0012,wait at the game,wait at the gate,ar,risky,game,place,true,gate written as game
+vs0013,habibi come to the flour,habibi come to the floor,hi,risky,flour,place,true,floor written as flour
+vs0014,go to the flour now,go to the floor now,ml,risky,flour,place,true,floor written as flour
+vs0015,deliver the box to the flower,deliver the box to the floor,none,risky,flower,place,true,floor written as flower
+vs0016,habibi come to the flower,habibi come to the floor,tl,risky,flower,place,true,floor written as flower
+vs0017,meet me at the four,meet me at the floor,tl,risky,four,place,true,floor written as four
+vs0018,the truck is behind the four,the truck is behind the floor,ar,risky,four,place,true,floor written as four
+vs0019,yalla the truck is behind the billing,yalla the truck is behind the building,tl,risky,billing,place,true,building written as billing
+vs0020,wait at the billing,wait at the building,ar,risky,billing,place,true,building written as billing
+vs0021,listen come from the bidding,listen come from the building,ar,risky,bidding,place,true,building written as bidding
+vs0022,habibi please wait outside the bidding,habibi please wait outside the building,tl,risky,bidding,place,true,building written as bidding
+vs0023,come to the power,come to the tower,none,risky,power,place,true,tower written as power
+vs0024,wait inside the power,wait inside the tower,tl,risky,power,place,true,tower written as power
+vs0025,wait at the towel,wait at the tower,hi,risky,towel,place,true,tower written as towel
+vs0026,listen meet me at the towel,listen meet me at the tower,ar,risky,towel,place,true,tower written as towel
+vs0027,hello deliver the box to the fella,hello deliver the box to the villa,ar,risky,fella,place,true,villa written as fella
+vs0028,deliver the box to the fella,deliver the box to the villa,tl,risky,fella,place,true,villa written as fella
+vs0029,listen go to the vela now,listen go to the villa now,hi,risky,vela,place,true,villa written as vela
+vs0030,listen come from the vela,listen come from the villa,ml,risky,vela,place,true,villa written as vela
+vs0031,habibi wait at the fat,habibi wait at the flat,tl,risky,fat,place,true,flat written as fat
+vs0032,yalla go to the fat now,yalla go to the flat now,none,risky,fat,place,true,flat written as fat
+vs0033,please the truck is behind the flap,please the truck is behind the flat,ml,risky,flap,place,true,flat written as flap
+vs0034,habibi the truck is behind the flap,habibi the truck is behind the flat,none,risky,flap,place,true,flat written as flap
+vs0035,yalla wait at the flag,yalla wait at the flat,tl,risky,flag,place,true,flat written as flag
+vs0036,yalla meet me at the flag,yalla meet me at the flat,none,risky,flag,place,true,flat written as flag
+vs0037,go to the left now,go to the lift now,ar,risky,left,place,true,lift written as left
+vs0038,go to the left now,go to the lift now,tl,risky,left,place,true,lift written as left
+vs0039,please wait outside the lit,please wait outside the lift,hi,risky,lit,place,true,lift written as lit
+vs0040,wait inside the lit,wait inside the lift,tl,risky,lit,place,true,lift written as lit
+vs0041,the truck is behind the list,the truck is behind the lift,hi,risky,list,place,true,lift written as list
+vs0042,yalla deliver the box to the list,yalla deliver the box to the lift,tl,risky,list,place,true,lift written as list
+vs0043,listen come from the stares,listen come from the stairs,none,risky,stares,place,true,stairs written as stares
+vs0044,please park near the stares,please park near the stairs,ml,risky,stares,place,true,stairs written as stares
+vs0045,meet me at the stars,meet me at the stairs,ar,risky,stars,place,true,stairs written as stars
+vs0046,hello please wait outside the stars,hello please wait outside the stairs,hi,risky,stars,place,true,stairs written as stars
+vs0047,the truck is behind the ball,the truck is behind the mall,hi,risky,ball,place,true,mall written as ball
+vs0048,please please wait outside the ball,please please wait outside the mall,ar,risky,ball,place,true,mall written as ball
+vs0049,habibi the truck is behind the wall,habibi the truck is behind the mall,hi,risky,wall,place,true,mall written as wall
+vs0050,habibi meet me at the wall,habibi meet me at the mall,ml,risky,wall,place,true,mall written as wall
+vs0051,yalla deliver the box to the mole,yalla deliver the box to the mall,tl,risky,mole,place,true,mall written as mole
+vs0052,listen park near the mole,listen park near the mall,ar,risky,mole,place,true,mall written as mole
+vs0053,ok the truck is behind the nation,ok the truck is behind the station,ml,risky,nation,place,true,station written as nation
+vs0054,hello wait at the nation,hello wait at the station,hi,risky,nation,place,true,station written as nation
+vs0055,ok deliver the box to the stations,ok deliver the box to the station,tl,risky,stations,place,true,station written as stations
+vs0056,come from the stations,come from the station,hi,risky,stations,place,true,station written as stations
+vs0057,park near the placement,park near the basement,tl,risky,placement,place,true,basement written as placement
+vs0058,ok come from the placement,ok come from the basement,hi,risky,placement,place,true,basement written as placement
+vs0059,the truck is behind the casement,the truck is behind the basement,none,risky,casement,place,true,basement written as casement
+vs0060,please wait outside the casement,please wait outside the basement,none,risky,casement,place,true,basement written as casement
+vs0061,ok the truck is behind the perception,ok the truck is behind the reception,hi,risky,perception,place,true,reception written as perception
+vs0062,wait inside the perception,wait inside the reception,ml,risky,perception,place,true,reception written as perception
+vs0063,yalla come to the deception,yalla come to the reception,tl,risky,deception,place,true,reception written as deception
+vs0064,hello deliver the box to the deception,hello deliver the box to the reception,hi,risky,deception,place,true,reception written as deception
+vs0065,meet me at the load,meet me at the road,tl,risky,load,place,true,road written as load
+vs0066,listen please wait outside the load,listen please wait outside the road,none,risky,load,place,true,road written as load
+vs0067,habibi go to the rode now,habibi go to the road now,ar,risky,rode,place,true,road written as rode
+vs0068,hello come to the rode,hello come to the road,none,risky,rode,place,true,road written as rode
+vs0069,listen go to the horse now,listen go to the house now,none,risky,horse,place,true,house written as horse
+vs0070,hello come to the horse,hello come to the house,hi,risky,horse,place,true,house written as horse
+vs0071,hello deliver the box to the mouse,hello deliver the box to the house,ml,risky,mouse,place,true,house written as mouse
+vs0072,come from the mouse,come from the house,hi,risky,mouse,place,true,house written as mouse
+vs0073,please wait outside the hose,please wait outside the house,none,risky,hose,place,true,house written as hose
+vs0074,wait inside the hose,wait inside the house,hi,risky,hose,place,true,house written as hose
+vs0075,come from the motel,come from the hotel,ml,risky,motel,place,true,hotel written as motel
+vs0076,habibi come to the motel,habibi come to the hotel,tl,risky,motel,place,true,hotel written as motel
+vs0077,listen park near the hostel,listen park near the hotel,ar,risky,hostel,place,true,hotel written as hostel
+vs0078,please please wait outside the hostel,please please wait outside the hotel,ar,risky,hostel,place,true,hotel written as hostel
+vs0079,hello wait inside the chicken,hello wait inside the kitchen,tl,risky,chicken,place,true,kitchen written as chicken
+vs0080,wait at the chicken,wait at the kitchen,hi,risky,chicken,place,true,kitchen written as chicken
+vs0081,please the truck is behind the broom,please the truck is behind the room,ml,risky,broom,place,true,room written as broom
+vs0082,come from the broom,come from the room,hi,risky,broom,place,true,room written as broom
+vs0083,meet me at the zoom,meet me at the room,ml,risky,zoom,place,true,room written as zoom
+vs0084,please come to the zoom,please come to the room,ar,risky,zoom,place,true,room written as zoom
+vs0085,please wait inside the dorm,please wait inside the door,ml,risky,dorm,place,true,door written as dorm
+vs0086,go to the dorm now,go to the door now,ar,risky,dorm,place,true,door written as dorm
+vs0087,wait at the floor,wait at the door,tl,risky,floor,place,true,door written as floor
+vs0088,hello park near the floor,hello park near the door,hi,risky,floor,place,true,door written as floor
+vs0089,wait inside the offers,wait inside the office,ml,risky,offers,place,true,office written as offers
+vs0090,listen please wait outside the offers,listen please wait outside the office,tl,risky,offers,place,true,office written as offers
+vs0091,hello park near the officer,hello park near the office,tl,risky,officer,place,true,office written as officer
+vs0092,deliver the box to the officer,deliver the box to the office,ml,risky,officer,place,true,office written as officer
+vs0093,habibi gate free,habibi gate three,hi,risky,free,number,true,three written as free
+vs0094,yalla gate free,yalla gate three,none,risky,free,number,true,three written as free
+vs0095,habibi take the lift to floor tree,habibi take the lift to floor three,ml,risky,tree,number,true,three written as tree
+vs0096,habibi take the lift to floor tree,habibi take the lift to floor three,ml,risky,tree,number,true,three written as tree
+vs0097,gate line,gate nine,ml,risky,line,number,true,nine written as line
+vs0098,habibi meet me at room line,habibi meet me at room nine,ml,risky,line,number,true,nine written as line
+vs0099,hello flat mine please,hello flat nine please,hi,risky,mine,number,true,nine written as mine
+vs0100,building mine is closed,building nine is closed,none,risky,mine,number,true,nine written as mine
+vs0101,yalla building nice is closed,yalla building nine is closed,ml,risky,nice,number,true,nine written as nice
+vs0102,ok flat nice please,ok flat nine please,ml,risky,nice,number,true,nine written as nice
+vs0103,yalla building ate is closed,yalla building eight is closed,tl,risky,ate,number,true,eight written as ate
+vs0104,come to gate ate,come to gate eight,ar,risky,ate,number,true,eight written as ate
+vs0105,please meet me at room eat,please meet me at room eight,ml,risky,eat,number,true,eight written as eat
+vs0106,ok come to gate eat,ok come to gate eight,ar,risky,eat,number,true,eight written as eat
+vs0107,building then is closed,building ten is closed,tl,risky,then,number,true,ten written as then
+vs0108,hello meet me at room then,hello meet me at room ten,none,risky,then,number,true,ten written as then
+vs0109,meet me at room tan,meet me at room ten,tl,risky,tan,number,true,ten written as tan
+vs0110,listen building tan is closed,listen building ten is closed,ar,risky,tan,number,true,ten written as tan
+vs0111,building plenty is closed,building twenty is closed,tl,risky,plenty,number,true,twenty written as plenty
+vs0112,building plenty is closed,building twenty is closed,none,risky,plenty,number,true,twenty written as plenty
+vs0113,habibi gate fifty,habibi gate fifteen,ar,risky,fifty,number,true,fifteen written as fifty
+vs0114,listen flat fifty please,listen flat fifteen please,tl,risky,fifty,number,true,fifteen written as fifty
+vs0115,gate fifteen,gate fifty,ml,risky,fifteen,number,true,fifty written as fifteen
+vs0116,meet me at room fifteen,meet me at room fifty,none,risky,fifteen,number,true,fifty written as fifteen
+vs0117,listen flat sick please,listen flat six please,none,risky,sick,number,true,six written as sick
+vs0118,yalla flat sick please,yalla flat six please,ml,risky,sick,number,true,six written as sick
+vs0119,building heaven is closed,building seven is closed,ml,risky,heaven,number,true,seven written as heaven
+vs0120,hello building heaven is closed,hello building seven is closed,none,risky,heaven,number,true,seven written as heaven
+vs0121,habibi building several is closed,habibi building seven is closed,hi,risky,several,number,true,seven written as several
+vs0122,habibi come to gate several,habibi come to gate seven,hi,risky,several,number,true,seven written as several
+vs0123,ok deliver the backs today,ok deliver the bags today,ml,risky,backs,thing,true,bags written as backs
+vs0124,hello take the backs to the office,hello take the bags to the office,ar,risky,backs,thing,true,bags written as backs
+vs0125,take the bugs to the office,take the bags to the office,hi,risky,bugs,thing,true,bags written as bugs
+vs0126,habibi bring the bugs,habibi bring the bags,ar,risky,bugs,thing,true,bags written as bugs
+vs0127,take the bass to the office,take the bags to the office,ml,risky,bass,thing,true,bags written as bass
+vs0128,please carry the bass,please carry the bags,hi,risky,bass,thing,true,bags written as bass
+vs0129,please carry the cheese,please carry the keys,hi,risky,cheese,thing,true,keys written as cheese
+vs0130,bring the cheese,bring the keys,tl,risky,cheese,thing,true,keys written as cheese
+vs0131,collect the peas from the store,collect the keys from the store,ar,risky,peas,thing,true,keys written as peas
+vs0132,take the peas to the office,take the keys to the office,ml,risky,peas,thing,true,keys written as peas
+vs0133,please please carry the waiter,please please carry the water,hi,risky,waiter,thing,true,water written as waiter
+vs0134,bring the waiter,bring the water,hi,risky,waiter,thing,true,water written as waiter
+vs0135,bring the foot,bring the food,ml,risky,foot,thing,true,food written as foot
+vs0136,ok take the foot to the office,ok take the food to the office,ar,risky,foot,thing,true,food written as foot
+vs0137,yalla collect the fool from the store,yalla collect the food from the store,hi,risky,fool,thing,true,food written as fool
+vs0138,yalla deliver the fool today,yalla deliver the food today,ml,risky,fool,thing,true,food written as fool
+vs0139,please bring the books,please bring the box,ml,risky,books,thing,true,box written as books
+vs0140,ok deliver the books today,ok deliver the box today,none,risky,books,thing,true,box written as books
+vs0141,ok deliver the bus today,ok deliver the box today,ml,risky,bus,thing,true,box written as bus
+vs0142,habibi deliver the bus today,habibi deliver the box today,ml,risky,bus,thing,true,box written as bus
+vs0143,bring the boss,bring the box,hi,risky,boss,thing,true,box written as boss
+vs0144,habibi take the boss to the office,habibi take the box to the office,tl,risky,boss,thing,true,box written as boss
+vs0145,ok deliver the foam today,ok deliver the phone today,tl,risky,foam,thing,true,phone written as foam
+vs0146,please deliver the foam today,please deliver the phone today,hi,risky,foam,thing,true,phone written as foam
+vs0147,please bring the bone,please bring the phone,hi,risky,bone,thing,true,phone written as bone
+vs0148,hello bring the bone,hello bring the phone,ar,risky,bone,thing,true,phone written as bone
+vs0149,habibi please carry the pepper,habibi please carry the papers,ml,risky,pepper,thing,true,papers written as pepper
+vs0150,yalla please carry the pepper,yalla please carry the papers,hi,risky,pepper,thing,true,papers written as pepper
+vs0151,hello collect the paper from the store,hello collect the papers from the store,ar,risky,paper,thing,true,papers written as paper
+vs0152,listen collect the paper from the store,listen collect the papers from the store,tl,risky,paper,thing,true,papers written as paper
+vs0153,hello collect the miles from the store,hello collect the files from the store,ar,risky,miles,thing,true,files written as miles
+vs0154,take the miles to the office,take the files to the office,tl,risky,miles,thing,true,files written as miles
+vs0155,deliver the fires today,deliver the files today,none,risky,fires,thing,true,files written as fires
+vs0156,hello take the fires to the office,hello take the files to the office,tl,risky,fires,thing,true,files written as fires
+vs0157,ok bring the flies,ok bring the files,ar,risky,flies,thing,true,files written as flies
+vs0158,yalla take the flies to the office,yalla take the files to the office,none,risky,flies,thing,true,files written as flies
+vs0159,listen please carry the pools,listen please carry the tools,tl,risky,pools,thing,true,tools written as pools
+vs0160,ok deliver the pools today,ok deliver the tools today,hi,risky,pools,thing,true,tools written as pools
+vs0161,listen please carry the fools,listen please carry the tools,ml,risky,fools,thing,true,tools written as fools
+vs0162,habibi deliver the fools today,habibi deliver the tools today,ar,risky,fools,thing,true,tools written as fools
+vs0163,please carry the care,please carry the car,hi,risky,care,thing,true,car written as care
+vs0164,take the care to the office,take the car to the office,none,risky,care,thing,true,car written as care
+vs0165,listen collect the core from the store,listen collect the car from the store,ml,risky,core,thing,true,car written as core
+vs0166,deliver the core today,deliver the car today,ar,risky,core,thing,true,car written as core
+vs0167,ok collect the partial from the store,ok collect the parcel from the store,none,risky,partial,thing,true,parcel written as partial
+vs0168,please carry the partial,please carry the parcel,tl,risky,partial,thing,true,parcel written as partial
+vs0169,deliver the pastel today,deliver the parcel today,none,risky,pastel,thing,true,parcel written as pastel
+vs0170,deliver the pastel today,deliver the parcel today,tl,risky,pastel,thing,true,parcel written as pastel
+vs0171,hello deliver the helped today,hello deliver the helmet today,hi,risky,helped,thing,true,helmet written as helped
+vs0172,yalla bring the helped,yalla bring the helmet,ar,risky,helped,thing,true,helmet written as helped
+vs0173,please carry the loves,please carry the gloves,hi,risky,loves,thing,true,gloves written as loves
+vs0174,hello please carry the loves,hello please carry the gloves,ar,risky,loves,thing,true,gloves written as loves
+vs0175,please collect the informed from the store,please collect the uniform from the store,ar,risky,informed,thing,true,uniform written as informed
+vs0176,habibi please carry the informed,habibi please carry the uniform,tl,risky,informed,thing,true,uniform written as informed
+vs0177,yalla wait until mourning,yalla wait until morning,ml,risky,mourning,time,true,morning written as mourning
+vs0178,call me before mourning,call me before morning,ar,risky,mourning,time,true,morning written as mourning
+vs0179,hello come every light,hello come every night,ar,risky,light,time,true,night written as light
+vs0180,come tomorrow light,come tomorrow night,tl,risky,light,time,true,night written as light
+vs0181,call me before knight,call me before night,tl,risky,knight,time,true,night written as knight
+vs0182,ok call me before knight,ok call me before night,none,risky,knight,time,true,night written as knight
+vs0183,hello come tomorrow might,hello come tomorrow night,tl,risky,might,time,true,night written as might
+vs0184,come tomorrow might,come tomorrow night,ar,risky,might,time,true,night written as might
+vs0185,yalla call me before moon,yalla call me before noon,tl,risky,moon,time,true,noon written as moon
+vs0186,listen come tomorrow moon,listen come tomorrow noon,hi,risky,moon,time,true,noon written as moon
+vs0187,call me before soon,call me before noon,hi,risky,soon,time,true,noon written as soon
+vs0188,call me before soon,call me before noon,ar,risky,soon,time,true,noon written as soon
+vs0189,come to the parking,come to the parking,none,control,parking,place,true,correct
+vs0190,wait inside the parking,wait inside the parking,tl,control,parking,place,true,correct
+vs0191,habibi park near the gate,habibi park near the gate,none,control,gate,place,true,correct
+vs0192,please meet me at the gate,please meet me at the gate,ar,control,gate,place,true,correct
+vs0193,come from the floor,come from the floor,ml,control,floor,place,true,correct
+vs0194,please come from the floor,please come from the floor,tl,control,floor,place,true,correct
+vs0195,ok park near the building,ok park near the building,hi,control,building,place,true,correct
+vs0196,wait at the building,wait at the building,ar,control,building,place,true,correct
+vs0197,hello come from the tower,hello come from the tower,tl,control,tower,place,true,correct
+vs0198,please the truck is behind the tower,please the truck is behind the tower,none,control,tower,place,true,correct
+vs0199,park near the villa,park near the villa,hi,control,villa,place,true,correct
+vs0200,park near the villa,park near the villa,none,control,villa,place,true,correct
+vs0201,come from the flat,come from the flat,none,control,flat,place,true,correct
+vs0202,deliver the box to the flat,deliver the box to the flat,ml,control,flat,place,true,correct
+vs0203,come from the lift,come from the lift,hi,control,lift,place,true,correct
+vs0204,ok meet me at the lift,ok meet me at the lift,none,control,lift,place,true,correct
+vs0205,wait at the stairs,wait at the stairs,hi,control,stairs,place,true,correct
+vs0206,park near the stairs,park near the stairs,hi,control,stairs,place,true,correct
+vs0207,come from the mall,come from the mall,hi,control,mall,place,true,correct
+vs0208,hello park near the mall,hello park near the mall,ml,control,mall,place,true,correct
+vs0209,ok come to the station,ok come to the station,hi,control,station,place,true,correct
+vs0210,ok wait inside the station,ok wait inside the station,hi,control,station,place,true,correct
+vs0211,listen deliver the box to the basement,listen deliver the box to the basement,ml,control,basement,place,true,correct
+vs0212,listen wait at the basement,listen wait at the basement,ar,control,basement,place,true,correct
+vs0213,hello go to the reception now,hello go to the reception now,none,control,reception,place,true,correct
+vs0214,park near the reception,park near the reception,none,control,reception,place,true,correct
+vs0215,deliver the box to the road,deliver the box to the road,none,control,road,place,true,correct
+vs0216,wait inside the road,wait inside the road,none,control,road,place,true,correct
+vs0217,please come from the house,please come from the house,ml,control,house,place,true,correct
+vs0218,yalla wait inside the house,yalla wait inside the house,none,control,house,place,true,correct
+vs0219,please go to the hotel now,please go to the hotel now,none,control,hotel,place,true,correct
+vs0220,yalla wait inside the hotel,yalla wait inside the hotel,ar,control,hotel,place,true,correct
+vs0221,come to the kitchen,come to the kitchen,hi,control,kitchen,place,true,correct
+vs0222,listen go to the kitchen now,listen go to the kitchen now,none,control,kitchen,place,true,correct
+vs0223,yalla wait inside the room,yalla wait inside the room,ml,control,room,place,true,correct
+vs0224,deliver the box to the room,deliver the box to the room,ml,control,room,place,true,correct
+vs0225,please wait outside the door,please wait outside the door,tl,control,door,place,true,correct
+vs0226,ok come from the door,ok come from the door,ml,control,door,place,true,correct
+vs0227,park near the office,park near the office,none,control,office,place,true,correct
+vs0228,please come to the office,please come to the office,tl,control,office,place,true,correct
+vs0229,ok gate three,ok gate three,none,control,three,number,true,correct
+vs0230,meet me at room three,meet me at room three,tl,control,three,number,true,correct
+vs0231,meet me at room nine,meet me at room nine,none,control,nine,number,true,correct
+vs0232,hello flat nine please,hello flat nine please,none,control,nine,number,true,correct
+vs0233,habibi gate eight,habibi gate eight,ar,control,eight,number,true,correct
+vs0234,building eight is closed,building eight is closed,ar,control,eight,number,true,correct
+vs0235,yalla take the lift to floor ten,yalla take the lift to floor ten,ar,control,ten,number,true,correct
+vs0236,listen come to gate ten,listen come to gate ten,hi,control,ten,number,true,correct
+vs0237,flat twenty please,flat twenty please,tl,control,twenty,number,true,correct
+vs0238,meet me at room twenty,meet me at room twenty,ml,control,twenty,number,true,correct
+vs0239,come to gate fifteen,come to gate fifteen,ml,control,fifteen,number,true,correct
+vs0240,please flat fifteen please,please flat fifteen please,hi,control,fifteen,number,true,correct
+vs0241,hello come to gate fifty,hello come to gate fifty,tl,control,fifty,number,true,correct
+vs0242,hello come to gate fifty,hello come to gate fifty,tl,control,fifty,number,true,correct
+vs0243,building six is closed,building six is closed,hi,control,six,number,true,correct
+vs0244,yalla building six is closed,yalla building six is closed,none,control,six,number,true,correct
+vs0245,habibi building seven is closed,habibi building seven is closed,none,control,seven,number,true,correct
+vs0246,please flat seven please,please flat seven please,ar,control,seven,number,true,correct
+vs0247,yalla deliver the bags today,yalla deliver the bags today,ar,control,bags,thing,true,correct
+vs0248,bring the bags,bring the bags,ml,control,bags,thing,true,correct
+vs0249,listen bring the keys,listen bring the keys,ar,control,keys,thing,true,correct
+vs0250,please deliver the keys today,please deliver the keys today,hi,control,keys,thing,true,correct
+vs0251,habibi take the water to the office,habibi take the water to the office,none,control,water,thing,true,correct
+vs0252,ok take the water to the office,ok take the water to the office,none,control,water,thing,true,correct
+vs0253,listen deliver the food today,listen deliver the food today,none,control,food,thing,true,correct
+vs0254,deliver the food today,deliver the food today,hi,control,food,thing,true,correct
+vs0255,habibi deliver the box today,habibi deliver the box today,ml,control,box,thing,true,correct
+vs0256,yalla take the box to the office,yalla take the box to the office,ar,control,box,thing,true,correct
+vs0257,listen please carry the phone,listen please carry the phone,tl,control,phone,thing,true,correct
+vs0258,listen collect the phone from the store,listen collect the phone from the store,ar,control,phone,thing,true,correct
+vs0259,yalla deliver the papers today,yalla deliver the papers today,hi,control,papers,thing,true,correct
+vs0260,listen bring the papers,listen bring the papers,none,control,papers,thing,true,correct
+vs0261,please collect the files from the store,please collect the files from the store,tl,control,files,thing,true,correct
+vs0262,take the files to the office,take the files to the office,ar,control,files,thing,true,correct
+vs0263,collect the tools from the store,collect the tools from the store,none,control,tools,thing,true,correct
+vs0264,please take the tools to the office,please take the tools to the office,ar,control,tools,thing,true,correct
+vs0265,hello deliver the car today,hello deliver the car today,ml,control,car,thing,true,correct
+vs0266,yalla deliver the car today,yalla deliver the car today,none,control,car,thing,true,correct
+vs0267,take the parcel to the office,take the parcel to the office,ml,control,parcel,thing,true,correct
+vs0268,listen bring the parcel,listen bring the parcel,tl,control,parcel,thing,true,correct
+vs0269,habibi collect the helmet from the store,habibi collect the helmet from the store,none,control,helmet,thing,true,correct
+vs0270,listen please carry the helmet,listen please carry the helmet,hi,control,helmet,thing,true,correct
+vs0271,listen please carry the gloves,listen please carry the gloves,ar,control,gloves,thing,true,correct
+vs0272,listen deliver the gloves today,listen deliver the gloves today,hi,control,gloves,thing,true,correct
+vs0273,yalla bring the uniform,yalla bring the uniform,ml,control,uniform,thing,true,correct
+vs0274,take the uniform to the office,take the uniform to the office,ar,control,uniform,thing,true,correct
+vs0275,listen come every morning,listen come every morning,hi,control,morning,time,true,correct
+vs0276,come every morning,come every morning,hi,control,morning,time,true,correct
+vs0277,call me before night,call me before night,ml,control,night,time,true,correct
+vs0278,hello come every night,hello come every night,ml,control,night,time,true,correct
+vs0279,ok come every noon,ok come every noon,hi,control,noon,time,true,correct
+vs0280,call me before noon,call me before noon,none,control,noon,time,true,correct
+vs0281,habibi come tomorrow evening,habibi come tomorrow evening,ar,control,evening,time,true,correct
+vs0282,wait until evening,wait until evening,ml,control,evening,time,true,correct
+vs0283,listen come every tonight,listen come every tonight,hi,control,tonight,time,true,correct
+vs0284,yalla come tomorrow tonight,yalla come tomorrow tonight,none,control,tonight,time,true,correct
+vs0285,come from the corner,come from the corner,tl,control,corner,place,true,generic word in a place slot
+vs0286,the truck is behind the corner,the truck is behind the corner,ar,control,corner,place,true,generic word in a place slot
+vs0287,deliver the box to the corner,deliver the box to the corner,ml,control,corner,place,true,generic word in a place slot
+vs0288,deliver the box to the workshop,deliver the box to the workshop,none,control,workshop,place,true,generic word in a place slot
+vs0289,come from the workshop,come from the workshop,ar,control,workshop,place,true,generic word in a place slot
+vs0290,wait inside the workshop,wait inside the workshop,hi,control,workshop,place,true,generic word in a place slot
+vs0291,please wait outside the shade,please wait outside the shade,tl,control,shade,place,true,generic word in a place slot
+vs0292,deliver the box to the shade,deliver the box to the shade,ar,control,shade,place,true,generic word in a place slot
+vs0293,come from the shade,come from the shade,ar,control,shade,place,true,generic word in a place slot
+vs0294,come from the counter,come from the counter,hi,control,counter,place,true,generic word in a place slot
+vs0295,deliver the box to the counter,deliver the box to the counter,none,control,counter,place,true,generic word in a place slot
+vs0296,go to the counter now,go to the counter now,ar,control,counter,place,true,generic word in a place slot
+vs0297,the truck is behind the entrance,the truck is behind the entrance,ar,control,entrance,place,true,generic word in a place slot
+vs0298,go to the entrance now,go to the entrance now,ar,control,entrance,place,true,generic word in a place slot
+vs0299,come to the entrance,come to the entrance,none,control,entrance,place,true,generic word in a place slot
+vs0300,the truck is behind the yard,the truck is behind the yard,ar,control,yard,place,true,generic word in a place slot
+vs0301,come from the yard,come from the yard,ml,control,yard,place,true,generic word in a place slot
+vs0302,park near the yard,park near the yard,ar,control,yard,place,true,generic word in a place slot
+vs0303,meet me at the site,meet me at the site,none,control,site,place,true,generic word in a place slot
+vs0304,go to the site now,go to the site now,ar,control,site,place,true,generic word in a place slot
+vs0305,come to the site,come to the site,ml,control,site,place,true,generic word in a place slot
+vs0306,wait at the shelf,wait at the shelf,ml,control,shelf,place,true,generic word in a place slot
+vs0307,meet me at the shelf,meet me at the shelf,none,control,shelf,place,true,generic word in a place slot
+vs0308,please wait outside the shelf,please wait outside the shelf,ml,control,shelf,place,true,generic word in a place slot
+vs0309,please wait outside the desk,please wait outside the desk,hi,control,desk,place,true,generic word in a place slot
+vs0310,meet me at the desk,meet me at the desk,ml,control,desk,place,true,generic word in a place slot
+vs0311,the truck is behind the desk,the truck is behind the desk,tl,control,desk,place,true,generic word in a place slot
+vs0312,come from the meeting,come from the meeting,ml,control,meeting,place,true,generic word in a place slot
+vs0313,park near the meeting,park near the meeting,ml,control,meeting,place,true,generic word in a place slot
+vs0314,the truck is behind the meeting,the truck is behind the meeting,ml,control,meeting,place,true,generic word in a place slot
+vs0315,go to the canteen now,go to the canteen now,tl,control,canteen,place,true,generic word in a place slot
+vs0316,the truck is behind the canteen,the truck is behind the canteen,tl,control,canteen,place,true,generic word in a place slot
+vs0317,wait inside the canteen,wait inside the canteen,none,control,canteen,place,true,generic word in a place slot
+vs0318,park near the garden,park near the garden,ar,control,garden,place,true,generic word in a place slot
+vs0319,wait at the garden,wait at the garden,tl,control,garden,place,true,generic word in a place slot
+vs0320,the truck is behind the garden,the truck is behind the garden,ar,control,garden,place,true,generic word in a place slot
+vs0321,park near the cabin,park near the cabin,ar,control,cabin,place,true,generic word in a place slot
+vs0322,wait at the cabin,wait at the cabin,ar,control,cabin,place,true,generic word in a place slot
+vs0323,come to the cabin,come to the cabin,none,control,cabin,place,true,generic word in a place slot
+vs0324,pay five dirhams,pay five dirhams,ar,control,five,number,true,"number word, correct"
+vs0325,it costs five dirhams,it costs five dirhams,hi,control,five,number,true,"number word, correct"
+vs0326,come at five o'clock,come at five o'clock,hi,control,five,number,true,"number word, correct"
+vs0327,meet me at five,meet me at five,ar,control,five,number,true,"number word, correct"
+vs0328,gate five,gate five,hi,control,five,number,true,"number word, correct"
+vs0329,pay four dirhams,pay four dirhams,none,control,four,number,true,"number word, correct"
+vs0330,it costs four dirhams,it costs four dirhams,ar,control,four,number,true,"number word, correct"
+vs0331,come at four o'clock,come at four o'clock,none,control,four,number,true,"number word, correct"
+vs0332,meet me at four,meet me at four,none,control,four,number,true,"number word, correct"
+vs0333,gate four,gate four,ml,control,four,number,true,"number word, correct"
+vs0334,pay nine dirhams,pay nine dirhams,tl,control,nine,number,true,"number word, correct"
+vs0335,it costs nine dirhams,it costs nine dirhams,ar,control,nine,number,true,"number word, correct"
+vs0336,come at nine o'clock,come at nine o'clock,tl,control,nine,number,true,"number word, correct"
+vs0337,meet me at nine,meet me at nine,tl,control,nine,number,true,"number word, correct"
+vs0338,gate nine,gate nine,ml,control,nine,number,true,"number word, correct"
+vs0339,pay two dirhams,pay two dirhams,hi,control,two,number,true,"number word, correct"
+vs0340,it costs two dirhams,it costs two dirhams,ar,control,two,number,true,"number word, correct"
+vs0341,come at two o'clock,come at two o'clock,none,control,two,number,true,"number word, correct"
+vs0342,meet me at two,meet me at two,ar,control,two,number,true,"number word, correct"
+vs0343,gate two,gate two,hi,control,two,number,true,"number word, correct"
+vs0344,pay twelve dirhams,pay twelve dirhams,ml,control,twelve,number,true,"number word, correct"
+vs0345,it costs twelve dirhams,it costs twelve dirhams,none,control,twelve,number,true,"number word, correct"
+vs0346,come at twelve o'clock,come at twelve o'clock,ml,control,twelve,number,true,"number word, correct"
+vs0347,meet me at twelve,meet me at twelve,ml,control,twelve,number,true,"number word, correct"
+vs0348,gate twelve,gate twelve,tl,control,twelve,number,true,"number word, correct"
+vs0349,pay eleven dirhams,pay eleven dirhams,ml,control,eleven,number,true,"number word, correct"
+vs0350,it costs eleven dirhams,it costs eleven dirhams,ar,control,eleven,number,true,"number word, correct"
+vs0351,come at eleven o'clock,come at eleven o'clock,hi,control,eleven,number,true,"number word, correct"
+vs0352,meet me at eleven,meet me at eleven,ml,control,eleven,number,true,"number word, correct"
+vs0353,gate eleven,gate eleven,tl,control,eleven,number,true,"number word, correct"
+vs0354,pay twenty dirhams,pay twenty dirhams,ar,control,twenty,number,true,"number word, correct"
+vs0355,it costs twenty dirhams,it costs twenty dirhams,ar,control,twenty,number,true,"number word, correct"
+vs0356,come at twenty o'clock,come at twenty o'clock,tl,control,twenty,number,true,"number word, correct"
+vs0357,meet me at twenty,meet me at twenty,ml,control,twenty,number,true,"number word, correct"
+vs0358,gate twenty,gate twenty,ml,control,twenty,number,true,"number word, correct"
+vs0359,pay hundred dirhams,pay hundred dirhams,ml,control,hundred,number,true,"number word, correct"
+vs0360,it costs hundred dirhams,it costs hundred dirhams,none,control,hundred,number,true,"number word, correct"
+vs0361,come at hundred o'clock,come at hundred o'clock,ar,control,hundred,number,true,"number word, correct"
+vs0362,meet me at hundred,meet me at hundred,ar,control,hundred,number,true,"number word, correct"
+vs0363,gate hundred,gate hundred,tl,control,hundred,number,true,"number word, correct"
+vs0364,the barking dog is at the gate,the barking dog is at the gate,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0365,the barking dog is at the gate,the barking dog is at the gate,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0366,the dog was barking at the gate,the dog was barking at the gate,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0367,the dog was barking at the gate,the dog was barking at the gate,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0368,he is parking the car,he is parking the car,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0369,he is parking the car,he is parking the car,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0370,the parking is full today,the parking is full today,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0371,the parking is full today,the parking is full today,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0372,stop barking please,stop barking please,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0373,stop barking please,stop barking please,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0374,my flat is on the third floor,my flat is on the third floor,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0375,my flat is on the third floor,my flat is on the third floor,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0376,the flour is in the kitchen,the flour is in the kitchen,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0377,the flour is in the kitchen,the flour is in the kitchen,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0378,the power is off in the building,the power is off in the building,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0379,the power is off in the building,the power is off in the building,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0380,he left the keys in the lift,he left the keys in the lift,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0381,he left the keys in the lift,he left the keys in the lift,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0382,the date is on the paper,the date is on the paper,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0383,the date is on the paper,the date is on the paper,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0384,i am flying to dubai tomorrow,i am flying to dubai tomorrow,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0385,i am flying to dubai tomorrow,i am flying to dubai tomorrow,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0386,she is happy today,she is happy today,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0387,she is happy today,she is happy today,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0388,the food is ready,the food is ready,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0389,the food is ready,the food is ready,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0390,close the door quietly,close the door quietly,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0391,close the door quietly,close the door quietly,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0392,the fire is out,the fire is out,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0393,the fire is out,the fire is out,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0394,we are late for the meeting,we are late for the meeting,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0395,we are late for the meeting,we are late for the meeting,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0396,the boss said no,the boss said no,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0397,the boss said no,the boss said no,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0398,he said he will come later,he said he will come later,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0399,he said he will come later,he said he will come later,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0400,have a good evening,have a good evening,ar,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0401,have a good evening,have a good evening,none,benign,,,true,"real word that resembles a domain word, in a non-critical position"
+vs0402,wait for them at the gate,wait for them at the gate,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0403,wait for them at the gate,wait for them at the gate,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0404,wait for them at the gate,wait for them at the gate,none,control,,function,true,a function word after a preposition must not be questioned
+vs0405,call me before we start,call me before we start,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0406,call me before we start,call me before we start,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0407,call me before we start,call me before we start,none,control,,function,true,a function word after a preposition must not be questioned
+vs0408,what is in it,what is in it,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0409,what is in it,what is in it,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0410,what is in it,what is in it,none,control,,function,true,a function word after a preposition must not be questioned
+vs0411,give it to him at the office,give it to him at the office,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0412,give it to him at the office,give it to him at the office,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0413,give it to him at the office,give it to him at the office,none,control,,function,true,a function word after a preposition must not be questioned
+vs0414,since then the lift is closed,since then the lift is closed,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0415,since then the lift is closed,since then the lift is closed,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0416,since then the lift is closed,since then the lift is closed,none,control,,function,true,a function word after a preposition must not be questioned
+vs0417,i will be at work until five,i will be at work until five,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0418,i will be at work until five,i will be at work until five,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0419,i will be at work until five,i will be at work until five,none,control,,function,true,a function word after a preposition must not be questioned
+vs0420,he is in it for the money,he is in it for the money,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0421,he is in it for the money,he is in it for the money,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0422,he is in it for the money,he is in it for the money,none,control,,function,true,a function word after a preposition must not be questioned
+vs0423,we are at the mall now,we are at the mall now,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0424,we are at the mall now,we are at the mall now,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0425,we are at the mall now,we are at the mall now,none,control,,function,true,a function word after a preposition must not be questioned
+vs0426,come with us to the parking,come with us to the parking,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0427,come with us to the parking,come with us to the parking,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0428,come with us to the parking,come with us to the parking,none,control,,function,true,a function word after a preposition must not be questioned
+vs0429,the key is in you bag,the key is in you bag,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0430,the key is in you bag,the key is in you bag,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0431,the key is in you bag,the key is in you bag,none,control,,function,true,a function word after a preposition must not be questioned
+vs0432,she said it before he came,she said it before he came,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0433,she said it before he came,she said it before he came,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0434,she said it before he came,she said it before he came,none,control,,function,true,a function word after a preposition must not be questioned
+vs0435,they are near us,they are near us,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0436,they are near us,they are near us,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0437,they are near us,they are near us,none,control,,function,true,a function word after a preposition must not be questioned
+vs0438,put it on them,put it on them,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0439,put it on them,put it on them,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0440,put it on them,put it on them,none,control,,function,true,a function word after a preposition must not be questioned
+vs0441,what did you say to me,what did you say to me,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0442,what did you say to me,what did you say to me,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0443,what did you say to me,what did you say to me,none,control,,function,true,a function word after a preposition must not be questioned
+vs0444,who is at the door,who is at the door,ar,control,,function,true,a function word after a preposition must not be questioned
+vs0445,who is at the door,who is at the door,hi,control,,function,true,a function word after a preposition must not be questioned
+vs0446,who is at the door,who is at the door,none,control,,function,true,a function word after a preposition must not be questioned
+vs0447,don't come to the parking now,don't come to the parking now,ar,control,,negation,true,negation must survive
+vs0448,do not bring the bags,do not bring the bags,ar,control,,negation,true,negation must survive
+vs0449,never park near the gate,never park near the gate,ar,control,,negation,true,negation must survive
+vs0450,no parking here please,no parking here please,ar,control,,negation,true,negation must survive
+vs0451,he is not at the office,he is not at the office,ar,control,,negation,true,negation must survive
+vs0452,please do not open the door,please do not open the door,ar,control,,negation,true,negation must survive
+vs0453,we cannot wait for the lift,we cannot wait for the lift,ar,control,,negation,true,negation must survive

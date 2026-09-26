@@ -25,6 +25,10 @@ categories:
   action: [come, go, wait, bring, call, drop, pick, deliver, clean, fix, stop, start, open, close, send, take, park, leave, return, sign,
            pay, meet, stay, move, carry, load, unload, finish, work, help, check, wear, follow, stand, sit, turn, push, pull, lock, unlock,
            collect, buy, sell, cook, wash, paint, repair, install]
+  # what (things a worker is asked to bring, fetch, carry or hand over)
+  thing: [key, keys, bag, bags, box, boxes, water, food, tea, coffee, pepsi, phone, car, truck, van, tools, tool, id, passport, card, paper,
+          papers, file, files, documents, uniform, helmet, gloves, vest, ladder, delivery, package, parcel, order, orders, fridge,
+          generator, machine, laptop, shoes, badge, permit, form, forms, bill, receipt, medicine, lunch, breakfast, dinner, milk, bread]
 
 # a place is expected after these words ("come to the ___", "wait at the ___", "in front of the ___")
 place_triggers: [to, at, in, near, behind, from, inside, outside, towards, into, beside, front, by, around, across, toward, onto]

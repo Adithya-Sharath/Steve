@@ -78,7 +78,9 @@ def test_the_other_packs_have_two_to_four_conservative_swaps_at_most():
 
 def test_active_swaps_use_the_hint_or_fall_back_to_all_packs_at_half_weight():
     hinted = accents.active_swaps("ar")
-    assert {s.pack for s in hinted} == {"common", "ar"}
+    assert {s.pack for s in hinted} == set(accents.PACK_IDS)  # the hinted pack at full weight, every other pack at half weight
+    hi_w = next(s.weight for s in hinted if s.pack == "hi" and s.heard == "w")
+    assert hi_w == pytest.approx(accents.load_pack("hi").swaps[0].weight / 2)
     unknown = accents.active_swaps(None)
     assert {s.pack for s in unknown} == set(accents.PACK_IDS)
     ar_full = next(s.weight for s in hinted if s.pack == "ar" and s.heard == "b")
