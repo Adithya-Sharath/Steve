@@ -1,0 +1,7 @@
+text_as_typed,intended_meaning,accent,source,notes
+yalla habibi come to the barking gate tree,come on my friend come to the parking gate three,ar,synthetic-example,EXAMPLE written by the developer to show the format: p typed as b and th as t; not a real message
+bring the bebsi from the fridge,bring the pepsi from the fridge,ar,synthetic-example,EXAMPLE: p typed as b
+wery good come at fife,very good come at five,hi,synthetic-example,EXAMPLE: v typed as w and v as f
+dont come to the barking now khalas,do not come to the parking now that is enough,ar,synthetic-example,EXAMPLE: negation plus a slang word
+wait one minute inshallah i send the money tomorrow,wait a while if god wills i will send the money tomorrow,other,synthetic-example,EXAMPLE: phrases whose meaning depends on the situation
+pls come basement gate tu at 5pm,please come to the basement gate two at 5 pm,ml,synthetic-example,EXAMPLE: SMS shorthand and a number word

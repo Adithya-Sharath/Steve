@@ -109,6 +109,21 @@ Output (`report_l2arctic_spont.md`, `results_l2arctic_spont.json`), the clips (`
 clip inside its full recording, gets the words, finds the words heard differently and, when the heard form spells exactly one common English word,
 checks whether the transcript wrote the intended word or the heard one. Output: `report_l2arctic_spont_words.md` (gitignored).
 
+## Targeted scripted run (L2-ARCTIC, Arabic and Hindi)
+
+`scripted_eval.py` picks the scripted utterances that contain at least one real-word swap and sends them to Sarvam in `transcribe` mode only.
+It prints the utterance count, calls and an estimated cost first and sends nothing without `--yes`; it is paced under Sarvam's Starter limit
+(60 requests per minute) and stops at once on a credit or quota looking error and after 3 errors in a row. The report (`report_l2arctic_scripted.md`,
+gitignored) gives kept / fixed / other / not aligned for the swaps, per accent, next to the earlier spontaneous numbers, and lists every case where
+Sarvam wrote a **different real word** than the intended one. Sarvam has no API for the credit balance: check it on the dashboard
+(pricing when this was written: INR 30 per audio hour, https://www.sarvam.ai/api-pricing).
+
+## Typed messages (WhatsApp, spelled by ear)
+
+`typed_truth.csv` (columns `text_as_typed, intended_meaning, accent, source, notes`) is the truth file for the typed-text path of the decoder.
+`typed_truth.py` loads and validates it and rejects rows that look like they contain a phone number, e-mail address or link, so anonymise real
+messages first (`[NAME]`, `[PHONE]`). The committed rows are examples written by the developer (`source=synthetic-example`), not real messages.
+
 ## Other sources (inspect only, they print counts and estimated usage and stop)
 
 - `importers/svarah.py inspect [--languages Hindi,Malayalam]`: Svarah (CC BY 4.0, gated); human transcripts, no phone annotation, so word error rate only.
