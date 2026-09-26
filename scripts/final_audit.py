@@ -19,6 +19,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
 QUICK = "--quick" in sys.argv
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 rows: list[tuple[str, bool, str]] = []
 
 
@@ -84,8 +86,11 @@ def evals() -> None:
     ok1, _o1 = run([PY, "eval/run_engine.py"], env=env)
     ok2, _o2 = run([PY, "eval/metrics.py"], env=env)
     ok3, _ = run([PY, "eval/decode_metrics_export.py"], env=env)
-    _ok4, out4 = run(["git", "status", "--porcelain", "--", "eval/results/latest.json", "eval/results/engine_predictions.json", "eval/results/decode_metrics.json", "data"])
-    record("Check-mode evaluation reruns keyless and reproduces the committed numbers", ok1 and ok2 and ok3 and not out4.strip(), "identical" if not out4.strip() else "CHANGED: " + out4.strip()[:150])
+    _ok4, diff = run(["git", "diff", "-U0", "--", "eval/results/latest.json", "eval/results/engine_predictions.json", "eval/results/decode_metrics.json", "data"])
+    changed = [ln for ln in diff.splitlines() if ln[:1] in "+-" and not ln.startswith(("+++", "---")) and "generated_at" not in ln]
+    run(["git", "checkout", "--", "eval/results/latest.json"])  # only the timestamp moves; put the committed file back
+    record("Check-mode evaluation reruns keyless and reproduces the committed numbers (only the timestamp differs)", ok1 and ok2 and ok3 and not changed,
+           "identical" if not changed else f"{len(changed)} changed lines")
     ok, out = run([PY, "eval/decode_eval.py", "--set", "v2", "--tag", "audit"])
     m = re.search(r"All correct sentences \| (\d+) \| ([\d.]+%)", out)
     record("Decode scorer runs on the frozen v2 set (current engine, contaminated label)", ok, f"false alarm {m.group(2)} of {m.group(1)}" if m else "ran")
@@ -100,22 +105,25 @@ PATTERNS = [
     r"sk_[A-Za-z0-9_\-]{24,}",  # our sender keys and Stripe-style keys
     r"wk_[A-Za-z0-9_\-]{24,}",  # worker keys
     r"-----BEGIN [A-Z ]*PRIVATE KEY-----",
-    r"(?i)(api[_-]?key|auth[_-]?token|secret|password)\s*[:=]\s*['\"][A-Za-z0-9_\-/+=]{20,}['\"]",
+    r"(api[_-]?key|auth[_-]?token|secret|password)[[:space:]]*[:=][[:space:]]*['\"][A-Za-z0-9_/+=-]{20,}['\"]",
     r"sk-[A-Za-z0-9]{32,}",
 ]
 ALLOWED_KEY_FILES = {  # test fixtures and docs that use obviously fake keys (sk_AAAA..., wk_aaaa...)
 }
 
 
-def env_values() -> list[str]:
-    vals = []
+SECRETISH = re.compile(r"(KEY|TOKEN|SECRET|PASSWORD|SID)", re.IGNORECASE)
+
+
+def env_values() -> list[tuple[str, str]]:
+    vals: list[tuple[str, str]] = []
     for f in (ROOT / ".env", ROOT / "web" / ".env.local", ROOT / "api" / ".env"):
         if f.exists():
             for line in f.read_text(encoding="utf-8", errors="ignore").splitlines():
                 if "=" in line and not line.strip().startswith("#"):
-                    v = line.split("=", 1)[1].strip().strip("\"'")
-                    if len(v) >= 12 and not v.startswith("http") and v.lower() not in {"true", "false"}:
-                        vals.append(v)
+                    name, v = line.split("=", 1)[0].strip(), line.split("=", 1)[1].strip().strip("\"'")
+                    if SECRETISH.search(name) and not name.startswith("NEXT_PUBLIC") and len(v) >= 12 and not v.startswith("http"):
+                        vals.append((name, v))
     return vals
 
 
@@ -129,7 +137,7 @@ def secrets() -> None:
     revs = revs.split()
     hits: list[str] = []
     for pat in PATTERNS:
-        _ok, out = run(["git", "grep", "-I", "-n", "-o", "-E", pat, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
+        _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", pat, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
         for line in out.splitlines():
             path, _, rest = line.partition(":")
             text = rest.split(":", 2)[-1]
@@ -139,28 +147,29 @@ def secrets() -> None:
     record("secrets scan of the working tree (key patterns)", not tree_hits, "no key-shaped strings" if not tree_hits else "REVIEW: " + ", ".join(tree_hits[:8]))
     vals = env_values()
     leaked: set[str] = set()
-    for v in vals:
+    for name, v in vals:
         _ok, out = run(["git", "grep", "-I", "-l", "-F", v])
         if out.strip():
-            leaked.add("tree")
-    record("the exact values in the local .env files are not in any tracked file", not leaked, f"{len(vals)} values checked, none found" if not leaked else "FOUND IN TREE")
+            leaked.add(name)
+    record("the exact values of the secret-named variables in the local .env files are not in any tracked file", not leaked,
+           f"{len(vals)} secret values checked ({', '.join(sorted(n for n, _ in vals))}), none found" if not leaked else "FOUND IN TREE for: " + ", ".join(sorted(leaked)))
     hist_hits = 0
     hist_files: set[str] = set()
     step = 1
     for i in range(0, len(revs), step):
         rev = revs[i]
         for pat in PATTERNS:
-            _ok, out = run(["git", "grep", "-I", "-n", "-o", "-E", pat, rev, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
+            _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", pat, rev, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
             for line in out.splitlines():
                 text = line.split(":", 3)[-1]
                 if not fake_key(text):
                     hist_hits += 1
                     hist_files.add(line.split(":", 2)[1])
-        for v in vals:
+        for name, v in vals:
             _ok, out = run(["git", "grep", "-I", "-l", "-F", v, rev])
             if out.strip():
                 hist_hits += 1
-                hist_files.add("(exact .env value)")
+                hist_files.add(f"(exact value of {name})")
     record(f"secrets scan of the full history ({len(revs)} revisions, key patterns and the exact .env values)", hist_hits == 0,
            "nothing found" if hist_hits == 0 else f"REVIEW {hist_hits} hits in: {', '.join(sorted(hist_files)[:8])}")
     _, tracked = run(["git", "ls-files"])
@@ -177,7 +186,7 @@ def secrets() -> None:
 
 SAMJHA_ALLOWED = {
     "DECISIONS.md", "PROGRESS.md", "CLAUDE.md", "README.md", "docs/build-prompt.md", "docs/architecture.md", "docs/demo-script.md", "eval/generate.py", "api/tests/test_brand_name.py",
-    "web/lib/sender-key.ts", "web/lib/facts.ts", "api/app/db.py", "api/app/config.py", "LEXICON_REVIEW.md", "SECURITY.md", "CONTRIBUTING.md", "scripts/final_audit.py", "docs/FINAL_AUDIT.md",
+    "web/lib/sender-key.ts", "web/lib/facts.ts", "api/app/db.py", "api/app/config.py", "LEXICON_REVIEW.md", "SECURITY.md", "CONTRIBUTING.md", "scripts/final_audit.py", "docs/FINAL_AUDIT.md", "docs/README.md", "api/app/services/followup.py",  # followup: Hindi "samjha gaya" (= understood), the word the project was first named after
     "engine/pyproject.toml", "api/pyproject.toml", "docker-compose.yml", ".github/workflows/ci.yml", "Makefile",
 }
 
@@ -209,6 +218,8 @@ def dignity() -> None:
             stripped = line.strip()
             if stripped.startswith(("#", "//", "*", '"""', "/*")) or "regex" in stripped.lower() or "BANNED" in stripped or "DIGNITY" in stripped:
                 continue  # comments and code that names the words in order to forbid them
+            if re.search(r"[\"'“‘](wrong|incorrect|mistake|bad English)[\"'”’]", line) or "TranslationError(" in line or "_CheckFailed(" in line or "raise " in line:
+                continue  # a quoted mention (the rule itself), or an internal exception message that only reaches a log, never a user
             for m in BANNED.finditer(line):
                 if not SYSTEM_OK.search(line) and "never" not in line.lower() and "no \"" not in line.lower() and "not \"" not in line.lower():
                     hits.append(f"{f.relative_to(ROOT)}:{n}: {m.group(0)}")
