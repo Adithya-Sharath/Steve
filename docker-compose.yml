@@ -7,11 +7,11 @@ services:
       - path: .env
         required: false
     environment:
-      DATABASE_URL: sqlite:////data/samjha.db
+      DATABASE_URL: sqlite:////data/steve.db
       PUBLIC_WEB_URL: ${PUBLIC_WEB_URL:-http://localhost:3000}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
     volumes:
-      - samjha-data:/data
+      - steve-data:/data
     ports:
       - "8000:8000"
     healthcheck:
@@ -32,4 +32,4 @@ services:
         condition: service_healthy
 
 volumes:
-  samjha-data:
+  steve-data:

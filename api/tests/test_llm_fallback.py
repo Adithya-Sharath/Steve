@@ -162,7 +162,7 @@ def test_the_provider_message_is_logged_without_the_key(monkeypatch, caplog):
         raise RuntimeError("400 INVALID_ARGUMENT: Manually set deadline 5s is too short. key=fake-key")
 
     monkeypatch.setattr(extractor, "llm_extract", bad)
-    with caplog.at_level("WARNING", logger="samjha.extractor"):
+    with caplog.at_level("WARNING", logger="steve.extractor"):
         extractor.suggest_facts(PHARMACY)
     logged = " ".join(r.getMessage() for r in caplog.records)
     assert "INVALID_ARGUMENT" in logged and "deadline 5s is too short" in logged  # the message, not just the class

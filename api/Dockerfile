@@ -6,7 +6,7 @@ COPY api ./api
 COPY data ./data
 COPY eval/results ./eval/results
 RUN pip install --no-cache-dir ./engine ./api
-ENV SAMJHA_DATA_DIR=/srv/data SAMJHA_EVAL_DIR=/srv/eval/results
+ENV STEVE_DATA_DIR=/srv/data STEVE_EVAL_DIR=/srv/eval/results
 WORKDIR /srv/api
 # default port; the server binds to $PORT when the platform sets one
 EXPOSE 8000

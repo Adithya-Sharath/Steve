@@ -22,7 +22,7 @@ from steve_engine.slots import fill_slots
 
 from ..settings import settings
 
-log = logging.getLogger("samjha.extractor")
+log = logging.getLogger("steve.extractor")
 
 ACTION_PRIORITY = ["action_stop", "action_avoid", "action_call", "action_continue", "action_return"]
 ACTION_NAME = {

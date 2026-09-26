@@ -32,13 +32,13 @@ class Settings:
     gemini_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL))
     sarvam_api_key: str = field(default_factory=lambda: os.getenv("SARVAM_API_KEY", ""))
     stt_flag: bool = field(default_factory=lambda: _bool("STT_ENABLED", True))
-    database_url: str = field(default_factory=lambda: os.getenv("DATABASE_URL", "sqlite:///./samjha.db"))
+    database_url: str = field(default_factory=lambda: os.getenv("DATABASE_URL", "sqlite:///./steve.db"))
     public_web_url: str = field(default_factory=lambda: os.getenv("PUBLIC_WEB_URL", "http://localhost:3000").rstrip("/"))
     cors_origins: list[str] = field(
         default_factory=lambda: [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",") if o.strip()]
     )
-    data_dir: Path = field(default_factory=lambda: Path(os.getenv("SAMJHA_DATA_DIR", REPO_ROOT / "data")))
-    eval_dir: Path = field(default_factory=lambda: Path(os.getenv("SAMJHA_EVAL_DIR", REPO_ROOT / "eval" / "results")))
+    data_dir: Path = field(default_factory=lambda: Path(os.getenv("STEVE_DATA_DIR", REPO_ROOT / "data")))
+    eval_dir: Path = field(default_factory=lambda: Path(os.getenv("STEVE_EVAL_DIR", REPO_ROOT / "eval" / "results")))
     # the optional LLM may never make the composer wait: hard deadline, then fall back to the built-in extractor
     llm_timeout_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT_SECONDS", "10")))
     llm_cooldown_seconds: float = field(default_factory=lambda: float(os.getenv("LLM_COOLDOWN_SECONDS", "60")))

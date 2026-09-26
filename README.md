@@ -173,7 +173,7 @@ Open <http://localhost:3000/demo> (it seeds four UAE scenarios) or <http://local
 | `GEMINI_API_KEY`, `GEMINI_MODEL` | Optional. `GEMINI_MODEL` defaults to **`gemini-3.1-flash-lite`**: larger Gemini models allow only about 20 requests/day on a free key. Model ids: <https://ai.google.dev/gemini-api/docs/models>. |
 | `LLM_TIMEOUT_SECONDS`, `LLM_COOLDOWN_SECONDS` | The LLM fact suggestion has a hard **10 s** deadline (default; the Gemini API itself rejects anything under 10 s) and then the built-in extractor is used; after a failure it is skipped for 60 s (15 min after a daily-quota error), so "Find key facts" never hangs. |
 | `SARVAM_API_KEY`, `STT_ENABLED` | Optional voice replies (Malayalam, Hindi, English). Arabizi and Taglish are typed for now. |
-| `DATABASE_URL` | Default `sqlite:///./samjha.db` |
+| `DATABASE_URL` | Default `sqlite:///./steve.db` |
 | `PUBLIC_WEB_URL`, `CORS_ORIGINS` | Where the web app lives (used in reader links / CORS) |
 | `UNCLEAR_THRESHOLD` | Confidence below this becomes `unclear` (default 0.6) |
 | `NEXT_PUBLIC_API_URL` | Web → API base URL (default `http://localhost:8000`) |

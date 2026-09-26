@@ -1,6 +1,6 @@
 """OPTIONAL embedding fallback — condition facts only, and only when the lexicon found nothing.
 
-* Disabled unless `SAMJHA_EMBEDDINGS=1` AND `sentence-transformers` is installed AND the thresholds in
+* Disabled unless `STEVE_EMBEDDINGS=1` AND `sentence-transformers` is installed AND the thresholds in
   fallback_config.json have been calibrated (they ship as `null`, see DECISIONS D8).
 * It may raise a `missing` condition result to `unclear` (or `understood` if an even higher threshold is set).
 * It can NEVER touch dose / frequency / duration / date / amount / timing, and it never lowers a status.
@@ -29,7 +29,7 @@ def load_config() -> dict:
 
 def enabled() -> bool:
     cfg = load_config()
-    return os.getenv("SAMJHA_EMBEDDINGS") == "1" and cfg.get("unclear_threshold") is not None
+    return os.getenv("STEVE_EMBEDDINGS") == "1" and cfg.get("unclear_threshold") is not None
 
 
 @lru_cache(maxsize=1)
