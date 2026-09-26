@@ -7,7 +7,7 @@ The tag `check-mode-v1` marks the teach-back product before the pivot. Do not me
 ## Decode pivot: checklist (branch `decode`)
 
 Decode = an interpreter that helps immigrant workers in the UAE understand the English they actually hear
-(mother-tongue-influenced pronunciation, local phrases), returning plain English, optionally translated and spoken.
+(mother-tongue-influenced pronunciation, local phrases), returning plain English, optionally translated (text only: no text-to-speech anywhere).
 Channels: WhatsApp, and in person ("Tap to listen"). Check mode stays as a secondary, fully working feature.
 
 | # | Phase | Status |
@@ -16,11 +16,18 @@ Channels: WhatsApp, and in person ("Tap to listen"). Check mode stays as a secon
 | 1 | STT reality test (first directional result on 25 L2-ARCTIC clips, D39): `tools/stt_compare/` (recordings are the owner's). Decides how the decoder works | tooling **done** (27 tests, nothing sent to any provider yet); **STOPPED at Checkpoint 1: waiting for "recordings ready"**. 4th source (L2-ARCTIC, D38/D39): 25 Arabic+Hindi spontaneous clips run through Sarvam `--quick` (50 calls): accent sounds come back as the canonical ones (about 100% "fixed", phone-level proxy, directional only; says nothing yet about real-word swaps like barking/parking). Word level (no new calls): 48 real-word swaps in 24 clips, Sarvam wrote the intended word 44 times and the heard word 0. Scripted split (sibling terms accepted): 1,199 Arabic+Hindi utterances, 476 real-word swaps in 389 utterances; **targeted run done (D40): 389 utterances, 476 real-word swaps, intended word 89.9%, heard word kept 4.8%, other 4.0%; 67 of 1,528 accent words (4.4%) became a different real word (50 change the word). Report `tools/stt_compare/report_l2arctic_scripted.md` (gitignored): owner to review before any Phase 2 code**. Svarah and Speech Accent Archive importers built (inspect only); Svarah needs the owner to accept its gated terms. WhatsApp voice notes (.ogg/.opus) supported |
 | 2 | Decoder (D40/D41/D43), **built, at Checkpoint 2 (waiting for the owner)**. Voice path: STT -> glossary -> safety net on critical spans -> actions -> clarify; typed path: glossary -> full sound-swap decoding -> actions -> clarify. 61-entry glossary, 5 accent packs, 7-category domain list (all `verified: false`), `DecodedCard`, 247 decode tests (engine 522 passed, api 228, tools 119). Synthetic (tuned on): voice catch 66.5% / false alarm 0.0%, typed 57/58 / false alarm 0.0%. Held-out L2-ARCTIC: catch 0/72 (literary words outside the critical slots), false alarm 0.3% (12/3,635). Optional masked LM not built | **Checkpoint 2** |
 | 3 | Decode evaluation (D44): frozen synthetic sets `eval_v1` (458 rows) and `eval_v2` (245 rows, written after the fixes), `eval/decode_eval.py`, reports in `eval/results/`. Headline (fresh v2 first run): **false alarm 1.4% (2/144, questions only)**; typed by ear in-pack 94.0% exact / out-of-pack 0% decoded (left as typed); extraction where 91.7% / when 87.1% / what 95.0% / how much 100%. Voice-net catch only with its label (synthetic, author-written, tuned on it: 66.5%; held-out L2-ARCTIC 0/72, outside critical slots). Optional accented-TTS test and Gemini baseline **not run: awaiting the owner** | **done (Checkpoint 3)**, awaiting review |
-| 4 | Decode API: `POST /decode`, `/decode/clarify`, worker key, limits and budgets reused | not started |
-| 5 | Translation and voice output (optional, graceful) | not started |
-| 6 | `/listen` "Tap to listen" web screen, "say it back", other-person notice (EN + AR, native review), language picker | not started |
-| 7 | WhatsApp adapter (Twilio sandbox first, seam for Meta Cloud API), numbered clarify replies, onboarding | not started |
-| 8 | Product surface and docs: nav, landing, how-it-works, README, SECURITY, CONTRIBUTING, screenshots, CI, final checks | not started |
+| 4 | Decode API (D45): `POST /decode` (JSON text or multipart audio), `POST /decode/clarify`, `GET /decode/health`; worker key `X-Worker-Key`, in-memory clarify state (10 min), per-IP/per-worker limits, audio caps, fake-STT tests, no text or audio in logs | **in progress (see plan below)** |
+| 5 | Translation, **text only, no TTS anywhere** (scope change by the owner): Sarvam `sarvam-translate` for ml/hi/ur/bn, guarded Gemini for tl and as fallback, protected numbers/times/places, exact-match post-check | not started |
+| 6 | `/listen` web screen (Listen + Paste tabs), card UI, clarify buttons, "say it back" as large text, other-person notice (EN + AR, native review), language picker, RTL, a11y | not started |
+| 7 | WhatsApp (Twilio sandbox, text replies only), signed webhook, voice notes, numbered clarify replies, onboarding, hashed numbers | not started |
+| 8 | Product surface (landing copy, nav, how-it-works inspector, eval page with Decode tab, Gemini baseline on v2), README, SECURITY, CONTRIBUTING, screenshots, CI, final audit, merge to `main` and tag `v2.0.0` only if the audit is fully green | not started |
+
+## Phases 4 to 8: run plan (owner prompt `CLAUDE_CODE_PROMPT_Steve_Phases_4_to_8.md`; scope: text output only, NO text-to-speech anywhere)
+
+Phase gate (every phase): engine + tools + api tests, `ruff check engine api eval tools`, web lint + `tsc --noEmit` + production build, the Check-mode browser flow
+(`cd web && NEXT_PUBLIC_API_URL=http://localhost:8000 npm run build && node e2e/run.mjs check`), the new flow tests of the phase. `node e2e/run.mjs` starts a mock Sarvam, the API and the production web build.
+
+**Phase 4 plan.** Files: `engine/.../decoder.py` (`resolved` answers), `api/app/{settings,auth,ratelimit,schemas}.py`, `routes/decode.py`, `services/{audio,decode_sessions,decode_flow,decode_translation,stt}.py`, `tests/test_decode_api.py`, e2e stack (`web/e2e/`). Done when: text card equals `decode()`; audio through a fake STT; size/duration caps; STT off gives a typing note; clarify resolves / expires / rejects another worker; limits and budgets; no text or audio in logs; dignity scan; all gates green.
 
 Typed-text truth file: `tools/stt_compare/typed_truth.csv` (`text_as_typed, intended_meaning, accent, source, notes`; the owner supplies WhatsApp screenshots/examples; anonymised; validator rejects phone numbers, e-mails and links).
 
