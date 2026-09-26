@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000)
-![engine tests](https://img.shields.io/badge/engine%20tests-275%20passing-2e7d6b) ![api tests](https://img.shields.io/badge/api%20tests-67%20passing-2e7d6b)
+![engine tests](https://img.shields.io/badge/engine%20tests-275%20passing-2e7d6b) ![api tests](https://img.shields.io/badge/api%20tests-228%20passing-2e7d6b)
 ![false understood](https://img.shields.io/badge/false%20%22understood%22-0%20%2F%20180-2e7d6b)
 ![API keys needed](https://img.shields.io/badge/API%20keys%20needed-0-0f6b6b)
 
@@ -167,7 +167,7 @@ Copy `.env.example` to `.env`. Everything is optional.
 
 ## Testing and evaluation
 
-**Tests:** `make test` (engine 275 + API 67), `make lint`; without `make`, `scripts/test.ps1` or the commands in [CONTRIBUTING.md](CONTRIBUTING.md). CI runs them on every push.
+**Tests:** `make test` (engine 275 + API 228), `make lint`; without `make`, `scripts/test.ps1` or the commands in [CONTRIBUTING.md](CONTRIBUTING.md). CI runs them on every push.
 **Evaluation:** `make eval` (works without a Gemini key; the baseline is then skipped and clearly marked "not run").
 
 Methodology: 15 messages with gold facts (`data/messages.json`) times replies with per-fact gold labels (`data/replies.csv`): **hand-written** replies (a development set and a small held-out set) plus **synthetic** variants expanded from templates (`eval/generate.py`: swapped numbers, spelling variants, word order, dropped facts, negation flips, typos), always marked `synthetic=true` and reported separately. Metrics (`eval/metrics.py`): fact-level accuracy, the **false "understood" rate** (gold is wrong, missing or negated but predicted understood), per-language and per-type breakdowns, a confusion matrix and the baseline's self-consistency.
@@ -209,7 +209,7 @@ Baseline self-consistency across runs: **100.0%** (our engine: 100%, determinist
 
 ```
 engine/   pure-Python checker: lexicon.yaml, matcher, slots, negation, compare, check_reply()   (+275 tests)
-api/      FastAPI: routes, SQLModel db, extractor, STT interface, follow-up drafts, SSE           (+67 tests)
+api/      FastAPI: routes, SQLModel db, extractor, STT interface, follow-up drafts, SSE           (+228 tests)
 web/      Next.js app: landing, /app, /app/new, /app/m/[id], /r/[token], /eval, /how-it-works, /demo
 data/     scenarios.json (demo and regression tests), messages.json + replies.csv (eval gold data)
 eval/     generate.py, run_engine.py, run_baseline.py, metrics.py, update_readme.py, results/

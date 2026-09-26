@@ -18,10 +18,11 @@ Pushed to <https://github.com/Adithya-Sharath/Steve> (`main`, tag `v1.0.0`). The
 | — | Real-phone test through Cloudflare tunnels worked (voice via Sarvam). It exposed a D26 bug: Gemini rejects deadlines under 10 s, so "Find key facts" always fell back. **D27:** SDK deadline never below 10 s, default timeout 10 s, 503 = short cooldown, provider error message logged (key redacted) | done |
 | — | **Rename to Steve (D28)**: package, env vars, DB, Docker, UI, sender-key storage migration; keyless eval numbers identical; screenshots retaken | done |
 | — | **Publish prep (D29)**: MIT licence, CONTRIBUTING, SECURITY, GitHub templates, CI (engine+api on Python 3.11, web on Node 22, verified in a fresh clone), judge-first README, secret scan of tree and full history | done; pushed |
+| — | **API/AI security layer (D30-D35, local commits, not pushed):** admin-only global LLM switch (`ADMIN_KEY`, hidden in the web unless the key is stored via `/admin`), `TRUST_PROXY` real client IP, rate limits (one reusable sliding-window dependency), daily Gemini/Sarvam caps with fallbacks, Gemini prompt hardening + server-side validation, security headers / 5 MB body cap / generic 500 / masked logs, docs | done |
 | — | Follow-up round: negation typos, concessives, copy-paste, SMS shorthand, sender auth, Docker `$PORT`, production screenshots, this file | done (D12–D20) |
 
 ## Numbers (2026-09-25 final run)
-- **Engine tests:** 275 passed, 1 skipped. **API tests:** 67 passed (incl. 20 for D26/D27 and 5 for the rename guard, D28). `ruff`, `eslint`, `tsc` clean. Fresh-clone install + tests + eval + web build all pass.
+- **Engine tests:** 275 passed, 1 skipped. **API tests:** 228 passed (incl. 20 for D26/D27, 5 for the rename guard D28, and 136 for the security layer D30-D35). `ruff`, `eslint`, `tsc` clean. Fresh-clone install + tests + eval + web build all pass.
 - **Eval (development numbers, see D10):** 2,268 labelled fact checks over 561 replies (114 hand-written, 447 synthetic).
   Accuracy 96.9%. **False "understood": 0 of 921** not-understood facts (hand-written 0/69, held-out 0/41, synthetic 0/811).
   Hand-written 98.8%, held-out 89.1% (first blind run, before any fix: 87.4%), synthetic 97.3%. Read the caveats: denominators are small and the data is ours.
@@ -35,19 +36,21 @@ Pushed to <https://github.com/Adithya-Sharath/Steve> (`main`, tag `v1.0.0`). The
 D1 repo/brief · D2 widened units/types · D3 code-point offsets · D4 claiming · D5 conflict⇒unclear · D6 words left out (partly superseded by D12) · D7 bare numbers ·
 D8 embedding fallback off · D9 eval honesty · D10 eval history / held-out set · D11 safety rules from error analysis · **D12** SMS/typo negators + fuzzy negator match ·
 **D13** concessive clauses · **D14** copy-paste detection (two deliberate deviations from the spec'd rule) · **D15** English shorthand · **D16** sender-key auth ·
-**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D27** Gemini needs a >= 10 s deadline.
+**D17** Docker `$PORT` · **D18** production screenshots · **D19** README-count bug + truncation bug found by the final checks · **D20** CLAUDE.md/PROGRESS.md · **D21–D24** UI polish · **D25** baseline run · **D26** LLM deadline/fallback + lite default · **D27** Gemini needs a >= 10 s deadline · **D28** rename to Steve · **D29** publish prep · **D30** admin-only LLM switch · **D31** TRUST_PROXY client IP · **D32** rate limits · **D33** daily spending caps · **D34** prompt hardening + validation · **D35** headers, body cap, generic 500, masked logs · **D27** Gemini needs a >= 10 s deadline.
 
 ## Known gaps / risks (honest list)
 - Lexicon: ~300 headwords, 5 languages, all non-English entries **unverified**; numbers above ten only as digits; unknown words give `missing`/`unclear`, never a guess.
 - Residual false-"understood" risk: a negation word we cannot recognise even fuzzily; a concessive phrased without any known marker; facts whose wording is too close to the message to look "copied" but which were parroted.
 - Concessive + `only after N days` stays `unclear` (cannot be read as "don't stop"). Copy detection needs the reply to be long *and* in the same order as the message.
-- Sender key lives in one browser (no recovery/rotation); the LLM toggle is global; old rows without an owner are unreadable.
+- Sender key lives in one browser (no recovery/rotation); old rows without an owner are unreadable. The LLM switch is global but now admin-only; the admin key sits in the operator browser's `localStorage`.
+- Security layer limits: rate limits, daily caps and the body cap are per API process (restart or several workers weaken them) and are a brake, not DDoS protection or billing; set provider-side spending limits too. Validation of Gemini output cannot tell a plausible wrong fact from a right one (the sender confirms). A reverse proxy's own access log keeps `?key=` URLs. With `TRUST_PROXY=false` behind a proxy all visitors share one rate-limit bucket.
 - Docker images were **never built** (Docker Desktop was off); compose file only validated. `make` is not installed on this machine (targets were run as direct commands).
 - Voice: Sarvam covers Malayalam/Hindi/English only. Automated tests use a **mocked** HTTP call; the live service was tried by hand on a real iPhone through Cloudflare tunnels (2026-09-26, reported by the team, not recorded here).
 - Gemini `gemini-3.8-flash` is a valid id but the free tier allows about 20 requests/day; the default is now the lite model and every LLM call has a 10 s deadline with fallback (D26, D27). A local `.env` that sets `GEMINI_MODEL=gemini-3.8-flash` explicitly still overrides the default. Sarvam and voice were not exercised against the live service.
 - Held-out data is no longer blind; there is no real native-speaker data yet.
 
 ## Human checklist (things only you can do)
+0. **Deploying?** Set `ADMIN_KEY` (32+ random chars) if you want the LLM switch, `TRUST_PROXY=true` on Render/behind a tunnel (see `.env.example`), and spending limits at Google/Sarvam. Demo-tunnel stack: `ADMIN_KEY=...` and `TRUST_PROXY=true` in `.env`, paste the key once on `/admin`.
 1. Put keys in `.env` (all optional): `GEMINI_API_KEY`, `SARVAM_API_KEY`. **Any key pasted into a chat should be rotated after the hackathon.** Then run the baseline in small steps first
    (`python eval/run_baseline.py --runs 3 --synthetic-sample 40`), mind the free-tier limits, and never send real patient data.
 2. Native speakers: review `LEXICON_REVIEW.md`; add real replies to `data/replies.csv` (README "Adding real replies").
