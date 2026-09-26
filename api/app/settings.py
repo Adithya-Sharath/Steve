@@ -38,6 +38,8 @@ class Settings:
     gemini_api_key: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))
     gemini_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL))
     sarvam_api_key: str = field(default_factory=lambda: os.getenv("SARVAM_API_KEY", ""))
+    # only for tests and proxies: the browser tests point this at a local mock so the real Sarvam client code runs without the internet (D45)
+    sarvam_base_url: str = field(default_factory=lambda: os.getenv("SARVAM_BASE_URL", "https://api.sarvam.ai").rstrip("/"))
     stt_flag: bool = field(default_factory=lambda: _bool("STT_ENABLED", True))
     database_url: str = field(default_factory=lambda: os.getenv("DATABASE_URL", "sqlite:///./steve.db"))
     public_web_url: str = field(default_factory=lambda: os.getenv("PUBLIC_WEB_URL", "http://localhost:3000").rstrip("/"))
@@ -70,6 +72,14 @@ class Settings:
     rl_check_per_min: int = field(default_factory=lambda: _int("RL_CHECK_PER_MIN", 60))  # POST /check and /analyze, per IP each
     rl_seed_per_min: int = field(default_factory=lambda: _int("RL_SEED_PER_MIN", 5))  # POST /demo/seed, per IP
     rl_default_per_min: int = field(default_factory=lambda: _int("RL_DEFAULT_PER_MIN", 120))  # everything else, per IP
+
+    # Decode (D45): per-IP and per-worker limits, audio caps and the clarify state's lifetime
+    rl_decode_per_min: int = field(default_factory=lambda: _int("RL_DECODE_PER_MIN", 30))  # POST /decode, per IP
+    rl_decode_per_day: int = field(default_factory=lambda: _int("RL_DECODE_PER_DAY", 500))  # POST /decode, per IP
+    decode_per_worker_day: int = field(default_factory=lambda: _int("DECODE_PER_WORKER_DAY", 200))  # POST /decode, per worker key
+    decode_max_audio_bytes: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_BYTES", 4 * 1024 * 1024))
+    decode_max_audio_seconds: int = field(default_factory=lambda: _int("DECODE_MAX_AUDIO_SECONDS", 30))
+    clarify_ttl_seconds: int = field(default_factory=lambda: _int("CLARIFY_TTL_SECONDS", 600))  # in-memory clarify state, then gone
 
     @property
     def llm_available(self) -> bool:

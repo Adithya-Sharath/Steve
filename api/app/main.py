@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .db import init_db
 from .ratelimit import default_ip_limit
-from .routes import messages, misc, reader
+from .routes import decode, messages, misc, reader
 from .security import (
     BodyLimitMiddleware,
     SecurityHeadersMiddleware,
@@ -50,3 +50,4 @@ install_log_filters()
 app.include_router(misc.router)
 app.include_router(messages.router)
 app.include_router(reader.router)
+app.include_router(decode.router)

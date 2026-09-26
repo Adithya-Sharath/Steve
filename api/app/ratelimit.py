@@ -131,6 +131,17 @@ def limit_sender(bucket: str, *, per_day: Callable[[], int]) -> Callable[..., No
     return dependency
 
 
+def limit_worker(bucket: str, *, per_day: Callable[[], int]) -> Callable[..., None]:
+    """Per worker key (its hash), so one device cannot spread its allowance across many addresses (D45)."""
+    from .auth import worker_hash
+
+    def dependency(worker: str = Depends(worker_hash)) -> None:
+        limiter.enforce(bucket, worker, [Rule(per_day(), DAY)])
+
+    dependency.__name__ = f"rate_limit_{bucket}"
+    return dependency
+
+
 # Routes that have their own, stricter (or different) limit are exempt from the catch-all below.
 SPECIFIC_ROUTES = {
     ("POST", "/messages"),
@@ -138,6 +149,7 @@ SPECIFIC_ROUTES = {
     ("POST", "/check"),
     ("POST", "/analyze"),
     ("POST", "/demo/seed"),
+    ("POST", "/decode"),
 }
 
 
