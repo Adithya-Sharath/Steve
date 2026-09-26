@@ -76,6 +76,21 @@ Default Sarvam matrix (6 calls per recording): `saaras:v3` in `transcribe` and `
 Neither Sarvam nor Gemini documents word-level confidence or alternative hypotheses, so the report does not use them. Both files are gitignored
 (they contain transcripts of your recordings); review them before deciding to commit anything.
 
+## A 4th source: L2-ARCTIC Suitcase (spontaneous), `source=l2arctic-spont`
+
+Real non-native English (Arabic and Hindi speakers) from `KoelLabs/L2ArcticSpontaneousSplit`, for evaluation only. **CC-BY-NC-4.0, gated**:
+accept the terms on huggingface.co, put a token that can read gated repos in `.env` as `HF_TOKEN`, cite Zhao et al. (2018), do not commit any
+audio or derived text (all of it lands in gitignored folders), and see DECISIONS D38 for the licence notes and the open questions (no word-level
+transcript in the dataset, no scripted split in the repo).
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r toolsequirements.txt
+.\.venv\Scripts\python.exe tools\stt_compare\importers\l2arctic_spontaneous.py inspect
+```
+
+`inspect` prints the columns, whether a word-level transcript exists, the clip counts per accent and split, and the estimated speech-to-text usage
+(clips x provider variants). It calls no speech provider and writes no audio.
+
 ## Adding another provider
 
 Subclass `Provider` in `providers.py` (`available()`, `variants()`, `transcribe()`), raise `ProviderError` on failure (never include a key in

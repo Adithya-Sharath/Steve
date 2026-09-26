@@ -36,8 +36,10 @@ jobs:
       - name: API tests
         working-directory: api
         run: pytest -q
-      - name: STT tooling tests (no network, no audio)
-        run: pytest tools/stt_compare -q
+      - name: STT tooling tests (no network, no audio, no token)
+        run: |
+          pip install -r tools/requirements.txt
+          pytest tools/stt_compare -q
 
   web:
     name: web (Node 22)
