@@ -13,7 +13,7 @@ Channels: WhatsApp, and in person ("Tap to listen"). Check mode stays as a secon
 | # | Phase | Status |
 |---|---|---|
 | 0 | Safety net: tag `check-mode-v1`, branch `decode`, decision D36, this checklist, CLAUDE.md | **done** |
-| 1 | STT reality test: `tools/stt_compare/` (recordings are the owner's). Decides how the decoder works | tooling **done** (27 tests, nothing sent to any provider yet); **STOPPED at Checkpoint 1: waiting for "recordings ready"**. 4th source (L2-ARCTIC, D38): `inspect` built, blocked on the owner accepting the HF terms and providing the original Suitcase release |
+| 1 | STT reality test: `tools/stt_compare/` (recordings are the owner's). Decides how the decoder works | tooling **done** (27 tests, nothing sent to any provider yet); **STOPPED at Checkpoint 1: waiting for "recordings ready"**. 4th source (L2-ARCTIC, D38): spontaneous only (scripted dropped); 25 Arabic+Hindi clips (about 4.5 min); words to come from sibling `KoelLabs/L2Arctic` `text`, waiting for the owner to accept its terms |
 | 2 | Decoder on text: accent packs (`ar`, `common`, then `hi`/`ml`/`tl`), UAE glossary, candidates, context pick, actions, negation, `DecodedCard`, 80+ tests | not started |
 | 3 | Decode evaluation: 300+ items (30+ real), word-change precision/recall, action accuracy, **wrong-but-confident rate**, Gemini baseline | not started |
 | 4 | Decode API: `POST /decode`, `/decode/clarify`, worker key, limits and budgets reused | not started |
