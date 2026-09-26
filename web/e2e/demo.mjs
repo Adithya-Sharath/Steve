@@ -87,8 +87,7 @@ ok("Al Quoz example: where / when / what from the live engine", /al quoz/i.test(
 ok("the example filled the Paste box", (await p.locator("#msg").inputValue()).startsWith("Yalla, drop it at Al Quoz"));
 await p.getByTestId("examples").getByRole("button", { name: /question, not a guess/i }).click();
 await p.getByTestId("questions").waitFor({ timeout: 20000 });
-ok("no stray characters rendered in the card (a bare 0 once leaked from a numeric condition)", !(await p.getByTestId("decoded-card").innerText()).split("
-").some((l) => l.trim() === "0"));
+ok("no stray characters rendered in the card (a bare 0 once leaked from a numeric condition)", !(await p.getByTestId("decoded-card").innerText()).split("\n").some((l) => l.trim() === "0"));
 ok("the question example asks instead of guessing", (await p.getByTestId("questions").innerText()).includes("Parking or barking?"));
 await p.getByTestId("questions").getByRole("button", { name: "parking", exact: true }).click();
 await p.waitForFunction(() => !document.querySelector('[data-testid="questions"]'), null, { timeout: 15000 });

@@ -102,8 +102,8 @@ PATTERNS = [
     r"AIza[0-9A-Za-z_\-]{30,}",  # Google API key
     r"hf_[A-Za-z0-9]{30,}",  # Hugging Face token
     r"AC[0-9a-f]{32}",  # Twilio account SID
-    r"sk_[A-Za-z0-9_\-]{24,}",  # our sender keys and Stripe-style keys
-    r"wk_[A-Za-z0-9_\-]{24,}",  # worker keys
+    r"(^|[^A-Za-z0-9])sk_[A-Za-z0-9_-]{24,}",  # our sender keys and Stripe-style keys
+    r"(^|[^A-Za-z0-9])wk_[A-Za-z0-9_-]{24,}",  # worker keys
     r"-----BEGIN [A-Z ]*PRIVATE KEY-----",
     r"(api[_-]?key|auth[_-]?token|secret|password)[[:space:]]*[:=][[:space:]]*['\"][A-Za-z0-9_/+=-]{20,}['\"]",
     r"sk-[A-Za-z0-9]{32,}",
@@ -140,8 +140,8 @@ def secrets() -> None:
         _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", pat, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
         for line in out.splitlines():
             path, _, rest = line.partition(":")
-            text = rest.split(":", 2)[-1]
-            if not fake_key(text):
+            text = rest.split(":", 1)[-1].lstrip("\"'(=: ")
+            if ":" in line and not fake_key(text):
                 hits.append(f"{path}")
     tree_hits = sorted(set(hits))
     record("secrets scan of the working tree (key patterns)", not tree_hits, "no key-shaped strings" if not tree_hits else "REVIEW: " + ", ".join(tree_hits[:8]))
@@ -161,10 +161,13 @@ def secrets() -> None:
         for pat in PATTERNS:
             _ok, out = run(["git", "grep", "-I", "-i", "-n", "-o", "-E", pat, rev, "--", ".", ":(exclude)*.lock", ":(exclude)package-lock.json"])
             for line in out.splitlines():
-                text = line.split(":", 3)[-1]
+                parts = line.split(":", 3)
+                if len(parts) < 4:
+                    continue  # not a match line
+                text = parts[3].lstrip("\"'(=: ")
                 if not fake_key(text):
                     hist_hits += 1
-                    hist_files.add(line.split(":", 2)[1])
+                    hist_files.add(parts[1])
         for name, v in vals:
             _ok, out = run(["git", "grep", "-I", "-l", "-F", v, rev])
             if out.strip():
@@ -214,8 +217,15 @@ def dignity() -> None:
     ]
     hits = []
     for f in targets:
+        in_doc = False
         for n, line in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
             stripped = line.strip()
+            if f.suffix == ".py":
+                was_doc = in_doc
+                if line.count('"""') % 2 == 1:
+                    in_doc = not in_doc
+                if was_doc or in_doc or line.count('"""') >= 2:
+                    continue  # a docstring, written for developers
             if stripped.startswith(("#", "//", "*", '"""', "/*")) or "regex" in stripped.lower() or "BANNED" in stripped or "DIGNITY" in stripped:
                 continue  # comments and code that names the words in order to forbid them
             if re.search(r"[\"'“‘](wrong|incorrect|mistake|bad English)[\"'”’]", line) or "TranslationError(" in line or "_CheckFailed(" in line or "raise " in line:
